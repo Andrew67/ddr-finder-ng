@@ -19,7 +19,10 @@
     "onsenui": "^2.0.0-rc.14"
   },
   "devDependencies": {
-    "angular": "^1.5.7",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.4"
   }
 }
