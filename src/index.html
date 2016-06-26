@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
     <script src="lib/onsen/js/onsenui.js"></script>
     <!-- Leaflet -->
-    <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" />-->
-    <!--<script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-rc.1/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-rc.1/leaflet.js"></script>
     <!-- mine -->
     <script src="js/my.js"></script>
+    <style>
+        #map {
+            height: 100%
+        }
+    </style>
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <ons-navigator id="myNavigator" page="mapview.html"></ons-navigator>
@@ -29,6 +35,8 @@
                     </ons-toolbar-button>
                 </div>
             </ons-toolbar>
+
+            <div id="map"></div>
         </ons-page>
     </ons-template>
 

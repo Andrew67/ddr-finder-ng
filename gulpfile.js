@@ -18,7 +18,7 @@ gulp.task('build', function() {
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // My code
-    gulp.src(['src/**/*.html', 'src/**/*.js', 'src/**/*.css'])
+    gulp.src(['src/**/*.html', 'src/**/*.js', 'src/**/*.css', 'src/manifest.json'])
         .pipe(gulp.dest(PREFIX));
 });
 
@@ -50,6 +50,8 @@ gulp.task('build-release', function() {
         .pipe(gulp.dest(PREFIX));
     gulp.src('src/**/*.css')
         .pipe(cleanCSS())
+        .pipe(gulp.dest(PREFIX));
+    gulp.src('src/manifest.json')
         .pipe(gulp.dest(PREFIX));
 });
 
