@@ -1,21 +1,137 @@
 <!DOCTYPE html>
-<html ng-app="my-app">
+<html>
 <head>
     <meta charset="utf-8">
     <!-- ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng -->
     <title>DDR Finder</title>
-    <!-- AngularJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <!-- Onsen UI -->
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
     <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
     <script src="lib/onsen/js/onsenui.js"></script>
-    <script src="lib/onsen/js/angular-onsenui.js"></script>
     <!-- Leaflet -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script>
+    <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" />-->
+    <!--<script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script>-->
+    <!-- mine -->
+    <script src="js/my.js"></script>
 </head>
 <body>
+    <ons-navigator id="myNavigator" page="mapview.html"></ons-navigator>
+    <ons-template id="mapview.html">
+        <ons-page id="mapview">
+            <ons-toolbar>
+                <div class="center">DDR Finder</div>
+                <div class="right">
+                    <ons-toolbar-button id="reload-button">
+                        <ons-icon icon="ion-refresh, material:md-refresh"></ons-icon>
+                    </ons-toolbar-button>
+                    <ons-toolbar-button id="settings-button">
+                        <ons-icon icon="ion-settings, material:md-settings"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
+        </ons-page>
+    </ons-template>
 
+    <ons-template id="settings.html">
+        <ons-page id="settings">
+            <ons-toolbar>
+                <div class="left">
+                    <ons-back-button>Back</ons-back-button>
+                </div>
+                <div class="center">Settings</div>
+                <div class="right">
+                    <ons-toolbar-button id="about-button">
+                        <ons-icon icon="ion-information, material:md-info"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
+
+            <ons-list>
+                <ons-list-header>Basic</ons-list-header>
+                <ons-list-item tappable>
+                    <label class="center" for="settings-autoload">
+                            <span class="list__item__title">Auto-load</span>
+                            <span class="list__item__subtitle">Automatically download location data when moving map</span>
+                        </label>
+                        <label class="right">
+                            <ons-switch input-id="settings-autoload" checked></ons-switch>
+                        </label>
+                </ons-list-item>
+                <ons-list-item tappable id="settings-datasource">
+                    <div class="center">
+                        <span class="list__item__title">Data Source</span>
+                        <span class="list__item__subtitle">---</span>
+                    </div>
+                </ons-list-item>
+
+                <ons-list-header>Advanced</ons-list-header>
+                <ons-list-item tappable id="settings-custom-datasource">
+                    <div class="center">
+                        <span class="list__item__title">Custom Data Source</span>
+                        <span class="list__item__subtitle">all</span>
+                    </div>
+                </ons-list-item>
+                <ons-list-item tappable id="settings-api-endpoint">
+                    <div class="center">
+                        <span class="list__item__title">API Endpoint</span>
+                        <span class="list__item__subtitle">https://andrew67.ddrfinder.com/locate.php</span>
+                    </div>
+                </ons-list-item>
+            </ons-list>
+            <ons-alert-dialog id="settings-datasource-dialog" cancelable>
+                <div class="alert-dialog-title">Data Source</div>
+                <div class="alert-dialog-content">
+                    <ons-list>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <ons-input name="datasource" type="radio" input-id="settings-datasource-ziv"></ons-input>
+                            </label>
+                            <label for="settings-datasource-ziv" class="center">
+                                Zenius -I- vanisher.com
+                            </label>
+                        </ons-list-item>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <ons-input name="datasource" type="radio" input-id="settings-datasource-navi"></ons-input>
+                            </label>
+                            <label for="settings-datasource-navi" class="center">
+                                DDR-Navi
+                            </label>
+                        </ons-list-item>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <ons-input name="datasource" type="radio" input-id="settings-datasource-custom"></ons-input>
+                            </label>
+                            <label for="settings-datasource-custom" class="center">
+                                Custom (Advanced)
+                            </label>
+                        </ons-list-item>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <ons-input name="datasource" type="radio" input-id="settings-datasource-all"></ons-input>
+                            </label>
+                            <label for="settings-datasource-all" class="center">
+                                All Sources
+                            </label>
+                        </ons-list-item>
+                    </ons-list>
+                </div>
+                <div class="alert-dialog-footer">
+                    <button id="settings-datasource-cancel" class="alert-dialog-button">Cancel</button>
+                </div>
+            </ons-alert-dialog>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="about.html">
+        <ons-page id="about">
+            <ons-toolbar>
+                <div class="left">
+                    <ons-back-button>Back</ons-back-button>
+                </div>
+                <div class="center">About</div>
+            </ons-toolbar>
+        </ons-page>
+    </ons-template>
 </body>
 </html>
