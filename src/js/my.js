@@ -124,8 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     newValue = option.id.replace('settings-datasource-', '');
 
                     // Update UI label and hide the data source dialog
-                    setDataSourceLabel(newValue);
                     document.getElementById('settings-datasource-dialog').hide();
+                    setDataSourceLabel(newValue);
                     break;
                 default:
                     break;
