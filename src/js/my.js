@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Returns the set value, properly cast, or null for invalid keys
-        exports.getValue = function(key) {
+        exports.getValue = function (key) {
             var output = null;
             if (settings.hasOwnProperty(key)) {
                 var rawValue = window.localStorage.getItem(settings[key].key);
@@ -99,18 +99,18 @@ document.addEventListener('DOMContentLoaded', function() {
     var settings = {};
     (function (exports) {
         // Extract the label for a given data source value
-        var setDataSourceLabel = function(value) {
+        var setDataSourceLabel = function (value) {
             document.querySelector('#settings-datasource .list__item__subtitle').textContent =
                 document.querySelector('label[for=settings-datasource-' + value + ']').textContent.trim();
         };
 
         // React to onChange events on the form and save the values in localStorage, then emit a setting event
-        var formChangeHandler = function(e) {
+        var formChangeHandler = function (e) {
             var option = e.target;
             var key = null;
             var newValue = null;
 
-            switch(option.id) {
+            switch (option.id) {
                 case 'settings-autoload':
                     key = 'autoload';
                     newValue = option.checked;
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 default:
                     break;
             }
-            switch(option.name) {
+            switch (option.name) {
                 case 'datasource':
                     key = 'datasource';
                     newValue = option.id.replace('settings-datasource-', '');
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        exports.init = function(page) {
+        exports.init = function (page) {
             document.getElementById('about-button').addEventListener('click', function () {
                 myNavigator.pushPage('about.html');
             });
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Set custom data source click listener and initialize to current value
             document.querySelector('#settings-custom-datasource .list__item__subtitle').textContent =
                 settingsService.getValue('custom-datasource');
-            document.getElementById('settings-custom-datasource').addEventListener('click', function() {
+            document.getElementById('settings-custom-datasource').addEventListener('click', function () {
                 //noinspection JSValidateTypes
                 ons.notification.prompt({
                     title: 'Custom Data Source',
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Set custom api endpoint click listener and initialize to current value
             document.querySelector('#settings-api-endpoint .list__item__subtitle').textContent =
                 settingsService.getValue('api-endpoint');
-            document.getElementById('settings-api-endpoint').addEventListener('click', function() {
+            document.getElementById('settings-api-endpoint').addEventListener('click', function () {
                 //noinspection JSValidateTypes
                 ons.notification.prompt({
                     title: 'API Endpoint',
@@ -195,10 +195,26 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     })(settings);
 
+    // about
+    var about = {};
+    (function (exports) {
+        // Handle external link items
+        exports.init = function () {
+            var externalLinks = document.querySelectorAll('#about .external-link');
+            for (var i = 0; i < externalLinks.length; ++i) {
+                var link = externalLinks.item(i);
+                link.addEventListener('click', (function () {
+                    window.open(this.getAttribute('data-href'));
+                }).bind(link));
+            }
+        };
+    })(about);
+
     document.addEventListener('init', function (e) {
         var page = e.target;
 
         if (page.id === 'mapview') mapview.init(page);
         else if (page.id === 'settings') settings.init(page);
+        else if (page.id === 'about') about.init(page);
     });
 });
