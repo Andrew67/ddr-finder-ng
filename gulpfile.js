@@ -52,3 +52,7 @@ gulp.task('build-release', function() {
         .pipe(cleanCSS())
         .pipe(gulp.dest(PREFIX));
 });
+
+gulp.task('watch', function() {
+    gulp.watch('src/**', ['build']);
+});
