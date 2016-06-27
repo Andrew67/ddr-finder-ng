@@ -68,15 +68,6 @@
 
             <ons-list>
                 <ons-list-header>Basic</ons-list-header>
-                <ons-list-item tappable>
-                    <label class="center" for="settings-autoload">
-                            <span class="list__item__title">Auto-load</span>
-                            <span class="list__item__subtitle">Automatically download location data when moving map</span>
-                        </label>
-                        <label class="right">
-                            <ons-switch input-id="settings-autoload" checked></ons-switch>
-                        </label>
-                </ons-list-item>
                 <ons-list-item tappable id="settings-datasource">
                     <span class="list__item__title">Data Source</span>
                     <span class="list__item__subtitle">---</span>
@@ -96,6 +87,15 @@
                 <ons-list-item tappable id="settings-custom-datasource">
                     <span class="list__item__title">Custom Data Source</span>
                     <span class="list__item__subtitle">---</span>
+                </ons-list-item>
+                <ons-list-item tappable>
+                    <label class="center" for="settings-autoload">
+                        <span class="list__item__title">Auto-load</span>
+                        <span class="list__item__subtitle">Automatically download location data when moving map</span>
+                    </label>
+                    <label class="right">
+                        <ons-switch input-id="settings-autoload" checked></ons-switch>
+                    </label>
                 </ons-list-item>
                 <ons-list-item tappable id="settings-api-endpoint">
                     <span class="list__item__title">API Endpoint</span>
@@ -159,8 +159,18 @@
             <ons-list>
                 <ons-list-header>API</ons-list-header>
                 <ons-list-item>
-                    <span class="list__item__title">Client API Version</span>
+                    <span class="list__item__title">Client API</span>
                     <span class="list__item__subtitle">3.1 (GeoJSON format)</span>
+                </ons-list-item>
+
+                <ons-list-header>Data Sources</ons-list-header>
+                <ons-list-item tappable class="external-link" data-href="https://zenius-i-vanisher.com/">
+                    <span class="list__item__title">Zenius -I- vanisher.com</span>
+                    <span class="list__item__subtitle">Tap to visit</span>
+                </ons-list-item>
+                <ons-list-item tappable class="external-link" data-href="http://ddr-navi.jp/">
+                    <span class="list__item__title">DDR-Navi</span>
+                    <span class="list__item__subtitle">Tap to visit</span>
                 </ons-list-item>
 
                 <ons-list-header>Libraries</ons-list-header>
@@ -172,15 +182,9 @@
                     <span class="list__item__title">Leaflet</span>
                     <span class="list__item__subtitle">1.0.0-rc.1</span>
                 </ons-list-item>
-
-                <ons-list-header>Data Sources</ons-list-header>
-                <ons-list-item tappable class="external-link" data-href="https://zenius-i-vanisher.com/">
-                    <span class="list__item__title">Zenius -I- vanisher.com</span>
-                    <span class="list__item__subtitle">Tap to visit</span>
-                </ons-list-item>
-                <ons-list-item tappable class="external-link" data-href="http://ddr-navi.jp/">
-                    <span class="list__item__title">DDR-Navi</span>
-                    <span class="list__item__subtitle">Tap to visit</span>
+                <ons-list-item tappable class="external-link" data-href="https://github.com/domoritz/leaflet-locatecontrol">
+                    <span class="list__item__title">Leaflet.Locate</span>
+                    <span class="list__item__subtitle">0.52.0</span>
                 </ons-list-item>
 
                 <ons-list-header>Application</ons-list-header>
