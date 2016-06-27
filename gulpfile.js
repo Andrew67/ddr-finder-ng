@@ -17,6 +17,10 @@ gulp.task('build', function() {
     gulp.src('node_modules/onsenui/css/**')
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
+    // Images
+    gulp.src('src/img/**')
+        .pipe(gulp.dest(PREFIX + '/img'));
+
     // My code
     gulp.src(['src/**/*.html', 'src/**/*.js', 'src/**/*.css', 'src/manifest.json'])
         .pipe(gulp.dest(PREFIX));
@@ -38,6 +42,10 @@ gulp.task('build-release', function() {
     gulp.src('node_modules/onsenui/css/**/fonts/*')
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
+    // Images
+    gulp.src('src/img/**')
+        .pipe(gulp.dest(PREFIX + '/img'));
+
     // My code
     gulp.src('src/**/*.html')
         .pipe(htmlmin({
@@ -51,7 +59,7 @@ gulp.task('build-release', function() {
     gulp.src('src/**/*.css')
         .pipe(cleanCSS())
         .pipe(gulp.dest(PREFIX));
-    gulp.src('src/manifest.json')
+    gulp.src(['src/manifest.json', 'src/img/*'])
         .pipe(gulp.dest(PREFIX));
 });
 

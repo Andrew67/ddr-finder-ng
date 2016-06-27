@@ -1,5 +1,10 @@
 {
     "name": "DDR Finder",
+    "icons": {
+        "src": "img/apple-touch-icon.png",
+        "sizes": "144x144",
+        "type": "image/png"
+    },
     "start_url": "index.html",
     "display": "standalone",
     "orientation": "portrait"
