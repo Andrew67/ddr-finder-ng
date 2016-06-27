@@ -58,6 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
         exports.setValue = function (key, newValue) {
             if (settings.hasOwnProperty(key)) {
                 window.localStorage.setItem(settings[key].key, newValue);
+
+                // Backwards compatibility with the options selector on the DDR finder home page, when on same domain
+                if (key === 'datasource' && (newValue === 'ziv' || newValue === 'navi')) {
+                    window.localStorage.setItem('datasrc', newValue);
+                }
             }
         };
 
@@ -68,7 +73,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 var rawValue = window.localStorage.getItem(settings[key].key);
                 output = rawValue;
 
-                if (rawValue === null || rawValue === '') output = settings[key].defaultValue;
+                if (rawValue === null || rawValue === '') {
+                    // Backwards compatibility with the options selector on the DDR finder home page
+                    // when on same domain and setting has not been toggled here (usually first-run)
+                    if (key === 'datasource') {
+                        var datasrc = window.localStorage.getItem('datasrc');
+                        if (datasrc === null || datasrc === '') {
+                            output = settings['datasource'].defaultValue;
+                        } else {
+                            output = datasrc;
+                        }
+                    }
+                    else {
+                        output = settings[key].defaultValue;
+                    }
+                }
                 else {
                     switch(settings[key].type) {
                         case 'bool':
@@ -114,7 +133,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
                 .openPopup();
 
-            L.control.locate().addTo(map);
+            L.control.locate({
+                locateOptions: {
+                    maxZoom: 12
+            }}).addTo(map);
         };
     })(mapview);
 
