@@ -83,6 +83,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })(settingsService);
 
+    // Enables clickable items (used mainly for Settings/About clickable list items)
+    var enableExternalLinks = function(pageid) {
+        var externalLinks = document.querySelectorAll('#' + pageid + ' .external-link');
+        for (var i = 0; i < externalLinks.length; ++i) {
+            var link = externalLinks.item(i);
+            link.addEventListener('click', (function () {
+                window.open(this.getAttribute('data-href'));
+            }).bind(link));
+        }
+    };
+
     // Each view exports certain functions, but contains its own scope
 
     // mapview
@@ -92,6 +103,18 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('settings-button').addEventListener('click', function () {
                 myNavigator.pushPage('settings.html');
             });
+
+            var map = L.map('map').setView([51.505, -0.09], 13);
+
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            L.marker([51.5, -0.09]).addTo(map)
+                .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+                .openPopup();
+
+            L.control.locate().addTo(map);
         };
     })(mapview);
 
@@ -142,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             page.addEventListener('change', formChangeHandler);
+            enableExternalLinks('settings');
 
             // Initialize the autoload option to current state
             var autoload = settingsService.getValue('autoload');
@@ -200,13 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
     (function (exports) {
         // Handle external link items
         exports.init = function () {
-            var externalLinks = document.querySelectorAll('#about .external-link');
-            for (var i = 0; i < externalLinks.length; ++i) {
-                var link = externalLinks.item(i);
-                link.addEventListener('click', (function () {
-                    window.open(this.getAttribute('data-href'));
-                }).bind(link));
-            }
+            enableExternalLinks('about');
         };
     })(about);
 

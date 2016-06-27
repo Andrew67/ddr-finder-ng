@@ -81,8 +81,18 @@
                     <span class="list__item__title">Data Source</span>
                     <span class="list__item__subtitle">---</span>
                 </ons-list-item>
+                <ons-list-item tappable class="external-link" data-href="https://ddrfinder.andrew67.com/">
+                    <span class="list__item__title">Launch Simple Version</span>
+                    <span class="list__item__subtitle">DDR Finder Home Page</span>
+                </ons-list-item>
 
                 <ons-list-header>Advanced</ons-list-header>
+                <ons-if platform="android">
+                    <ons-list-item tappable class="external-link" data-href="https://ddrfinder.andrew67.com/ddrfinder.apk">
+                        <span class="list__item__title">Install Android App</span>
+                        <span class="list__item__subtitle">Provides enhanced performance</span>
+                    </ons-list-item>
+                </ons-if>
                 <ons-list-item tappable id="settings-custom-datasource">
                     <span class="list__item__title">Custom Data Source</span>
                     <span class="list__item__subtitle">---</span>
@@ -179,7 +189,7 @@
                     <span class="list__item__subtitle">&copy;2016 Andrés Cordero</span>
                 </ons-list-item>
                 <ons-list-item tappable class="external-link" data-href="https://github.com/Andrew67/ddr-finder-ng">
-                    <span class="list__item__title">Visit Project Site</span>
+                    <span class="list__item__title">Visit Project Site on GitHub</span>
                 </ons-list-item>
             </ons-list>
         </ons-page>
