@@ -123,20 +123,78 @@ document.addEventListener('DOMContentLoaded', function() {
                 myNavigator.pushPage('settings.html');
             });
 
-            var map = L.map('map').setView([51.505, -0.09], 13);
+            var map = L.map('map').setView([36.2068047, -100.7467658], 4);
 
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                subdomains: 'abcd',
+                id: 'mapbox.streets-basic',
+                accessToken: 'pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw'
             }).addTo(map);
-
-            L.marker([51.5, -0.09]).addTo(map)
-                .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-                .openPopup();
 
             L.control.locate({
                 locateOptions: {
                     maxZoom: 12
             }}).addTo(map);
+
+            var testData = {
+                "type": "FeatureCollection",
+                "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -66.541163921356,
+                            18.438006078186
+                        ]
+                    },
+                    "properties": {
+                        "id": 8450,
+                        "src": "ziv",
+                        "sid": "2623",
+                        "name": "Caribbean Cinemas, Prime Outlets",
+                        "city": "Barceloneta, Puerto Rico",
+                        "hasDDR": 0,
+                        "distance": 24.69
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -66.639122217894,
+                            17.997345959929
+                        ]
+                    },
+                    "properties": {
+                        "id": 8609,
+                        "src": "ziv",
+                        "sid": "2785",
+                        "name": "Caribbean Cinemas, Ponce Towne Center",
+                        "city": "Ponce, Puerto Rico",
+                        "hasDDR": 0,
+                        "distance": 25.38
+                    }
+                }]
+            };
+
+            L.geoJson(testData, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup('<p><b>' + feature.properties.name + '</b><br>' + feature.properties.city
+                    + '</p><p><ons-button modifier="quiet">More Info</ons-button>&nbsp;<ons-button>Navigate</ons-button></p>');
+                    layer.on('click', function() {
+                        console.log(feature.properties);
+                    });
+                }
+            }).addData(testData).addTo(map);
+
+            // Set attribution link targets to new window
+            var attributionLinks = document.querySelectorAll('.leaflet-control-attribution a');
+            for (var i = 0; i < attributionLinks.length; ++i) {
+                attributionLinks.item(i).setAttribute('target', '_blank');
+            }
         };
     })(mapview);
 
