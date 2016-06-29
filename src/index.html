@@ -76,18 +76,14 @@
                     <span class="list__item__title">Launch Simple Version</span>
                     <span class="list__item__subtitle">DDR Finder Home Page</span>
                 </ons-list-item>
-
-                <ons-list-header>Advanced</ons-list-header>
                 <ons-if platform="android">
                     <ons-list-item tappable class="external-link" data-href="https://ddrfinder.andrew67.com/ddrfinder.apk">
                         <span class="list__item__title">Install Android App</span>
                         <span class="list__item__subtitle">Provides enhanced performance</span>
                     </ons-list-item>
                 </ons-if>
-                <ons-list-item tappable id="settings-custom-datasource">
-                    <span class="list__item__title">Custom Data Source</span>
-                    <span class="list__item__subtitle">---</span>
-                </ons-list-item>
+
+                <ons-list-header>Advanced</ons-list-header>
                 <ons-list-item tappable>
                     <label class="center" for="settings-autoload">
                         <span class="list__item__title">Auto-load</span>
@@ -96,6 +92,10 @@
                     <label class="right">
                         <ons-switch input-id="settings-autoload" checked></ons-switch>
                     </label>
+                </ons-list-item>
+                <ons-list-item tappable id="settings-custom-datasource">
+                    <span class="list__item__title">Custom Data Source</span>
+                    <span class="list__item__subtitle">---</span>
                 </ons-list-item>
                 <ons-list-item tappable id="settings-api-endpoint">
                     <span class="list__item__title">API Endpoint</span>
@@ -111,7 +111,7 @@
                                 <ons-input name="datasource" type="radio" input-id="settings-datasource-ziv"></ons-input>
                             </label>
                             <label for="settings-datasource-ziv" class="center">
-                                Zenius -I- vanisher.com
+                                Zenius -I- vanisher.com (Worldwide)
                             </label>
                         </ons-list-item>
                         <ons-list-item tappable>
@@ -119,7 +119,7 @@
                                 <ons-input name="datasource" type="radio" input-id="settings-datasource-navi"></ons-input>
                             </label>
                             <label for="settings-datasource-navi" class="center">
-                                DDR-Navi
+                                DDR-Navi (Japan)
                             </label>
                         </ons-list-item>
                         <ons-list-item tappable>
@@ -159,7 +159,7 @@
             <ons-list>
                 <ons-list-header>API</ons-list-header>
                 <ons-list-item>
-                    <span class="list__item__title">Client API</span>
+                    <span class="list__item__title">Client API Level</span>
                     <span class="list__item__subtitle">3.1 (GeoJSON format)</span>
                 </ons-list-item>
 
@@ -171,20 +171,6 @@
                 <ons-list-item tappable class="external-link" data-href="http://ddr-navi.jp/">
                     <span class="list__item__title">DDR-Navi</span>
                     <span class="list__item__subtitle">Tap to visit</span>
-                </ons-list-item>
-
-                <ons-list-header>Libraries</ons-list-header>
-                <ons-list-item tappable class="external-link" data-href="https://onsen.io/v2/">
-                    <span class="list__item__title">Onsen UI</span>
-                    <span class="list__item__subtitle">2.0.0-rc.14</span>
-                </ons-list-item>
-                <ons-list-item tappable class="external-link" data-href="http://leafletjs.com/">
-                    <span class="list__item__title">Leaflet</span>
-                    <span class="list__item__subtitle">1.0.0-rc.1</span>
-                </ons-list-item>
-                <ons-list-item tappable class="external-link" data-href="https://github.com/domoritz/leaflet-locatecontrol">
-                    <span class="list__item__title">Leaflet.Locate</span>
-                    <span class="list__item__subtitle">0.52.0</span>
                 </ons-list-item>
 
                 <ons-list-header>Application</ons-list-header>
