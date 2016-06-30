@@ -132,10 +132,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 accessToken: 'pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw'
             }).addTo(map);
 
-            L.control.locate({
+            var locateControl = L.control.locate({
                 locateOptions: {
                     maxZoom: 12
             }}).addTo(map);
+            locateControl.start();
 
             var testData = {
                 "type": "FeatureCollection",
