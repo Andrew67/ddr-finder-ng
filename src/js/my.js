@@ -99,7 +99,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             return output;
-        }
+        };
+
+        // Unsets all user-defined settings
+        exports.clearAll = function () {
+            for (var item in settings) {
+                //noinspection JSUnfilteredForInLoop
+                window.localStorage.removeItem(settings[item].key);
+            }
+        };
     })(settingsService);
 
     // Enables clickable items (used mainly for Settings/About clickable list items)
@@ -318,6 +326,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                 });
             });
+
+            // Set settings to factory default after confirming with user, then kick out of settings screen
+            document.getElementById('settings-factory').addEventListener('click', function() {
+                ons.notification.confirm('Are you sure? This will erase all of your settings.')
+                .then(function(answer) {
+                    if (answer === 1) {
+                        settingsService.clearAll();
+                        myNavigator.popPage();
+                    }
+                })
+            })
         };
     })(settings);
 
