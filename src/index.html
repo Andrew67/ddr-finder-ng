@@ -30,6 +30,22 @@
         #map {
             height: 100%
         }
+        #progress-bar {
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+        }
+        #error-box {
+            position: absolute;
+            z-index: 1000;
+            bottom: 20px;
+            width: 100%;
+            background-color: rgba(0,0,0,0.75);
+            color: orange;
+        }
+        #error-box p {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
@@ -48,7 +64,13 @@
                 </div>
             </ons-toolbar>
 
+            <ons-progress-bar indeterminate id="progress-bar" style="display: none"></ons-progress-bar>
             <div id="map"></div>
+            <div id="error-box">
+                <p id="error-zoom" style="display: none">Zoom in to load more locations</p>
+                <p id="error-unexpected" style="display: none">Error loading data</p>
+                <p id="error-datasrc" style="display: none">Server did not recognize the data source(s) requested</p>
+            </div>
         </ons-page>
     </ons-template>
 
