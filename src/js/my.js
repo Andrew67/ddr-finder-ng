@@ -182,11 +182,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
             L.geoJson(testData, {
                 onEachFeature: function (feature, layer) {
-                    layer.bindPopup('<p><b>' + feature.properties.name + '</b><br>' + feature.properties.city
-                    + '</p><p><ons-button modifier="quiet">More Info</ons-button>&nbsp;<ons-button>Navigate</ons-button></p>');
-                    layer.on('click', function() {
-                        console.log(feature.properties);
+                    var popupContainer = document.createElement('div');
+
+                    var description = document.createElement('div');
+                    description.innerHTML = '<b>' + feature.properties.name
+                        + '</b><br>' + feature.properties.city + '</p>';
+
+                    var moreInfo = document.createElement('ons-button');
+                    moreInfo.textContent = 'More Info';
+                    moreInfo.setAttribute('modifier', 'quiet');
+                    // TODO: URL redirect to more info site
+                    moreInfo.addEventListener('click', function () {
+                        console.log('Clicked More Info: ' + feature);
                     });
+
+                    var navigate = document.createElement('ons-button');
+                    navigate.textContent = 'Navigate';
+                    // TODO: URL open maps app
+                    navigate.addEventListener('click', function () {
+                        console.log('Clicked Navigate: ' + feature);
+                    });
+
+                    popupContainer.appendChild(description);
+                    popupContainer.appendChild(moreInfo);
+                    popupContainer.appendChild(navigate);
+
+                    layer.bindPopup(popupContainer);
                 }
             }).addData(testData).addTo(map);
 
