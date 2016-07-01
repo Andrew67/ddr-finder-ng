@@ -218,22 +218,25 @@ document.addEventListener('DOMContentLoaded', function() {
                         "src": "ziv",
                         "sid": "2785",
                         "name": "Caribbean Cinemas, Ponce Towne Center",
-                        "city": "Ponce, Puerto Rico",
+                        "city": "",
                         "hasDDR": 0,
                         "distance": 25.38
                     }
                 }]
             };
 
-            L.geoJson(testData, {
+            L.geoJson(null, {
                 onEachFeature: function (feature, layer) {
                     var popupContainer = document.createElement('div');
 
                     var description = document.createElement('div');
-                    description.innerHTML = '<b>' + feature.properties.name
-                        + '</b><br>' + feature.properties.city + '<br>'
-                        + '<i>GPS</i>: <span class="selectable">' + feature.geometry.coordinates[1].toFixed(6)
+                    var descriptionHTML = '<b>' + feature.properties.name + '</b><br>';
+                    if (feature.properties.city.length != 0) {
+                        descriptionHTML += feature.properties.city + '<br>';
+                    }
+                    descriptionHTML += '<i>GPS</i>: <span class="selectable">' + feature.geometry.coordinates[1].toFixed(6)
                         + '°, ' + feature.geometry.coordinates[0].toFixed(6) + '°</span></p>';
+                    description.innerHTML = descriptionHTML;
 
                     var moreInfo = document.createElement('ons-button');
                     moreInfo.textContent = 'More Info';
