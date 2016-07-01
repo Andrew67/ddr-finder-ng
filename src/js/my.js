@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var myNavigator = document.getElementById('myNavigator');
 
     // settingsService takes care of saving values in localStorage and retrieving casted/default values
-    var settingsService = {};
-    (function (exports) {
+    var settingsService = (function () {
+        var module = {};
         var settings = {
             'autoload': {
                 'key': 'ng-settings-autoload',
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        exports.setValue = function (key, newValue) {
+        module.setValue = function (key, newValue) {
             if (settings.hasOwnProperty(key)) {
                 window.localStorage.setItem(settings[key].key, newValue);
 
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Returns the set value, properly cast, or null for invalid keys
-        exports.getValue = function (key) {
+        module.getValue = function (key) {
             var output = null;
             if (settings.hasOwnProperty(key)) {
                 var rawValue = window.localStorage.getItem(settings[key].key);
@@ -102,13 +102,15 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Unsets all user-defined settings
-        exports.clearAll = function () {
+        module.clearAll = function () {
             for (var item in settings) {
                 //noinspection JSUnfilteredForInLoop
                 window.localStorage.removeItem(settings[item].key);
             }
         };
-    })(settingsService);
+
+        return module;
+    })();
 
     // Enables clickable items (used mainly for Settings/About clickable list items)
     var enableExternalLinks = function(pageid) {
@@ -124,9 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Each view exports certain functions, but contains its own scope
 
     // mapview
-    var mapview = {};
-    (function (exports) {
-        exports.init = function () {
+    var mapview = (function () {
+        var module = {};
+        module.init = function () {
             document.getElementById('settings-button').addEventListener('click', function () {
                 myNavigator.pushPage('settings.html');
             });
@@ -226,11 +228,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 attributionLinks.item(i).setAttribute('target', '_blank');
             }
         };
-    })(mapview);
+
+        return module;
+    })();
 
     // settings
-    var settings = {};
-    (function (exports) {
+    var settings = (function () {
+        var module = {};
         // Extract the label for a given data source value
         var setDataSourceLabel = function (value) {
             document.querySelector('#settings-datasource .list__item__subtitle').textContent =
@@ -269,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        exports.init = function (page) {
+        module.init = function (page) {
             document.getElementById('about-button').addEventListener('click', function () {
                 myNavigator.pushPage('about.html');
             });
@@ -338,16 +342,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             })
         };
-    })(settings);
+
+        return module;
+    })();
 
     // about
-    var about = {};
-    (function (exports) {
+    var about = (function () {
+        var module = {};
         // Handle external link items
-        exports.init = function () {
+        module.init = function () {
             enableExternalLinks('about');
         };
-    })(about);
+        return module;
+    })();
 
     document.addEventListener('init', function (e) {
         var page = e.target;
