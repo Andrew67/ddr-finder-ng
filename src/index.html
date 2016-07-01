@@ -24,16 +24,14 @@
     <!-- leaflet.locatecontrol -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.52.0/L.Control.Locate.min.css">
     <script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.52.0/L.Control.Locate.min.js"></script>
+    <!-- Leaflet.loading -->
+    <link rel="stylesheet" href="lib/leaflet-loading/Control.Loading.css">
+    <script src="lib/leaflet-loading/Control.Loading.js"></script>
     <!-- mine -->
     <script src="js/my.js"></script>
     <style>
         #map {
             height: 100%
-        }
-        #progress-bar {
-            position: absolute;
-            z-index: 1000;
-            width: 100%;
         }
         #error-box {
             position: absolute;
@@ -64,7 +62,6 @@
                 </div>
             </ons-toolbar>
 
-            <ons-progress-bar indeterminate id="progress-bar" style="display: none"></ons-progress-bar>
             <div id="map"></div>
             <div id="error-box">
                 <p id="error-zoom" style="display: none">Zoom in to load more locations</p>

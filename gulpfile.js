@@ -17,6 +17,10 @@ gulp.task('build', function() {
     gulp.src('node_modules/onsenui/css/**')
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
+    // Leaflet.loading
+    gulp.src(['node_modules/leaflet-loading/src/Control.Loading.js', 'node_modules/leaflet-loading/src/Control.Loading.css'])
+        .pipe(gulp.dest(PREFIX + '/lib/leaflet-loading'));
+
     // Images
     gulp.src('src/img/**')
         .pipe(gulp.dest(PREFIX + '/img'));
@@ -41,6 +45,14 @@ gulp.task('build-release', function() {
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
     gulp.src('node_modules/onsenui/css/**/fonts/*')
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
+
+    // Leaflet.loading
+    gulp.src('node_modules/leaflet-loading/src/Control.Loading.js')
+        .pipe(uglify())
+        .pipe(gulp.dest(PREFIX + '/lib/leaflet-loading'));
+    gulp.src('node_modules/leaflet-loading/src/Control.Loading.css')
+        .pipe(cleanCSS())
+        .pipe(gulp.dest(PREFIX + '/lib/leaflet-loading'));
 
     // Images
     gulp.src('src/img/**')

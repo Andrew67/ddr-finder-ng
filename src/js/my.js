@@ -142,11 +142,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 accessToken: 'pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw'
             }).addTo(map);
 
-            var locateControl = L.control.locate({
+            L.control.locate({
                 locateOptions: {
                     maxZoom: 12
             }}).addTo(map);
-            locateControl.start();
+
+            var loadingControl = L.Control.loading({
+                separate: true,
+                position: 'topright'
+            });
+            map.addControl(loadingControl);
 
             var testData = {
                 "type": "FeatureCollection",

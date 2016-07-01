@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "leaflet-loading": "^0.1.21",
     "onsenui": "^2.0.0-rc.14"
   },
   "devDependencies": {
