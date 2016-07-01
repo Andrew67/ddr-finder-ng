@@ -133,6 +133,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 myNavigator.pushPage('settings.html');
             });
 
+            var reloadButton = document.getElementById('reload-button');
+
+            // errorMsg can clear all errors or show a specific one, from the error-box div.
+            var errorMsg = (function () {
+                var module = {};
+                var errorBox = document.getElementById('error-box');
+                var errorMessages = errorBox.childNodes;
+
+                module.clearAll = function () {
+                    for (var i = 0; i < errorMessages.length; ++i) {
+                        if (errorMessages.item(i).style) {
+                            errorMessages.item(i).style.display = 'none';
+                        }
+                    }
+                };
+
+                module.show = function (msg) {
+                    for (var i = 0; i < errorMessages.length; ++i) {
+                        if (errorMessages.item(i).id == 'error-' + msg) {
+                            errorMessages.item(i).style.display = '';
+                            return;
+                        }
+                    }
+                };
+
+                return module;
+            })();
+
+            // Initialize map and set view to US, zoomed out.
             var map = L.map('map').setView([36.2068047, -100.7467658], 4);
 
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -202,7 +231,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     var description = document.createElement('div');
                     description.innerHTML = '<b>' + feature.properties.name
-                        + '</b><br>' + feature.properties.city + '</p>';
+                        + '</b><br>' + feature.properties.city + '<br>'
+                        + '<i>GPS</i>: <span class="selectable">' + feature.geometry.coordinates[1].toFixed(6)
+                        + '°, ' + feature.geometry.coordinates[0].toFixed(6) + '°</span></p>';
 
                     var moreInfo = document.createElement('ons-button');
                     moreInfo.textContent = 'More Info';
@@ -232,6 +263,24 @@ document.addEventListener('DOMContentLoaded', function() {
             for (var i = 0; i < attributionLinks.length; ++i) {
                 attributionLinks.item(i).setAttribute('target', '_blank');
             }
+
+            // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired.
+            // Clears and sets errors when necessary as well.
+            var onMapMoveHandler = function (event) {
+                errorMsg.clearAll();
+                map.fireEvent('dataloading', event);
+                reloadButton.style.display = 'none';
+
+                // TODO: Fire real AJAX request
+                setTimeout(function () {
+                    map.fireEvent('dataload', event);
+                    reloadButton.style.display = '';
+                    // TODO: Load GeoJSON data into map or show error
+                    errorMsg.show('zoom');
+                }, 3000);
+            };
+            map.on('dragend', onMapMoveHandler);
+            map.on('zoomend', onMapMoveHandler);
         };
 
         return module;
@@ -246,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector('label[for=settings-datasource-' + value + ']').textContent.trim();
         };
 
-        // React to onChange events on the form and save the values in localStorage, then emit a setting event
+        // React to onChange events on the form and save the values in localStorage.
         var formChangeHandler = function (e) {
             var option = e.target;
             var key = null;
