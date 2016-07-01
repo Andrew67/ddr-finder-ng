@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Enables clickable items (used mainly for Settings/About clickable list items)
     var enableExternalLinks = function(pageid) {
-        var externalLinks = document.querySelectorAll('#' + pageid + ' .external-link');
+        var externalLinks = document.querySelectorAll('#' + pageid + ' [data-href]');
         for (var i = 0; i < externalLinks.length; ++i) {
             var link = externalLinks.item(i);
             link.addEventListener('click', (function () {
