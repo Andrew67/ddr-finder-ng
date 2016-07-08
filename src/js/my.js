@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (var i = 0; i < externalLinks.length; ++i) {
             var link = externalLinks.item(i);
             link.addEventListener('click', (function () {
-                window.open(this.getAttribute('data-href'));
+                openWindow(this.getAttribute('data-href'));
             }).bind(link));
         }
     };
@@ -252,6 +252,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })();
 
+    // Window open function for external links, which requires a workaround on iOS, as Safari requires <a href>.
+    // From: http://stackoverflow.com/a/8833025
+    var openWindow = (function() {
+        if (ons.platform.isIOS()) {
+            return function (href) {
+                var a = document.createElement('a');
+                a.setAttribute("href", href);
+                a.setAttribute("target", "_blank");
+
+                var dispatch = document.createEvent("HTMLEvents");
+                dispatch.initEvent("click", true, true);
+                a.dispatchEvent(dispatch);
+            };
+        } else {
+            return window.open;
+        }
+    })();
+
     // Each view exports certain functions, but contains its own scope
 
     // mapview
@@ -332,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     moreInfo.textContent = 'More Info';
                     moreInfo.setAttribute('modifier', 'quiet');
                     moreInfo.addEventListener('click', function () {
-                        window.open(getInfoURL(feature.properties));
+                        openWindow(getInfoURL(feature.properties));
                     });
 
                     var navigate = document.createElement('ons-button');
@@ -340,10 +358,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     navigate.addEventListener('click', function () {
                         var navURL = getNavURL(feature.geometry.coordinates[1],
                             feature.geometry.coordinates[0], feature.properties.name);
-                        if (ons.platform.isAndroid()) {
+                        if (ons.platform.isAndroid() || ons.platform.isIOS()) {
                             window.location = navURL; // avoid popping up a browser window before app triggers
                         } else {
-                            window.open(navURL);
+                            openWindow(navURL);
                         }
                     });
 
