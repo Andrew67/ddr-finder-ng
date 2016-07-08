@@ -329,8 +329,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired, etc.
             // Clears and sets errors when necessary as well.
-            var dataLoadHandler = function (event) {
-                if (!apiService.isLoaded(map.getBounds())) {
+            var dataLoadHandler = function (event, forceLoad) {
+                if (!apiService.isLoaded(map.getBounds()) &&
+                    (forceLoad || settingsService.getValue('autoload'))) {
                     map.fireEvent('dataloading', event);
                     reloadButton.style.display = 'none';
 
@@ -367,6 +368,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Load on mapview init.
             apiService.clear();
             dataLoadHandler(null);
+
+            // Reload button forces data load
+            reloadButton.addEventListener('click', function(e) {
+                dataLoadHandler(e, true);
+            });
         };
 
         return module;
