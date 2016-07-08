@@ -203,7 +203,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         // Merge received sources in.
                         for (var k in response.sources) {
-                            sources[k] = response.sources[k];
+                            if (response.sources.hasOwnProperty(k)) {
+                                sources[k] = response.sources[k];
+                            }
                         }
                         loadedAreas.push(bounds);
                         successcb(response.locations);
@@ -220,6 +222,34 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         return module;
+    })();
+
+    // Navigation URL generator functions and platform detection (from ddr-finder).
+    var navURLHelpers = {
+        generic: function(latitude, longitude, label) {
+            return 'https://maps.google.com/?q=loc:' + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
+        },
+        android: function(latitude, longitude, label) {
+            return 'geo:' + latitude + ',' + longitude + '?q=' + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
+        },
+        ios: function(latitude, longitude, label) {
+            return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
+        }
+    };
+
+    var getNavURL = navURLHelpers.generic;
+    if (ons.platform.isAndroid()) getNavURL = navURLHelpers.android;
+    else if (ons.platform.isIOS()) getNavURL = navURLHelpers.ios;
+
+    // "More Info" URL function
+    var getInfoURL = (function() {
+        var infoProperty = 'infoURL';
+        if (ons.platform.isAndroid() || ons.platform.isIOS()) infoProperty = 'mInfoURL';
+
+        return function (location) {
+            return apiService.getSource(location.src)[infoProperty]
+                .replace('${id}', location.id).replace('${sid}', location.sid);
+        }
     })();
 
     // Each view exports certain functions, but contains its own scope
@@ -301,16 +331,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     var moreInfo = document.createElement('ons-button');
                     moreInfo.textContent = 'More Info';
                     moreInfo.setAttribute('modifier', 'quiet');
-                    // TODO: URL redirect to more info site
                     moreInfo.addEventListener('click', function () {
-                        console.log('Clicked More Info: ' + feature);
+                        window.open(getInfoURL(feature.properties));
                     });
 
                     var navigate = document.createElement('ons-button');
                     navigate.textContent = 'Navigate';
-                    // TODO: URL open maps app
                     navigate.addEventListener('click', function () {
-                        console.log('Clicked Navigate: ' + feature);
+                        var navURL = getNavURL(feature.geometry.coordinates[1],
+                            feature.geometry.coordinates[0], feature.properties.name);
+                        if (ons.platform.isAndroid()) {
+                            window.location = navURL; // avoid popping up a browser window before app triggers
+                        } else {
+                            window.open(navURL);
+                        }
                     });
 
                     popupContainer.appendChild(description);
