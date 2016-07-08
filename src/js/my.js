@@ -123,6 +123,105 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+    /* All-in-one suite for the DDR Finder API:
+       Handles AJAX data load and parameter setting / unpacking the response.
+       Keeps track of source metadata and provides helper methods to generate URLs or maps and more info.
+       Keeps track of previously requested areas to help avoid unnecessary AJAX requests.
+    */
+    var apiService = (function () {
+        var module = {}, loadedAreas = [/*L.latLngBounds*/], sources = {/*API response sources*/};
+
+        // Export error codes.
+        module.ERROR = {
+            UNEXPECTED: -1,
+            DATASRC: 21,
+            ZOOM: 23,
+            DOS: 42
+        };
+
+        // Returns whether the given bounding box is covered by areas that have already been loaded.
+        module.isLoaded = function (latLngBounds) {
+            // Test all four corners (same algorithm as Android app's alreadyLoaded method in MapViewer class).
+            var loadedNE = false, loadedSW = false, loadedNW = false, loadedSE = false;
+
+            for (var i = 0; i < loadedAreas.length; ++i) {
+                var bounds = loadedAreas[i];
+                if (bounds.contains(latLngBounds.getNorthEast())) loadedNE = true;
+                if (bounds.contains(latLngBounds.getSouthWest())) loadedSW = true;
+                if (bounds.contains(latLngBounds.getNorthWest())) loadedNW = true;
+                if (bounds.contains(latLngBounds.getSouthEast())) loadedSE = true;
+                if (loadedNE && loadedSW && loadedNW && loadedSE) break;
+            }
+
+            return (loadedNE && loadedSW && loadedNW && loadedSE);
+        };
+
+        // Clears previously cached datasource metadata and loaded area bounds.
+        module.clear = function () {
+            loadedAreas = [];
+            sources = {};
+        };
+
+        // Returns the API source metadata object given a string src from location results.
+        // Automatically fills in using the fallback if given source is not found.
+        module.getSource = function (src) {
+            if (sources.hasOwnProperty(src)) {
+                return sources[src];
+            } else {
+                return sources['fallback'];
+            }
+        };
+
+        // Load arcade locations into the map.
+        // If you want to potentially save a redundant AJAX request, call isLoaded first with these bounds.
+        // The success callback receives the GeoJSON structure, and the error callback receives the error structure.
+        module.getLocations = function (bounds, successcb, errorcb) {
+            // Preload a slightly larger box area when zoomed in.
+            if (Math.abs(bounds.getNorth() - bounds.getSouth()) < 0.5
+                && Math.abs(bounds.getEast() - bounds.getWest()) < 0.5) {
+                bounds = L.latLngBounds(
+                    [bounds.getSouth() - 0.125, bounds.getWest() - 0.125],
+                    [bounds.getNorth() + 0.125, bounds.getEast() + 0.125]
+                );
+            }
+
+            // Load settings regarding data source and API URL.
+            var dataSource = settingsService.getValue('datasource');
+            if (dataSource == 'custom') dataSource = settingsService.getValue('custom-datasource');
+            var apiUrl = settingsService.getValue('api-endpoint');
+            var url = apiUrl + '?version=31&sourceformat=object&locationformat=geojson&datasrc='
+                        + encodeURIComponent(dataSource) + '&latlower=' + bounds.getSouth()
+                        + '&lnglower=' + bounds.getWest() + '&latupper=' + bounds.getNorth()
+                        + '&lngupper=' + bounds.getEast();
+
+            // Kick off AJAX request.
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (this.readyState === this.DONE) {
+                    if (this.status === 200) {
+                        var response = JSON.parse(this.responseText);
+
+                        // Merge received sources in.
+                        for (var k in response.sources) {
+                            sources[k] = response.sources[k];
+                        }
+                        loadedAreas.push(bounds);
+                        successcb(response.locations);
+                    } else if (this.status === 400) {
+                        errorcb(JSON.parse(this.responseText));
+                    } else {
+                        errorcb({ errorCode: -1, error: 'Unexpected XMLHttpRequest header (does the URL support CORS?)' });
+                    }
+                }
+            };
+            request.open('GET', url, true);
+            request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            request.send(null);
+        };
+
+        return module;
+    })();
+
     // Each view exports certain functions, but contains its own scope
 
     // mapview
@@ -162,7 +261,11 @@ document.addEventListener('DOMContentLoaded', function() {
             })();
 
             // Initialize map and set view to US, zoomed out.
-            var map = L.map('map').setView([36.2068047, -100.7467658], 4);
+            var map = L.map('map', {
+                center: [36.2068047, -100.7467658],
+                zoom: 4,
+                worldCopyJump: true
+            });
 
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: 'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -182,50 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             map.addControl(loadingControl);
 
-            var testData = {
-                "type": "FeatureCollection",
-                "features": [
-                {
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [
-                            -66.541163921356,
-                            18.438006078186
-                        ]
-                    },
-                    "properties": {
-                        "id": 8450,
-                        "src": "ziv",
-                        "sid": "2623",
-                        "name": "Caribbean Cinemas, Prime Outlets",
-                        "city": "Barceloneta, Puerto Rico",
-                        "hasDDR": 0,
-                        "distance": 24.69
-                    }
-                },
-                {
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [
-                            -66.639122217894,
-                            17.997345959929
-                        ]
-                    },
-                    "properties": {
-                        "id": 8609,
-                        "src": "ziv",
-                        "sid": "2785",
-                        "name": "Caribbean Cinemas, Ponce Towne Center",
-                        "city": "",
-                        "hasDDR": 0,
-                        "distance": 25.38
-                    }
-                }]
-            };
-
-            L.geoJson(null, {
+            var geoJson = L.geoJson(null, {
                 onEachFeature: function (feature, layer) {
                     var popupContainer = document.createElement('div');
 
@@ -259,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     layer.bindPopup(popupContainer);
                 }
-            }).addData(testData).addTo(map);
+            }).addTo(map);
 
             // Set attribution link targets to new window
             var attributionLinks = document.querySelectorAll('.leaflet-control-attribution a');
@@ -267,23 +327,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 attributionLinks.item(i).setAttribute('target', '_blank');
             }
 
-            // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired.
+            // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired, etc.
             // Clears and sets errors when necessary as well.
-            var onMapMoveHandler = function (event) {
-                errorMsg.clearAll();
-                map.fireEvent('dataloading', event);
-                reloadButton.style.display = 'none';
+            var dataLoadHandler = function (event) {
+                if (!apiService.isLoaded(map.getBounds())) {
+                    map.fireEvent('dataloading', event);
+                    reloadButton.style.display = 'none';
 
-                // TODO: Fire real AJAX request
-                setTimeout(function () {
-                    map.fireEvent('dataload', event);
-                    reloadButton.style.display = '';
-                    // TODO: Load GeoJSON data into map or show error
-                    errorMsg.show('zoom');
-                }, 3000);
+                    var commonCleanup = function() {
+                        map.fireEvent('dataload', event);
+                        reloadButton.style.display = '';
+                        errorMsg.clearAll();
+                    };
+
+                    apiService.getLocations(map.getBounds(), function (locations) {
+                        commonCleanup();
+                        geoJson.addData(locations);
+                    }, function (error) {
+                        commonCleanup();
+
+                        switch (error.errorCode) {
+                            case apiService.ERROR.ZOOM:
+                                errorMsg.show('zoom');
+                                break;
+                            case apiService.ERROR.DATASRC:
+                                errorMsg.show('datasrc');
+                                break;
+                            default:
+                                errorMsg.show('unexpected');
+                                console.error(error);
+                                break;
+                        }
+                    });
+                }
             };
-            map.on('dragend', onMapMoveHandler);
-            map.on('zoomend', onMapMoveHandler);
+            map.on('dragend', dataLoadHandler);
+            map.on('zoomend', dataLoadHandler);
+
+            // Load on mapview init.
+            apiService.clear();
+            dataLoadHandler(null);
         };
 
         return module;
