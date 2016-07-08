@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'api-endpoint': {
                 'key': 'ng-settings-api-endpoint',
                 'type': 'string',
-                'defaultValue': 'https://andrew67.ddrfinder.com/locate.php'
+                'defaultValue': '../locate.php'
             }
         };
 

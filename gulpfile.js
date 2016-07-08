@@ -71,7 +71,7 @@ gulp.task('build-release', function() {
     gulp.src('src/**/*.css')
         .pipe(cleanCSS())
         .pipe(gulp.dest(PREFIX));
-    gulp.src(['src/manifest.json', 'src/img/*'])
+    gulp.src(['src/manifest.json'])
         .pipe(gulp.dest(PREFIX));
 });
 
