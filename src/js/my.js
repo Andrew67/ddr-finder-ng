@@ -52,12 +52,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 'key': 'ng-settings-api-endpoint',
                 'type': 'string',
                 'defaultValue': '../locate.php'
+            },
+            'mapLastView': {
+                'key': 'ng-map-last-view',
+                'type': 'object',
+                'defaultValue': {
+                    center: {lat: 36.2068047, lng: -100.7467658},
+                    zoom: 4
+                }
             }
         };
 
         module.setValue = function (key, newValue) {
             if (settings.hasOwnProperty(key)) {
-                window.localStorage.setItem(settings[key].key, newValue);
+                switch(settings[key].type) {
+                    case 'object':
+                        window.localStorage.setItem(settings[key].key, JSON.stringify(newValue));
+                        break;
+                    default:
+                        window.localStorage.setItem(settings[key].key, newValue);
+                        break;
+                }
 
                 // Backwards compatibility with the options selector on the DDR finder home page, when on same domain
                 if (key === 'datasource' && (newValue === 'ziv' || newValue === 'navi')) {
@@ -92,6 +107,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     switch(settings[key].type) {
                         case 'bool':
                             output = (rawValue === 'true');
+                            break;
+                        case 'object':
+                            try {
+                                output = JSON.parse(rawValue);
+                            } catch(e) {
+                                console.error('Error while extracting value for settings key: ' + key, e);
+                                output = settings[key].defaultValue;
+                            }
                             break;
                         default:
                             break;
@@ -308,10 +331,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 return module;
             })();
 
-            // Initialize map and set view to US, zoomed out.
+            // Initialize map and set view to last view recorded.
+            var lastView = settingsService.getValue('mapLastView');
             var map = L.map('map', {
-                center: [36.2068047, -100.7467658],
-                zoom: 4,
+                center: [lastView.center.lat, lastView.center.lng],
+                zoom: lastView.zoom,
                 worldCopyJump: true
             });
 
@@ -425,6 +449,17 @@ document.addEventListener('DOMContentLoaded', function() {
             reloadButton.addEventListener('click', function(e) {
                 dataLoadHandler(e, true);
             });
+
+            // Store current map view (center/zoom) after user action in order to return to it on re-init.
+            var lastViewPreserver = function () {
+                var center = map.getCenter();
+                settingsService.setValue('mapLastView', {
+                    center: {lat: center.lat, lng: center.lng},
+                    zoom: map.getZoom()
+                });
+            };
+            map.on('dragend', lastViewPreserver);
+            map.on('zoomend', lastViewPreserver);
         };
 
         return module;
