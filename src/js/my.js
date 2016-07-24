@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     var popupContainer = document.createElement('div');
 
                     var description = document.createElement('div');
-                    var descriptionHTML = '<b>' + feature.properties.name + '</b><br>';
+                    var descriptionHTML = '<p><b class="selectable">' + feature.properties.name + '</b><br>';
                     if (feature.properties.city.length != 0) {
                         descriptionHTML += feature.properties.city + '<br>';
                     }
