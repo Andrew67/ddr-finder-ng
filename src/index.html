@@ -56,6 +56,12 @@
             -ms-user-select: all;
             user-select: all;
         }
+        /* ATH cannot detect Chrome standalone as window.navigator.standalone is not set, but we have this instead */
+        @media all and (display-mode: standalone) {
+            .ath-container {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
