@@ -110,20 +110,17 @@
                     <span class="list__item__subtitle">---</span>
                 </ons-list-item>
                 <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/">
-                    <span class="list__item__title">Launch Simple Version</span>
-                    <span class="list__item__subtitle">DDR Finder Home Page</span>
+                    <span class="list__item__title">Open DDR Finder Home Page</span>
                 </ons-list-item>
                 <ons-if platform="android">
-                    <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/ddrfinder.apk">
-                        <span class="list__item__title">Install Android App</span>
-                        <span class="list__item__subtitle">Provides enhanced performance</span>
+                    <ons-list-item tappable data-href="intent://com.andrew67.ddrfinder/view#Intent;package=com.andrew67.ddrfinder;scheme=content;S.browser_fallback_url=https%3A%2F%2Fddrfinder.andrew67.com%2Fddrfinder.apk;end">
+                        <span class="list__item__title">Open Android App (recommended)</span>
                     </ons-list-item>
                 </ons-if>
 
                 <ons-list-header>Advanced</ons-list-header>
                 <ons-list-item tappable id="settings-factory">
-                    <span class="list__item__title">Load Defaults</span>
-                    <span class="list__item__subtitle">Resets all settings back to original</span>
+                    <span class="list__item__title">Reset to Defaults</span>
                 </ons-list-item>
                 <ons-list-item tappable>
                     <label class="center" for="settings-autoload">
@@ -171,14 +168,6 @@
                                 Custom (Advanced)
                             </label>
                         </ons-list-item>
-                        <ons-list-item tappable>
-                            <label class="left">
-                                <ons-input name="datasource" type="radio" input-id="settings-datasource-all"></ons-input>
-                            </label>
-                            <label for="settings-datasource-all" class="center">
-                                All Sources
-                            </label>
-                        </ons-list-item>
                     </ons-list>
                 </div>
                 <div class="alert-dialog-footer">
@@ -215,7 +204,7 @@
                 </ons-list-item>
 
                 <ons-list-header>Application</ons-list-header>
-                <ons-list-item>
+                <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/">
                     <span class="list__item__title">DDR Finder NG</span>
                     <span class="list__item__subtitle">&copy;2016 Andrés Cordero</span>
                 </ons-list-item>
