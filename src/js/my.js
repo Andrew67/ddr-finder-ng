@@ -33,11 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var settingsService = (function () {
         var module = {};
         var settings = {
-            'autoload': {
-                'key': 'ng-settings-autoload',
-                'type': 'bool',
-                'defaultValue': true
-            },
             'datasource': {
                 'key': 'ng-settings-datasource',
                 'type': 'string',
@@ -406,8 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired, etc.
             // Clears and sets errors when necessary as well.
             var dataLoadHandler = function (event, forceLoad) {
-                if (!apiService.isLoaded(map.getBounds()) &&
-                    (forceLoad || settingsService.getValue('autoload'))) {
+                if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
                     map.fireEvent('dataloading', event);
                     reloadButton.style.display = 'none';
 
@@ -480,14 +474,6 @@ document.addEventListener('DOMContentLoaded', function() {
             var key = null;
             var newValue = null;
 
-            switch (option.id) {
-                case 'settings-autoload':
-                    key = 'autoload';
-                    newValue = option.checked;
-                    break;
-                default:
-                    break;
-            }
             switch (option.name) {
                 case 'datasource':
                     key = 'datasource';
@@ -513,10 +499,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             page.addEventListener('change', formChangeHandler);
             enableExternalLinks('settings');
-
-            // Initialize the autoload option to current state
-            var autoload = settingsService.getValue('autoload');
-            if (!autoload) document.getElementById('settings-autoload').checked = false;
 
             // Set the data source dialog listeners and initialize label and radio button to the current value
             var datasourceDialog = document.getElementById('settings-datasource-dialog');
