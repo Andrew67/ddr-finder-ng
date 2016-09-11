@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Useful shorthand variables
     var myNavigator = document.getElementById('myNavigator');
 
+    // Track a goal with Piwik analytics, if available
+    var trackGoal = function (goalId) {
+        if (_paq && _paq.push) _paq.push(['trackGoal', goalId]);
+    };
+
     // settingsService takes care of saving values in localStorage and retrieving casted/default values
     var settingsService = (function () {
         var module = {};
@@ -369,12 +374,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     moreInfo.textContent = 'More Info';
                     moreInfo.setAttribute('modifier', 'quiet');
                     moreInfo.addEventListener('click', function () {
+                        trackGoal(5);
                         openWindow(getInfoURL(feature.properties));
                     });
 
                     var navigate = document.createElement('ons-button');
                     navigate.textContent = 'Navigate';
                     navigate.addEventListener('click', function () {
+                        trackGoal(3);
                         var navURL = getNavURL(feature.geometry.coordinates[1],
                             feature.geometry.coordinates[0], feature.properties.name);
                         if (ons.platform.isAndroid() || ons.platform.isIOS()) {
