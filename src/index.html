@@ -35,6 +35,12 @@
     </script>
     <!-- mine -->
     <script src="js/my.js"></script>
+    <script>
+        var _paq = _paq || [];
+        var pk_title = 'Interactive Map';
+        if (window.location.search.indexOf('mode=standalone') >= 0 || navigator.standalone) pk_title += ' (Standalone)';
+        _paq.push(['setDocumentTitle', pk_title]);
+    </script>
     <script src="js/piwik.js"></script>
     <style>
         #map {
