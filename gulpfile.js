@@ -3,6 +3,9 @@ var rename = require('gulp-rename');
 var cleanCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
+var stylus = require('gulp-stylus');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
 
 gulp.task('default', function() {
     // place code for your default task here
@@ -16,6 +19,12 @@ gulp.task('build', function() {
         .pipe(gulp.dest(PREFIX + '/lib/onsen/js'));
     gulp.src('node_modules/onsenui/css/**')
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
+
+    // Onsen UI Custom Theme
+    gulp.src('stylus/onsen-custom-theme.styl')
+        .pipe(stylus())
+        .pipe(postcss([autoprefixer()]))
+        .pipe(gulp.dest(PREFIX + '/css'));
 
     // Leaflet.loading
     gulp.src(['node_modules/leaflet-loading/src/Control.Loading.js', 'node_modules/leaflet-loading/src/Control.Loading.css'])
@@ -49,6 +58,13 @@ gulp.task('build-release', function() {
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
     gulp.src('node_modules/onsenui/css/**/fonts/*')
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
+
+    // Onsen UI Custom Theme
+    gulp.src('stylus/onsen-custom-theme.styl')
+        .pipe(stylus())
+        .pipe(postcss([autoprefixer()]))
+        .pipe(cleanCSS())
+        .pipe(gulp.dest(PREFIX + '/css'));
 
     // Leaflet.loading
     gulp.src('node_modules/leaflet-loading/src/Control.Loading.js')
@@ -87,5 +103,5 @@ gulp.task('build-release', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('src/**', ['build']);
+    gulp.watch(['src/**', 'stylus/*.styl'], ['build']);
 });
