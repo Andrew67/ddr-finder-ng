@@ -70,6 +70,9 @@
                 display: none;
             }
         }
+        .advanced-setting {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -120,21 +123,16 @@
                 <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/">
                     <span class="list__item__title">Open DDR Finder Home Page</span>
                 </ons-list-item>
-                <ons-if platform="android">
-                    <ons-list-item tappable data-href="intent://com.andrew67.ddrfinder/view#Intent;package=com.andrew67.ddrfinder;scheme=content;S.browser_fallback_url=https%3A%2F%2Fddrfinder.andrew67.com%2Fddrfinder.apk;end">
-                        <span class="list__item__title">Open Android App (recommended)</span>
-                    </ons-list-item>
-                </ons-if>
 
                 <ons-list-header>Advanced</ons-list-header>
                 <ons-list-item tappable id="settings-factory">
                     <span class="list__item__title">Reset to Defaults</span>
                 </ons-list-item>
-                <ons-list-item tappable id="settings-custom-datasource">
+                <ons-list-item tappable id="settings-custom-datasource" class="advanced-setting">
                     <span class="list__item__title">Custom Data Source</span>
                     <span class="list__item__subtitle">---</span>
                 </ons-list-item>
-                <ons-list-item tappable id="settings-api-endpoint">
+                <ons-list-item tappable id="settings-api-endpoint" class="advanced-setting">
                     <span class="list__item__title">API Endpoint</span>
                     <span class="list__item__subtitle">---</span>
                 </ons-list-item>
@@ -159,7 +157,7 @@
                                 DDR-Navi (Japan)
                             </label>
                         </ons-list-item>
-                        <ons-list-item tappable>
+                        <ons-list-item tappable class="advanced-setting">
                             <label class="left">
                                 <ons-input name="datasource" type="radio" input-id="settings-datasource-custom"></ons-input>
                             </label>
