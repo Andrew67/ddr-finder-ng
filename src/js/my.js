@@ -248,21 +248,19 @@ document.addEventListener('DOMContentLoaded', function() {
     })();
 
     // Navigation URL generator functions and platform detection (from ddr-finder).
-    var navURLHelpers = {
-        generic: function(latitude, longitude, label) {
-            return 'https://maps.google.com/?q=loc:' + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
-        },
-        android: function(latitude, longitude, label) {
-            return 'geo:' + latitude + ',' + longitude + '?q=' + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
-        },
-        ios: function(latitude, longitude, label) {
-            return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + latitude + ',' + longitude + '(' + encodeURI(label) + ')';
-        }
-    };
-
-    var getNavURL = navURLHelpers.generic;
-    if (ons.platform.isAndroid()) getNavURL = navURLHelpers.android;
-    else if (ons.platform.isIOS()) getNavURL = navURLHelpers.ios;
+    var getNavURL = (function() {
+        if (ons.platform.isIOS())
+            return function(latitude, longitude, label) {
+                return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
+            };
+        else if (ons.platform.isAndroid())
+            return function(latitude, longitude, label) {
+                return 'geo:' + latitude + ',' + longitude + '?q=' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
+            };
+        return function(latitude, longitude, label) {
+            return 'https://maps.google.com/?q=loc:' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
+        };
+    })();
 
     // "More Info" URL function
     var getInfoURL = (function() {
