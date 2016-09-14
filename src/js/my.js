@@ -380,8 +380,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     navigate.textContent = 'Navigate';
                     navigate.addEventListener('click', function () {
                         trackGoal(3);
-                        var navURL = getNavURL(feature.geometry.coordinates[1],
-                            feature.geometry.coordinates[0], feature.properties.name);
+                        var label = feature.properties.name.replace(/\(/g, '[').replace(/\)/g, ']');
+                        var navURL = getNavURL(feature.geometry.coordinates[1], feature.geometry.coordinates[0], label);
                         if (ons.platform.isAndroid() || ons.platform.isIOS()) {
                             window.location = navURL; // avoid popping up a browser window before app triggers
                         } else {
