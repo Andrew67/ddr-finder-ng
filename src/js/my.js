@@ -26,6 +26,11 @@
 // Wait for DOM loaded
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Preload home screen shortcut icon on mobile devices.
+    if (ons.platform.isAndroid() || ons.platform.isIOS()) {
+        new Image().src = 'img/apple-touch-icon.png';
+    }
+
     // Useful shorthand variables
     var myNavigator = document.getElementById('myNavigator');
 
