@@ -26,10 +26,24 @@
 // Wait for DOM loaded
 document.addEventListener('DOMContentLoaded', function() {
 
+    // These functions run on page load ASAP.
+
+    // Polyfill for navigator.standalone which is iOS/Safari specific.
+    if (typeof navigator.standalone === 'undefined') {
+        navigator.standalone = (window.location.search.indexOf('mode=standalone') >= 0);
+    }
+
+    // If iOS and standalone, add a class to allow for translucent status bar padding, among other things.
+    if (ons.platform.isIOS() && navigator.standalone) {
+        document.body.classList.add('ios-standalone');
+    }
+
     // Preload home screen shortcut icon on mobile devices.
     if (ons.platform.isAndroid() || ons.platform.isIOS()) {
         new Image().src = 'img/apple-touch-icon.png';
     }
+
+    // End page load functions.
 
     // Useful shorthand variables
     var myNavigator = document.getElementById('myNavigator');
@@ -508,7 +522,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             page.addEventListener('change', formChangeHandler);
-            enableExternalLinks('settings');
 
             // Set the data source dialog listeners and initialize label and radio button to the current value
             var datasourceDialog = document.getElementById('settings-datasource-dialog');
@@ -576,13 +589,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var module = {};
         // Handle external link items
         module.init = function () {
-            enableExternalLinks('about');
         };
         return module;
     })();
 
     document.addEventListener('init', function (e) {
         var page = e.target;
+
+        enableExternalLinks(page.id);
 
         if (page.id === 'mapview') mapview.init(page);
         else if (page.id === 'settings') settings.init(page);

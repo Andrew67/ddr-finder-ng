@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#33b5e5">
     <!-- OpenGraph metadata -->
     <meta property="og:title" content="DDR Finder">
@@ -39,7 +40,7 @@
     <script>
         var _paq = _paq || [];
         var pk_title = 'Interactive Map';
-        if (window.location.search.indexOf('mode=standalone') >= 0 || navigator.standalone) pk_title += ' (Standalone)';
+        if (navigator.standalone) pk_title += ' (Standalone)';
         _paq.push(['setDocumentTitle', pk_title]);
     </script>
     <script src="js/piwik.js"></script>
@@ -59,19 +60,20 @@
             margin: 5px;
         }
         .selectable {
-            -webkit-user-select: all;
-            -moz-user-select: all;
-            -ms-user-select: all;
-            user-select: all;
-        }
-        /* ATH cannot detect Chrome standalone as window.navigator.standalone is not set, but we have this instead */
-        @media all and (display-mode: standalone) {
-            .ath-container {
-                display: none;
-            }
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
         .advanced-setting {
             display: none;
+        }
+        .ios-standalone ons-toolbar {
+            padding-top: 16pt;
+            height: calc(44px + 16pt);
+        }
+        .ios-standalone .navigation-bar + .page__background + .page__content {
+            top: calc(44px + 16pt);
         }
     </style>
 </head>
