@@ -1,12 +1,19 @@
 {
-    "name": "DDR Finder",
-    "icons": {
-        "src": "img/apple-touch-icon.png",
-        "sizes": "144x144",
-        "type": "image/png"
-    },
-    "start_url": "index.html?mode=standalone",
-    "display": "standalone",
-    "orientation": "portrait",
-    "theme_color": "#33b5e5"
+  "name": "DDR Finder",
+  "short_name": "DDR Finder",
+  "icons": [{
+    "src": "img/apple-touch-icon.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }],
+  "start_url": "index.html?mode=standalone",
+  "display": "standalone",
+  "theme_color": "#33b5e5",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.andrew67.ddrfinder"
+    }
+  ]
 }
