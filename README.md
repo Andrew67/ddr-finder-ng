@@ -8,8 +8,6 @@ On iOS devices, it should look and feel like a native iOS app.
 ## Live Demo
 The official working demo is at http://ddrfinder.andrew67.com/ng/, which connects to the [ddr-finder](https://github.com/Andrew67/ddr-finder) demo API instance.
 
-You can connect it to a custom API instance by modifying the API endpoint in the settings page as long as your deployment implements API v3.1 (GeoJSON output) and has the proper headers to allow cross-site AJAX requests.
-
 ## UI
 * Framework: Onsen UI 2; see https://onsen.io/v2/.
 * Map view: Leaflet; see http://leafletjs.com/.

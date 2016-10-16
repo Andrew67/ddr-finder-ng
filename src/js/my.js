@@ -58,19 +58,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var module = {};
         var settings = {
             'datasource': {
-                'key': 'ng-settings-datasource',
+                'key': 'datasrc',
                 'type': 'string',
                 'defaultValue': 'ziv'
-            },
-            'custom-datasource': {
-                'key': 'ng-settings-custom-datasource',
-                'type': 'string',
-                'defaultValue': 'all'
-            },
-            'api-endpoint': {
-                'key': 'ng-settings-api-endpoint',
-                'type': 'string',
-                'defaultValue': '../locate.php'
             },
             'mapLastView': {
                 'key': 'ng-map-last-view',
@@ -92,11 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.localStorage.setItem(settings[key].key, newValue);
                         break;
                 }
-
-                // Backwards compatibility with the options selector on the DDR finder home page, when on same domain
-                if (key === 'datasource' && (newValue === 'ziv' || newValue === 'navi')) {
-                    window.localStorage.setItem('datasrc', newValue);
-                }
             }
         };
 
@@ -108,29 +93,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 output = rawValue;
 
                 if (rawValue === null || rawValue === '') {
-                    // Backwards compatibility with the options selector on the DDR finder home page
-                    // when on same domain and setting has not been toggled here (usually first-run)
-                    if (key === 'datasource') {
-                        var datasrc = window.localStorage.getItem('datasrc');
-                        if (datasrc === null || datasrc === '') {
-                            output = settings['datasource'].defaultValue;
-                        } else {
-                            output = datasrc;
-                        }
-                    }
-                    else {
-                        output = settings[key].defaultValue;
-                    }
+                    output = settings[key].defaultValue;
                 }
                 else {
-                    switch(settings[key].type) {
+                    switch (settings[key].type) {
                         case 'bool':
                             output = (rawValue === 'true');
                             break;
                         case 'object':
                             try {
                                 output = JSON.parse(rawValue);
-                            } catch(e) {
+                            } catch (e) {
                                 console.error('Error while extracting value for settings key: ' + key, e);
                                 output = settings[key].defaultValue;
                             }
@@ -146,8 +119,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Unsets all user-defined settings
         module.clearAll = function () {
             for (var item in settings) {
-                //noinspection JSUnfilteredForInLoop
-                window.localStorage.removeItem(settings[item].key);
+                if (settings.hasOwnProperty(item)) {
+                    window.localStorage.removeItem(settings[item].key);
+                }
             }
         };
 
@@ -172,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     */
     var apiService = (function () {
         var module = {}, loadedAreas = [/*L.latLngBounds*/], sources = {/*API response sources*/};
+        var API_URL = '../locate.php';
 
         // Export error codes.
         module.ERROR = {
@@ -229,9 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Load settings regarding data source and API URL.
             var dataSource = settingsService.getValue('datasource');
-            if (dataSource == 'custom') dataSource = settingsService.getValue('custom-datasource');
-            var apiUrl = settingsService.getValue('api-endpoint');
-            var url = apiUrl + '?version=31&sourceformat=object&locationformat=geojson&datasrc='
+            var url = API_URL + '?version=31&sourceformat=object&locationformat=geojson&datasrc='
                         + encodeURIComponent(dataSource) + '&latlower=' + bounds.getSouth()
                         + '&lnglower=' + bounds.getWest() + '&latupper=' + bounds.getNorth()
                         + '&lngupper=' + bounds.getEast();
@@ -534,40 +507,6 @@ document.addEventListener('DOMContentLoaded', function() {
             var currentDatasource = settingsService.getValue('datasource');
             setDataSourceLabel(currentDatasource);
             document.getElementById('settings-datasource-' + currentDatasource).checked = true;
-
-            // Set custom data source click listener and initialize to current value
-            document.querySelector('#settings-custom-datasource .list__item__subtitle').textContent =
-                settingsService.getValue('custom-datasource');
-            document.getElementById('settings-custom-datasource').addEventListener('click', function () {
-                //noinspection JSValidateTypes
-                ons.notification.prompt({
-                    title: 'Custom Data Source',
-                    message: 'Please enter a value:',
-                    defaultValue: settingsService.getValue('custom-datasource')
-                }).then(function (newValue) {
-                    if (newValue !== '') {
-                        document.querySelector('#settings-custom-datasource .list__item__subtitle').textContent = newValue;
-                        settingsService.setValue('custom-datasource', newValue);
-                    }
-                });
-            });
-
-            // Set custom api endpoint click listener and initialize to current value
-            document.querySelector('#settings-api-endpoint .list__item__subtitle').textContent =
-                settingsService.getValue('api-endpoint');
-            document.getElementById('settings-api-endpoint').addEventListener('click', function () {
-                //noinspection JSValidateTypes
-                ons.notification.prompt({
-                    title: 'API Endpoint',
-                    message: 'Please enter a value:',
-                    defaultValue: settingsService.getValue('api-endpoint')
-                }).then(function (newValue) {
-                        if (newValue !== '') {
-                            document.querySelector('#settings-api-endpoint .list__item__subtitle').textContent = newValue;
-                            settingsService.setValue('api-endpoint', newValue);
-                        }
-                });
-            });
 
             // Set settings to factory default after confirming with user, then kick out of settings screen
             document.getElementById('settings-factory').addEventListener('click', function() {

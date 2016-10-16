@@ -65,9 +65,6 @@
             -ms-user-select: text;
             user-select: text;
         }
-        .advanced-setting {
-            display: none;
-        }
         .ios-standalone ons-toolbar {
             padding-top: 16pt;
             height: calc(44px + 16pt);
@@ -130,14 +127,6 @@
                 <ons-list-item tappable id="settings-factory">
                     <span class="list__item__title">Reset to Defaults</span>
                 </ons-list-item>
-                <ons-list-item tappable id="settings-custom-datasource" class="advanced-setting">
-                    <span class="list__item__title">Custom Data Source</span>
-                    <span class="list__item__subtitle">---</span>
-                </ons-list-item>
-                <ons-list-item tappable id="settings-api-endpoint" class="advanced-setting">
-                    <span class="list__item__title">API Endpoint</span>
-                    <span class="list__item__subtitle">---</span>
-                </ons-list-item>
             </ons-list>
             <ons-alert-dialog id="settings-datasource-dialog" cancelable>
                 <div class="alert-dialog-title">Data Source</div>
@@ -159,14 +148,6 @@
                                 DDR-Navi (Japan)
                             </label>
                         </ons-list-item>
-                        <ons-list-item tappable class="advanced-setting">
-                            <label class="left">
-                                <ons-input name="datasource" type="radio" input-id="settings-datasource-custom"></ons-input>
-                            </label>
-                            <label for="settings-datasource-custom" class="center">
-                                Custom (Advanced)
-                            </label>
-                        </ons-list-item>
                     </ons-list>
                 </div>
                 <div class="alert-dialog-footer">
@@ -186,12 +167,6 @@
             </ons-toolbar>
 
             <ons-list>
-                <ons-list-header>API</ons-list-header>
-                <ons-list-item>
-                    <span class="list__item__title">Client API Level</span>
-                    <span class="list__item__subtitle">3.1 (GeoJSON format)</span>
-                </ons-list-item>
-
                 <ons-list-header>Data Sources</ons-list-header>
                 <ons-list-item tappable data-href="https://zenius-i-vanisher.com/">
                     <span class="list__item__title">Zenius -I- vanisher.com</span>
