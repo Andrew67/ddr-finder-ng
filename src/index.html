@@ -33,7 +33,10 @@
     <link rel="stylesheet" href="lib/ath/addtohomescreen.css">
     <script src="lib/ath/addtohomescreen.js"></script>
     <script>
-        if (ons.platform.isIOS()) addToHomescreen({appID: 'com.andrew67.ddrfinder.ng'});
+        if (ons.platform.isIOS()) addToHomescreen({
+            appID: 'com.andrew67.ddrfinder.ng',
+            skipFirstVisit: true
+        });
     </script>
     <!-- mine -->
     <script src="js/my.js"></script>
