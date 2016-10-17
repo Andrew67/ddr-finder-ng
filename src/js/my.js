@@ -69,6 +69,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     center: {lat: 36.2068047, lng: -100.7467658},
                     zoom: 4
                 }
+            },
+            'ios-navigation': {
+                'key': 'ios-navigation',
+                'type': 'string',
+                'defaultValue': 'apple'
             }
         };
 
@@ -243,7 +248,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var getNavURL = (function() {
         if (ons.platform.isIOS())
             return function(latitude, longitude, label) {
-                return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
+            switch (settingsService.getValue('ios-navigation')) {
+                case 'google':
+                    return 'comgooglemaps://?daddr=loc:' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
+                case 'apple':
+                default:
+                    return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
+            }
             };
         else if (ons.platform.isAndroid())
             return function(latitude, longitude, label) {
@@ -459,10 +470,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // settings
     var settings = (function () {
         var module = {};
-        // Extract the label for a given data source value
-        var setDataSourceLabel = function (value) {
-            document.querySelector('#settings-datasource .list__item__subtitle').textContent =
-                document.querySelector('label[for=settings-datasource-' + value + ']').textContent.trim();
+        // Extract the label for a given multi select value
+        var setLabel = function (id, value) {
+            document.querySelector('#settings-' + id + ' .list__item__subtitle').textContent =
+                document.querySelector('label[for=settings-' + id + '-' + value + ']').textContent.trim();
         };
 
         // React to onChange events on the form and save the values in localStorage.
@@ -473,12 +484,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
             switch (option.name) {
                 case 'datasource':
-                    key = 'datasource';
-                    newValue = option.id.replace('settings-datasource-', '');
+                case 'ios-navigation':
+                    key = option.name;
+                    newValue = option.id.replace('settings-' + key + '-', '');
 
-                    // Update UI label and hide the data source dialog
-                    document.getElementById('settings-datasource-dialog').hide();
-                    setDataSourceLabel(newValue);
+                    // Update UI label and hide the dialog
+                    document.getElementById('settings-' + key + '-dialog').hide();
+                    setLabel(key, newValue);
                     break;
                 default:
                     break;
@@ -496,17 +508,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             page.addEventListener('change', formChangeHandler);
 
-            // Set the data source dialog listeners and initialize label and radio button to the current value
-            var datasourceDialog = document.getElementById('settings-datasource-dialog');
-            document.getElementById('settings-datasource').addEventListener('click', function () {
-                datasourceDialog.show();
+            // Set the dialog listeners and initialize label and radio buttons to the current values
+            ['datasource', 'ios-navigation'].forEach(function (key) {
+                var dialog = document.getElementById('settings-' + key + '-dialog');
+                document.getElementById('settings-' + key).addEventListener('click', function () {
+                    dialog.show();
+                });
+                document.getElementById('settings-' + key + '-cancel').addEventListener('click', function () {
+                    dialog.hide();
+                });
+                var currentValue = settingsService.getValue(key);
+                setLabel(key, currentValue);
+                document.getElementById('settings-' + key + '-' + currentValue).checked = true;
             });
-            document.getElementById('settings-datasource-cancel').addEventListener('click', function () {
-                datasourceDialog.hide();
-            });
-            var currentDatasource = settingsService.getValue('datasource');
-            setDataSourceLabel(currentDatasource);
-            document.getElementById('settings-datasource-' + currentDatasource).checked = true;
 
             // Set settings to factory default after confirming with user, then kick out of settings screen
             document.getElementById('settings-factory').addEventListener('click', function() {

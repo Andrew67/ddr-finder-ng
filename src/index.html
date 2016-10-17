@@ -115,10 +115,21 @@
 
             <ons-list>
                 <ons-list-header>Basic</ons-list-header>
+                <ons-if platform="android">
+                    <ons-list-item tappable data-href="intent://com.andrew67.ddrfinder/view#Intent;package=com.andrew67.ddrfinder;scheme=content;end">
+                        <span class="list__item__title">Open Android App&nbsp;<ons-icon icon="md-star"></ons-icon></span>
+                    </ons-list-item>
+                </ons-if>
                 <ons-list-item tappable id="settings-datasource">
                     <span class="list__item__title">Data Source</span>
                     <span class="list__item__subtitle">---</span>
                 </ons-list-item>
+                <ons-if platform="ios">
+                    <ons-list-item tappable id="settings-ios-navigation">
+                        <span class="list__item__title">Navigation</span>
+                        <span class="list__item__subtitle">---</span>
+                    </ons-list-item>
+                </ons-if>
                 <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/">
                     <span class="list__item__title">Open DDR Finder Home Page</span>
                 </ons-list-item>
@@ -152,6 +163,32 @@
                 </div>
                 <div class="alert-dialog-footer">
                     <button id="settings-datasource-cancel" class="alert-dialog-button">Cancel</button>
+                </div>
+            </ons-alert-dialog>
+            <ons-alert-dialog id="settings-ios-navigation-dialog" cancelable>
+                <div class="alert-dialog-title">Navigation</div>
+                <div class="alert-dialog-content">
+                    <ons-list>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <ons-input name="ios-navigation" type="radio" input-id="settings-ios-navigation-apple"></ons-input>
+                            </label>
+                            <label for="settings-ios-navigation-apple" class="center">
+                                Apple Maps
+                            </label>
+                        </ons-list-item>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <ons-input name="ios-navigation" type="radio" input-id="settings-ios-navigation-google"></ons-input>
+                            </label>
+                            <label for="settings-ios-navigation-google" class="center">
+                                Google Maps
+                            </label>
+                        </ons-list-item>
+                    </ons-list>
+                </div>
+                <div class="alert-dialog-footer">
+                    <button id="settings-ios-navigation-cancel" class="alert-dialog-button">Cancel</button>
                 </div>
             </ons-alert-dialog>
         </ons-page>
