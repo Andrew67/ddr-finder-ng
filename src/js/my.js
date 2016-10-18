@@ -250,10 +250,14 @@ document.addEventListener('DOMContentLoaded', function() {
             return function(latitude, longitude, label) {
             switch (settingsService.getValue('ios-navigation')) {
                 case 'google':
-                    return 'comgooglemaps://?daddr=loc:' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
+                    return 'comgooglemaps://?daddr=' + latitude + ',' + longitude;
+                case 'waze':
+                    return 'waze://?ll=' + latitude + ',' + longitude + '&navigate=yes';
+                case 'sygic':
+                    return 'com.sygic.aura://coordinate|' + longitude + '|' + latitude + '|drive';
                 case 'apple':
                 default:
-                    return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
+                    return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + latitude + ',' + longitude;
             }
             };
         else if (ons.platform.isAndroid())
