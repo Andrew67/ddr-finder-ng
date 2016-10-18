@@ -509,7 +509,10 @@ document.addEventListener('DOMContentLoaded', function() {
             page.addEventListener('change', formChangeHandler);
 
             // Set the dialog listeners and initialize label and radio buttons to the current values
-            ['datasource', 'ios-navigation'].forEach(function (key) {
+            var dialogs = ['datasource'];
+            if (ons.platform.isIOS()) dialogs.push('ios-navigation');
+
+            dialogs.forEach(function (key) {
                 var dialog = document.getElementById('settings-' + key + '-dialog');
                 document.getElementById('settings-' + key).addEventListener('click', function () {
                     dialog.show();
