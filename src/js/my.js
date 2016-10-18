@@ -130,6 +130,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
+        // Clear old deprecated settings items from user's localStorage, to save space.
+        ['ng-settings-datasource', 'ng-settings-custom-datasource', 'api-endpoint',
+            'ng-settings-autoload', 'org.cubiq.addtohome'].forEach(function (key) {
+            window.localStorage.removeItem(key);
+        });
+
         return module;
     })();
 
@@ -244,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return module;
     })();
 
-    // Navigation URL generator functions and platform detection (from ddr-finder).
+    // Navigation URL generator functions and platform detection (originally from ddr-finder).
     var getNavURL = (function() {
         if (ons.platform.isIOS())
             return function(latitude, longitude, label) {
@@ -547,7 +553,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // about
     var about = (function () {
         var module = {};
-        // Handle external link items
         module.init = function () {
         };
         return module;
