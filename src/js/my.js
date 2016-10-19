@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (var i = 0; i < externalLinks.length; ++i) {
             var link = externalLinks.item(i);
             link.addEventListener('click', (function () {
-                openWindow(this.getAttribute('data-href'));
+                openExternalLink(this.getAttribute('data-href'));
             }).bind(link));
         }
     };
@@ -288,9 +288,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Window open function for external links, which requires a workaround on iOS, as Safari requires <a href>.
     // From: http://stackoverflow.com/a/8833025
-    var openWindow = (function() {
-        if (ons.platform.isIOS()) {
-            return function (href) {
+    // For non-http(s) links (app-trigger links), retains current context (avoids flash of a browser window before trigger).
+    var openExternalLink = function(href) {
+        if (href.indexOf('http') === 0) {
+            if (ons.platform.isIOS()) {
                 var a = document.createElement('a');
                 a.setAttribute("href", href);
                 a.setAttribute("target", "_blank");
@@ -298,11 +299,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 var dispatch = document.createEvent("HTMLEvents");
                 dispatch.initEvent("click", true, true);
                 a.dispatchEvent(dispatch);
-            };
+            } else {
+                window.open(href);
+            }
         } else {
-            return window.open;
+            window.location.href = href;
         }
-    })();
+    };
 
     // Each view exports certain functions, but contains its own scope
 
@@ -386,20 +389,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     moreInfo.setAttribute('modifier', 'quiet');
                     moreInfo.addEventListener('click', function () {
                         trackGoal(5);
-                        openWindow(getInfoURL(feature.properties));
+                        openExternalLink(getInfoURL(feature.properties));
                     });
 
                     var navigate = document.createElement('ons-button');
                     navigate.textContent = 'Navigate';
                     navigate.addEventListener('click', function () {
                         trackGoal(3);
-                        var navURL = getNavURL(feature.geometry.coordinates[1],
-                            feature.geometry.coordinates[0], feature.properties.name);
-                        if (ons.platform.isAndroid() || ons.platform.isIOS()) {
-                            window.location = navURL; // avoid popping up a browser window before app triggers
-                        } else {
-                            openWindow(navURL);
-                        }
+                        openExternalLink(getNavURL(feature.geometry.coordinates[1],
+                            feature.geometry.coordinates[0], feature.properties.name));
                     });
 
                     popupContainer.appendChild(description);
