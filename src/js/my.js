@@ -418,6 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired, etc.
             // Clears and sets errors when necessary as well.
+            var loadedLocationIds = []; // Stores loaded location ids, to prevent loading duplicate markers on the map.
             var dataLoadHandler = function (event, forceLoad) {
                 if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
                     map.fireEvent('dataloading', event);
@@ -431,6 +432,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     apiService.getLocations(map.getBounds(), function (locations) {
                         commonCleanup();
+
+                        // Filter already loaded locations from the features list before (re)adding to map.
+                        locations.features = locations.features.filter(function (location) {
+                            if (loadedLocationIds.indexOf(location.properties.id) === -1) {
+                                loadedLocationIds.push(location.properties.id);
+                                return true;
+                            }
+                            return false;
+                        });
+
                         geoJson.addData(locations);
                     }, function (error) {
                         commonCleanup();
