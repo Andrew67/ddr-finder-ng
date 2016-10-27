@@ -18,7 +18,7 @@
   "dependencies": {
     "add-to-homescreen": "^3.2.6",
     "leaflet-loading": "^0.1.21",
-    "onsenui": "^2.0.2"
+    "onsenui": "^2.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.1",
