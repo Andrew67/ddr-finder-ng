@@ -10,6 +10,7 @@
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#33b5e5">
     <!-- OpenGraph metadata -->
     <meta property="og:title" content="DDR Finder">
@@ -48,6 +49,9 @@
     </script>
     <script src="js/piwik.js"></script>
     <style>
+        body {
+            background-color: #33b5e5; /* colors Safari UI similar to theme-color on Chrome */
+        }
         #map {
             height: 100%
         }
@@ -68,12 +72,15 @@
             -ms-user-select: text;
             user-select: text;
         }
-        .ios-standalone ons-toolbar {
-            padding-top: 16pt;
-            height: calc(44px + 16pt);
-        }
-        .ios-standalone .navigation-bar + .page__background + .page__content {
-            top: calc(44px + 16pt);
+        @media all and (orientation: portrait) {
+            .ios-standalone ons-toolbar {
+                padding-top: 20px;
+                height: 64px;
+            }
+
+            .ios-standalone .navigation-bar + .page__background + .page__content {
+                top: 64px;
+            }
         }
     </style>
 </head>

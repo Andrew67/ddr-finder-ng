@@ -2,7 +2,7 @@
   "name": "DDR Finder",
   "short_name": "DDR Finder",
   "icons": [{
-    "src": "img/apple-touch-icon.png",
+    "src": "img/touch-icon.png",
     "sizes": "144x144",
     "type": "image/png"
   }],

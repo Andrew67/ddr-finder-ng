@@ -38,11 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('ios-standalone');
     }
 
-    // Preload home screen shortcut icon on mobile devices.
-    if (ons.platform.isAndroid() || ons.platform.isIOS()) {
-        new Image().src = 'img/apple-touch-icon.png';
-    }
-
     // End page load functions.
 
     // Useful shorthand variables
@@ -353,7 +348,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 worldCopyJump: true
             });
 
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            // Detect retina displays and append @2x modifier for larger tiles
+            var tileLayerURL = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}{r}.png?access_token={accessToken}'
+                .replace('{r}', (window.devicePixelRatio >= 2) ? '@2x' : '');
+
+            L.tileLayer(tileLayerURL, {
                 attribution: 'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
                 subdomains: 'abcd',
                 id: 'mapbox.streets-basic',
