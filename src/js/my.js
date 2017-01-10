@@ -373,13 +373,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Detect retina displays and append @2x modifier for larger tiles
-            var tileLayerURL = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}{r}.png?access_token={accessToken}'
+            var tileLayerURL = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}{r}?access_token={accessToken}'
                 .replace('{r}', (window.devicePixelRatio > 1) ? '@2x' : '');
 
             L.tileLayer(tileLayerURL, {
                 attribution: 'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
                 subdomains: 'abcd',
-                id: 'mapbox.streets-basic',
                 accessToken: 'pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw'
             }).addTo(map);
 
