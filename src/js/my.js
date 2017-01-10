@@ -39,21 +39,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Confirm that screen height == innerHeight to mark as translucent status bar.
         // Otherwise, there is a bar obstructing us (in-call, navigation in-use).
-        // Furthermore, detect and work around the iOS positioning bug (bottom 20px cut off while height == innerHeight).
+        // Furthermore, detect and work around the iOS positioning bug (bottom 20px cut off).
         // Call on page init then on resize events.
         var translucentStatusBarDetector = function () {
-            if (window.screen.height == window.innerHeight) {
-                if (screen.availHeight == window.innerHeight - 20) {
+            document.body.classList.remove('ios-translucent-statusbar');
+            document.body.classList.remove('ios-webview-bug');
+
+            if (screen.height == window.innerHeight || screen.width == window.innerHeight) {
+                if (screen.availHeight == screen.height - 20) {
+                    // These are our ideal parameters. Portrait enforcement is done via CSS media query.
                     document.body.classList.add('ios-translucent-statusbar');
-                    document.body.classList.remove('ios-webview-bug');
-                }
-                else {
-                    document.body.classList.remove('ios-translucent-statusbar');
+                } else {
+                    // This condition triggers when opening the app with a 40px header present.
                     document.body.classList.add('ios-webview-bug');
                 }
-            }
-            else {
-                document.body.classList.remove('ios-translucent-statusbar');
+            } else if (screen.availHeight == window.innerHeight) {
+                // This condition triggers when re-toggling a 40px header after opening the app with a 40px header present.
+                document.body.classList.add('ios-webview-bug');
             }
         };
         translucentStatusBarDetector();

@@ -76,6 +76,7 @@
             -ms-user-select: text;
             user-select: text;
         }
+
         @media all and (orientation: portrait) {
             .ios-standalone.ios-translucent-statusbar ons-toolbar {
                 padding-top: 20px;
@@ -85,10 +86,9 @@
             .ios-standalone.ios-translucent-statusbar .navigation-bar + .page__background + .page__content {
                 top: 64px;
             }
-
-            .ios-standalone.ios-webview-bug .navigation-bar + .page__background + .page__content {
-                bottom: 20px;
-            }
+        }
+        .ios-standalone.ios-webview-bug .navigation-bar + .page__background + .page__content {
+            bottom: 20px;
         }
     </style>
 </head>
