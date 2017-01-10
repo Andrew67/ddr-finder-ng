@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Load settings regarding data source and API URL.
             var dataSource = settingsService.getValue('datasource');
-            var url = API_URL + '?version=31&sourceformat=object&locationformat=geojson&datasrc='
+            var url = API_URL + '?version=31&sourceformat=object&locationformat=geojson&canHandleLargeDataset&datasrc='
                         + encodeURIComponent(dataSource) + '&latlower=' + bounds.getSouth()
                         + '&lnglower=' + bounds.getWest() + '&latupper=' + bounds.getNorth()
                         + '&lngupper=' + bounds.getEast();
@@ -393,42 +393,45 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             map.addControl(loadingControl);
 
-            var geoJson = L.geoJson(null, {
-                onEachFeature: function (feature, layer) {
-                    var popupContainer = document.createElement('div');
+            // This function is called for every arcade location loaded onto the map.
+            var onEachFeature = function (feature, layer) {
+                var popupContainer = document.createElement('div');
 
-                    var description = document.createElement('div');
-                    var descriptionHTML = '<p><b class="selectable">' + feature.properties.name + '</b><br>';
-                    if (feature.properties.city.length != 0) {
-                        descriptionHTML += feature.properties.city + '<br>';
-                    }
-                    descriptionHTML += '<i>GPS</i>: <span class="selectable">' + feature.geometry.coordinates[1].toFixed(6)
-                        + '°, ' + feature.geometry.coordinates[0].toFixed(6) + '°</span></p>';
-                    description.innerHTML = descriptionHTML;
-
-                    var moreInfo = document.createElement('ons-button');
-                    moreInfo.textContent = 'More Info';
-                    moreInfo.setAttribute('modifier', 'quiet');
-                    moreInfo.addEventListener('click', function () {
-                        trackGoal(5);
-                        openExternalLink(getInfoURL(feature.properties));
-                    });
-
-                    var navigate = document.createElement('ons-button');
-                    navigate.textContent = 'Navigate';
-                    navigate.addEventListener('click', function () {
-                        trackGoal(3);
-                        openExternalLink(getNavURL(feature.geometry.coordinates[1],
-                            feature.geometry.coordinates[0], feature.properties.name));
-                    });
-
-                    popupContainer.appendChild(description);
-                    popupContainer.appendChild(moreInfo);
-                    popupContainer.appendChild(navigate);
-
-                    layer.bindPopup(popupContainer);
+                var description = document.createElement('div');
+                var descriptionHTML = '<p><b class="selectable">' + feature.properties.name + '</b><br>';
+                if (feature.properties.city.length != 0) {
+                    descriptionHTML += feature.properties.city + '<br>';
                 }
-            }).addTo(map);
+                descriptionHTML += '<i>GPS</i>: <span class="selectable">' + feature.geometry.coordinates[1].toFixed(6)
+                    + '°, ' + feature.geometry.coordinates[0].toFixed(6) + '°</span></p>';
+                description.innerHTML = descriptionHTML;
+
+                var moreInfo = document.createElement('ons-button');
+                moreInfo.textContent = 'More Info';
+                moreInfo.setAttribute('modifier', 'quiet');
+                moreInfo.addEventListener('click', function () {
+                    trackGoal(5);
+                    openExternalLink(getInfoURL(feature.properties));
+                });
+
+                var navigate = document.createElement('ons-button');
+                navigate.textContent = 'Navigate';
+                navigate.addEventListener('click', function () {
+                    trackGoal(3);
+                    openExternalLink(getNavURL(feature.geometry.coordinates[1],
+                        feature.geometry.coordinates[0], feature.properties.name));
+                });
+
+                popupContainer.appendChild(description);
+                popupContainer.appendChild(moreInfo);
+                popupContainer.appendChild(navigate);
+
+                layer.bindPopup(popupContainer);
+            };
+
+            // Initialize the marker cluster.
+            var markers = L.markerClusterGroup();
+            map.addLayer(markers);
 
             // Set attribution link targets to new window
             var attributionLinks = document.querySelectorAll('.leaflet-control-attribution a');
@@ -463,7 +466,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             return false;
                         });
 
-                        geoJson.addData(locations);
+                        // Create a new GeoJSON layer that parses the new locations, then add them to the marker cluster.
+                        L.geoJson(locations, {
+                            onEachFeature: onEachFeature
+                        }).addTo(markers);
                     }, function (error) {
                         commonCleanup();
 
