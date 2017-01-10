@@ -278,6 +278,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     return 'waze://?ll=' + latitude + ',' + longitude + '&navigate=yes';
                 case 'sygic':
                     return 'com.sygic.aura://coordinate|' + longitude + '|' + latitude + '|drive';
+                case 'mapsme':
+                    return 'mapswithme://map?v=1.1&ll=' + latitude + ',' + longitude + '&n=' + encodeURIComponent(label);
                 case 'apple':
                 default:
                     return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + latitude + ',' + longitude;
