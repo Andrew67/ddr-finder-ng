@@ -417,6 +417,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Clears and sets errors when necessary as well.
             var loadedLocationIds = []; // Stores loaded location ids, to prevent loading duplicate markers on the map.
             var dataLoadHandler = function (event, forceLoad) {
+                errorMsg.clearAll();
+
                 if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
                     map.fireEvent('dataloading', event);
                     reloadButton.style.display = 'none';
@@ -424,7 +426,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     var commonCleanup = function() {
                         map.fireEvent('dataload', event);
                         reloadButton.style.display = '';
-                        errorMsg.clearAll();
                     };
 
                     apiService.getLocations(map.getBounds(), function (locations) {
