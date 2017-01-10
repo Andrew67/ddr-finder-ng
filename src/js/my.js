@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Detect retina displays and append @2x modifier for larger tiles
             var tileLayerURL = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}{r}.png?access_token={accessToken}'
-                .replace('{r}', (window.devicePixelRatio >= 2) ? '@2x' : '');
+                .replace('{r}', (window.devicePixelRatio > 1) ? '@2x' : '');
 
             L.tileLayer(tileLayerURL, {
                 attribution: 'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
