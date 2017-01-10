@@ -460,6 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             map.on('dragend', dataLoadHandler);
             map.on('zoomend', dataLoadHandler);
+            map.on('locationfound', dataLoadHandler);
 
             // Load on mapview init.
             apiService.clear();
@@ -480,6 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             map.on('dragend', lastViewPreserver);
             map.on('zoomend', lastViewPreserver);
+            map.on('locationfound', lastViewPreserver);
         };
 
         return module;
