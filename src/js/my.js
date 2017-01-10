@@ -36,6 +36,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // If iOS and standalone, add a class to allow for translucent status bar padding, among other things.
     if (ons.platform.isIOS() && navigator.standalone) {
         document.body.classList.add('ios-standalone');
+
+        // Confirm that screen height == innerHeight to mark as translucent status bar.
+        // Otherwise, there is a bar obstructing us (in-call, navigation in-use).
+        // Furthermore, detect and work around the iOS positioning bug (bottom 20px cut off while height == innerHeight).
+        // Call on page init then on resize events.
+        var translucentStatusBarDetector = function () {
+            if (window.screen.height == window.innerHeight) {
+                if (screen.availHeight == window.innerHeight - 20) {
+                    document.body.classList.add('ios-translucent-statusbar');
+                    document.body.classList.remove('ios-webview-bug');
+                }
+                else {
+                    document.body.classList.remove('ios-translucent-statusbar');
+                    document.body.classList.add('ios-webview-bug');
+                }
+            }
+            else {
+                document.body.classList.remove('ios-translucent-statusbar');
+            }
+        };
+        translucentStatusBarDetector();
+        window.addEventListener('resize', translucentStatusBarDetector);
     }
 
     // End page load functions.
