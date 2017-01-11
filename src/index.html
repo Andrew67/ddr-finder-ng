@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="css/onsen-custom-theme.css">
     <script src="lib/onsen/js/onsenui.js"></script>
     <!-- Leaflet -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.js"></script>
     <!-- leaflet.locatecontrol -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.52.0/L.Control.Locate.min.css">
     <script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.52.0/L.Control.Locate.min.js"></script>
@@ -34,6 +34,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.0/dist/MarkerCluster.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.0/dist/MarkerCluster.Default.css">
     <script src="https://unpkg.com/leaflet.markercluster@1.0.0/dist/leaflet.markercluster.js"></script>
+    <!-- Leaflet.EasyButton -->
+    <link rel="stylesheet" href="lib/leaflet-easybutton/easy-button.css">
+    <script src="lib/leaflet-easybutton/easy-button.js"></script>
     <!-- add-to-homescreen -->
     <link rel="stylesheet" href="lib/ath/addtohomescreen.css">
     <script src="lib/ath/addtohomescreen.js"></script>
@@ -77,17 +80,34 @@
             user-select: text;
         }
 
+        /* Translucent statusbar overlay for iOS standalone */
+        #ios-standalone-bar {
+            display: none;
+        }
         @media all and (orientation: portrait) {
-            .ios-standalone.ios-translucent-statusbar ons-toolbar {
+            .ios-translucent-statusbar #ios-standalone-bar {
+                display: block;
+                position: absolute;
+                height: 20px;
+                width: 100vw;
+                background-color: rgba(0,0,0,0.50);
+                z-index: 1000;
+            }
+
+            .ios-translucent-statusbar ons-toolbar {
                 padding-top: 20px;
                 height: 64px;
             }
 
-            .ios-standalone.ios-translucent-statusbar .navigation-bar + .page__background + .page__content {
+            .ios-translucent-statusbar .navigation-bar + .page__background + .page__content {
                 top: 64px;
             }
+
+            .ios-translucent-statusbar .leaflet-top {
+                top: 20px;
+            }
         }
-        .ios-standalone.ios-webview-bug .navigation-bar + .page__background + .page__content {
+        .ios-webview-bug .page__background + .page__content {
             bottom: 20px;
         }
     </style>
@@ -96,17 +116,9 @@
     <ons-navigator id="myNavigator" page="mapview.html"></ons-navigator>
     <ons-template id="mapview.html">
         <ons-page id="mapview">
-            <ons-toolbar>
-                <div class="center">DDR Finder</div>
-                <div class="right">
-                    <ons-toolbar-button id="reload-button">
-                        <ons-icon icon="ion-refresh, material:md-refresh"></ons-icon>
-                    </ons-toolbar-button>
-                    <ons-toolbar-button id="settings-button">
-                        <ons-icon icon="ion-settings, material:md-settings"></ons-icon>
-                    </ons-toolbar-button>
-                </div>
-            </ons-toolbar>
+            <ons-if platform="ios">
+                <div id="ios-standalone-bar"></div>
+            </ons-if>
 
             <div id="map"></div>
             <div id="error-box">
@@ -121,23 +133,13 @@
         <ons-page id="settings">
             <ons-toolbar>
                 <div class="left">
-                    <ons-back-button>Back</ons-back-button>
+                    <ons-back-button></ons-back-button>
                 </div>
                 <div class="center">Settings</div>
-                <div class="right">
-                    <ons-toolbar-button id="about-button">
-                        <ons-icon icon="ion-information, material:md-info"></ons-icon>
-                    </ons-toolbar-button>
-                </div>
             </ons-toolbar>
 
             <ons-list>
                 <ons-list-header>Basic</ons-list-header>
-                <ons-if platform="android">
-                    <ons-list-item tappable data-href="intent://com.andrew67.ddrfinder/view#Intent;package=com.andrew67.ddrfinder;scheme=content;end">
-                        <span class="list__item__title">Open Android App&nbsp;<ons-icon icon="md-star" style="color: orange"></ons-icon></span>
-                    </ons-list-item>
-                </ons-if>
                 <ons-list-item tappable id="settings-datasource">
                     <span class="list__item__title">Data Source</span>
                     <span class="list__item__subtitle">---</span>
@@ -148,13 +150,18 @@
                         <span class="list__item__subtitle">---</span>
                     </ons-list-item>
                 </ons-if>
-                <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/">
-                    <span class="list__item__title">Open DDR Finder Home Page</span>
-                </ons-list-item>
 
                 <ons-list-header>Advanced</ons-list-header>
                 <ons-list-item tappable id="settings-factory">
-                    <span class="list__item__title">Reset to Defaults</span>
+                    <span class="list__item__title" style="color: red">Reset</span>
+                </ons-list-item>
+
+                <ons-list-header>Information</ons-list-header>
+                <ons-list-item tappable id="about-button">
+                    <span class="list__item__title">About</span>
+                </ons-list-item>
+                <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/">
+                    <span class="list__item__title">DDR Finder Home Page</span>
                 </ons-list-item>
             </ons-list>
             <ons-alert-dialog id="settings-datasource-dialog" cancelable>
@@ -240,7 +247,7 @@
         <ons-page id="about">
             <ons-toolbar>
                 <div class="left">
-                    <ons-back-button>Back</ons-back-button>
+                    <ons-back-button>Settings</ons-back-button>
                 </div>
                 <div class="center">About</div>
             </ons-toolbar>

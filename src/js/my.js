@@ -1,6 +1,6 @@
 /*! ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng */
 /*
- Copyright (c) 2016 Andrés Cordero
+ Copyright (c) 2016-2017 Andrés Cordero
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -334,12 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var mapview = (function () {
         var module = {};
         module.init = function () {
-            document.getElementById('settings-button').addEventListener('click', function () {
-                myNavigator.pushPage('settings.html');
-            });
-
-            var reloadButton = document.getElementById('reload-button');
-
             // errorMsg can clear all errors or show a specific one, from the error-box div.
             var errorMsg = (function () {
                 var module = {};
@@ -384,16 +378,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 accessToken: 'pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw'
             }).addTo(map);
 
+            // Add controls to map.
+
+            // My Location control button
             L.control.locate({
                 locateOptions: {
                     maxZoom: 12
             }}).addTo(map);
 
+            // Loading indicator
             var loadingControl = L.Control.loading({
                 separate: true,
                 position: 'topright'
             });
             map.addControl(loadingControl);
+
+            // Settings, refresh, etc.
+            L.easyButton('fa-sliders fa-lg', function () {
+                myNavigator.pushPage('settings.html');
+            }).addTo(map);
+
+            var reloadButton = L.easyButton('fa-refresh fa-lg', function () {
+                dataLoadHandler(null, true);
+            });
+            reloadButton.addTo(map);
+
+            if (ons.platform.isAndroid()) {
+                L.easyButton('fa-android fa-lg', function () {
+                    openExternalLink('intent://com.andrew67.ddrfinder/view#Intent;package=com.andrew67.ddrfinder;scheme=content;end');
+                }).addTo(map);
+            }
 
             // This function is called for every arcade location loaded onto the map.
             var onEachFeature = function (feature, layer) {
@@ -449,11 +463,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
                     map.fireEvent('dataloading', event);
-                    reloadButton.style.display = 'none';
+                    reloadButton.disable();
 
                     var commonCleanup = function() {
                         map.fireEvent('dataload', event);
-                        reloadButton.style.display = '';
+                        reloadButton.enable();
                     };
 
                     apiService.getLocations(map.getBounds(), function (locations) {
@@ -497,11 +511,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Load on mapview init.
             apiService.clear();
             dataLoadHandler(null);
-
-            // Reload button forces data load
-            reloadButton.addEventListener('click', function(e) {
-                dataLoadHandler(e, true);
-            });
 
             // Store current map view (center/zoom) after user action in order to return to it on re-init.
             var lastViewPreserver = function () {
