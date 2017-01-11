@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
         navigator.standalone = (window.location.search.indexOf('mode=standalone') >= 0);
     }
 
+    // Contains app navigator stack.
+    var myNavigator = document.getElementById('myNavigator');
+
     // If iOS and standalone, add a class to allow for translucent status bar padding, among other things.
     if (ons.platform.isIOS() && navigator.standalone) {
         document.body.classList.add('ios-standalone');
@@ -62,10 +65,31 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('resize', translucentStatusBarDetector);
     }
 
-    // End page load functions.
+    // If Android, use navigator push and window pop to avoid back button exiting out of the app.
+    // To avoid double-pop/push surrounding ons-back-button, provide a function that rewires them to use history.back().
+    var enableAndroidBackButton = function () { };
+    if (ons.platform.isAndroid()) {
+        myNavigator.addEventListener('postpush', function (e) {
+            // Prevent pushing on initial page load.
+            if (e.navigator.pages.length > 1) {
+                history.pushState({page: e.enterPage.id}, '');
+            }
+        });
 
-    // Useful shorthand variables
-    var myNavigator = document.getElementById('myNavigator');
+        window.addEventListener('popstate', function () {
+            myNavigator.popPage();
+        });
+        enableAndroidBackButton = function(pageid) {
+            var backButton = document.querySelector('#' + pageid + ' ons-back-button');
+            if (backButton != null) {
+                backButton.onClick = function () {
+                    history.back();
+                };
+            }
+        };
+    }
+
+    // End page load functions.
 
     // Track a goal with Piwik analytics, if available
     var trackGoal = function (goalId) {
@@ -613,6 +637,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var page = e.target;
 
         enableExternalLinks(page.id);
+        enableAndroidBackButton(page.id);
 
         if (page.id === 'mapview') mapview.init(page);
         else if (page.id === 'settings') settings.init(page);
