@@ -38,6 +38,9 @@ body {
 #error-box p {
     margin: 5px;
 }
+#app-logo {
+    text-align: center;
+}
 .selectable {
     -webkit-user-select: text;
     -moz-user-select: text;
@@ -77,7 +80,7 @@ body {
 }
 
 /* Enlarge leaflet button and icon size and switch colors to transparent/white. */
-#ddrfinder .leaflet-touch .leaflet-bar a {
+#ddrfinder .leaflet-bar a {
     width: 40px;
     height: 40px;
     line-height: 40px;
@@ -86,31 +89,32 @@ body {
     border-bottom: 0;
     font-size: 1.4em;
 }
-#ddrfinder .leaflet-touch a.leaflet-control-zoom-out {
+#ddrfinder a.leaflet-control-zoom-out {
     font-size: 30px;
 }
-#ddrfinder .leaflet-touch a.leaflet-control-zoom-in {
+#ddrfinder a.leaflet-control-zoom-in {
     font-size: 25px;
 }
 #ddrfinder .leaflet-bar {
     border: none;
+    box-shadow: none;
 }
 
 /* Attach to sides of screen. */
-#ddrfinder .leaflet-touch .leaflet-left .leaflet-bar a:first-child {
+#ddrfinder .leaflet-left .leaflet-bar a:first-child {
     border-top-left-radius: 0;
 }
-#ddrfinder .leaflet-touch .leaflet-left .leaflet-bar a:last-child {
+#ddrfinder .leaflet-left .leaflet-bar a:last-child {
     border-bottom-left-radius: 0;
 }
 #ddrfinder .leaflet-left .leaflet-control {
     margin-left: 0;
 }
 
-#ddrfinder .leaflet-touch .leaflet-right .leaflet-bar a:first-child {
+#ddrfinder .leaflet-right .leaflet-bar a:first-child {
     border-top-right-radius: 0;
 }
-#ddrfinder .leaflet-touch .leaflet-right .leaflet-bar a:last-child {
+#ddrfinder .leaflet-right .leaflet-bar a:last-child {
     border-bottom-right-radius: 0;
 }
 #ddrfinder .leaflet-right .leaflet-control {
@@ -126,12 +130,12 @@ body {
 }
 
 /* Fuse location button into same control bar as zoom buttons. */
-#ddrfinder .leaflet-touch .leaflet-control-zoom a:last-child {
+#ddrfinder .leaflet-control-zoom a:last-child {
     border-bottom-right-radius: 0;
 }
-#ddrfinder .leaflet-touch .leaflet-control-locate a:first-child {
+#ddrfinder .leaflet-control-locate a:first-child {
     border-top-right-radius: 0;
 }
-#ddrfinder .leaflet-touch .leaflet-control-locate {
+#ddrfinder .leaflet-control-locate {
     margin-top: 0;
 }
