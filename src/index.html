@@ -25,11 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.js"></script>
     <!-- leaflet.locatecontrol -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.52.0/L.Control.Locate.min.css">
     <script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.52.0/L.Control.Locate.min.js"></script>
-    <!-- Leaflet.loading -->
-    <link rel="stylesheet" href="lib/leaflet-loading/Control.Loading.css">
-    <script src="lib/leaflet-loading/Control.Loading.js"></script>
     <!-- Leaflet.markercluster -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.0/dist/MarkerCluster.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.0/dist/MarkerCluster.Default.css">
@@ -47,6 +43,7 @@
         });
     </script>
     <!-- mine -->
+    <link rel="stylesheet" href="css/my.css">
     <script src="js/my.js"></script>
     <script>
         var _paq = _paq || [];
@@ -55,64 +52,8 @@
         _paq.push(['setDocumentTitle', pk_title]);
     </script>
     <script src="js/piwik.js"></script>
-    <style>
-        body {
-            background-color: #33b5e5; /* colors Safari UI similar to theme-color on Chrome */
-        }
-        #map {
-            height: 100%
-        }
-        #error-box {
-            position: absolute;
-            z-index: 1000;
-            bottom: 20px;
-            width: 100%;
-            background-color: rgba(0,0,0,0.75);
-            color: orange;
-        }
-        #error-box p {
-            margin: 5px;
-        }
-        .selectable {
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
-        }
-
-        /* Translucent statusbar overlay for iOS standalone */
-        #ios-standalone-bar {
-            display: none;
-        }
-        @media all and (orientation: portrait) {
-            .ios-translucent-statusbar #ios-standalone-bar {
-                display: block;
-                position: absolute;
-                height: 20px;
-                width: 100vw;
-                background-color: rgba(0,0,0,0.20);
-                z-index: 1000;
-            }
-
-            .ios-translucent-statusbar ons-toolbar {
-                padding-top: 20px;
-                height: 64px;
-            }
-
-            .ios-translucent-statusbar .navigation-bar + .page__background + .page__content {
-                top: 64px;
-            }
-
-            .ios-translucent-statusbar .leaflet-top {
-                top: 20px;
-            }
-        }
-        .ios-webview-bug .page__background + .page__content {
-            bottom: 20px;
-        }
-    </style>
 </head>
-<body>
+<body id="ddrfinder">
     <ons-navigator id="myNavigator" page="mapview.html"></ons-navigator>
     <ons-template id="mapview.html">
         <ons-page id="mapview">

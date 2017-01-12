@@ -1,0 +1,137 @@
+/*! ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng */
+/*
+ Copyright (c) 2017 Andrés Cordero
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+*/
+
+body {
+    background-color: #33b5e5; /* colors Safari UI similar to theme-color on Chrome */
+}
+#map {
+    height: 100%
+}
+#error-box {
+    position: absolute;
+    z-index: 1000;
+    bottom: 20px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.75);
+    color: orange;
+}
+#error-box p {
+    margin: 5px;
+}
+.selectable {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Translucent statusbar overlay for iOS standalone */
+#ios-standalone-bar {
+    display: none;
+}
+@media all and (orientation: portrait) {
+    .ios-translucent-statusbar #ios-standalone-bar {
+        display: block;
+        position: absolute;
+        height: 20px;
+        width: 100vw;
+        background-color: rgba(0,0,0,0.7);
+        z-index: 1000;
+    }
+
+    .ios-translucent-statusbar ons-toolbar {
+        padding-top: 20px;
+        height: 64px;
+    }
+
+    .ios-translucent-statusbar .navigation-bar + .page__background + .page__content {
+        top: 64px;
+    }
+
+    .ios-translucent-statusbar .leaflet-top {
+        top: 20px;
+    }
+}
+.ios-webview-bug .page__background + .page__content {
+    bottom: 20px;
+}
+
+/* Enlarge leaflet button and icon size and switch colors to transparent/white. */
+#ddrfinder .leaflet-touch .leaflet-bar a {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    border-bottom: 0;
+    font-size: 1.4em;
+}
+#ddrfinder .leaflet-touch a.leaflet-control-zoom-out {
+    font-size: 30px;
+}
+#ddrfinder .leaflet-touch a.leaflet-control-zoom-in {
+    font-size: 25px;
+}
+#ddrfinder .leaflet-bar {
+    border: none;
+}
+
+/* Attach to sides of screen. */
+#ddrfinder .leaflet-touch .leaflet-left .leaflet-bar a:first-child {
+    border-top-left-radius: 0;
+}
+#ddrfinder .leaflet-touch .leaflet-left .leaflet-bar a:last-child {
+    border-bottom-left-radius: 0;
+}
+#ddrfinder .leaflet-left .leaflet-control {
+    margin-left: 0;
+}
+
+#ddrfinder .leaflet-touch .leaflet-right .leaflet-bar a:first-child {
+    border-top-right-radius: 0;
+}
+#ddrfinder .leaflet-touch .leaflet-right .leaflet-bar a:last-child {
+    border-bottom-right-radius: 0;
+}
+#ddrfinder .leaflet-right .leaflet-control {
+    margin-right: 0;
+}
+
+/* Theme the location icon with DDR Finder color scheme. */
+#ddrfinder .leaflet-control-locate.active a {
+    color: #33b5e5;
+}
+#ddrfinder .leaflet-control-locate.active.following a {
+    color: #a6c;
+}
+
+/* Fuse location button into same control bar as zoom buttons. */
+#ddrfinder .leaflet-touch .leaflet-control-zoom a:last-child {
+    border-bottom-right-radius: 0;
+}
+#ddrfinder .leaflet-touch .leaflet-control-locate a:first-child {
+    border-top-right-radius: 0;
+}
+#ddrfinder .leaflet-touch .leaflet-control-locate {
+    margin-top: 0;
+}

@@ -402,36 +402,65 @@ document.addEventListener('DOMContentLoaded', function() {
                 accessToken: 'pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw'
             }).addTo(map);
 
-            // Add controls to map.
-
-            // My Location control button
+            // My Location control button (attached to Zoom controls via CSS)
             L.control.locate({
                 locateOptions: {
                     maxZoom: 12
             }}).addTo(map);
 
-            // Loading indicator
-            var loadingControl = L.Control.loading({
-                separate: true,
-                position: 'topright'
-            });
-            map.addControl(loadingControl);
+            // Add controls to map.
 
-            // Settings, refresh, etc.
-            L.easyButton('fa-sliders fa-lg', function () {
+            // Action bar contains actions like refresh.
+            // Activity bar contains buttons that open other activities (settings, Android app, etc).
+            var actionBar = [], activityBar = [];
+
+            // L.easyButton wrapper that sets tagName to a to match leaflet buttons, and exposes title attribute.
+            var myEasyButton = function (icon, title, onClick) {
+                return L.easyButton({
+                    states:[{
+                        onClick: onClick,
+                        icon: icon,
+                        title: title
+                    }],
+                    tagName: 'a'
+                });
+            };
+
+            // Reload
+            var reloadButton = L.easyButton({
+                states:[
+                    {
+                        stateName: 'ready',
+                        onClick: function () {
+                            dataLoadHandler(null, true);
+                        },
+                        icon: 'fa-refresh',
+                        title: 'Reload'
+                    },
+                    {
+                        stateName: 'loading',
+                        icon: 'fa-spinner fa-spin',
+                        title: 'Loading...'
+                    }
+                ],
+                tagName: 'a'
+            });
+            actionBar.push(reloadButton);
+
+            // Settings
+            activityBar.push(myEasyButton('fa-sliders', 'Settings', function () {
                 myNavigator.pushPage('settings.html');
-            }).addTo(map);
+            }));
 
-            var reloadButton = L.easyButton('fa-refresh fa-lg', function () {
-                dataLoadHandler(null, true);
-            });
-            reloadButton.addTo(map);
-
+            // Open Android App
             if (ons.platform.isAndroid()) {
-                L.easyButton('fa-android fa-lg', function () {
+                activityBar.push(myEasyButton('fa-android', 'Open Android App', function () {
                     openExternalLink('intent://com.andrew67.ddrfinder/view#Intent;package=com.andrew67.ddrfinder;scheme=content;end');
-                }).addTo(map);
+                }));
             }
+
+            L.easyBar(actionBar).addTo(map);
+            L.easyBar(activityBar).addTo(map);
 
             // This function is called for every arcade location loaded onto the map.
             var onEachFeature = function (feature, layer) {
@@ -486,12 +515,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 errorMsg.clearAll();
 
                 if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
-                    map.fireEvent('dataloading', event);
-                    reloadButton.disable();
+                    reloadButton.state('loading');
 
                     var commonCleanup = function() {
-                        map.fireEvent('dataload', event);
-                        reloadButton.enable();
+                        reloadButton.state('ready');
                     };
 
                     apiService.getLocations(map.getBounds(), function (locations) {

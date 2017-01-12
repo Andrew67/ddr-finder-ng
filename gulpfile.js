@@ -26,10 +26,6 @@ gulp.task('build', function() {
         .pipe(postcss([autoprefixer()]))
         .pipe(gulp.dest(PREFIX + '/css'));
 
-    // Leaflet.loading
-    gulp.src(['node_modules/leaflet-loading/src/Control.Loading.js', 'node_modules/leaflet-loading/src/Control.Loading.css'])
-        .pipe(gulp.dest(PREFIX + '/lib/leaflet-loading'));
-
     // Leaflet.EasyButton
     gulp.src(['node_modules/leaflet-easybutton/src/easy-button.js', 'node_modules/leaflet-easybutton/src/easy-button.css'])
         .pipe(gulp.dest(PREFIX + '/lib/leaflet-easybutton'));
@@ -69,14 +65,6 @@ gulp.task('build-release', function() {
         .pipe(postcss([autoprefixer()]))
         .pipe(cleanCSS())
         .pipe(gulp.dest(PREFIX + '/css'));
-
-    // Leaflet.loading
-    gulp.src('node_modules/leaflet-loading/src/Control.Loading.js')
-        .pipe(uglify())
-        .pipe(gulp.dest(PREFIX + '/lib/leaflet-loading'));
-    gulp.src('node_modules/leaflet-loading/src/Control.Loading.css')
-        .pipe(cleanCSS())
-        .pipe(gulp.dest(PREFIX + '/lib/leaflet-loading'));
 
     // Leaflet.EasyButton
     gulp.src('node_modules/leaflet-easybutton/src/easy-button.js')
