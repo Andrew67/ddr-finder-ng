@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // mapview
     var mapview = (function () {
         var module = {};
-        module.init = function () {
+        module.init = function (page) {
             // errorMsg can clear all errors or show a specific one, from the error-box div.
             var errorMsg = (function () {
                 var module = {};
@@ -383,6 +383,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 return module;
             })();
+
+            // Add "DDR Finder" branding header to Android in standalone mode (matches app since we don't get translucent status bar anyway).
+            if (ons.platform.isAndroid() && navigator.standalone) {
+                var toolbar = document.createElement('ons-toolbar');
+                var title = document.createElement('div');
+                title.classList.add('center');
+                title.textContent = 'DDR Finder';
+                toolbar.appendChild(title);
+                page.insertBefore(toolbar, page.firstChild);
+            }
 
             // Initialize map and set view to last view recorded.
             var lastView = settingsService.getValue('mapLastView');
