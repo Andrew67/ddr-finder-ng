@@ -486,6 +486,31 @@ document.addEventListener('DOMContentLoaded', function() {
             L.easyBar(actionBar).addTo(map);
             L.easyBar(activityBar).addTo(map);
 
+            // More Info / Navigate action handlers for locations.
+            var onMoreInfo = function (feature) {
+                trackGoal(5);
+                openExternalLink(getInfoURL(feature.properties));
+            };
+            var onNavigate = function (feature) {
+                trackGoal(3);
+
+                // If iOS standalone and non-default map application, detect missing app and offer to switch to Apple Maps and retry.
+                if (ons.platform.isIOS() && navigator.standalone && settingsService.getValue('ios-navigation') != 'apple') {
+                    setTimeout(function () {
+                        ons.notification.confirm('Unable to launch your selected navigation app. Switch to Apple Maps?')
+                            .then(function(answer) {
+                                if (answer === 1) {
+                                    settingsService.setValue('ios-navigation', 'apple');
+                                    onNavigate(feature);
+                                }
+                            });
+                    }, 1000);
+                }
+
+                openExternalLink(getNavURL(feature.geometry.coordinates[1],
+                    feature.geometry.coordinates[0], feature.properties.name));
+            };
+
             // This function is called for every arcade location loaded onto the map.
             var onEachFeature = function (feature, layer) {
                 var popupContainer = document.createElement('div');
@@ -503,16 +528,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 moreInfo.textContent = 'More Info';
                 moreInfo.setAttribute('modifier', 'quiet');
                 moreInfo.addEventListener('click', function () {
-                    trackGoal(5);
-                    openExternalLink(getInfoURL(feature.properties));
+                    onMoreInfo(feature);
                 });
 
                 var navigate = document.createElement('ons-button');
                 navigate.textContent = 'Navigate';
                 navigate.addEventListener('click', function () {
-                    trackGoal(3);
-                    openExternalLink(getNavURL(feature.geometry.coordinates[1],
-                        feature.geometry.coordinates[0], feature.properties.name));
+                    onNavigate(feature);
                 });
 
                 popupContainer.appendChild(description);
@@ -669,8 +691,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         settingsService.clearAll();
                         myNavigator.popPage();
                     }
-                })
-            })
+                });
+            });
         };
 
         return module;
