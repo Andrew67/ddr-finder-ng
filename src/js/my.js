@@ -295,6 +295,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Navigation URL generator functions and platform detection (originally from ddr-finder).
     var getNavURL = (function() {
+        var getGoogleMapsURL = function (lat, lng, label) {
+            return 'https://maps.google.com/?q=loc:' + lat + ',' + lng + '(' + encodeURIComponent(label) + ')';
+        };
+
         if (ons.platform.isIOS())
             return function(latitude, longitude, label) {
             switch (settingsService.getValue('ios-navigation')) {
@@ -312,12 +316,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             };
         else if (ons.platform.isAndroid())
-            return function(latitude, longitude, label) {
-                return 'geo:' + latitude + ',' + longitude + '?q=' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
+            return function(lat, lng, label) {
+                // intent URI allows us to combine the following two:
+                // geo URI that triggers app picker
+                //     geo:lat,lng?q=lat,lng(encoded label)
+                // Google Maps URI if no apps available to handle geo
+                //     https://maps.google.com/?q=loc:lat,lng(encoded label)
+                // See: https://developer.chrome.com/multidevice/android/intents
+                return 'intent:' + lat + ',' + lng + '?q=' + lat + ',' + lng + '(' + encodeURIComponent(label) + ')' +
+                        '#Intent;scheme=geo;' +
+                        'S.browser_fallback_url=' + encodeURIComponent(getGoogleMapsURL(lat, lng, label)) + ';' +
+                        'end;';
             };
-        return function(latitude, longitude, label) {
-            return 'https://maps.google.com/?q=loc:' + latitude + ',' + longitude + '(' + encodeURIComponent(label) + ')';
-        };
+        else return getGoogleMapsURL;
     })();
 
     // "More Info" URL function
@@ -334,8 +345,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Window open function for external links, which requires a workaround on iOS, as Safari requires <a href>.
     // From: http://stackoverflow.com/a/8833025
     // For non-http(s) links (app-trigger links), retains current context (avoids flash of a browser window before trigger).
+    // intent URIs with fallback will also fire a window.open, otherwise it opens within the same application frame.
+    // (unfortunately, this brings back the browser window flash for intent URIs, namely "Navigate" on Android)
     var openExternalLink = function(href) {
-        if (href.indexOf('http') === 0) {
+        if (href.indexOf('http') === 0 ||
+            (href.indexOf('intent') === 0 && href.indexOf('S.browser_fallback_url' > 0)) ) {
             if (ons.platform.isIOS()) {
                 var a = document.createElement('a');
                 a.setAttribute("href", href);
