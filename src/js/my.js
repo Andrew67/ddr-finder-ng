@@ -23,8 +23,8 @@
 
 'use strict';
 
-// Wait for DOM loaded
-document.addEventListener('DOMContentLoaded', function() {
+// Wait for ONS ready
+ons.ready(function() {
 
     // These functions run on page load ASAP.
 
@@ -428,6 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // My Location control button (attached to Zoom controls via CSS)
             L.control.locate({
+                flyTo: true,
                 locateOptions: {
                     maxZoom: 12
             }}).addTo(map);
