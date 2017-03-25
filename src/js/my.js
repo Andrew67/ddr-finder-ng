@@ -175,7 +175,7 @@ ons.ready(function() {
 
         // Clear old deprecated settings items from user's localStorage, to save space.
         ['ng-settings-datasource', 'ng-settings-custom-datasource', 'api-endpoint',
-            'ng-settings-autoload', 'org.cubiq.addtohome'].forEach(function (key) {
+            'ng-settings-autoload', 'org.cubiq.addtohome', 'com.andrew67.ddrfinder.ng'].forEach(function (key) {
             window.localStorage.removeItem(key);
         });
 
@@ -621,6 +621,15 @@ ons.ready(function() {
             map.on('dragend', lastViewPreserver);
             map.on('zoomend', lastViewPreserver);
             map.on('locationfound', lastViewPreserver);
+
+            // If iOS and not standalone, show an "Add to Home screen" prompt.
+            if (ons.platform.isIOS() && !navigator.standalone) {
+                var athBox = document.getElementById('ath-box');
+                athBox.style.display = '';
+                athBox.addEventListener('click', function () {
+                    athBox.style.display = 'none';
+                });
+            }
         };
 
         return module;

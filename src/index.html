@@ -25,26 +25,23 @@
     <link rel="stylesheet" href="css/onsen-custom-theme.css">
     <script src="lib/onsen/js/onsenui.js"></script>
     <!-- Leaflet -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css"
+          integrity="sha384-roIisdke7t73jKsr2CM69N0uJch+a+lQBCuw3Li2ZuLKaWn46fxTAp31h9VA4odd" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"
+            integrity="sha384-9fzrQY4JobN87hT5sQ0JnL9XZQ5q94Qj46ZFqpcBzz03D3UDKAkN/pKct1IVlP2Y" crossorigin="anonymous"></script>
     <!-- leaflet.locatecontrol -->
-    <script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"
+            integrity="sha384-YqrjvAZPaNMX5+Cs0o8Oq4jVog2uf6rUUZ/yNsZdRrJ7/Z/cm8tDKKpIe40J73D4" crossorigin="anonymous"></script>
     <!-- Leaflet.markercluster -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.0/dist/MarkerCluster.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.0/dist/MarkerCluster.Default.css">
-    <script src="https://unpkg.com/leaflet.markercluster@1.0.0/dist/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.0/dist/MarkerCluster.css"
+          integrity="sha384-lPzjPsFQL6te2x+VxmV6q1DpRxpRk0tmnl2cpwAO5y04ESyc752tnEWPKDfl1olr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.0/dist/MarkerCluster.Default.css"
+          integrity="sha384-5kMSQJ6S4Qj5i09mtMNrWpSi8iXw230pKU76xTmrpezGnNJQzj0NzXjQLLg+jE7k" crossorigin="anonymous">
+    <script src="https://unpkg.com/leaflet.markercluster@1.0.0/dist/leaflet.markercluster.js"
+            integrity="sha384-w4DK4u3gLO4QFiNVhDQ34HeAAHbSfXnvj3wzK6R/8V/ifuHONJyDSkqGbtqc+QB7" crossorigin="anonymous"></script>
     <!-- Leaflet.EasyButton -->
     <link rel="stylesheet" href="lib/leaflet-easybutton/easy-button.css">
     <script src="lib/leaflet-easybutton/easy-button.js"></script>
-    <!-- add-to-homescreen -->
-    <link rel="stylesheet" href="lib/ath/addtohomescreen.css">
-    <script src="lib/ath/addtohomescreen.js"></script>
-    <script>
-        if (ons.platform.isIOS()) addToHomescreen({
-            appID: 'com.andrew67.ddrfinder.ng',
-            skipFirstVisit: true
-        });
-    </script>
     <!-- mine -->
     <link rel="stylesheet" href="css/my.css">
     <script src="js/my.js"></script>
@@ -69,6 +66,11 @@
                 <p id="error-zoom" style="display: none">Zoom in to load more locations</p>
                 <p id="error-unexpected" style="display: none">Unexpected error while loading data</p>
                 <p id="error-datasrc" style="display: none">Server did not recognize the data source(s) requested</p>
+            </div>
+            <div id="ath-box" style="display: none">
+                <img src="img/touch-icon.png" width="72" height="72">
+                <p>To add this app to your homescreen, tap&nbsp;<ons-icon icon="ion-ios-upload-outline" size="32px"></ons-icon>, then <b>Add to Home Screen</b></p>
+                <ons-icon icon="ion-close" id="ath-close"></ons-icon>
             </div>
         </ons-page>
     </ons-template>

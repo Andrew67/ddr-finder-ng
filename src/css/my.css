@@ -27,6 +27,7 @@ body {
 #map {
     height: 100%
 }
+
 #error-box {
     position: absolute;
     z-index: 1000;
@@ -38,9 +39,43 @@ body {
 #error-box p {
     margin: 5px;
 }
+
 #app-logo {
     text-align: center;
 }
+
+#ath-box {
+    position: absolute;
+    z-index: 1500;
+    bottom: 20px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.85);
+    border-top: grey 1px solid;
+    border-bottom: grey 1px solid;
+}
+
+#ath-box img {
+    float: left;
+    padding: 5px;
+}
+
+#ath-box p {
+    font-size: 15px;
+    margin: 5px;
+    padding-right: 20px;
+}
+
+#ath-box p ons-icon {
+    color: #2665fc;
+}
+
+#ath-close {
+    position: absolute;
+    top: 30px;
+    color: grey;
+    right: 5px;
+}
+
 .selectable {
     -webkit-user-select: text;
     -moz-user-select: text;
