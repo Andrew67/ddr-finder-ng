@@ -48,15 +48,15 @@ ons.ready(function() {
             document.body.classList.remove('ios-translucent-statusbar');
             document.body.classList.remove('ios-webview-bug');
 
-            if (screen.height == window.innerHeight || screen.width == window.innerHeight) {
-                if (screen.availHeight == screen.height - 20) {
+            if (screen.height === window.innerHeight || screen.width === window.innerHeight) {
+                if (screen.availHeight === screen.height - 20) {
                     // These are our ideal parameters. Portrait enforcement is done via CSS media query.
                     document.body.classList.add('ios-translucent-statusbar');
                 } else {
                     // This condition triggers when opening the app with a 40px header present.
                     document.body.classList.add('ios-webview-bug');
                 }
-            } else if (screen.availHeight == window.innerHeight) {
+            } else if (screen.availHeight === window.innerHeight) {
                 // This condition triggers when re-toggling a 40px header after opening the app with a 40px header present.
                 document.body.classList.add('ios-webview-bug');
             }
@@ -81,7 +81,7 @@ ons.ready(function() {
         });
         enableAndroidBackButton = function(pageid) {
             var backButton = document.querySelector('#' + pageid + ' ons-back-button');
-            if (backButton != null) {
+            if (backButton !== null) {
                 backButton.onClick = function () {
                     history.back();
                 };
@@ -108,9 +108,9 @@ ons.ready(function() {
             'mapLastView': {
                 'key': 'ng-map-last-view',
                 'type': 'object',
-                'defaultValue': {
-                    center: {lat: 36.2068047, lng: -100.7467658},
-                    zoom: 4
+                'defaultValue': { // Dallas, TX, US; zoomed-out default causes too much CPU stress on slower devices
+                    center: {lat: 32.7157, lng: -96.8088},
+                    zoom: 9
                 }
             },
             'ios-navigation': {
@@ -388,7 +388,7 @@ ons.ready(function() {
 
                 module.show = function (msg) {
                     for (var i = 0; i < errorMessages.length; ++i) {
-                        if (errorMessages.item(i).id == 'error-' + msg) {
+                        if (errorMessages.item(i).id === 'error-' + msg) {
                             errorMessages.item(i).style.display = '';
                             return;
                         }
@@ -496,7 +496,7 @@ ons.ready(function() {
                 trackGoal(3);
 
                 // If iOS standalone and non-default map application, detect missing app and offer to switch to Apple Maps and retry.
-                if (ons.platform.isIOS() && navigator.standalone && settingsService.getValue('ios-navigation') != 'apple') {
+                if (ons.platform.isIOS() && navigator.standalone && settingsService.getValue('ios-navigation') !== 'apple') {
                     setTimeout(function () {
                         ons.notification.confirm('Unable to launch your selected navigation app. Switch to Apple Maps?')
                             .then(function(answer) {
@@ -518,7 +518,7 @@ ons.ready(function() {
 
                 var description = document.createElement('div');
                 var descriptionHTML = '<p><b class="selectable">' + feature.properties.name + '</b><br>';
-                if (feature.properties.city.length != 0) {
+                if (feature.properties.city.length !== 0) {
                     descriptionHTML += feature.properties.city + '<br>';
                 }
                 descriptionHTML += '<i>GPS</i>: <span class="selectable">' + feature.geometry.coordinates[1].toFixed(6)
@@ -726,4 +726,7 @@ ons.ready(function() {
         else if (page.id === 'settings') settings.init(page);
         else if (page.id === 'about') about.init(page);
     });
+
+    // Remove loading overlay on setup complete.
+    document.getElementById('loading-overlay').remove();
 });

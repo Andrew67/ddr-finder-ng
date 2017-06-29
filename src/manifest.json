@@ -9,6 +9,7 @@
   "start_url": "index.html?mode=standalone",
   "display": "standalone",
   "theme_color": "#33b5e5",
+  "background_color": "#33b5e5",
   "prefer_related_applications": true,
   "related_applications": [
     {
