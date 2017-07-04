@@ -102,7 +102,7 @@ body {
         height: 64px;
     }
 
-    .ios-translucent-statusbar .navigation-bar + .page__background + .page__content {
+    .ios-translucent-statusbar ons-toolbar + .page__background + .page__content {
         top: 64px;
     }
 
