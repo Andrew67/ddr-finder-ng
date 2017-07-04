@@ -26,6 +26,10 @@ gulp.task('build', function() {
     gulp.src(['node_modules/leaflet-easybutton/src/easy-button.js', 'node_modules/leaflet-easybutton/src/easy-button.css'])
         .pipe(gulp.dest(PREFIX + '/lib/leaflet-easybutton'));
 
+    // Leaflet.LocateControl
+    gulp.src('node_modules/leaflet.locatecontrol/src/L.Control.Locate.js')
+        .pipe(gulp.dest(PREFIX + '/lib/leaflet-locatecontrol'));
+
     // Images
     gulp.src('src/img/**')
         .pipe(gulp.dest(PREFIX + '/img'));
@@ -64,6 +68,11 @@ gulp.task('build-release', function() {
     gulp.src('node_modules/leaflet-easybutton/src/easy-button.css')
         .pipe(cleanCSS())
         .pipe(gulp.dest(PREFIX + '/lib/leaflet-easybutton'));
+
+    // Leaflet.LocateControl
+    gulp.src('node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.js')
+        .pipe(rename('L.Control.Locate.js'))
+        .pipe(gulp.dest(PREFIX + '/lib/leaflet-locatecontrol'));
 
     // Images
     gulp.src('src/img/**')
