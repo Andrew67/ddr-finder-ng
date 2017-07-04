@@ -44,20 +44,8 @@
     <script src="lib/leaflet-easybutton/easy-button.js" defer></script>
     <!-- mine -->
     <style>
-        #loading-overlay {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 99999;
-            text-align: center;
-            background-color: #33b5e5;
-            font-family: sans-serif;
-            font-size: 16pt;
-        }
-        #loading-overlay > img {
-            padding-top: 35vh;
+        ons-template {
+            display: none;
         }
     </style>
     <link rel="stylesheet" href="css/my.css">
@@ -71,12 +59,9 @@
     <script src="js/piwik.js" defer></script>
 </head>
 <body id="ddrfinder">
-    <div id="loading-overlay">
-        <img src="img/touch-icon.png" width="72" height="72">
-        <p>DDR Finder</p>
-    </div>
-
-    <ons-navigator id="myNavigator" page="mapview.html"></ons-navigator>
+    <ons-navigator id="myNavigator" page="mapview.html">
+        <noscript><p>Please enable JavaScript in order to use this site.</p></noscript>
+    </ons-navigator>
     <ons-template id="mapview.html">
         <ons-page id="mapview">
             <ons-if platform="ios">

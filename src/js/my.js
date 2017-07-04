@@ -726,7 +726,4 @@ ons.ready(function() {
         else if (page.id === 'settings') settings.init(page);
         else if (page.id === 'about') about.init(page);
     });
-
-    // Remove loading overlay on setup complete.
-    document.getElementById('loading-overlay').remove();
 });
