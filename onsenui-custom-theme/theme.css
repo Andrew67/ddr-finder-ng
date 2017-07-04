@@ -13,6 +13,8 @@
   --toolbar-border-color: #1A9CCC;
   --button-bar-color: rgba(18, 114, 224, 0.77);
   --button-bar-active-text-color: #fff;
+  --segment-color: rgba(18, 114, 224, 0.77);
+  --segment-active-text-color: #fff;
   --list-background-color: #fff;
   --list-header-background-color: #eee;
   --list-tap-active-background-color: #d9d9d9;
@@ -31,6 +33,7 @@
   --popover-background-color: white;
   --popover-text-color: #1f1f21;
   --notification-background-color: #aa66cc;
+  --material-notification-background-color: #aa66cc;
   --material-switch-active-thumb-color: #aa66cc;
   --material-switch-inactive-thumb-color: #f1f1f1;
   --material-switch-active-background-color: #aa66cc66;
