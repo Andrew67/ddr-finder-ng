@@ -3,9 +3,6 @@ var rename = require('gulp-rename');
 var cleanCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
-var stylus = require('gulp-stylus');
-var postcss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer');
 
 gulp.task('default', function() {
     // place code for your default task here
@@ -21,10 +18,9 @@ gulp.task('build', function() {
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // Onsen UI Custom Theme
-    gulp.src('stylus/onsen-custom-theme.styl')
-        .pipe(stylus())
-        .pipe(postcss([autoprefixer()]))
-        .pipe(gulp.dest(PREFIX + '/css'));
+    gulp.src('onsenui-custom-theme/onsen-css-components.css')
+        .pipe(rename('onsen-css-components-custom.css'))
+        .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // Leaflet.EasyButton
     gulp.src(['node_modules/leaflet-easybutton/src/easy-button.js', 'node_modules/leaflet-easybutton/src/easy-button.css'])
@@ -56,11 +52,10 @@ gulp.task('build-release', function() {
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // Onsen UI Custom Theme
-    gulp.src('stylus/onsen-custom-theme.styl')
-        .pipe(stylus())
-        .pipe(postcss([autoprefixer()]))
+    gulp.src('onsenui-custom-theme/onsen-css-components.css')
         .pipe(cleanCSS())
-        .pipe(gulp.dest(PREFIX + '/css'));
+        .pipe(rename('onsen-css-components-custom.css'))
+        .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // Leaflet.EasyButton
     gulp.src('node_modules/leaflet-easybutton/src/easy-button.js')
@@ -92,5 +87,5 @@ gulp.task('build-release', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['src/**', 'stylus/*.styl'], ['build']);
+    gulp.watch(['src/**', 'onsenui-custom-theme/onsen-css-components.css'], ['build']);
 });

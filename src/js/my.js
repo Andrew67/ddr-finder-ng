@@ -640,7 +640,7 @@ ons.ready(function() {
         var module = {};
         // Extract the label for a given multi select value
         var setLabel = function (id, value) {
-            document.querySelector('#settings-' + id + ' .list__item__subtitle').textContent =
+            document.querySelector('#settings-' + id + ' .list-item__subtitle').textContent =
                 document.querySelector('label[for=settings-' + id + '-' + value + ']').textContent.trim();
         };
 

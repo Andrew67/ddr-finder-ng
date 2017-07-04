@@ -22,7 +22,7 @@
     <meta property="og:image" content="https://ddrfinder.andrew67.com/ng/img/arcade-machine.jpg">
     <!-- Onsen UI -->
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
-    <link rel="stylesheet" href="css/onsen-custom-theme.css">
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-custom.css">
     <script src="lib/onsen/js/onsenui.js" defer></script>
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css"
@@ -94,27 +94,27 @@
             <ons-list>
                 <ons-list-header>Basic</ons-list-header>
                 <ons-list-item tappable id="settings-datasource">
-                    <span class="list__item__title">Data Source</span>
-                    <span class="list__item__subtitle">---</span>
+                    <span class="list-item__title">Data Source</span>
+                    <span class="list-item__subtitle">---</span>
                 </ons-list-item>
                 <ons-if platform="ios">
                     <ons-list-item tappable id="settings-ios-navigation">
-                        <span class="list__item__title">Navigation</span>
-                        <span class="list__item__subtitle">---</span>
+                        <span class="list-item__title">Navigation</span>
+                        <span class="list-item__subtitle">---</span>
                     </ons-list-item>
                 </ons-if>
 
                 <ons-list-header>Advanced</ons-list-header>
                 <ons-list-item tappable id="settings-factory">
-                    <span class="list__item__title">Reset</span>
+                    <span class="list-item__title">Reset</span>
                 </ons-list-item>
 
                 <ons-list-header>Information</ons-list-header>
                 <ons-list-item tappable id="about-button">
-                    <span class="list__item__title">About</span>
+                    <span class="list-item__title">About</span>
                 </ons-list-item>
                 <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/">
-                    <span class="list__item__title">Home Page</span>
+                    <span class="list-item__title">Home Page</span>
                 </ons-list-item>
             </ons-list>
             <ons-alert-dialog id="settings-datasource-dialog" cancelable>
@@ -208,51 +208,51 @@
             <ons-list>
                 <ons-list-header>Application</ons-list-header>
                 <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/" id="app-logo">
-                    <span class="list__item__title">
+                    <span class="list-item__title">
                         <img src="img/touch-icon.png" width="72" height="72"><br>
                         DDR Finder
                     </span>
-                    <span class="list__item__subtitle">&copy;2016-2017 Andrés Cordero</span>
+                    <span class="list-item__subtitle">&copy;2016-2017 Andrés Cordero</span>
                 </ons-list-item>
                 <ons-list-item tappable data-href="https://github.com/Andrew67/ddr-finder-ng">
-                    <span class="list__item__title">Visit Project Site on GitHub</span>
+                    <span class="list-item__title">Visit Project Site on GitHub</span>
                 </ons-list-item>
 
                 <ons-list-header>Data Sources</ons-list-header>
                 <ons-list-item tappable data-href="https://zenius-i-vanisher.com/">
-                    <span class="list__item__title">Zenius -I- vanisher.com</span>
-                    <span class="list__item__subtitle">Worldwide Music Gaming Site</span>
+                    <span class="list-item__title">Zenius -I- vanisher.com</span>
+                    <span class="list-item__subtitle">Worldwide Music Gaming Site</span>
                 </ons-list-item>
                 <ons-list-item tappable data-href="http://ddr-navi.jp/">
-                    <span class="list__item__title">DDR-Navi</span>
-                    <span class="list__item__subtitle">Japanese Arcade Location Map Site</span>
+                    <span class="list-item__title">DDR-Navi</span>
+                    <span class="list-item__subtitle">Japanese Arcade Location Map Site</span>
                 </ons-list-item>
 
                 <ons-list-header>Open Source Libraries</ons-list-header>
                 <ons-list-item tappable data-href="https://onsen.io/">
-                    <span class="list__item__title">Onsen UI</span>
-                    <span class="list__item__subtitle">v2.1.0</span>
+                    <span class="list-item__title">Onsen UI</span>
+                    <span class="list-item__subtitle">v2.2.6</span>
                 </ons-list-item>
                 <ons-list-item tappable data-href="http://leafletjs.com/">
-                    <span class="list__item__title">Leaflet</span>
-                    <span class="list__item__subtitle">v1.0.3</span>
+                    <span class="list-item__title">Leaflet</span>
+                    <span class="list-item__subtitle">v1.0.3</span>
                 </ons-list-item>
                 <ons-list-item tappable data-href="https://github.com/domoritz/leaflet-locatecontrol">
-                    <span class="list__item__title">leaflet.locatecontrol</span>
-                    <span class="list__item__subtitle">v0.60.0</span>
+                    <span class="list-item__title">leaflet.locatecontrol</span>
+                    <span class="list-item__subtitle">v0.60.0</span>
                 </ons-list-item>
                 <ons-list-item tappable data-href="https://github.com/Leaflet/Leaflet.markercluster">
-                    <span class="list__item__title">Leaflet.markercluster</span>
-                    <span class="list__item__subtitle">v1.0.0</span>
+                    <span class="list-item__title">Leaflet.markercluster</span>
+                    <span class="list-item__subtitle">v1.0.0</span>
                 </ons-list-item>
                 <ons-list-item tappable data-href="https://github.com/CliffCloud/Leaflet.EasyButton/">
-                    <span class="list__item__title">Leaflet.EasyButton</span>
-                    <span class="list__item__subtitle">v2.0.0</span>
+                    <span class="list-item__title">Leaflet.EasyButton</span>
+                    <span class="list-item__subtitle">v2.0.0</span>
                 </ons-list-item>
                 <ons-if platform="ios">
                     <ons-list-item tappable data-href="https://github.com/cubiq/add-to-homescreen">
-                        <span class="list__item__title">add-to-homescreen</span>
-                        <span class="list__item__subtitle">v3.2.2</span>
+                        <span class="list-item__title">add-to-homescreen</span>
+                        <span class="list-item__subtitle">v3.2.2</span>
                     </ons-list-item>
                 </ons-if>
             </ons-list>
