@@ -158,10 +158,10 @@ body {
 
 /* Theme the location icon with DDR Finder color scheme. */
 #ddrfinder .leaflet-control-locate.active a {
-    color: #33b5e5;
+    color: #63a4ff;
 }
 #ddrfinder .leaflet-control-locate.active.following a {
-    color: #a6c;
+    color: #d05ce3;
 }
 
 /* Fuse location button into same control bar as zoom buttons. */
