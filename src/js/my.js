@@ -398,7 +398,7 @@ ons.ready(function() {
                 return module;
             })();
 
-            // Add "DDR Finder" branding header to Android in standalone mode (matches app since we don't get translucent status bar anyway).
+            // Add "DDR Finder" branding header to Android in standalone mode (matches app).
             if (ons.platform.isAndroid() && navigator.standalone) {
                 var toolbar = document.createElement('ons-toolbar');
                 var title = document.createElement('div');
@@ -416,7 +416,7 @@ ons.ready(function() {
                 worldCopyJump: true
             });
 
-            // Detect retina displays and append @2x modifier for larger tiles
+            // Detect hiDPI displays and append @2x modifier for larger tiles
             var tileLayerURL = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}{r}?access_token={accessToken}'
                 .replace('{r}', (window.devicePixelRatio > 1) ? '@2x' : '');
 
@@ -621,15 +621,6 @@ ons.ready(function() {
             map.on('dragend', lastViewPreserver);
             map.on('zoomend', lastViewPreserver);
             map.on('locationfound', lastViewPreserver);
-
-            // If iOS and not standalone, show an "Add to Home screen" prompt.
-            if (ons.platform.isIOS() && !navigator.standalone) {
-                var athBox = document.getElementById('ath-box');
-                athBox.style.display = '';
-                athBox.addEventListener('click', function () {
-                    athBox.style.display = 'none';
-                });
-            }
         };
 
         return module;
