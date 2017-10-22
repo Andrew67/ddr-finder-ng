@@ -18,7 +18,7 @@
   "dependencies": {
     "leaflet-easybutton": "^2.0.0",
     "leaflet.locatecontrol": "^0.62.0",
-    "onsenui": "^2.5.3"
+    "onsenui": "^2.7.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
