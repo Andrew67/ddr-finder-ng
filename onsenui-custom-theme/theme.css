@@ -13,7 +13,6 @@
   --secondary-color-dark: #6a0080;
 
   --background-color: #f9f9f9;
-  --material-background-color: #ffffff;
   --text-color: #1f1f21;
   --sub-text-color: #999;
   --highlight-color: var(--secondary-color);
@@ -30,6 +29,12 @@
   --list-background-color: #fff;
   --list-header-background-color: #eee;
   --list-tap-active-background-color: #d9d9d9;
+  --progress-bar-color: rgba(24, 103, 194, 0.81);
+  --progress-bar-secondary-color: rgba(24, 103, 194, 0.4);
+  --progress-bar-background-color: #b6b6b6;
+  --progress-circle-primary-color: rgba(24, 103, 194, 0.81);
+  --progress-circle-secondary-color: rgba(24, 103, 194, 0.81);
+  --progress-circle-background-color: #ddd;
   --tabbar-background-color: var(--primary-color);
   --tabbar-text-color: rgba(255, 255, 255, 0.6);
   --tabbar-highlight-text-color: #fff;
@@ -45,6 +50,10 @@
   --popover-background-color: white;
   --popover-text-color: #1f1f21;
   --notification-background-color: var(--secondary-color);
+  --fab-text-color: #ffffff;
+  --fab-background-color: var(--secondary-color);
+  --fab-active-background-color: var(--secondary-color-dark);
+  --material-background-color: #ffffff;
   --material-notification-background-color: var(--secondary-color);
   --material-switch-active-thumb-color: var(--secondary-color);
   --material-switch-inactive-thumb-color: #f1f1f1;
@@ -55,7 +64,6 @@
   --material-toolbar-background-color: var(--primary-color);
   --material-toolbar-text-color: #ffffff;
   --material-toolbar-button-color: #ffffff;
-  --material-toolbar-button-active-color: var(--primary-color-dark);
   --material-button-background-color: var(--secondary-color);
   --material-button-text-color: #ffffff;
   --material-checkbox-active-color: var(--secondary-color);
@@ -76,10 +84,12 @@
   --material-progress-bar-background-color: #e0e0e0;
   --material-progress-circle-primary-color: var(--secondary-color);
   --material-progress-circle-secondary-color: var(--secondary-color-dark);
+  --material-progress-circle-background-color: #dbdbdb;
   --material-tabbar-background-color: var(--primary-color);
   --material-tabbar-text-color: rgba(255, 255, 255, 0.6);
   --material-tabbar-highlight-text-color: #ffffff;
   --material-tabbar-highlight-color: var(--primary-color-dark);
-  --fab-text-color: #ffffff;
-  --fab-background-color: var(--secondary-color);
+  --material-fab-text-color: #ffffff;
+  --material-fab-background-color: var(--secondary-color);
+  --material-fab-active-background-color: var(--secondary-color-dark);
 }
