@@ -30,7 +30,7 @@ ons.ready(function() {
 
     // Polyfill for navigator.standalone which is iOS/Safari specific.
     if (typeof navigator.standalone === 'undefined') {
-        navigator.standalone = (window.location.search.indexOf('mode=standalone') >= 0);
+        navigator.standalone = window.matchMedia('(display-mode: standalone)').matches;
     }
 
     // Contains app navigator stack.
@@ -345,11 +345,11 @@ ons.ready(function() {
     // Window open function for external links, which requires a workaround on iOS, as Safari requires <a href>.
     // From: http://stackoverflow.com/a/8833025
     // For non-http(s) links (app-trigger links), retains current context (avoids flash of a browser window before trigger).
-    // intent URIs with fallback will also fire a window.open, otherwise it opens within the same application frame.
-    // (unfortunately, this brings back the browser window flash for intent URIs, namely "Navigate" on Android)
+    // intent URIs with fallback will also fire a window.open (except in standalone mode; as Chrome would jump to fallback),
+    // otherwise it opens within the same application frame.
     var openExternalLink = function(href) {
         if (href.indexOf('http') === 0 ||
-            (href.indexOf('intent') === 0 && href.indexOf('S.browser_fallback_url' > 0)) ) {
+            (href.indexOf('intent') === 0 && href.indexOf('S.browser_fallback_url' > 0) && !navigator.standalone) ) {
             if (ons.platform.isIOS()) {
                 var a = document.createElement('a');
                 a.setAttribute("href", href);
