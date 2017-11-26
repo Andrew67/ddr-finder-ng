@@ -91,9 +91,9 @@ ons.ready(function() {
 
     // End page load functions.
 
-    // Track a goal with Piwik analytics, if available
+    // Track a goal with analytics, if available
     var trackGoal = function (goalId) {
-        if (_paq && _paq.push) _paq.push(['trackGoal', goalId]);
+        // Stub; awaiting new Analytics provider integration
     };
 
     // settingsService takes care of saving values in localStorage and retrieving casted/default values
