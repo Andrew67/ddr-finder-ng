@@ -480,7 +480,7 @@ ons.ready(function() {
             // Open Android App
             if (ons.platform.isAndroid()) {
                 activityBar.push(myEasyButton('fa-android', 'Open Android App', function () {
-                    openExternalLink('intent://com.andrew67.ddrfinder/view#Intent;package=com.andrew67.ddrfinder;scheme=content;end');
+                    openExternalLink('intent://ddrfinder.andrew67.com/ng#Intent;package=com.andrew67.ddrfinder;scheme=https;end');
                 }));
             }
 
