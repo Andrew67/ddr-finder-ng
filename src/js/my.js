@@ -366,6 +366,24 @@ ons.ready(function() {
         }
     };
 
+    // Get the lat/lng and zoom to use for map initialization. In order:
+    // - Parameters specified in query portion of URL (?ll={lat},{lng}&z={zoom})
+    // - lastView from LocalStorage
+    // - Default (TX, US)
+    var getInitialView = function () {
+        if ('URLSearchParams' in window && window.location.search) {
+            var params = new URLSearchParams(window.location.search.substr(1));
+            if (params.has('ll') && params.has('z')) {
+                var ll = params.get('ll').split(',');
+                return {
+                    center: { lat: ll[0], lng: ll[1] },
+                    zoom: params.get('z')
+                };
+            }
+        }
+        return settingsService.getValue('mapLastView');
+    };
+
     // Each view exports certain functions, but contains its own scope
 
     // mapview
@@ -408,11 +426,11 @@ ons.ready(function() {
                 page.insertBefore(toolbar, page.firstChild);
             }
 
-            // Initialize map and set view to last view recorded.
-            var lastView = settingsService.getValue('mapLastView');
+            // Initialize map and set initial view.
+            var initialView = getInitialView();
             var map = L.map('map', {
-                center: [lastView.center.lat, lastView.center.lng],
-                zoom: lastView.zoom,
+                center: [initialView.center.lat, initialView.center.lng],
+                zoom: initialView.zoom,
                 worldCopyJump: true
             });
 
@@ -610,13 +628,15 @@ ons.ready(function() {
             apiService.clear();
             dataLoadHandler(null);
 
-            // Store current map view (center/zoom) after user action in order to return to it on re-init.
+            // Store current map view (center/zoom) after user action in order to return to it on re-init/share.
             var lastViewPreserver = function () {
                 var center = map.getCenter();
+                var zoom = map.getZoom();
                 settingsService.setValue('mapLastView', {
                     center: {lat: center.lat, lng: center.lng},
-                    zoom: map.getZoom()
+                    zoom: zoom
                 });
+                history.replaceState({}, '', '?ll=' + center.lat.toFixed(6) + ',' + center.lng.toFixed(6) + '&z=' + zoom);
             };
             map.on('dragend', lastViewPreserver);
             map.on('zoomend', lastViewPreserver);
