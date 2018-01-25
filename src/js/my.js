@@ -647,10 +647,6 @@ ons.ready(function() {
             map.on('zoomend', dataLoadHandler);
             map.on('locationfound', dataLoadHandler);
 
-            // Load on mapview init.
-            apiService.clear();
-            dataLoadHandler(null);
-
             // Store current map view (center/zoom) after user action in order to return to it on re-init/share.
             var lastViewPreserver = function () {
                 var center = map.getCenter();
@@ -664,6 +660,11 @@ ons.ready(function() {
             map.on('dragend', lastViewPreserver);
             map.on('zoomend', lastViewPreserver);
             map.on('locationfound', lastViewPreserver);
+
+            // Load on mapview init.
+            apiService.clear();
+            dataLoadHandler(null);
+            lastViewPreserver();
         };
 
         return module;
