@@ -423,6 +423,27 @@ ons.ready(function() {
                 title.classList.add('center');
                 title.textContent = 'DDR Finder';
                 toolbar.appendChild(title);
+
+                // If Web Share API is supported, insert a share button into the toolbar (shares current URL).
+                // See: https://developers.google.com/web/updates/2016/09/navigator-share
+                if (navigator.share) {
+                    // See: https://onsen.io/v2/api/js/ons-toolbar-button.html
+                    var shareButtonContainer = document.createElement('div');
+                    shareButtonContainer.classList.add('right');
+
+                    var shareButton = document.createElement('ons-toolbar-button');
+                    shareButton.addEventListener('click', function () {
+                        navigator.share({ url: window.location.href });
+                    });
+
+                    var shareButtonIcon = document.createElement('ons-icon');
+                    shareButtonIcon.setAttribute('icon', 'md-share');
+
+                    shareButton.appendChild(shareButtonIcon);
+                    shareButtonContainer.appendChild(shareButton);
+                    toolbar.appendChild(shareButtonContainer);
+                }
+
                 page.insertBefore(toolbar, page.firstChild);
             }
 
