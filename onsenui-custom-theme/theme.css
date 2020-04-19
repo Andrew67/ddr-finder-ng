@@ -27,7 +27,7 @@
   --list-tap-active-background-color: #d9d9d9;
   --list-item-chevron-color: #c7c7cc;
   --progress-bar-color: var(--highlight-color);
-  --progress-bar-secondary-color: #65adff;
+  --progress-bar-secondary-color: #1976D2;
   --progress-bar-background-color: transparent;
   --progress-circle-primary-color: var(--highlight-color);
   --progress-circle-secondary-color: #65adff;
@@ -69,7 +69,7 @@
   --card-text-color: #030303;
   --toast-background-color: rgba(0, 0, 0, 0.8);
   --toast-text-color: white;
-  --toast-button-text-color: #D05CE3;
+  --toast-button-text-color: rgba(232,126,249,1);
   --select-input-color: var(--text-color);
   --select-input-border-color: var(--border-color);
 
@@ -117,9 +117,9 @@
   --material-alert-dialog-background-color: #ffffff;
   --material-alert-dialog-title-color: #31313a;
   --material-alert-dialog-content-color: rgba(49, 49, 58, 0.85);
-  --material-alert-dialog-button-color: #37474f;
-  --material-progress-bar-primary-color: #37474f;
-  --material-progress-bar-secondary-color: #548ba7;
+  --material-alert-dialog-button-color: #1976D2;
+  --material-progress-bar-primary-color: #9C27B0;
+  --material-progress-bar-secondary-color: #1976D2;
   --material-progress-bar-background-color: transparent;
   --material-progress-circle-primary-color: var(--material-progress-bar-primary-color);
   --material-progress-circle-secondary-color: var(--material-progress-bar-secondary-color);
@@ -135,7 +135,7 @@
   --material-card-text-color: rgba(0, 0, 0, 0.54);
   --material-toast-background-color: rgba(0, 0, 0, 0.8);
   --material-toast-text-color: white;
-  --material-toast-button-text-color: #D05CE3;
+  --material-toast-button-text-color: #E87EF9;
   --material-select-input-color: var(--material-text-color);
   --material-select-input-active-color: rgba(0, 0, 0, 0.15);
   --material-select-input-inactive-color: rgba(0, 0, 0, 0.81);

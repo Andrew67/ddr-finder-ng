@@ -54,6 +54,8 @@ gulp.task('build-release', function() {
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
     gulp.src('node_modules/onsenui/css/**/fonts/*')
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
+    gulp.src('node_modules/onsenui/css/**/webfonts/*')
+        .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // Onsen UI Custom Theme
     gulp.src('onsenui-custom-theme/onsen-css-components.css')

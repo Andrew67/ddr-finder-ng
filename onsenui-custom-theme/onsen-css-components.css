@@ -5409,7 +5409,7 @@ h4, h5, h6 {
   margin: 8px 8px 8px 0;
   box-sizing: border-box;
   min-width: 50px;
-  color: #37474f;
+  color: #1976D2;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
 
@@ -5672,7 +5672,7 @@ h4, h5, h6 {
   border-radius: 4px;
 }
 .progress-bar__secondary {
-  background-color: #65adff;
+  background-color: #1976D2;
   z-index: 0;
 }
 .progress-bar--indeterminate:before {
@@ -5789,19 +5789,19 @@ h4, h5, h6 {
 }
 .progress-bar--material__primary,
 .progress-bar--material__secondary {
-  background-color: #37474f;
+  background-color: #9C27B0;
   border-radius: 0;
 }
 .progress-bar--material__secondary {
-  background-color: #548ba7;
+  background-color: #1976D2;
   z-index: 0;
 }
 .progress-bar--material.progress-bar--indeterminate:before { /* FIXME */
-  background-color: #37474f;
+  background-color: #9C27B0;
   border-radius: 0;
 }
 .progress-bar--material.progress-bar--indeterminate:after { /* FIXME */
-  background-color: #37474f;
+  background-color: #9C27B0;
   border-radius: 0;
 }
 /*~
@@ -5947,10 +5947,10 @@ h4, h5, h6 {
   stroke: transparent;
 }
 .progress-circular--material__primary {
-  stroke: #37474f;
+  stroke: #9C27B0;
 }
 .progress-circular--material__secondary {
-  stroke: #548ba7;
+  stroke: #1976D2;
 }
 /*~
   name: Fab
@@ -6908,7 +6908,8 @@ ons-fab.fab--bottom__center, button.fab--bottom__center, .speed-dial.fab--bottom
 }
 .toast__button {
   font-size: 14px;
-  color: #D05CE3;
+  color: #e87ef9;
+  color: rgba(232, 126, 249, 1);
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
           flex-grow: 0;
@@ -6955,7 +6956,7 @@ ons-fab.fab--bottom__center, button.fab--bottom__center, .speed-dial.fab--bottom
   font-family: 'Roboto', 'Noto', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
-  color: #D05CE3;
+  color: #E87EF9;
 }
 /* ------- */
 /* Default */
