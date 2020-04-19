@@ -90,7 +90,7 @@ body {
     background-color: rgba(0,0,0,0.7);
     color: white;
     border-bottom: 0;
-    font-size: 1.4em;
+    font-size: 1rem;
 }
 #ddrfinder a.leaflet-control-zoom-out {
     font-size: 30px;
@@ -141,4 +141,9 @@ body {
 }
 #ddrfinder .leaflet-control-locate {
     margin-top: 0;
+}
+
+/* Full-screen MD settings/about lists for consistently white bg. */
+#ddrfinder #settings .list--material, #ddrfinder #about .list--material {
+    min-height: 100%;
 }

@@ -1,0 +1,14 @@
+/*
+  DDR Finder Base Theme: inspired by DDR (2013) White Cabinet color scheme; updated to use Material Palette
+  https://material.io/color/#!/?view.left=0&view.right=0&primary.color=1976D2&secondary.color=9C27B0
+*/
+
+:root {
+    --primary-color: #1976d2; /* Material Blue 700 */
+    --primary-color-light: #63a4ff;
+    --primary-color-dark: #004ba0;
+
+    --secondary-color: #9c27b0; /* Material Purple 500 */
+    --secondary-color-light: #d05ce3;
+    --secondary-color-dark: #6a0080;
+}
