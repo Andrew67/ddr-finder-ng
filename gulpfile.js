@@ -18,9 +18,9 @@ gulp.task('build', function() {
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // Onsen UI Custom Theme
-    gulp.src('onsenui-custom-theme/onsen-css-components.css')
-        .pipe(rename('onsen-css-components-custom.css'))
-        .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
+    // gulp.src('onsenui-custom-theme/onsen-css-components.css')
+    //     .pipe(rename('onsen-css-components-custom.css'))
+    //     .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // Leaflet.EasyButton
     gulp.src(['node_modules/leaflet-easybutton/src/easy-button.js', 'node_modules/leaflet-easybutton/src/easy-button.css'])
@@ -56,10 +56,10 @@ gulp.task('build-release', function() {
         .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // Onsen UI Custom Theme
-    gulp.src('onsenui-custom-theme/onsen-css-components.css')
-        .pipe(cleanCSS())
-        .pipe(rename('onsen-css-components-custom.css'))
-        .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
+    // gulp.src('onsenui-custom-theme/onsen-css-components.css')
+    //     .pipe(cleanCSS())
+    //     .pipe(rename('onsen-css-components-custom.css'))
+    //     .pipe(gulp.dest(PREFIX + '/lib/onsen/css'));
 
     // Leaflet.EasyButton
     gulp.src('node_modules/leaflet-easybutton/src/easy-button.js')
