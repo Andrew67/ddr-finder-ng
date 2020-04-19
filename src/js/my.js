@@ -467,7 +467,6 @@ ons.ready(function() {
 
             // My Location control button (attached to Zoom controls via CSS)
             L.control.locate({
-                flyTo: true,
                 locateOptions: {
                     maxZoom: 12
             }}).addTo(map);
