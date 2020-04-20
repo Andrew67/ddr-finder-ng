@@ -96,12 +96,15 @@ body {
 }
 
 
-/* Tweak Mapbox popup for rounder corners and larger X button. */
+/* Tweak Mapbox popup for rounder corners and larger X button, as well as canceling the MD button sliding in. */
 #ddrfinder .mapboxgl-popup-content {
     border-radius: 8px;
 }
 #ddrfinder .mapboxgl-popup-close-button {
     font-size: 16px;
+}
+#ddrfinder .mapboxgl-popup-content .button--material {
+    transition-duration: 0s;
 }
 
 /* Hide "Improve this map" link, as users will probably think that's for submitting arcades to DDR Finder itself. */
