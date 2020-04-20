@@ -18,25 +18,11 @@
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
     <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-custom.css">
     <script src="lib/onsen/js/onsenui.js"></script>
-    <!-- Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-          crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-            crossorigin=""></script>
-    <!-- leaflet.locatecontrol -->
-    <script src="lib/leaflet-locatecontrol/L.Control.Locate.js"></script>
-    <!-- Leaflet.markercluster -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"
-          integrity="sha384-lPzjPsFQL6te2x+VxmV6q1DpRxpRk0tmnl2cpwAO5y04ESyc752tnEWPKDfl1olr" crossorigin="">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"
-          integrity="sha384-5kMSQJ6S4Qj5i09mtMNrWpSi8iXw230pKU76xTmrpezGnNJQzj0NzXjQLLg+jE7k" crossorigin="">
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
-            integrity="sha384-RLIyj5q1b5XJTn0tqUhucRZe40nFTocRP91R/NkRJHwAe4XxnTV77FXy/vGLiec2" crossorigin=""></script>
-    <!-- Leaflet.EasyButton -->
-    <link rel="stylesheet" href="lib/leaflet-easybutton/easy-button.css">
-    <script src="lib/leaflet-easybutton/easy-button.js"></script>
+    <!-- Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"
+            integrity="sha384-Hw2TtI+mi1us1VfHTnhzVvYvu4Cq4yEncgNAlAgQM7hHidXITHAioLNoUbf93vhP" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css"
+          integrity="sha384-UZ+LVvoKDw3Z1M+G8PTJnK15pz8bkHYawBRgjnu8G6HOF6m1Sswa8NmgIRHBwl6W" crossorigin="anonymous">
     <!-- mine -->
     <style>
         ons-template {
@@ -216,21 +202,9 @@
                     <span class="list-item__title">Onsen UI</span>
                     <span class="list-item__subtitle">v2.10.10</span>
                 </ons-list-item>
-                <ons-list-item tappable data-href="https://leafletjs.com/">
-                    <span class="list-item__title">Leaflet</span>
-                    <span class="list-item__subtitle">v1.6.0</span>
-                </ons-list-item>
-                <ons-list-item tappable data-href="https://github.com/domoritz/leaflet-locatecontrol">
-                    <span class="list-item__title">leaflet.locatecontrol</span>
-                    <span class="list-item__subtitle">v0.71.1</span>
-                </ons-list-item>
-                <ons-list-item tappable data-href="https://github.com/Leaflet/Leaflet.markercluster">
-                    <span class="list-item__title">Leaflet.markercluster</span>
-                    <span class="list-item__subtitle">v1.4.1</span>
-                </ons-list-item>
-                <ons-list-item tappable data-href="https://github.com/CliffCloud/Leaflet.EasyButton/">
-                    <span class="list-item__title">Leaflet.EasyButton</span>
-                    <span class="list-item__subtitle">v2.4.0</span>
+                <ons-list-item tappable data-href="https://docs.mapbox.com/mapbox-gl-js/">
+                    <span class="list-item__title">Mapbox GL JS</span>
+                    <span class="list-item__subtitle">v1.9.1</span>
                 </ons-list-item>
             </ons-list>
         </ons-page>

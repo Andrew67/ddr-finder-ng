@@ -1,6 +1,6 @@
 /*! ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng */
 /*
- Copyright (c) 2016-2017 Andrés Cordero
+ Copyright (c) 2016-2020 Andrés Cordero
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -199,7 +199,7 @@ ons.ready(function() {
        Keeps track of previously requested areas to help avoid unnecessary AJAX requests.
     */
     var apiService = (function () {
-        var module = {}, loadedAreas = [/*L.latLngBounds*/], sources = {/*API response sources*/};
+        var module = {}, loadedAreas = [/*mapboxgl.LngLatBounds*/], sources = {/*API response sources*/};
         var API_URL = '../locate.php';
 
         // Export error codes.
@@ -250,9 +250,9 @@ ons.ready(function() {
             // Preload a slightly larger box area when zoomed in.
             if (Math.abs(bounds.getNorth() - bounds.getSouth()) < 0.5
                 && Math.abs(bounds.getEast() - bounds.getWest()) < 0.5) {
-                bounds = L.latLngBounds(
-                    [bounds.getSouth() - 0.125, bounds.getWest() - 0.125],
-                    [bounds.getNorth() + 0.125, bounds.getEast() + 0.125]
+                bounds = new mapboxgl.LngLatBounds(
+                    [bounds.getWest() - 0.125, bounds.getSouth() - 0.125],
+                    [bounds.getEast() + 0.125, bounds.getNorth() + 0.125]
                 );
             }
 
@@ -388,7 +388,7 @@ ons.ready(function() {
 
     // mapview
     var mapview = (function () {
-        var module = {};
+        var module = {}, map;
         module.init = function (page) {
             // errorMsg can clear all errors or show a specific one, from the error-box div.
             var errorMsg = (function () {
@@ -449,84 +449,77 @@ ons.ready(function() {
 
             // Initialize map and set initial view.
             var initialView = getInitialView();
-            var map = L.map('map', {
-                center: [initialView.center.lat, initialView.center.lng],
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw';
+            map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [initialView.center.lng, initialView.center.lat],
                 zoom: initialView.zoom,
-                worldCopyJump: true
+                renderWorldCopies: false
             });
 
-            // Detect hiDPI displays and append @2x modifier for larger tiles
-            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}{scaleFactor}?access_token={accessToken}', {
-                attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                tileSize: 512,
-                scaleFactor: (window.devicePixelRatio > 1) ? '@2x' : '',
-                maxZoom: 18,
-                zoomOffset: -1,
-                id: 'mapbox/streets-v11',
-                accessToken: 'pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw'
-            }).addTo(map);
+            // Add zoom/bearing controls to map.
+            map.addControl(new mapboxgl.NavigationControl());
 
-            // My Location control button (attached to Zoom controls via CSS)
-            L.control.locate({
-                locateOptions: {
-                    maxZoom: 12
-            }}).addTo(map);
-
-            // Add controls to map.
-
-            // Action bar contains actions like refresh.
-            // Activity bar contains buttons that open other activities (settings, Android app, etc).
-            var actionBar = [], activityBar = [];
-
-            // L.easyButton wrapper that sets tagName to a to match leaflet buttons, and exposes title attribute.
-            var myEasyButton = function (icon, title, onClick) {
-                return L.easyButton({
-                    states:[{
-                        onClick: onClick,
-                        icon: icon,
-                        title: title
-                    }],
-                    tagName: 'a'
-                });
-            };
-
-            // Reload
-            var reloadButton = L.easyButton({
-                states:[
-                    {
-                        stateName: 'ready',
-                        onClick: function () {
-                            dataLoadHandler(null, true);
-                        },
-                        icon: 'fa-refresh',
-                        title: 'Reload'
+            // My Location control button
+            map.addControl(
+                new mapboxgl.GeolocateControl({
+                    positionOptions: {
+                        enableHighAccuracy: true
                     },
-                    {
-                        stateName: 'loading',
-                        icon: 'fa-spinner fa-spin',
-                        title: 'Loading...'
-                    }
-                ],
-                tagName: 'a'
-            });
-            actionBar.push(reloadButton);
+                    trackUserLocation: true
+                })
+            );
 
-            // Settings
-            activityBar.push(myEasyButton('fa-sliders', 'Settings', function () {
-                myNavigator.pushPage('settings.html');
-            }));
+            // Custom actions (refresh, settings, Android app, etc.)
+            // See: https://docs.mapbox.com/mapbox-gl-js/api/#icontrol
+            function MyControl() { }
+            MyControl.prototype.onAdd = function () {
+                this._container = document.createElement('div');
+                this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
 
-            // Open Android App
-            if (ons.platform.isAndroid()) {
-                activityBar.push(myEasyButton('fa-android', 'Open Android App', function () {
-                    openExternalLink('intent://ddrfinder.andrew67.com/ng' +
-                        (window.location.search ? window.location.search : '') +
-                        '#Intent;package=com.andrew67.ddrfinder;scheme=https;end');
-                }));
+                // Reload
+                var reloadButton = this.getButton('Reload', 'ion-ios-refresh, material:ion-md-refresh');
+                reloadButton.addEventListener('click', function () {
+                    dataLoadHandler(null, true);
+                });
+                this._container.appendChild(reloadButton);
+
+                // Settings
+                var settingsButton = this.getButton('Settings', 'ion-ios-settings, material:ion-md-settings');
+                settingsButton.addEventListener('click', function () {
+                    myNavigator.pushPage('settings.html');
+                });
+                this._container.appendChild(settingsButton);
+
+                // Open Android App
+                if (ons.platform.isAndroid()) {
+                    var openInAppButton = this.getButton('Open in App', 'ion-md-apps');
+                    openInAppButton.addEventListener('click', function () {
+                        openExternalLink('intent://ddrfinder.andrew67.com/ng' +
+                            (window.location.search ? window.location.search : '') +
+                            '#Intent;package=com.andrew67.ddrfinder;scheme=https;end');
+                    });
+                    this._container.appendChild(openInAppButton);
+                }
+
+                return this._container;
             }
-
-            L.easyBar(actionBar).addTo(map);
-            L.easyBar(activityBar).addTo(map);
+            MyControl.prototype.onRemove = function () {
+                this._container.parentNode.removeChild(this._container);
+            }
+            MyControl.prototype.getButton = function (title, icon) {
+                var button = document.createElement('button');
+                button.className = 'mapboxgl-ctrl-ons';
+                button.setAttribute('title', title);
+                button.setAttribute('aria-label', title);
+                var iconEl = document.createElement('ons-icon');
+                iconEl.setAttribute('icon', icon);
+                iconEl.setAttribute('aria-hidden', 'true');
+                button.appendChild(iconEl);
+                return button;
+            }
+            map.addControl(new MyControl());
 
             // More Info / Navigate action handlers for locations.
             var onMoreInfo = function (feature) {
@@ -553,17 +546,17 @@ ons.ready(function() {
                     feature.geometry.coordinates[0], feature.properties.name));
             };
 
-            // This function is called for every arcade location loaded onto the map.
-            var onEachFeature = function (feature, layer) {
+            // This function is called when an arcade location on the map is clicked.
+            var buildPopupDOM = function (feature) {
                 var popupContainer = document.createElement('div');
 
                 var description = document.createElement('div');
                 var descriptionHTML = '<p><b class="selectable">' + feature.properties.name + '</b><br>';
                 if (feature.properties.city.length !== 0) {
-                    descriptionHTML += feature.properties.city + '<br>';
+                    descriptionHTML += '<i>City</i>: <span class="selectable">' + feature.properties.city + '</span><br>';
                 }
-                descriptionHTML += '<i>GPS</i>: <span class="selectable">' + feature.geometry.coordinates[1].toFixed(6)
-                    + '°, ' + feature.geometry.coordinates[0].toFixed(6) + '°</span></p>';
+                descriptionHTML += '<i>GPS</i>: <span class="selectable">' + feature.geometry.coordinates[1].toFixed(5)
+                    + '°, ' + feature.geometry.coordinates[0].toFixed(5) + '°</span></p>';
                 description.innerHTML = descriptionHTML;
 
                 var moreInfo = document.createElement('ons-button');
@@ -582,19 +575,8 @@ ons.ready(function() {
                 popupContainer.appendChild(description);
                 popupContainer.appendChild(moreInfo);
                 popupContainer.appendChild(navigate);
-
-                layer.bindPopup(popupContainer);
+                return popupContainer;
             };
-
-            // Initialize the marker cluster.
-            var markers = L.markerClusterGroup();
-            map.addLayer(markers);
-
-            // Set attribution link targets to new window
-            var attributionLinks = document.querySelectorAll('.leaflet-control-attribution a');
-            for (var i = 0; i < attributionLinks.length; ++i) {
-                attributionLinks.item(i).setAttribute('target', '_blank');
-            }
 
             // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired, etc.
             // Clears and sets errors when necessary as well.
@@ -603,10 +585,10 @@ ons.ready(function() {
                 errorMsg.clearAll();
 
                 if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
-                    reloadButton.state('loading');
+                    // TODO: spin up indeterminate progress bar
 
                     var commonCleanup = function() {
-                        reloadButton.state('ready');
+                        // TODO: hide progress bar
                     };
 
                     apiService.getLocations(map.getBounds(), function (locations) {
@@ -621,10 +603,148 @@ ons.ready(function() {
                             return false;
                         });
 
-                        // Create a new GeoJSON layer that parses the new locations, then add them to the marker cluster.
-                        L.geoJson(locations, {
-                            onEachFeature: onEachFeature
-                        }).addTo(markers);
+                        // Create or update the GeoJSON locations layer with the incoming data.
+                        var source = map.getSource('locations');
+                        if (!source) {
+                            map.addSource('locations', {
+                                type: 'geojson',
+                                // TODO: Show only attribution for selected data source
+                                attribution: '&copy; Zenius -I- vanisher.com &copy; DDR-Navi',
+                                data: locations,
+                                cluster: true,
+                                clusterMaxZoom: 14
+                            });
+                        } else {
+                            source.setData({
+                                type: source._data.type,
+                                features: source._data.features.concat(locations.features)
+                            });
+                        }
+                        // See: https://docs.mapbox.com/mapbox-gl-js/example/cluster/
+                        if (!map.getLayer('clusters')) {
+                            map.addLayer({
+                                id: 'clusters',
+                                type: 'circle',
+                                source: 'locations',
+                                filter: ['has', 'point_count'],
+                                paint: {
+                                    // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+                                    // with three steps to implement three types of circles:
+                                    //   * Blue, 20px circles when point count is less than 100
+                                    //   * Yellow, 30px circles when point count is between 100 and 750
+                                    //   * Pink, 40px circles when point count is greater than or equal to 750
+                                    // TODO: Proper app-theme colors
+                                    'circle-color': [
+                                        'step',
+                                        ['get', 'point_count'],
+                                        '#51bbd6',
+                                        100,
+                                        '#f1f075',
+                                        750,
+                                        '#f28cb1'
+                                    ],
+                                    'circle-radius': [
+                                        'step',
+                                        ['get', 'point_count'],
+                                        20,
+                                        100,
+                                        30,
+                                        750,
+                                        40
+                                    ]
+                                }
+                            });
+
+                            map.addLayer({
+                                id: 'cluster-count',
+                                type: 'symbol',
+                                source: 'locations',
+                                filter: ['has', 'point_count'],
+                                layout: {
+                                    'text-field': '{point_count_abbreviated}',
+                                    //'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                                    'text-size': 12
+                                }
+                            });
+
+                            map.addLayer({
+                                id: 'unclustered-point',
+                                type: 'symbol',
+                                source: 'locations',
+                                filter: ['!', ['has', 'point_count']],
+                                layout: {
+                                    // TODO: proper large marker icon
+                                    // TODO: dynamic icon based on DDR status
+                                    'icon-image': 'music-15',
+                                    'icon-allow-overlap': true,
+                                    'text-field': ['get', 'name'],
+                                    'text-size': 14,
+                                    'text-offset': [0, 0.6],
+                                    'text-anchor': 'top',
+                                    'text-allow-overlap': true
+                                },
+                                paint: {
+                                    'text-color': '#1976d2',
+                                    'text-halo-color': '#ffffff',
+                                    'text-halo-width': 2
+                                }
+                            });
+
+                            // inspect a cluster on click
+                            map.on('click', 'clusters', function(e) {
+                                var features = map.queryRenderedFeatures(e.point, {
+                                    layers: ['clusters']
+                                });
+                                var clusterId = features[0].properties.cluster_id;
+                                map.getSource('locations').getClusterExpansionZoom(
+                                    clusterId,
+                                    function(err, zoom) {
+                                        if (err) return;
+
+                                        map.easeTo({
+                                            center: features[0].geometry.coordinates,
+                                            zoom: zoom
+                                        });
+                                    }
+                                );
+                            });
+                            map.on('mouseenter', 'clusters', function() {
+                                map.getCanvas().style.cursor = 'pointer';
+                            });
+                            map.on('mouseleave', 'clusters', function() {
+                                map.getCanvas().style.cursor = '';
+                            });
+
+                            // When a click event occurs on a feature in
+                            // the unclustered-point layer, open a popup at
+                            // the location of the feature, with
+                            // description HTML from its properties.
+                            map.on('click', 'unclustered-point', function(e) {
+
+                                var feature = e.features[0];
+                                var coordinates = feature.geometry.coordinates.slice();
+                                var properties = feature.properties;
+
+                                // Ensure that if the map is zoomed out such that
+                                // multiple copies of the feature are visible, the
+                                // popup appears over the copy being pointed to.
+                                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                                }
+
+                                new mapboxgl.Popup()
+                                    .setLngLat(coordinates)
+                                    .setDOMContent(buildPopupDOM(feature))
+                                    .addTo(map);
+                                console.log(properties);
+                            });
+                            map.on('mouseenter', 'unclustered-point', function() {
+                                map.getCanvas().style.cursor = 'pointer';
+                            });
+                            map.on('mouseleave', 'unclustered-point', function() {
+                                map.getCanvas().style.cursor = '';
+                            });
+                        }
                     }, function (error) {
                         commonCleanup();
 
@@ -655,7 +775,8 @@ ons.ready(function() {
                     center: {lat: center.lat, lng: center.lng},
                     zoom: zoom
                 });
-                history.replaceState({}, '', '?ll=' + center.lat.toFixed(6) + ',' + center.lng.toFixed(6) + '&z=' + zoom);
+                history.replaceState({}, '', '?ll=' + center.lat.toFixed(5) + ','
+                    + center.lng.toFixed(5) + '&z=' + zoom.toFixed(0));
             };
             map.on('dragend', lastViewPreserver);
             map.on('zoomend', lastViewPreserver);
@@ -663,8 +784,18 @@ ons.ready(function() {
 
             // Load on mapview init.
             apiService.clear();
-            dataLoadHandler(null);
+            map.on('load', dataLoadHandler);
             lastViewPreserver();
+        };
+
+        module.show = function () {
+            // Trigger resize on the map when returning to the map page.
+            // This is used to handle the following case:
+            // Navigating to Settings/About and visiting an external link, then returning to the webapp causes the map
+            // to resize itself, however since the map page is `display: none` at that time, it considers the height
+            // as 0 and falls back to a 300px height, without ever re-assessing.
+            // See: https://github.com/mapbox/mapbox-gl-js/issues/3265
+            if (map) map.resize();
         };
 
         return module;
@@ -760,5 +891,11 @@ ons.ready(function() {
         if (page.id === 'mapview') mapview.init(page);
         else if (page.id === 'settings') settings.init(page);
         else if (page.id === 'about') about.init(page);
+    });
+
+    document.addEventListener('show', function (e) {
+        var page = e.target;
+
+        if (page.id === 'mapview') mapview.show(page);
     });
 });

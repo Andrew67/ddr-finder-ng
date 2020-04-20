@@ -16,8 +16,6 @@
   },
   "private": true,
   "dependencies": {
-    "leaflet-easybutton": "^2.4.0",
-    "leaflet.locatecontrol": "^0.71.1",
     "onsenui": "2.10.10"
   },
   "devDependencies": {
