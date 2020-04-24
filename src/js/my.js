@@ -458,6 +458,29 @@ ons.ready(function() {
                 renderWorldCopies: false
             });
 
+            var geocoder = new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                mapboxgl: mapboxgl,
+                marker: false,
+                // On iOS standalone, expanding the collapsed search is a bit tricky, so disabling collapse instead
+                collapsed: !(ons.platform.isIOS() && navigator.standalone),
+                clearAndBlurOnEsc: true,
+                flyTo: {
+                    animate: false
+                },
+                // On iOS standalone, OnsenUI's FastClick does not play well with the Geocoder,
+                // so we override the render method to insert the needsclick class which excludes results from FastClick
+                render: function (item) {
+                    var placeName = item.place_name.split(',');
+                    return '<div class="mapboxgl-ctrl-geocoder--suggestion"><div class="mapboxgl-ctrl-geocoder--suggestion-title needsclick">'
+                        + placeName[0] + '</div><div class="mapboxgl-ctrl-geocoder--suggestion-address needsclick">'
+                        + placeName.splice(1, placeName.length).join(',') + '</div></div>';
+                }
+            });
+            // Dismiss the soft keyboard on mobile devices upon selecting a result
+            geocoder.on('result', function () { document.activeElement.blur(); });
+            map.addControl(geocoder);
+
             // Add zoom/bearing controls to map.
             map.addControl(new mapboxgl.NavigationControl());
 
