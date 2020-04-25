@@ -36,35 +36,18 @@ ons.ready(function() {
     // Contains app navigator stack.
     var myNavigator = document.getElementById('myNavigator');
 
-    // If iOS and standalone, add a class to allow for translucent status bar padding, among other things.
+    // If iOS and standalone, add a class to allow for translucent status bar padding.
     if (ons.platform.isIOS() && navigator.standalone) {
-        document.body.classList.add('ios-standalone');
-
-        // Confirm that screen height == innerHeight to mark as translucent status bar.
-        // Otherwise, there is a bar obstructing us (in-call, navigation in-use).
-        // Furthermore, detect and work around the iOS positioning bug (bottom 20px cut off).
-        // Call on page init then on resize events.
-        var translucentStatusBarDetector = function () {
-            document.body.classList.remove('ios-translucent-statusbar');
-            document.body.classList.remove('ios-webview-bug');
-
-            if (screen.height === window.innerHeight || screen.width === window.innerHeight) {
-                if (screen.availHeight === screen.height - 20) {
-                    // These are our ideal parameters. Portrait enforcement is done via CSS media query.
-                    document.body.classList.add('ios-translucent-statusbar');
-                } else {
-                    // This condition triggers when opening the app with a 40px header present.
-                    document.body.classList.add('ios-webview-bug');
-                }
-            } else if (screen.availHeight === window.innerHeight) {
-                // This condition triggers when re-toggling a 40px header after opening the app with a 40px header present.
-                document.body.classList.add('ios-webview-bug');
-            }
-        };
-        translucentStatusBarDetector();
-        window.addEventListener('resize', translucentStatusBarDetector);
+        if (ons.platform.isIPhoneX()) {
+            document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+        } else {
+            document.documentElement.setAttribute('iphone-portrait', '');
+        }
     }
-
+    if (ons.platform.isIPhoneX()) {
+        // iPhoneX landscape padding makes sense regardless of standalone mode.
+        document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+    }
     // If Android, use navigator push and window pop to avoid back button exiting out of the app.
     // To avoid double-pop/push surrounding ons-back-button, provide a function that rewires them to use history.back().
     var enableAndroidBackButton = function () { };
@@ -417,7 +400,7 @@ ons.ready(function() {
             })();
 
             // Add "DDR Finder" branding header to Android in standalone mode (matches app).
-            if (ons.platform.isAndroid() && navigator.standalone) {
+            if (navigator.standalone) {
                 var toolbar = document.createElement('ons-toolbar');
                 var title = document.createElement('div');
                 title.classList.add('center');
@@ -426,7 +409,7 @@ ons.ready(function() {
 
                 // If Web Share API is supported, insert a share button into the toolbar (shares current URL).
                 // See: https://developers.google.com/web/updates/2016/09/navigator-share
-                if (navigator.share) {
+                if ('share' in navigator) {
                     // See: https://onsen.io/v2/api/js/ons-toolbar-button.html
                     var shareButtonContainer = document.createElement('div');
                     shareButtonContainer.classList.add('right');
@@ -437,7 +420,7 @@ ons.ready(function() {
                     });
 
                     var shareButtonIcon = document.createElement('ons-icon');
-                    shareButtonIcon.setAttribute('icon', 'md-share');
+                    shareButtonIcon.setAttribute('icon', 'ion-ios-share, material:ion-md-share');
 
                     shareButton.appendChild(shareButtonIcon);
                     shareButtonContainer.appendChild(shareButton);

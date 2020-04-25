@@ -7,9 +7,11 @@
     <!-- Web Application metadata -->
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#1976d2">
+    <!-- iOS-specific tags -->
+    <link rel="apple-touch-icon" sizes="144x144" href="img/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><!-- black-translucent = page goes under status bar -->
     <!-- OpenGraph metadata -->
     <meta property="og:title" content="DDR Finder - Crowd-sourced Arcade Locations">
     <meta property="og:description" content="Find video game arcades near you!">
@@ -43,10 +45,6 @@
     </ons-navigator>
     <ons-template id="mapview.html">
         <ons-page id="mapview">
-            <ons-if platform="ios">
-                <div id="ios-standalone-bar"></div>
-            </ons-if>
-
             <div id="map"></div>
             <div id="error-box">
                 <p id="error-zoom" style="display: none">Zoom in to load more locations</p>
@@ -71,6 +69,7 @@
                     <span class="list-item__title">Data Source</span>
                     <span class="list-item__subtitle">---</span>
                 </ons-list-item>
+                <!-- TODO: Due to nesting inside ons-if, padding is wrong on iPhoneX -->
                 <ons-if platform="ios">
                     <ons-list-item tappable id="settings-ios-navigation">
                         <span class="list-item__title">Navigation</span>

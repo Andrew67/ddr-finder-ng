@@ -51,35 +51,47 @@ body {
     user-select: text;
 }
 
-/* Translucent statusbar overlay for iOS standalone */
-#ios-standalone-bar {
-    display: none;
-}
-@media all and (orientation: portrait) {
-    .ios-translucent-statusbar #ios-standalone-bar {
-        display: block;
-        position: absolute;
-        height: 20px;
-        width: 100vw;
-        background-color: rgba(0,0,0,0.7);
-        z-index: 1000;
+/* Translucent statusbar for iOS standalone bug fixes / iPhoneX positioning */
+@media (orientation: portrait) {
+    /* Bug fixes */
+    html[iphone-portrait] body {
+        /* TODO: Switch from body margin to toolbar padding (so overlays darken entire screen) */
+        margin-top: 20px;
+        height: calc(100vh - 20px);
     }
-
-    .ios-translucent-statusbar ons-toolbar {
-        padding-top: 20px;
-        height: 64px;
+    html[onsflag-iphonex-portrait] body {
+        height: 100vh;
     }
-
-    .ios-translucent-statusbar ons-toolbar + .page__background + .page__content {
-        top: 64px;
+    /* Immersive map padding */
+    html[onsflag-iphonex-portrait] #mapview .page__content {
+        padding-bottom: 0;
     }
-
-    .ios-translucent-statusbar .leaflet-top {
-        top: 20px;
+    html[onsflag-iphonex-portrait] .mapboxgl-ctrl-bottom-left,
+    html[onsflag-iphonex-portrait] .mapboxgl-ctrl-bottom-right {
+        bottom: 16px;
     }
 }
-.ios-webview-bug .page__background + .page__content {
-    bottom: 20px;
+@media (orientation: landscape) {
+    html[onsflag-iphonex-landscape] #mapview .page__content {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+    }
+    html[onsflag-iphonex-landscape] .mapboxgl-ctrl-bottom-left,
+    html[onsflag-iphonex-landscape] .mapboxgl-ctrl-bottom-right {
+        bottom: 16px;
+    }
+    /* Immersive map padding; ctrl boxes include 10px padding so this makes the required 44px */
+    html[onsflag-iphonex-landscape] .mapboxgl-ctrl-top-left {
+        left: 34px;
+    }
+    html[onsflag-iphonex-landscape] .mapboxgl-ctrl-top-right {
+        right: 34px;
+    }
+    /* Prevent iOS from zooming in. See: https://stackoverflow.com/a/39551879  */
+    html[onsflag-iphonex-landscape] .mapboxgl-ctrl-geocoder--input {
+        font-size: 16px;
+    }
 }
 
 /* Enlarge map button and icon size. */
