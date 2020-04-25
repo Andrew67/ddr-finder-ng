@@ -55,9 +55,15 @@ body {
 @media (orientation: portrait) {
     /* Bug fixes */
     html[iphone-portrait] body {
-        /* TODO: Switch from body margin to toolbar padding (so overlays darken entire screen) */
-        margin-top: 20px;
-        height: calc(100vh - 20px);
+        height: 100vh;
+    }
+    html[iphone-portrait] ons-toolbar {
+        padding-top: 20px;
+        height: 64px;
+    }
+    html[iphone-portrait] .toolbar + .page__background,
+    html[iphone-portrait] .toolbar + .page__background + .page__content {
+        top: 64px;
     }
     html[onsflag-iphonex-portrait] body {
         height: 100vh;
