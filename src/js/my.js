@@ -48,29 +48,37 @@ ons.ready(function() {
         // iPhoneX landscape padding makes sense regardless of standalone mode.
         document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
     }
-    // If Android, use navigator push and window pop to avoid back button exiting out of the app.
+    // Use navigator push and window pop to avoid Android back button exiting out of the app. Allows iOS back swipe too.
     // To avoid double-pop/push surrounding ons-back-button, provide a function that rewires them to use history.back().
-    var enableAndroidBackButton = function () { };
-    if (ons.platform.isAndroid()) {
-        myNavigator.addEventListener('postpush', function (e) {
-            // Prevent pushing on initial page load.
-            if (e.navigator.pages.length > 1) {
-                history.pushState({page: e.enterPage.id}, '');
-            }
-        });
-
-        window.addEventListener('popstate', function () {
-            myNavigator.popPage();
-        });
-        enableAndroidBackButton = function(pageid) {
-            var backButton = document.querySelector('#' + pageid + ' ons-back-button');
-            if (backButton !== null) {
-                backButton.onClick = function () {
-                    history.back();
-                };
-            }
-        };
+    var enableNativeBackButton = function (pageId) {
+        var backButton = document.querySelector('#' + pageId + ' ons-back-button');
+        if (backButton !== null) {
+            backButton.onClick = function () {
+                history.back();
+            };
+        }
+    };
+    var pushPage = function (pageId) {
+        myNavigator.pushPage(pageId + '.html');
+        history.pushState({ page: pageId }, '');
     }
+    // Re-sync the navigator stack based on the page ID returned in popstate, which is fired on back AND forward buttons.
+    // If the ID is missing from the stack, push it, otherwise pop. Reset to mapview as a fallback if anything gets wonky.
+    // TODO: back button in quick succession results in a de-sync due to navigator.popPage in progress.
+    window.addEventListener('popstate', function (e) {
+        var newPage = e.state.page;
+        if (newPage) {
+            if (myNavigator.pages.map(function (page) { return page.id; }).includes(newPage)) {
+                myNavigator.popPage();
+            } else {
+                myNavigator.pushPage(newPage + '.html');
+            }
+        } else if(myNavigator.pages.length > 1) {
+            myNavigator.popPage();
+        } else {
+            myNavigator.resetToPage('mapview.html');
+        }
+    });
 
     // End page load functions.
 
@@ -494,7 +502,7 @@ ons.ready(function() {
                 // Settings
                 var settingsButton = this.getButton('Settings', 'ion-ios-settings, material:ion-md-settings');
                 settingsButton.addEventListener('click', function () {
-                    myNavigator.pushPage('settings.html');
+                    pushPage('settings');
                 });
                 this._container.appendChild(settingsButton);
 
@@ -843,7 +851,7 @@ ons.ready(function() {
 
         module.init = function (page) {
             document.getElementById('about-button').addEventListener('click', function () {
-                myNavigator.pushPage('about.html');
+                pushPage('about');
             });
 
             page.addEventListener('change', formChangeHandler);
@@ -892,7 +900,7 @@ ons.ready(function() {
         var page = e.target;
 
         enableExternalLinks(page.id);
-        enableAndroidBackButton(page.id);
+        enableNativeBackButton(page.id);
 
         if (page.id === 'mapview') mapview.init(page);
         else if (page.id === 'settings') settings.init(page);
