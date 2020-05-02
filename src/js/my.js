@@ -66,9 +66,9 @@ ons.ready(function() {
     // If the ID is missing from the stack, push it, otherwise pop. Reset to mapview as a fallback if anything gets wonky.
     // TODO: back button in quick succession results in a de-sync due to navigator.popPage in progress.
     window.addEventListener('popstate', function (e) {
-        var newPage = e.state.page;
+        var newPage = e.state && e.state.page;
         if (newPage) {
-            if (myNavigator.pages.map(function (page) { return page.id; }).includes(newPage)) {
+            if (myNavigator.pages.map(function (page) { return page.id; }).indexOf(newPage) !== -1) {
                 myNavigator.popPage();
             } else {
                 myNavigator.pushPage(newPage + '.html');
@@ -449,28 +449,33 @@ ons.ready(function() {
                 renderWorldCopies: false
             });
 
-            var geocoder = new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
-                mapboxgl: mapboxgl,
-                marker: false,
-                // On iOS standalone, expanding the collapsed search is a bit tricky, so disabling collapse instead
-                collapsed: !(ons.platform.isIOS() && navigator.standalone),
-                clearAndBlurOnEsc: true,
-                flyTo: {
-                    animate: false
-                },
-                // On iOS standalone, OnsenUI's FastClick does not play well with the Geocoder,
-                // so we override the render method to insert the needsclick class which excludes results from FastClick
-                render: function (item) {
-                    var placeName = item.place_name.split(',');
-                    return '<div class="mapboxgl-ctrl-geocoder--suggestion"><div class="mapboxgl-ctrl-geocoder--suggestion-title needsclick">'
-                        + placeName[0] + '</div><div class="mapboxgl-ctrl-geocoder--suggestion-address needsclick">'
-                        + placeName.splice(1, placeName.length).join(',') + '</div></div>';
-                }
-            });
-            // Dismiss the soft keyboard on mobile devices upon selecting a result
-            geocoder.on('result', function () { document.activeElement.blur(); });
-            map.addControl(geocoder);
+            // Skip the geocoder feature on browsers that fail to load the library,
+            // but otherwise work with OnsenUI and Mapbox GL JS (such as Chrome 40), due to lack of const support
+            if ('MapboxGeocoder' in window) {
+                var geocoder = new MapboxGeocoder({
+                    accessToken: mapboxgl.accessToken,
+                    mapboxgl: mapboxgl,
+                    marker: false,
+                    // On iOS standalone, expanding the collapsed search is a bit tricky, so disabling collapse instead
+                    collapsed: !(ons.platform.isIOS() && navigator.standalone),
+                    clearAndBlurOnEsc: true,
+                    flyTo: {
+                        animate: false
+                    },
+                    // On iOS standalone, OnsenUI's FastClick does not play well with the Geocoder,
+                    // so we override the render method to insert the needsclick class which excludes results from FastClick
+                    render: function (item) {
+                        var placeName = item.place_name.split(',');
+                        return '<div class="mapboxgl-ctrl-geocoder--suggestion">'
+                            + '<div class="mapboxgl-ctrl-geocoder--suggestion-title needsclick">'
+                            + placeName[0] + '</div><div class="mapboxgl-ctrl-geocoder--suggestion-address needsclick">'
+                            + placeName.splice(1, placeName.length).join(',') + '</div></div>';
+                    }
+                });
+                // Dismiss the soft keyboard on mobile devices upon selecting a result
+                geocoder.on('result', function () { document.activeElement.blur(); });
+                map.addControl(geocoder);
+            }
 
             // Add zoom/bearing controls to map.
             map.addControl(new mapboxgl.NavigationControl());
