@@ -443,7 +443,7 @@ ons.ready(function() {
             mapboxgl.accessToken = 'pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw';
             map = new mapboxgl.Map({
                 container: 'map',
-                style: 'mapbox://styles/mapbox/streets-v11',
+                style: 'mapbox://styles/andrew67/ck9xjbtyl1h7m1ili7y80hwus',
                 center: [initialView.center.lng, initialView.center.lat],
                 zoom: initialView.zoom,
                 renderWorldCopies: false
