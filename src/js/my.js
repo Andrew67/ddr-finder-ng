@@ -276,19 +276,27 @@ ons.ready(function() {
         };
 
         if (ons.platform.isIOS())
-            return function(latitude, longitude, label) {
+            return function(lat, lng, label) {
             switch (settingsService.getValue('ios-navigation')) {
                 case 'google':
-                    return 'comgooglemaps://?daddr=' + latitude + ',' + longitude;
+                    return 'comgooglemaps://?daddr=' + lat + ',' + lng;
                 case 'waze':
-                    return 'waze://?ll=' + latitude + ',' + longitude + '&navigate=yes';
+                    return 'waze://?ll=' + lat + ',' + lng + '&navigate=yes';
                 case 'sygic':
-                    return 'com.sygic.aura://coordinate|' + longitude + '|' + latitude + '|drive';
+                    return 'com.sygic.aura://coordinate|' + lng + '|' + lat + '|drive';
                 case 'mapsme':
-                    return 'mapswithme://map?v=1.1&ll=' + latitude + ',' + longitude + '&n=' + encodeURIComponent(label);
+                    return 'mapswithme://map?v=1.1&ll=' + lat + ',' + lng + '&n=' + encodeURIComponent(label);
+                case 'baidu':
+                    return 'baidumap://map/marker?location=' + lat + ',' + lng +
+                        '&title=' + encodeURIComponent(label) +
+                        '&content=' + encodeURIComponent('GPS: ' + lat + '°, ' + lng + '°') +
+                        '&coord_type=wgs84&src=ios.baidu.openAPIdemo';
+                case 'gaode':
+                    return 'iosamap://viewMap?sourceApplication=applicationName' +
+                        '&poiname=' + encodeURIComponent(label) + '&lat=' + lat + '&lon=' + lng + '&dev=1';
                 case 'apple':
                 default:
-                    return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + latitude + ',' + longitude;
+                    return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + lat + ',' + lng;
             }
             };
         else if (ons.platform.isAndroid())
@@ -546,8 +554,8 @@ ons.ready(function() {
                     }, 1000);
                 }
 
-                openExternalLink(getNavURL(feature.geometry.coordinates[1],
-                    feature.geometry.coordinates[0], feature.properties.name));
+                openExternalLink(getNavURL(feature.geometry.coordinates[1].toFixed(5),
+                    feature.geometry.coordinates[0].toFixed(5), feature.properties.name));
             };
 
             // This function is called when an arcade location on the map is clicked.
