@@ -155,21 +155,6 @@ ons.ready(function() {
             return output;
         };
 
-        // Unsets all user-defined settings
-        module.clearAll = function () {
-            for (var item in settings) {
-                if (settings.hasOwnProperty(item)) {
-                    window.localStorage.removeItem(settings[item].key);
-                }
-            }
-        };
-
-        // Clear old deprecated settings items from user's localStorage, to save space.
-        ['ng-settings-datasource', 'ng-settings-custom-datasource', 'api-endpoint',
-            'ng-settings-autoload', 'org.cubiq.addtohome', 'com.andrew67.ddrfinder.ng'].forEach(function (key) {
-            window.localStorage.removeItem(key);
-        });
-
         return module;
     })();
 
@@ -882,17 +867,6 @@ ons.ready(function() {
                 var currentValue = settingsService.getValue(key);
                 setLabel(key, currentValue);
                 document.getElementById('settings-' + key + '-' + currentValue).checked = true;
-            });
-
-            // Set settings to factory default after confirming with user, then kick out of settings screen
-            document.getElementById('settings-factory').addEventListener('click', function() {
-                ons.notification.confirm('Are you sure? This will erase all of your settings.')
-                .then(function(answer) {
-                    if (answer === 1) {
-                        settingsService.clearAll();
-                        myNavigator.popPage();
-                    }
-                });
             });
         };
 
