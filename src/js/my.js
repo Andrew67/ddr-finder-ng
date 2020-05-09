@@ -855,6 +855,12 @@ ons.ready(function() {
         };
 
         module.init = function (page) {
+            // Hide the navigation option on non-iOS devices; cannot wrap in <ons-if> as it breaks iPhoneX padding
+            if (!ons.platform.isIOS()) {
+                var iOSNavSettingEl = document.getElementById('settings-ios-navigation');
+                if (iOSNavSettingEl) iOSNavSettingEl.remove();
+            }
+
             document.getElementById('about-button').addEventListener('click', function () {
                 pushPage('about');
             });

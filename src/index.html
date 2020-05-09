@@ -65,30 +65,24 @@
             </ons-toolbar>
 
             <ons-list>
-                <ons-list-header>Basic</ons-list-header>
+                <ons-list-header>Map</ons-list-header>
                 <ons-list-item tappable id="settings-datasource">
                     <span class="list-item__title">Data Source</span>
                     <span class="list-item__subtitle">---</span>
                 </ons-list-item>
-                <!-- TODO: Due to nesting inside ons-if, padding is wrong on iPhoneX -->
-                <ons-if platform="ios">
-                    <ons-list-item tappable id="settings-ios-navigation">
-                        <span class="list-item__title">Navigation</span>
-                        <span class="list-item__subtitle">---</span>
-                    </ons-list-item>
-                </ons-if>
+                <ons-list-item tappable id="settings-ios-navigation">
+                    <span class="list-item__title">Navigation</span>
+                    <span class="list-item__subtitle">---</span>
+                </ons-list-item>
 
                 <ons-list-header>Advanced</ons-list-header>
                 <ons-list-item tappable id="settings-factory">
                     <span class="list-item__title">Reset</span>
                 </ons-list-item>
 
-                <ons-list-header>Information</ons-list-header>
+                <ons-list-header>Help</ons-list-header>
                 <ons-list-item tappable id="about-button">
                     <span class="list-item__title">About</span>
-                </ons-list-item>
-                <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/">
-                    <span class="list-item__title">Home Page</span>
                 </ons-list-item>
             </ons-list>
             <ons-alert-dialog id="settings-datasource-dialog" cancelable>
@@ -188,8 +182,11 @@
                     </span>
                     <span class="list-item__subtitle">&copy;2016&ndash;2020 Andrés Cordero</span>
                 </ons-list-item>
+                <ons-list-item tappable data-href="https://ddrfinder.andrew67.com/">
+                    <span class="list-item__title">Home Page</span>
+                </ons-list-item>
                 <ons-list-item tappable data-href="https://github.com/Andrew67/ddr-finder-ng">
-                    <span class="list-item__title">Visit Project Site on GitHub</span>
+                    <span class="list-item__title">Project Site on GitHub</span>
                 </ons-list-item>
 
                 <ons-list-header>Data Sources</ons-list-header>
