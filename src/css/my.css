@@ -51,6 +51,14 @@ body {
     user-select: text;
 }
 
+.hasDDRYes {
+    color: darkgreen;
+}
+
+.hasDDRNo {
+    color: darkred;
+}
+
 /* Translucent statusbar for iOS standalone bug fixes / iPhoneX positioning */
 @media (orientation: portrait) {
     /* Bug fixes */
@@ -105,7 +113,7 @@ body {
     width: 40px;
     height: 40px;
 }
-#ddrfinder .mapboxgl-ctrl-ons {
+#ddrfinder .mapboxgl-ctrl-ons, #ddrfinder .mapboxgl-popup-content ons-icon {
     font-size: 20px;
 }
 #ddrfinder .mapboxgl-ctrl-ons ons-icon {

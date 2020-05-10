@@ -563,12 +563,18 @@ ons.ready(function() {
                 var popupContainer = document.createElement('div');
 
                 var description = document.createElement('div');
-                var descriptionHTML = '<p><b class="selectable">' + feature.properties.name + '</b><br>';
+                var descriptionHTML = '<p class="selectable"><b class="selectable">' + feature.properties.name + '</b><br>';
                 if (feature.properties.city.length !== 0) {
-                    descriptionHTML += '<i>City</i>: <span class="selectable">' + feature.properties.city + '</span><br>';
+                    descriptionHTML += '<i class="selectable">City</i>: ' + feature.properties.city + '<br>';
                 }
-                descriptionHTML += '<i>GPS</i>: <span class="selectable">' + feature.geometry.coordinates[1].toFixed(5)
-                    + '°, ' + feature.geometry.coordinates[0].toFixed(5) + '°</span></p>';
+                if (apiService.getSource(feature.properties.src)['hasDDR']) {
+                    descriptionHTML += '<i class="selectable">DDR</i>: <span class="selectable hasDDR' +
+                        (feature.properties.hasDDR ? 'Yes' : 'No') + '"><ons-icon icon="' +
+                        (feature.properties.hasDDR ? 'ion-ios-checkmark' : 'ion-ios-close') +
+                        '"></ons-icon> ' + (feature.properties.hasDDR ? 'Yes' : 'No') + '</span><br>';
+                }
+                descriptionHTML += '<i class="selectable">GPS</i>: ' + feature.geometry.coordinates[1].toFixed(5)
+                    + '°, ' + feature.geometry.coordinates[0].toFixed(5) + '°</p>';
                 description.innerHTML = descriptionHTML;
 
                 var moreInfo = document.createElement('ons-button');
@@ -748,7 +754,6 @@ ons.ready(function() {
                                     .setLngLat(coordinates)
                                     .setDOMContent(buildPopupDOM(feature))
                                     .addTo(map);
-                                console.log(properties);
                             });
                             map.on('mouseenter', 'unclustered-point', function() {
                                 map.getCanvas().style.cursor = 'pointer';
