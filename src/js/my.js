@@ -279,9 +279,10 @@ ons.ready(function() {
             return function(lat, lng, label) {
             switch (settingsService.getValue('ios-navigation')) {
                 case 'google':
-                    return 'comgooglemaps://?daddr=' + lat + ',' + lng;
+                    return getGoogleMapsURL(lat, lng, label)
+                        .replace('https://', 'comgooglemapsurl://');
                 case 'waze':
-                    return 'waze://?ll=' + lat + ',' + lng + '&navigate=yes';
+                    return 'waze://?ll=' + lat + ',' + lng;
                 case 'sygic':
                     return 'com.sygic.aura://coordinate|' + lng + '|' + lat + '|drive';
                 case 'mapsme':
@@ -296,7 +297,7 @@ ons.ready(function() {
                         '&poiname=' + encodeURIComponent(label) + '&lat=' + lat + '&lon=' + lng + '&dev=1';
                 case 'apple':
                 default:
-                    return 'maps:?q=&saddr=Current%20Location&daddr=loc:' + lat + ',' + lng;
+                    return 'maps:?q=' + encodeURIComponent(label) + '&ll=' + lat + ',' + lng;
             }
             };
         else if (ons.platform.isAndroid())
@@ -542,6 +543,7 @@ ons.ready(function() {
                 trackGoal(3);
 
                 // If iOS standalone and non-default map application, detect missing app and offer to switch to Apple Maps and retry.
+                // TODO: iOS 12/13 should check for and cancel using visibilitychange; iOS 13.4+ does not require this
                 if (ons.platform.isIOS() && navigator.standalone && settingsService.getValue('ios-navigation') !== 'apple') {
                     setTimeout(function () {
                         ons.notification.confirm('Unable to launch your selected navigation app. Switch to Apple Maps?')
