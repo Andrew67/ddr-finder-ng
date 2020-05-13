@@ -649,29 +649,35 @@ ons.ready(function() {
                                 filter: ['has', 'point_count'],
                                 paint: {
                                     // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-                                    // with three steps to implement three types of circles:
-                                    //   * Blue, 20px circles when point count is less than 100
-                                    //   * Yellow, 30px circles when point count is between 100 and 750
-                                    //   * Pink, 40px circles when point count is greater than or equal to 750
-                                    // TODO: Proper app-theme colors
+                                    // modified from the example to match Android Maps Utils
+                                    // Step values: https://github.com/googlemaps/android-maps-utils/blob/v1.2.1/library/src/main/java/com/google/maps/android/clustering/view/DefaultClusterRenderer.java#L83
+                                    // Color values: https://github.com/googlemaps/android-maps-utils/blob/v1.2.1/library/src/main/java/com/google/maps/android/clustering/view/DefaultClusterRenderer.java#L203
+                                    // Original code mathematically computes an HSV value. Clever! We pre-render as RGB here
                                     'circle-color': [
                                         'step',
                                         ['get', 'point_count'],
-                                        '#51bbd6',
+                                        '#005999',
+                                        20,
+                                        '#007c99',
+                                        50,
+                                        '#009951',
                                         100,
-                                        '#f1f075',
-                                        750,
-                                        '#f28cb1'
+                                        '#3a9900',
+                                        200,
+                                        '#993d00',
+                                        300,
+                                        '#990000'
                                     ],
                                     'circle-radius': [
                                         'step',
                                         ['get', 'point_count'],
                                         20,
                                         100,
-                                        30,
-                                        750,
-                                        40
-                                    ]
+                                        30
+                                    ],
+                                    'circle-stroke-color': 'white',
+                                    'circle-stroke-opacity': 0.5,
+                                    'circle-stroke-width': 3
                                 }
                             });
 
@@ -682,8 +688,11 @@ ons.ready(function() {
                                 filter: ['has', 'point_count'],
                                 layout: {
                                     'text-field': '{point_count_abbreviated}',
-                                    //'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-                                    'text-size': 12
+                                    'text-font': ['DIN Pro Medium', 'Arial Unicode MS Bold'],
+                                    'text-size': 16
+                                },
+                                paint: {
+                                    'text-color': 'white'
                                 }
                             });
 
