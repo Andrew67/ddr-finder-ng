@@ -443,6 +443,18 @@ ons.ready(function() {
                 renderWorldCopies: false
             });
 
+            // Load custom location marker images.
+            ['arcade-blue-24', 'arrow-blue-24'].forEach(function (imageName) {
+                map.loadImage('img/' + imageName + '.png', function (error, image) {
+                    if (error) throw error;
+                    else if (!map.hasImage(imageName)) {
+                        map.addImage(imageName, image, {
+                            pixelRatio: 2
+                        })
+                    }
+                });
+            });
+
             // Skip the geocoder feature on browsers that fail to load the library,
             // but otherwise work with OnsenUI and Mapbox GL JS (such as Chrome 40), due to lack of const support
             if ('MapboxGeocoder' in window) {
@@ -654,26 +666,19 @@ ons.ready(function() {
                                     // Color values: https://github.com/googlemaps/android-maps-utils/blob/v1.2.1/library/src/main/java/com/google/maps/android/clustering/view/DefaultClusterRenderer.java#L203
                                     // Original code mathematically computes an HSV value. Clever! We pre-render as RGB here
                                     'circle-color': [
-                                        'step',
-                                        ['get', 'point_count'],
+                                        'step', ['get', 'point_count'],
                                         '#005999',
-                                        20,
-                                        '#007c99',
-                                        50,
-                                        '#009951',
-                                        100,
-                                        '#3a9900',
-                                        200,
-                                        '#993d00',
-                                        300,
-                                        '#990000'
+                                        20, '#007c99',
+                                        50, '#009951',
+                                        100, '#3a9900',
+                                        200, '#993d00',
+                                        300, '#990000'
                                     ],
                                     'circle-radius': [
                                         'step',
                                         ['get', 'point_count'],
                                         20,
-                                        100,
-                                        30
+                                        100, 30
                                     ],
                                     'circle-stroke-color': 'white',
                                     'circle-stroke-opacity': 0.5,
@@ -689,7 +694,8 @@ ons.ready(function() {
                                 layout: {
                                     'text-field': '{point_count_abbreviated}',
                                     'text-font': ['DIN Pro Medium', 'Arial Unicode MS Bold'],
-                                    'text-size': 16
+                                    'text-size': 16,
+                                    'text-allow-overlap': true
                                 },
                                 paint: {
                                     'text-color': 'white'
@@ -702,20 +708,22 @@ ons.ready(function() {
                                 source: 'locations',
                                 filter: ['!', ['has', 'point_count']],
                                 layout: {
-                                    // TODO: proper large marker icon
-                                    // TODO: dynamic icon based on DDR status
-                                    'icon-image': 'music-15',
+                                    'icon-image': [
+                                        'match', ['get', 'hasDDR'],
+                                        1, 'arrow-blue-24',
+                                        'arcade-blue-24'
+                                    ],
                                     'icon-allow-overlap': true,
                                     'text-field': ['get', 'name'],
-                                    'text-size': 14,
-                                    'text-offset': [0, 0.6],
+                                    'text-size': 12,
+                                    'text-offset': [0, 1],
                                     'text-anchor': 'top',
-                                    'text-allow-overlap': true
+                                    'text-optional': true
                                 },
                                 paint: {
                                     'text-color': '#1976d2',
-                                    'text-halo-color': '#ffffff',
-                                    'text-halo-width': 2
+                                    'text-halo-color': 'white',
+                                    'text-halo-width': 1
                                 }
                             });
 
