@@ -760,7 +760,6 @@ ons.ready(function() {
 
                                 var feature = e.features[0];
                                 var coordinates = feature.geometry.coordinates.slice();
-                                var properties = feature.properties;
 
                                 // Ensure that if the map is zoomed out such that
                                 // multiple copies of the feature are visible, the
