@@ -613,14 +613,15 @@ ons.ready(function() {
             // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired, etc.
             // Clears and sets errors when necessary as well.
             var loadedLocationIds = []; // Stores loaded location ids, to prevent loading duplicate markers on the map.
+            var progressBar = document.getElementById('progress-bar');
             var dataLoadHandler = function (event, forceLoad) {
                 errorMsg.clearAll();
 
                 if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
-                    // TODO: spin up indeterminate progress bar
+                    progressBar.hidden = false;
 
                     var commonCleanup = function() {
-                        // TODO: hide progress bar
+                        progressBar.hidden = true;
                     };
 
                     apiService.getLocations(map.getBounds(), function (locations) {

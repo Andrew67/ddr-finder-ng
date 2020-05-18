@@ -24,6 +24,14 @@
 body {
     background-color: #1976d2; /* colors Safari UI similar to theme-color on Chrome */
 }
+#progress-bar {
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+}
+#progress-bar[hidden] {
+    display: none;
+}
 #map {
     height: 100%
 }
