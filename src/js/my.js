@@ -440,7 +440,8 @@ ons.ready(function() {
                 style: 'mapbox://styles/andrew67/ck9xjbtyl1h7m1ili7y80hwus',
                 center: [initialView.center.lng, initialView.center.lat],
                 zoom: initialView.zoom,
-                renderWorldCopies: false
+                renderWorldCopies: false,
+                maxBounds: [ [-180, -85], [180, 85] ]
             });
 
             // Load custom location marker images.
