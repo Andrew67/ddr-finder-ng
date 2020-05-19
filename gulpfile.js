@@ -28,7 +28,7 @@ gulp.task('build', function () {
             .pipe(gulp.dest(PREFIX + '/img')),
 
         // My code
-        gulp.src(['src/**/*.html', 'src/**/*.js', 'src/**/*.css', 'src/manifest.json'])
+        gulp.src(['src/**/*.html', 'src/**/*.js', 'src/**/*.css', 'src/manifest.json', 'src/.htaccess'])
             .pipe(gulp.dest(PREFIX))
     ]);
 });
@@ -72,11 +72,11 @@ gulp.task('build-release', function () {
         gulp.src('src/**/*.css')
             .pipe(cleanCSS())
             .pipe(gulp.dest(PREFIX)),
-        gulp.src(['src/manifest.json'])
+        gulp.src(['src/manifest.json', 'src/.htaccess'])
             .pipe(gulp.dest(PREFIX))
     ]);
 });
 
 gulp.task('watch', function() {
-    return gulp.watch(['src/**', 'onsenui-custom-theme/onsen-css-components.css'], gulp.series('build'));
+    return gulp.watch(['src/**', 'src/.htaccess', 'onsenui-custom-theme/onsen-css-components.css'], gulp.series('build'));
 });
