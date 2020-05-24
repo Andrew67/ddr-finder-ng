@@ -91,6 +91,11 @@ ons.ready(function() {
     var settingsService = (function () {
         var module = {};
         var settings = {
+            'filter-ddr-only': {
+                'key': 'filter-ddr-only',
+                'type': 'bool',
+                'defaultValue': false
+            },
             'datasource': {
                 'key': 'datasrc',
                 'type': 'string',
@@ -373,7 +378,12 @@ ons.ready(function() {
 
     // mapview
     var mapview = (function () {
-        var module = {}, map;
+        var module = {};
+
+        var map = null;
+        var loadedLocationIds = []; // Stores loaded location ids, to prevent loading duplicate markers on the map.
+        var dataLoadHandler = function () { }; // Defined here for access in show event; see below for true definition.
+
         module.init = function (page) {
             // errorMsg can clear all errors or show a specific one, from the error-box div.
             var errorMsg = (function () {
@@ -613,9 +623,8 @@ ons.ready(function() {
 
             // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired, etc.
             // Clears and sets errors when necessary as well.
-            var loadedLocationIds = []; // Stores loaded location ids, to prevent loading duplicate markers on the map.
             var progressBar = document.getElementById('progress-bar');
-            var dataLoadHandler = function (event, forceLoad) {
+            dataLoadHandler = function (event, forceLoad) {
                 errorMsg.clearAll();
 
                 if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
@@ -636,6 +645,13 @@ ons.ready(function() {
                             }
                             return false;
                         });
+
+                        // Filter based on "DDR Only" settings.
+                        if (settingsService.getValue('filter-ddr-only')) {
+                            locations.features = locations.features.filter(function (location) {
+                                return location.properties['hasDDR'] === 1;
+                            });
+                        }
 
                         // Create or update the GeoJSON locations layer with the incoming data.
                         var source = map.getSource('locations');
@@ -825,7 +841,25 @@ ons.ready(function() {
             lastViewPreserver();
         };
 
+        var prevDatasrc = null, prevFilterDDROnly = null;
+
         module.show = function () {
+            // Trigger changes if certain settings changed while away from the map.
+            // TODO: Involve some sort of caching layer, as this behavior causes network requests to happen.
+            var currFilterDDROnly = settingsService.getValue('filter-ddr-only');
+            var currDatasrc = settingsService.getValue('datasource');
+            if ((prevFilterDDROnly !== null && prevFilterDDROnly !== currFilterDDROnly) ||
+                (prevDatasrc !== null && prevDatasrc !== currDatasrc)) {
+
+                apiService.clear();
+                loadedLocationIds = [];
+                map.getSource('locations').setData({
+                    type: 'geojson',
+                    features: []
+                });
+                dataLoadHandler();
+            }
+
             // Trigger resize on the map when returning to the map page.
             // This is used to handle the following case:
             // Navigating to Settings/About and visiting an external link, then returning to the webapp causes the map
@@ -833,6 +867,12 @@ ons.ready(function() {
             // as 0 and falls back to a 300px height, without ever re-assessing.
             // See: https://github.com/mapbox/mapbox-gl-js/issues/3265
             if (map) map.resize();
+        };
+
+        module.hide = function () {
+            // Capture settings we care about, so we can check if they changed on show and react appropriately
+            prevDatasrc = settingsService.getValue('datasource');
+            prevFilterDDROnly = settingsService.getValue('filter-ddr-only');
         };
 
         return module;
@@ -853,7 +893,13 @@ ons.ready(function() {
             var key = null;
             var newValue = null;
 
-            switch (option.name) {
+            switch (option.name || option.id) {
+                // Switch cases
+                case 'settings-filter-ddr-only-switch':
+                    key = 'filter-ddr-only';
+                    newValue = option.checked;
+                    break;
+                // Dialog cases
                 case 'datasource':
                 case 'ios-navigation':
                     key = option.name;
@@ -885,6 +931,15 @@ ons.ready(function() {
 
             page.addEventListener('change', formChangeHandler);
 
+            // Initialize switch label event listener and current value
+            ['filter-ddr-only'].forEach(function (key) {
+                var _switch = document.getElementById('settings-' + key + '-switch');
+                document.querySelector('#settings-' + key + ' .center').addEventListener('click', function () {
+                    _switch.click();
+                });
+                _switch.checked = settingsService.getValue(key);
+            });
+
             // Set the dialog listeners and initialize label and radio buttons to the current values
             var dialogs = ['datasource'];
             if (ons.platform.isIOS()) dialogs.push('ios-navigation');
@@ -906,14 +961,6 @@ ons.ready(function() {
         return module;
     })();
 
-    // about
-    var about = (function () {
-        var module = {};
-        module.init = function () {
-        };
-        return module;
-    })();
-
     document.addEventListener('init', function (e) {
         var page = e.target;
 
@@ -922,12 +969,17 @@ ons.ready(function() {
 
         if (page.id === 'mapview') mapview.init(page);
         else if (page.id === 'settings') settings.init(page);
-        else if (page.id === 'about') about.init(page);
     });
 
     document.addEventListener('show', function (e) {
         var page = e.target;
 
         if (page.id === 'mapview') mapview.show(page);
+    });
+
+    document.addEventListener('hide', function (e) {
+        var page = e.target;
+
+        if (page.id === 'mapview') mapview.hide(page);
     });
 });
