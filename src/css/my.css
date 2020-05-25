@@ -110,10 +110,6 @@ body {
     html[onsflag-iphonex-landscape] .mapboxgl-ctrl-top-right {
         right: 34px;
     }
-    /* Prevent iOS from zooming in. See: https://stackoverflow.com/a/39551879  */
-    html[onsflag-iphonex-landscape] .mapboxgl-ctrl-geocoder--input {
-        font-size: 16px;
-    }
 }
 
 /* Enlarge map button and icon size. */
@@ -127,6 +123,11 @@ body {
 #ddrfinder .mapboxgl-ctrl-ons ons-icon {
     line-height: inherit;
     vertical-align: inherit;
+}
+
+/* Prevent iOS from zooming in. See: https://stackoverflow.com/a/39551879  */
+#ddrfinder .mapboxgl-ctrl-geocoder--input {
+    font-size: 16px;
 }
 
 
