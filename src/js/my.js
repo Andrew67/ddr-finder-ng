@@ -33,6 +33,9 @@ ons.ready(function() {
         navigator.standalone = window.matchMedia('(display-mode: standalone)').matches;
     }
 
+    // Samsung Internet has a few gotchas.
+    var isSamsungInternet = /SamsungBrowser\//i.test(navigator.userAgent);
+
     // Contains app navigator stack.
     var myNavigator = document.getElementById('myNavigator');
 
@@ -279,6 +282,9 @@ ons.ready(function() {
         var getGoogleMapsURL = function (lat, lng, label) {
             return 'https://maps.google.com/?q=loc:' + lat + ',' + lng + '(' + encodeURIComponent(label) + ')';
         };
+        var getGeoURI = function (lat, lng, label) {
+            return 'geo:' + lat + ',' + lng + '?q=' + lat + ',' + lng + '(' + encodeURIComponent(label) + ')';
+        };
 
         if (ons.platform.isIOS())
             return function(lat, lng, label) {
@@ -305,19 +311,27 @@ ons.ready(function() {
                     return 'maps:?q=' + encodeURIComponent(label) + '&ll=' + lat + ',' + lng;
             }
             };
-        else if (ons.platform.isAndroid())
-            return function(lat, lng, label) {
+        else if (ons.platform.isAndroid()) {
+            if (ons.platform.isFirefox() || isSamsungInternet) {
+                // As of writing, intent: URIs are not being handled well:
+                // Firefox ESR 68 in standalone mode does nothing
+                // Firefox Preview 5 jumps to fall-back URL, even when "Open in Apps" is enabled; standalone goes to search?!
+                // Samsung Internet 11 in standalone mode opens a new window then crashes!!
+                return getGeoURI;
+            }
+            return function (lat, lng, label) {
                 // intent URI allows us to combine the following two:
                 // geo URI that triggers app picker
                 //     geo:lat,lng?q=lat,lng(encoded label)
                 // Google Maps URI if no apps available to handle geo
                 //     https://maps.google.com/?q=loc:lat,lng(encoded label)
                 // See: https://developer.chrome.com/multidevice/android/intents
-                return 'intent:' + lat + ',' + lng + '?q=' + lat + ',' + lng + '(' + encodeURIComponent(label) + ')' +
-                        '#Intent;scheme=geo;' +
-                        'S.browser_fallback_url=' + encodeURIComponent(getGoogleMapsURL(lat, lng, label)) + ';' +
-                        'end;';
+                return getGeoURI(lat, lng, label).replace('geo:', 'intent:') +
+                    '#Intent;scheme=geo;' +
+                    'S.browser_fallback_url=' + encodeURIComponent(getGoogleMapsURL(lat, lng, label)) + ';' +
+                    'end;';
             };
+        }
         else return getGoogleMapsURL;
     })();
 
