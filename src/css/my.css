@@ -36,18 +36,6 @@ body {
     height: 100%
 }
 
-#error-box {
-    position: absolute;
-    z-index: 1000;
-    bottom: 20px;
-    width: 100%;
-    background-color: rgba(0,0,0,0.75);
-    color: orange;
-}
-#error-box p {
-    margin: 5px;
-}
-
 #app-logo {
     text-align: center;
 }

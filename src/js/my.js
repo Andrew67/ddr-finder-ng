@@ -406,24 +406,14 @@ ons.ready(function() {
             // errorMsg can clear all errors or show a specific one, from the error-box div.
             var errorMsg = (function () {
                 var module = {};
-                var errorBox = document.getElementById('error-box');
-                var errorMessages = errorBox.childNodes;
-
-                module.clearAll = function () {
-                    for (var i = 0; i < errorMessages.length; ++i) {
-                        if (errorMessages.item(i).style) {
-                            errorMessages.item(i).style.display = 'none';
-                        }
-                    }
+                var errorMessages = {
+                    unexpected: 'Unexpected error while loading data',
+                    zoom: 'Zoom in to load more locations',
+                    datasrc: 'Server did not recognize the data source(s) requested'
                 };
 
-                module.show = function (msg) {
-                    for (var i = 0; i < errorMessages.length; ++i) {
-                        if (errorMessages.item(i).id === 'error-' + msg) {
-                            errorMessages.item(i).style.display = '';
-                            return;
-                        }
-                    }
+                module.show = function (msgId) {
+                    return ons.notification.toast(errorMessages[msgId], { timeout: 2000, animation: 'fade' });
                 };
 
                 return module;
@@ -643,8 +633,6 @@ ons.ready(function() {
             // Clears and sets errors when necessary as well.
             var progressBar = document.getElementById('progress-bar');
             dataLoadHandler = function (event, forceLoad) {
-                errorMsg.clearAll();
-
                 if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
                     progressBar.hidden = false;
 
