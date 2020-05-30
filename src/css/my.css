@@ -151,3 +151,19 @@ body {
 #ddrfinder #settings .list--material, #ddrfinder #about .list--material {
     min-height: 100%;
 }
+
+/* On small-height displays, make dialog content scroll-able (specifically Navigation setting on iPhone SE) */
+#ddrfinder .alert-dialog {
+    max-height: 100%;
+    display: flex;
+}
+
+#ddrfinder .alert-dialog-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#ddrfinder .alert-dialog-content {
+    overflow-y: auto;
+}

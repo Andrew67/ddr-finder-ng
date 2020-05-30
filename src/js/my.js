@@ -296,8 +296,12 @@ ons.ready(function() {
                     return 'waze://?ll=' + lat + ',' + lng;
                 case 'sygic':
                     return 'com.sygic.aura://coordinate|' + lng + '|' + lat + '|drive';
+                case 'here':
+                    return 'here-location://' + lat + ',' + lng + ',' + encodeURIComponent(label);
                 case 'mapsme':
                     return 'mapswithme://map?v=1.1&ll=' + lat + ',' + lng + '&n=' + encodeURIComponent(label);
+                case 'magicearth':
+                    return 'magicearth://?show_on_map&lat=' + lat + '&lon=' + lng + '&name=' + encodeURIComponent(label);
                 case 'baidu':
                     return 'baidumap://map/marker?location=' + lat + ',' + lng +
                         '&title=' + encodeURIComponent(label) +
