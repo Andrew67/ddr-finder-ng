@@ -570,26 +570,35 @@ ons.ready(function() {
                 trackGoal(5);
                 openExternalLink(getInfoURL(feature.properties));
             };
+
+            var selectedFeature = null;
+            var navigationAppToast = document.getElementById('navigation-app-toast');
+            navigationAppToast.addEventListener('click', function () { navigationAppToast.hide(); });
+            document.addEventListener('visibilitychange', function () {
+                navigationAppToast.hide({ animation: 'none' });
+            });
             var onNavigate = function (feature) {
                 trackGoal(3);
 
                 // If iOS standalone and non-default map application, detect missing app and offer to switch to Apple Maps and retry.
-                // TODO: iOS 12/13 should check for and cancel using visibilitychange; iOS 13.4+ does not require this
                 if (ons.platform.isIOS() && navigator.standalone && settingsService.getValue('ios-navigation') !== 'apple') {
-                    setTimeout(function () {
-                        ons.notification.confirm('Unable to launch your selected navigation app. Switch to Apple Maps?')
-                            .then(function(answer) {
-                                if (answer === 1) {
-                                    settingsService.setValue('ios-navigation', 'apple');
-                                    onNavigate(feature);
-                                }
-                            });
-                    }, 1000);
+                    selectedFeature = feature;
+                    setTimeout(function () { navigationAppToast.show(); }, 1000);
                 }
 
                 openExternalLink(getNavURL(feature.geometry.coordinates[1].toFixed(5),
                     feature.geometry.coordinates[0].toFixed(5), feature.properties.name));
             };
+
+            /**
+             * Resets the user's iOS navigation app preference to Apple Maps,
+             * then attempts to navigate to the last selected feature, if available
+             */
+            var fallbackToAppleMaps = function () {
+                settingsService.setValue('ios-navigation', 'apple');
+                if (selectedFeature) onNavigate(selectedFeature);
+            }
+            document.getElementById('navigation-app-toast-button').addEventListener('click', fallbackToAppleMaps);
 
             // This function is called when an arcade location on the map is clicked.
             var buildPopupDOM = function (feature) {
