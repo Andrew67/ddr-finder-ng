@@ -48,11 +48,11 @@ body {
 }
 
 .hasDDRYes {
-    color: darkgreen;
+    color: #388e3c;
 }
 
 .hasDDRNo {
-    color: darkred;
+    color: #d32f2f;
 }
 
 /* Translucent statusbar for iOS standalone bug fixes / iPhoneX positioning */
@@ -105,8 +105,8 @@ body {
     width: 40px;
     height: 40px;
 }
-#ddrfinder .mapboxgl-ctrl-ons, #ddrfinder .mapboxgl-popup-content ons-icon {
-    font-size: 20px;
+#ddrfinder .mapboxgl-popup-content {
+    font-size: 16px;
 }
 #ddrfinder .mapboxgl-ctrl-ons ons-icon {
     line-height: inherit;
@@ -119,15 +119,19 @@ body {
 }
 
 
-/* Tweak Mapbox popup for rounder corners and larger X button, as well as canceling the MD button sliding in. */
-#ddrfinder .mapboxgl-popup-content {
-    border-radius: 8px;
-}
+/* Tweak Mapbox popup to incrase legibility and prevent MD button from sliding in. */
 #ddrfinder .mapboxgl-popup-close-button {
-    font-size: 16px;
+    font-size: 24px;
+    padding-right: 8px;
 }
 #ddrfinder .mapboxgl-popup-content .button--material {
     transition-duration: 0s;
+}
+#ddrfinder .mapboxgl-popup-content ons-icon {
+    font-size: 32px;
+}
+#ddrfinder .mapboxgl-ctrl-ons {
+    font-size: 20px;
 }
 
 /* Hide "Improve this map" link, as users will probably think that's for submitting arcades to DDR Finder itself. */
@@ -154,4 +158,14 @@ body {
 
 #ddrfinder .alert-dialog-content {
     overflow-y: auto;
+}
+
+#settings-ios-install ol {
+    margin: 0;
+    padding: 0 0 0 20px;
+}
+
+#settings-ios-install ons-icon {
+    vertical-align: inherit;
+    color: #1976d2;
 }

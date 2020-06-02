@@ -934,10 +934,14 @@ ons.ready(function() {
         };
 
         module.init = function (page) {
-            // Hide the navigation option on non-iOS devices; cannot wrap in <ons-if> as it breaks iPhoneX padding
+            // Hide the iOS items on non-iOS devices; cannot wrap in <ons-if> as it breaks iPhoneX padding
             if (!ons.platform.isIOS()) {
                 var iOSNavSettingEl = document.getElementById('settings-ios-navigation');
                 if (iOSNavSettingEl) iOSNavSettingEl.remove();
+            }
+            if (!ons.platform.isIOS() || navigator.standalone) {
+                var iOSInstallInstructions = document.getElementById('settings-ios-install');
+                if (iOSInstallInstructions) iOSInstallInstructions.remove();
             }
 
             document.getElementById('about-button').addEventListener('click', function () {
