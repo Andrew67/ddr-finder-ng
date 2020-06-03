@@ -139,6 +139,21 @@ body {
     display: none;
 }
 
+/* Push mapbox logo up since we do fully expanded attribution. */
+@media (max-width: 413px) {
+    #ddrfinder a.mapboxgl-ctrl-logo {
+        margin-bottom: 8px;
+    }
+}
+
+/* Hide/show attribution link based on currently set data source. */
+[data-src] [data-src] {
+    display: none;
+}
+[data-src="ziv"] [data-src="ziv"], [data-src="navi"] [data-src="navi"] {
+    display: unset;
+}
+
 /* Full-screen MD settings/about lists for consistently white bg. */
 #ddrfinder #settings .list--material, #ddrfinder #about .list--material {
     min-height: 100%;

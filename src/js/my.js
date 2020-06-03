@@ -459,8 +459,10 @@ ons.ready(function() {
                 center: [initialView.center.lng, initialView.center.lat],
                 zoom: initialView.zoom,
                 renderWorldCopies: false,
-                maxBounds: [ [-180, -85], [180, 85] ]
+                maxBounds: [ [-180, -85], [180, 85] ],
+                attributionControl: false
             });
+            map.addControl(new mapboxgl.AttributionControl({ compact: false }));
 
             // Load custom location marker images.
             ['arcade-blue-24', 'arrow-blue-24'].forEach(function (imageName) {
@@ -673,8 +675,9 @@ ons.ready(function() {
                         if (!source) {
                             map.addSource('locations', {
                                 type: 'geojson',
-                                // TODO: Show only attribution for selected data source
-                                attribution: '&copy; Zenius -I- vanisher.com &copy; DDR-Navi',
+                                attribution: '&copy; ' +
+                                    '<a href="https://zenius-i-vanisher.com/" target="_blank" rel="noopener" data-src="ziv">Zenius -I- vanisher.com</a>' +
+                                    '<a href="http://ddr-navi.jp/" target="_blank" rel="noopener" data-src="navi">DDR-Navi</a>',
                                 data: locations,
                                 cluster: true,
                                 clusterMaxZoom: 14
@@ -863,6 +866,7 @@ ons.ready(function() {
             // TODO: Involve some sort of caching layer, as this behavior causes network requests to happen.
             var currFilterDDROnly = settingsService.getValue('filter-ddr-only');
             var currDatasrc = settingsService.getValue('datasource');
+            document.body.setAttribute('data-src', currDatasrc); // Used with CSS for attributions
             if ((prevFilterDDROnly !== null && prevFilterDDROnly !== currFilterDDROnly) ||
                 (prevDatasrc !== null && prevDatasrc !== currDatasrc)) {
 
