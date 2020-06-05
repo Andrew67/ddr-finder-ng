@@ -67,19 +67,19 @@ ons.ready(function() {
     }
     // Re-sync the navigator stack based on the page ID returned in popstate, which is fired on back AND forward buttons.
     // If the ID is missing from the stack, push it, otherwise pop. Reset to mapview as a fallback if anything gets wonky.
-    // TODO: back button in quick succession results in a de-sync due to navigator.popPage in progress.
+    var prevNavigation = Promise.resolve();
     window.addEventListener('popstate', function (e) {
         var newPage = e.state && e.state.page;
         if (newPage) {
             if (myNavigator.pages.map(function (page) { return page.id; }).indexOf(newPage) !== -1) {
-                myNavigator.popPage();
+                prevNavigation = prevNavigation.then(function () { return myNavigator.popPage(); });
             } else {
-                myNavigator.pushPage(newPage + '.html');
+                prevNavigation = prevNavigation.then(function () { return myNavigator.pushPage(newPage + '.html'); });
             }
         } else if(myNavigator.pages.length > 1) {
-            myNavigator.popPage();
+            prevNavigation = prevNavigation.then(function () { return myNavigator.popPage(); });
         } else {
-            myNavigator.resetToPage('mapview.html');
+            prevNavigation = prevNavigation.then(function () { return myNavigator.resetToPage('mapview.html'); });
         }
     });
 
