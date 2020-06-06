@@ -40,7 +40,7 @@ body {
     text-align: center;
 }
 
-.selectable {
+.selectable, #ddrfinder .mapboxgl-popup-content > div * {
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
@@ -119,10 +119,29 @@ body {
 }
 
 
-/* Tweak Mapbox popup to incrase legibility and prevent MD button from sliding in. */
+/* Tweak Mapbox popup to incrase legibility/spacing and prevent MD button from sliding in. */
+#ddrfinder .mapboxgl-popup-content {
+    padding:10px;
+}
 #ddrfinder .mapboxgl-popup-close-button {
     font-size: 24px;
     padding-right: 8px;
+}
+#ddrfinder .mapboxgl-popup-content p, #ddrfinder .mapboxgl-popup-content p.hasDDR {
+    margin: 0;
+}
+#ddrfinder .mapboxgl-popup-content p + p {
+    margin-top: 8px;
+}
+#ddrfinder .mapboxgl-popup-content p.hasDDR + p {
+    margin-top: 0;
+}
+#ddrfinder .mapboxgl-popup-content p:last-of-type {
+    margin-bottom: 8px;
+}
+#ddrfinder .mapboxgl-popup-content .button-container {
+    display: flex;
+    justify-content: space-around;
 }
 #ddrfinder .mapboxgl-popup-content .button--material {
     transition-duration: 0s;
@@ -130,6 +149,8 @@ body {
 #ddrfinder .mapboxgl-popup-content ons-icon {
     font-size: 32px;
 }
+
+/* Increase custom buttons size */
 #ddrfinder .mapboxgl-ctrl-ons {
     font-size: 20px;
 }

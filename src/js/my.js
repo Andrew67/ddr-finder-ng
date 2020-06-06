@@ -607,19 +607,22 @@ ons.ready(function() {
                 var popupContainer = document.createElement('div');
 
                 var description = document.createElement('div');
-                var descriptionHTML = '<p class="selectable"><b class="selectable">' + feature.properties.name + '</b><br>';
+                var descriptionHTML = '<p><b>' + feature.properties.name + '</b></p>';
                 if (feature.properties.city.length !== 0) {
-                    descriptionHTML += '<i class="selectable">City</i>: ' + feature.properties.city + '<br>';
+                    descriptionHTML += '<p><i>City</i>: ' + feature.properties.city + '</p>';
                 }
                 if (apiService.getSource(feature.properties.src)['hasDDR']) {
-                    descriptionHTML += '<i class="selectable">DDR</i>: <span class="selectable hasDDR' +
+                    descriptionHTML += '<p class="hasDDR"><i>DDR</i>: <span class="hasDDR' +
                         (feature.properties.hasDDR ? 'Yes' : 'No') + '"><ons-icon icon="' +
                         (feature.properties.hasDDR ? 'ion-ios-checkmark' : 'ion-ios-close') +
-                        '"></ons-icon> ' + (feature.properties.hasDDR ? 'Yes' : 'No') + '</span><br>';
+                        '"></ons-icon> ' + (feature.properties.hasDDR ? 'Yes' : 'No') + '</span></p>';
                 }
-                descriptionHTML += '<i class="selectable">GPS</i>: ' + feature.geometry.coordinates[1].toFixed(5)
+                descriptionHTML += '<p><i>GPS</i>: ' + feature.geometry.coordinates[1].toFixed(5)
                     + '°, ' + feature.geometry.coordinates[0].toFixed(5) + '°</p>';
                 description.innerHTML = descriptionHTML;
+
+                var buttonContainer = document.createElement('div');
+                buttonContainer.classList.add('button-container');
 
                 var moreInfo = document.createElement('ons-button');
                 moreInfo.textContent = 'More Info';
@@ -627,16 +630,17 @@ ons.ready(function() {
                 moreInfo.addEventListener('click', function () {
                     onMoreInfo(feature);
                 });
+                buttonContainer.appendChild(moreInfo);
 
                 var navigate = document.createElement('ons-button');
                 navigate.textContent = 'Navigate';
                 navigate.addEventListener('click', function () {
                     onNavigate(feature);
                 });
+                buttonContainer.appendChild(navigate);
 
                 popupContainer.appendChild(description);
-                popupContainer.appendChild(moreInfo);
-                popupContainer.appendChild(navigate);
+                popupContainer.appendChild(buttonContainer);
                 return popupContainer;
             };
 
