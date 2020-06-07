@@ -617,8 +617,8 @@ ons.ready(function() {
                         (feature.properties.hasDDR ? 'ion-ios-checkmark' : 'ion-ios-close') +
                         '"></ons-icon> ' + (feature.properties.hasDDR ? 'Yes' : 'No') + '</span></p>';
                 }
-                descriptionHTML += '<p><i>GPS</i>: ' + feature.geometry.coordinates[1].toFixed(5)
-                    + '°, ' + feature.geometry.coordinates[0].toFixed(5) + '°</p>';
+                descriptionHTML += '<p><i>GPS</i>: ' + feature.geometry.coordinates[1].toFixed(4)
+                    + '°, ' + feature.geometry.coordinates[0].toFixed(4) + '°</p>';
                 description.innerHTML = descriptionHTML;
 
                 var buttonContainer = document.createElement('div');
