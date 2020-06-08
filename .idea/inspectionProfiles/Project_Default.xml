@@ -37,7 +37,7 @@
     <inspection_tool class="ChainedFunctionCallJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CheckDtdRefs" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="CheckEmptyScriptTag" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="CheckImageSize" enabled="true" level="INFO" enabled_by_default="true" />
+    <inspection_tool class="CheckImageSize" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="CheckNodeTest" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="CheckTagEmptyBody" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="CheckValidXmlInScriptTagBody" enabled="true" level="ERROR" enabled_by_default="true" />
@@ -213,7 +213,7 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="8">
+          <list size="9">
             <item index="0" class="java.lang.String" itemvalue="page" />
             <item index="1" class="java.lang.String" itemvalue="tappable" />
             <item index="2" class="java.lang.String" itemvalue="data-href" />
@@ -222,6 +222,7 @@
             <item index="5" class="java.lang.String" itemvalue="input-id" />
             <item index="6" class="java.lang.String" itemvalue="type" />
             <item index="7" class="java.lang.String" itemvalue="size" />
+            <item index="8" class="java.lang.String" itemvalue="loading" />
           </list>
         </value>
       </option>
@@ -743,7 +744,7 @@
     <inspection_tool class="XmlDeprecatedElement" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="XmlDuplicatedId" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="XmlHighlighting" enabled="true" level="ERROR" enabled_by_default="true" />
-    <inspection_tool class="XmlInvalidId" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="XmlInvalidId" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="XmlPathReference" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="XmlUnboundNsPrefix" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="XmlUnusedNamespaceDeclaration" enabled="true" level="WARNING" enabled_by_default="true" />
