@@ -607,6 +607,7 @@ ons.ready(function() {
                 var popupContainer = document.createElement('div');
 
                 var description = document.createElement('div');
+                description.classList.add('description');
                 var descriptionHTML = '<p><b>' + feature.properties.name + '</b></p>';
                 if (feature.properties.city.length !== 0) {
                     descriptionHTML += '<p><i>City</i>: ' + feature.properties.city + '</p>';

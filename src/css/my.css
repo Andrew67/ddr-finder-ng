@@ -40,7 +40,7 @@ body {
     text-align: center;
 }
 
-.selectable, #ddrfinder .mapboxgl-popup-content > div * {
+.selectable, #ddrfinder .mapboxgl-popup-content .description * {
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
