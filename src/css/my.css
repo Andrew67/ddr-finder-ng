@@ -80,6 +80,9 @@ body {
     html[onsflag-iphonex-portrait] .mapboxgl-ctrl-bottom-right {
         bottom: 16px;
     }
+    html[onsflag-iphonex-portrait] .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
+        margin-bottom: 5px;
+    }
 }
 @media (orientation: landscape) {
     html[onsflag-iphonex-landscape] #mapview .page__content {
