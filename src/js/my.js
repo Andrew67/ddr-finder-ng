@@ -685,7 +685,8 @@ ons.ready(function() {
                                     '<a href="http://ddr-navi.jp/" target="_blank" rel="noopener" data-src="navi">DDR-Navi</a>',
                                 data: locations,
                                 cluster: true,
-                                clusterMaxZoom: 14
+                                clusterMaxZoom: 14,
+                                clusterMinPoints: 5
                             });
                         } else {
                             source.setData({
