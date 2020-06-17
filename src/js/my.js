@@ -582,8 +582,8 @@ ons.ready(function() {
             var onNavigate = function (feature) {
                 trackGoal(3);
 
-                // If iOS standalone and non-default map application, detect missing app and offer to switch to Apple Maps and retry.
-                if (ons.platform.isIOS() && navigator.standalone && settingsService.getValue('ios-navigation') !== 'apple') {
+                // If iOS and non-default map application, attempt to detect missing app and offer to switch to Apple Maps and retry.
+                if (ons.platform.isIOS() && settingsService.getValue('ios-navigation') !== 'apple') {
                     selectedFeature = feature;
                     setTimeout(function () { navigationAppToast.show(); }, 1000);
                 }

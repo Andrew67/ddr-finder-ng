@@ -62,7 +62,7 @@ gulp.task('build-release', function () {
         // My code
         gulp.src('src/**/*.html')
             .pipe(htmlmin({
-                collapseWhitespace: true,
+                collapseWhitespace: false,
                 removeComments: true
             }))
             .pipe(gulp.dest(PREFIX)),
