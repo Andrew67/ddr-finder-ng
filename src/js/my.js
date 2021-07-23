@@ -1,6 +1,6 @@
 /*! ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng */
 /*
- Copyright (c) 2016-2020 Andrés Cordero
+ Copyright (c) 2016-2021 Andrés Cordero
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -419,35 +419,18 @@ ons.ready(function() {
                 return module;
             })();
 
-            // Add "DDR Finder" branding header to Android in standalone mode (matches app).
-            if (navigator.standalone) {
-                var toolbar = document.createElement('ons-toolbar');
-                var title = document.createElement('div');
-                title.classList.add('center');
-                title.textContent = 'DDR Finder';
-                toolbar.appendChild(title);
-
-                // If Web Share API is supported, insert a share button into the toolbar (shares current URL).
-                // See: https://developers.google.com/web/updates/2016/09/navigator-share
-                if ('share' in navigator) {
-                    // See: https://onsen.io/v2/api/js/ons-toolbar-button.html
-                    var shareButtonContainer = document.createElement('div');
-                    shareButtonContainer.classList.add('right');
-
-                    var shareButton = document.createElement('ons-toolbar-button');
-                    shareButton.addEventListener('click', function () {
-                        navigator.share({ url: window.location.href });
-                    });
-
-                    var shareButtonIcon = document.createElement('ons-icon');
-                    shareButtonIcon.setAttribute('icon', 'ion-ios-share, material:ion-md-share');
-
-                    shareButton.appendChild(shareButtonIcon);
-                    shareButtonContainer.appendChild(shareButton);
-                    toolbar.appendChild(shareButtonContainer);
-                }
-
-                page.insertBefore(toolbar, page.firstChild);
+            // If Web Share API is supported, insert a share button into the toolbar (shares current URL).
+            // See: https://developers.google.com/web/updates/2016/09/navigator-share
+            if ('share' in navigator) {
+                // See: https://onsen.io/v2/api/js/ons-toolbar-button.html
+                var shareButton = document.createElement('ons-toolbar-button');
+                shareButton.addEventListener('click', function () {
+                    navigator.share({url: window.location.href});
+                });
+                var shareButtonIcon = document.createElement('ons-icon');
+                shareButtonIcon.setAttribute('icon', 'ion-ios-share, material:ion-md-share');
+                shareButton.appendChild(shareButtonIcon);
+                document.getElementById('mapview-toolbar-buttons').appendChild(shareButton);
             }
 
             // Initialize map and set initial view.
