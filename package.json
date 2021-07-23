@@ -16,7 +16,7 @@
   },
   "private": true,
   "dependencies": {
-    "onsenui": "2.10.10"
+    "onsenui": "2.11.2"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
