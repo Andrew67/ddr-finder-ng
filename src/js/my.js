@@ -310,6 +310,12 @@ ons.ready(function() {
                 case 'gaode':
                     return 'iosamap://viewMap?sourceApplication=applicationName' +
                         '&poiname=' + encodeURIComponent(label) + '&lat=' + lat + '&lon=' + lng + '&dev=1';
+                case 'kakaomap':
+                    return 'kakaomap://look?p=' + lat + ',' + lng;
+                case 'navermap':
+                    // Could not find a way to trigger a marker pin via nmap:// or navermap://,
+                    // just opened the app to the main screen. Users can "Open via App" after starting a route plan
+                    return 'https://map.naver.com/?elat=' + lat + '&elng=' + lng;
                 case 'apple':
                 default:
                     return 'maps:?q=' + encodeURIComponent(label) + '&ll=' + lat + ',' + lng;

@@ -140,6 +140,7 @@
                     <button id="settings-datasource-cancel" class="alert-dialog-button">Cancel</button>
                 </div>
             </ons-alert-dialog>
+            <!-- TODO: With the amount of choices, it should be a sub-page -->
             <ons-alert-dialog id="settings-ios-navigation-dialog" cancelable>
                 <div class="alert-dialog-title">Navigation</div>
                 <div class="alert-dialog-content">
@@ -182,6 +183,22 @@
                             </label>
                             <label for="settings-ios-navigation-here" class="center">
                                 HERE WeGo
+                            </label>
+                        </ons-list-item>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <ons-radio name="ios-navigation" input-id="settings-ios-navigation-kakaomap"></ons-radio>
+                            </label>
+                            <label for="settings-ios-navigation-kakaomap" class="center">
+                                KakaoMap
+                            </label>
+                        </ons-list-item>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <ons-radio name="ios-navigation" input-id="settings-ios-navigation-navermap"></ons-radio>
+                            </label>
+                            <label for="settings-ios-navigation-navermap" class="center">
+                                Naver Map
                             </label>
                         </ons-list-item>
                         <ons-list-item tappable>
