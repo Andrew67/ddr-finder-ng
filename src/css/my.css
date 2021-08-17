@@ -1,6 +1,6 @@
 /*! ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng */
 /*
- Copyright (c) 2017-2020 Andrés Cordero
+ Copyright (c) 2017-2021 Andrés Cordero
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -174,7 +174,9 @@ body {
 [data-src] [data-src] {
     display: none;
 }
-[data-src="ziv"] [data-src="ziv"], [data-src="navi"] [data-src="navi"] {
+[data-src="ziv"] [data-src="ziv"],
+[data-src="navi"] [data-src="navi"],
+[data-src="osm"] [data-src="osm"] {
     display: unset;
 }
 

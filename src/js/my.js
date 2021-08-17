@@ -669,9 +669,11 @@ ons.ready(function() {
                         if (!source) {
                             map.addSource('locations', {
                                 type: 'geojson',
+                                // TODO: Leverage the homepageURL property now returned by API to populate this
                                 attribution: '&copy; ' +
                                     '<a href="https://zenius-i-vanisher.com/" target="_blank" rel="noopener" data-src="ziv">Zenius -I- vanisher.com</a>' +
-                                    '<a href="http://ddr-navi.jp/" target="_blank" rel="noopener" data-src="navi">DDR-Navi</a>',
+                                    '<a href="https://ddr-navi.jp/" target="_blank" rel="noopener" data-src="navi">DDR-Navi</a>' +
+                                    '<a href="https://openstreetmap.org/" target="_blank" rel="noopener" data-src="osm">OpenStreetMap</a>',
                                 data: locations,
                                 cluster: true,
                                 clusterMaxZoom: 14,
