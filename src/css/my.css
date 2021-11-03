@@ -107,6 +107,7 @@ body {
 #ddrfinder .mapboxgl-ctrl-group button {
     width: 40px;
     height: 40px;
+    color: inherit; /* iOS 15 applies a blue color if not overridden */
 }
 #ddrfinder .mapboxgl-popup-content {
     font-size: 16px;
@@ -129,6 +130,7 @@ body {
 #ddrfinder .mapboxgl-popup-close-button {
     font-size: 24px;
     padding-right: 8px;
+    color: inherit; /* iOS 15 applies a blue color if not overridden */
 }
 #ddrfinder .mapboxgl-popup-content p, #ddrfinder .mapboxgl-popup-content p.hasDDR {
     margin: 0;
