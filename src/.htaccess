@@ -3,7 +3,7 @@ Header always set Content-Security-Policy "\
 default-src 'none'; \
 img-src 'self' data: blob: ; \
 script-src 'self' https://api.mapbox.com; \
-connect-src 'self' https://*.tiles.mapbox.com https://api.mapbox.com https://events.mapbox.com; \
+connect-src 'self' https://ddrfinder-api.andrew67.com https://*.tiles.mapbox.com https://api.mapbox.com https://events.mapbox.com; \
 style-src 'self' 'unsafe-inline' https://api.mapbox.com; \
 font-src 'self'; \
 manifest-src 'self'; \

@@ -1,6 +1,6 @@
 /*! ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng */
 /*
- Copyright (c) 2016-2021 Andrés Cordero
+ Copyright (c) 2016-2024 Andrés Cordero
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -184,7 +184,7 @@ ons.ready(function() {
     */
     var apiService = (function () {
         var module = {}, loadedAreas = [/*mapboxgl.LngLatBounds*/], sources = {/*API response sources*/};
-        var API_URL = '../locate.php';
+        var API_URL = 'https://ddrfinder-api.andrew67.com/locate.php';
 
         // Export error codes.
         module.ERROR = {
@@ -270,7 +270,6 @@ ons.ready(function() {
                 }
             };
             request.open('GET', url, true);
-            request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             request.send(null);
         };
 
