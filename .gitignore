@@ -1,6 +1,5 @@
 # libraries working to get rid of / API mock
 public/lib
-public/locate.php
 
 # build output
 dist/

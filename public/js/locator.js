@@ -296,7 +296,7 @@ $(function () {
     }
 
     // Locate nearby machines and populate/show list
-    $.getJSON("locate.php", {
+    $.getJSON("https://ddrfinder.andrew67.com/locate.php", {
       version: 20,
       datasrc: datasrc,
       lat: position.coords.latitude,
