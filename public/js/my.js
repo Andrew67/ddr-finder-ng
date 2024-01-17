@@ -216,7 +216,7 @@ ons.ready(function () {
       sources = {
         /*API response sources*/
       };
-    var API_URL = "https://ddrfinder.andrew67.com/locate.php";
+    var API_URL = "https://ddrfinder-api.andrew67.com/locate.php";
 
     // Export error codes.
     module.ERROR = {
