@@ -4,7 +4,7 @@
 $(function () {
   // Mapbox Static API URL Builder
   function MapBuilder() {
-    this.width = Math.min(window.innerWidth, 576) - 32 - 2; // manual calculation of body padding and image border
+    this.width = Math.min(window.innerWidth, 640) - 32 - 2; // manual calculation of body padding and image border
     this.height = 216;
     this.url =
       "https://api.mapbox.com/styles/v1/andrew67/ck9xjbtyl1h7m1ili7y80hwus/static/";
@@ -308,11 +308,6 @@ $(function () {
   };
 
   // Code below executes on page load.
-
-  // Clicking the application title returns to main page.
-  $("#app-title").on("click", function () {
-    location.href = "./";
-  });
 
   // Activate all Retry buttons.
   $(".retry-button").on("click", function () {
