@@ -1,11 +1,14 @@
 ---
 import {
   IconLoader2,
+  IconCurrentLocation,
+  IconMap2,
   IconX,
   IconReload,
   IconCheck,
   IconPlus,
   IconMinus,
+  IconArrowBackUp,
   IconNavigationFilled,
   IconBrandGoogleMaps,
   IconExternalLink,
@@ -102,10 +105,44 @@ import {
     <div id="message-loading">
       <h2>Loading...</h2>
       <p>
+        <IconLoader2 size="64" class="animate-spin" aria-hidden="true" />
+        <br />
         <a href="./" class="btn bg-red-800 text-white">
           <IconX aria-hidden="true" /> Cancel
         </a>
       </p>
+    </div>
+    <!-- SETUP: Select data source and require user interaction before requesting location -->
+    <div id="message-setup" class="message-hidden">
+      <h2 class="text-3xl mb-2">Locate Nearby Arcades</h2>
+      <p class="mb-2">
+        <label>
+          <span class="me-2">Source:</span>
+          <select id="source-select" class="p-2 border rounded">
+            <optgroup label="Recommended">
+              <option value="ziv">Zenius -I- vanisher.com (Worldwide)</option>
+              <option value="navi">DDR-Navi (Japan)</option>
+            </optgroup>
+            <optgroup label="Other">
+              <option value="osm">OpenStreetMap (Worldwide)</option>
+            </optgroup>
+          </select>
+        </label>
+      </p>
+      <nav>
+        <ul class="flex flex-wrap gap-2">
+          <li>
+            <button id="start-geolocation" class="bg-orange-700 text-white">
+              <IconCurrentLocation aria-hidden="true" /> Find My Location
+            </button>
+          </li>
+          <li>
+            <a href="./" class="btn bg-red-800 text-white">
+              <IconX aria-hidden="true" /> Cancel
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
     <!-- ERROR: HTML5 Geolocation API not supported -->
     <div id="message-nogeo" class="message-hidden">
@@ -217,8 +254,25 @@ import {
     <!-- Final results screen -->
     <div id="message-arcade-list" class="message-hidden">
       <h2>Your Location:</h2>
-      <a id="current-location-link"> Current Location</a>
-      <p class="my-1">Tap to open the Interactive Map.</p>
+      <div class="inline-block" id="current-location-img">Current Location</div>
+      <nav class="my-1 print:hidden">
+        <ul class="flex flex-wrap gap-2">
+          <li>
+            <a href="./locator" class="btn bg-orange-700 text-white">
+              <IconArrowBackUp aria-hidden="true" /> New Search
+            </a>
+          </li>
+          <li>
+            <a
+              id="current-location-link"
+              class="btn bg-green-800 text-white"
+              href="/ng/"
+            >
+              <IconMap2 aria-hidden="true" /> Interactive Map
+            </a>
+          </li>
+        </ul>
+      </nav>
       <p class="mb-1" id="current-location-accuracy">
         Accurate to approximately
         <span id="current-location-accuracy-value">??? meters</span>.

@@ -2,7 +2,7 @@
 "use strict";
 // Functionality for locator page
 $(function () {
-  // Mapbox Static API URL Builder
+  /** Mapbox Static API URL Builder */
   function MapBuilder() {
     this.width = Math.min(window.innerWidth, 640) - 32 - 2; // manual calculation of body padding and image border
     this.height = 216;
@@ -21,31 +21,20 @@ $(function () {
   };
   MapBuilder.prototype.addMyLocationMarker = function (lat, lng) {
     // Must be called before any addMarker calls
+    var latFixed = lat.toFixed(4),
+      lngFixed = lng.toFixed(4);
     // Material Red 700 (Light) / 100 (Dark)
-    this.url += "pin-s+d32f2f(" + lng.toFixed(4) + "," + lat.toFixed(4) + ")";
-    this.darkUrl +=
-      "pin-s+ffcdd2(" + lng.toFixed(4) + "," + lat.toFixed(4) + ")";
+    this.url += `pin-s+d32f2f(${lngFixed},${latFixed})`;
+    this.darkUrl += `pin-s+ffcdd2(${lngFixed},${latFixed})`;
   };
   MapBuilder.prototype.addMarker = function (lat, lng) {
     // Warning: limited to 9 for labels
-    var label = ++this.nextMarkerNumber;
+    var label = ++this.nextMarkerNumber,
+      latFixed = lat.toFixed(4),
+      lngFixed = lng.toFixed(4);
     // Material Blue 700 (Light) / 100 (Dark)
-    this.url +=
-      ",pin-l-" +
-      label +
-      "+1976d2(" +
-      lng.toFixed(4) +
-      "," +
-      lat.toFixed(4) +
-      ")";
-    this.darkUrl +=
-      ",pin-l-" +
-      label +
-      "+bbdefb(" +
-      lng.toFixed(4) +
-      "," +
-      lat.toFixed(4) +
-      ")";
+    this.url += `,pin-l-${label}+1976d2(${lngFixed},${latFixed})`;
+    this.darkUrl += `,pin-l-${label}+bbdefb(${lngFixed},${latFixed})`;
   };
   var locationMap = new MapBuilder();
 
@@ -59,54 +48,27 @@ $(function () {
 
   // Navigation URL generator functions
   var nav_url = function (latitude, longitude, label) {
-    return (
-      NAV_PREFIX +
-      latitude +
-      "," +
-      longitude +
-      "(" +
-      encodeURIComponent(label) +
-      ")"
-    );
+    return `${NAV_PREFIX}${latitude},${longitude}(${encodeURIComponent(
+      label,
+    )})`;
   };
   var nav_url_android = function (latitude, longitude, label) {
-    return (
-      NAV_PREFIX_ANDROID +
-      latitude +
-      "," +
-      longitude +
-      "?q=" +
-      latitude +
-      "," +
-      longitude +
-      "(" +
-      encodeURIComponent(label) +
-      ")"
-    );
+    return `${NAV_PREFIX_ANDROID}${latitude},${longitude}?q=${latitude},${longitude}(${encodeURIComponent(
+      label,
+    )})`;
   };
   var nav_url_ios = function (latitude, longitude, label) {
-    return (
-      NAV_PREFIX_IOS +
-      latitude +
-      "," +
-      longitude +
-      "(" +
-      encodeURIComponent(label) +
-      ")"
-    );
+    return `${NAV_PREFIX_IOS}${latitude},${longitude}(${encodeURIComponent(
+      label,
+    )})`;
   };
   var nav_url_wp7 = function (latitude, longitude) {
-    return NAV_PREFIX_WP7 + latitude + " " + longitude;
+    return `${NAV_PREFIX_WP7}${latitude} ${longitude}`;
   };
   var nav_url_w10 = function (latitude, longitude, label) {
-    return (
-      NAV_PREFIX_W10 +
-      latitude +
-      "_" +
-      longitude +
-      "_" +
-      encodeURIComponent(label)
-    );
+    return `${NAV_PREFIX_W10}${latitude}_${longitude}_${encodeURIComponent(
+      label,
+    )}`;
   };
 
   // Detect platform and set generator function
@@ -180,69 +142,43 @@ $(function () {
       // Grab the item layout element.
       // For each location found, clone the layout, fill in the details, and add it to the list.
       var arcade_list_item = $(".arcade-list-item:first-child");
-      var arcade_list_items = [];
-      for (var i = 0; i < locations.length; ++i) {
+      locations.forEach(function (location, i) {
         var arcade = arcade_list_item.clone();
-        arcade.find(".arcade-name").text(locations[i].name);
-        arcade.find(".arcade-city").text(locations[i].city);
-        arcade.find(".arcade-distance").text(locations[i].distance);
-        arcade.find(".arcade-latitude").text(locations[i].lat.toFixed(4));
-        arcade.find(".arcade-longitude").text(locations[i].lng.toFixed(4));
-        arcade
-          .find(".arcade-info-name")
-          .text(info_name(data.sources, locations[i].src));
-        arcade
-          .find(
-            locations[i].hasDDR ? ".arcade-has-ddr-no" : ".arcade-has-ddr-yes",
-          )
-          .remove();
-        arcade
-          .find(".arcade-has-ddr-text")
-          .text(locations[i].hasDDR ? "Yes" : "No");
+        const { name, city, distance, lat, lng, src, hasDDR, id, sid } =
+          location;
 
-        var mapsuffix =
-          locations[i].lat +
-          "," +
-          locations[i].lng +
-          "(" +
-          encodeURIComponent(locations[i].name) +
-          ")";
+        arcade.find(".arcade-name").text(name);
+        arcade.find(".arcade-city").text(city);
+        arcade.find(".arcade-distance").text(distance);
+        arcade.find(".arcade-latitude").text(lat.toFixed(4));
+        arcade.find(".arcade-longitude").text(lng.toFixed(4));
+        arcade.find(".arcade-info-name").text(info_name(data.sources, src));
+        arcade
+          .find(hasDDR ? ".arcade-has-ddr-no" : ".arcade-has-ddr-yes")
+          .remove();
+        arcade.find(".arcade-has-ddr-text").text(hasDDR ? "Yes" : "No");
+
+        const latUrlFixed = lat.toFixed(6),
+          lngUrlFixed = lng.toFixed(6),
+          mapSuffix = `${latUrlFixed},${lngUrlFixed}(${encodeURIComponent(
+            name,
+          )})`;
         arcade
           .find(".arcade-nav")
-          .attr(
-            "href",
-            nav_url(locations[i].lat, locations[i].lng, locations[i].name),
-          );
-        arcade.find(".arcade-gmaps").attr("href", GMAPS_PREFIX + mapsuffix);
+          .attr("href", nav_url(latUrlFixed, lngUrlFixed, name));
+        arcade.find(".arcade-gmaps").attr("href", GMAPS_PREFIX + mapSuffix);
         arcade
           .find(".arcade-info")
-          .attr(
-            "href",
-            info_url(
-              data.sources,
-              locations[i].src,
-              locations[i].id,
-              locations[i].sid,
-            ),
-          );
-
-        // Hide results past 5, to be revealed via "Load More Results..."
-        if (i >= 5) {
-          arcade.hide();
-        }
-        arcade_list_items.push(arcade);
+          .attr("href", info_url(data.sources, src, id, sid));
         arcade.appendTo(arcade_list);
 
         // The first 5 locations get added to the "Your Location" mini-map as well.
         // To keep the map from zooming out too much, the distance is capped to 15km past the first 3 results,
         // unless result #2 already exceeded these bounds (sparse area).
-        if (
-          i < 5 &&
-          (i < 3 || locations[i].distance < 15 || locations[1].distance >= 15)
-        ) {
-          locationMap.addMarker(locations[i].lat, locations[i].lng);
+        if (i < 5 && (i < 3 || distance < 15 || locations[1].distance >= 15)) {
+          locationMap.addMarker(lat, lng);
         }
-      }
+      });
 
       // Execute accordion function on list manually after populating it,
       // since the library attaches click events to the list items themselves (attaching to nothing on page load)
@@ -258,38 +194,33 @@ $(function () {
 
   // Load location map based on builder so far
   var load_location_map = function () {
-    $("#current-location-link").empty();
+    $("#current-location-img").empty();
     $(
       `<picture>
         <source media="screen and (prefers-color-scheme: dark)" srcset="${locationMap.getDarkURL()}">
-        <img id="current-location-img" class="inline-block" alt="Current Location" width="${
-          locationMap.width
-        }" height="${locationMap.height}" src="${locationMap.getURL()}">
+        <img alt="Current Location" width="${locationMap.width}" height="${
+          locationMap.height
+        }" src="${locationMap.getURL()}">
       </picture>`,
-    ).appendTo("#current-location-link");
+    ).appendTo("#current-location-img");
   };
 
   // Geolocation ok handler
   var handle_geolocation_ok = function (position) {
+    const { latitude, longitude, accuracy } = position.coords;
     $("#message-waiting").hide();
     $("#message-found-searching").show();
-    var coords =
-      position.coords.latitude.toFixed(4) +
-      "," +
-      position.coords.longitude.toFixed(4);
-    $("#current-location-link").attr("href", "ng/?ll=" + coords + "&z=16");
+    var coords = `${latitude.toFixed(4)},${longitude.toFixed(4)}`;
+    $("#current-location-link").attr("href", `ng/?ll=${coords}&z=14`);
     locationMap = new MapBuilder();
-    locationMap.addMyLocationMarker(
-      position.coords.latitude,
-      position.coords.longitude,
-    );
+    locationMap.addMyLocationMarker(latitude, longitude);
 
-    if (position.coords.accuracy) {
-      var accuracy =
-        position.coords.accuracy >= 1000
-          ? "" + (position.coords.accuracy / 1000).toFixed(2) + "km"
-          : "" + position.coords.accuracy.toFixed() + " meters";
-      $("#current-location-accuracy-value").text(accuracy);
+    if (accuracy) {
+      var accuracyText =
+        accuracy >= 1000
+          ? "" + (accuracy / 1000).toFixed(2) + "km"
+          : "" + accuracy.toFixed() + " meters";
+      $("#current-location-accuracy-value").text(accuracyText);
       $("#current-location-accuracy").show();
     } else {
       $("#current-location-accuracy").hide();
@@ -346,17 +277,36 @@ $(function () {
     handle_src_hash();
     handle_loc_hash();
   };
+  if (!loc_pattern.test(location.href)) $("#message-setup").show();
   $(window).on("hashchange", handle_hash);
   handle_hash();
 
+  const sourceSelect = $("#source-select");
+  // Save selected source on click
+  sourceSelect.on("change", function () {
+    localStorage.setItem("datasrc", sourceSelect.val());
+  });
+  // Set current source as selected button
+  sourceSelect.val(localStorage.getItem("datasrc") || "ziv");
+
   // If no loc=, use original behavior of calculating location and using localStorage for data source.
-  if (!loc_pattern.test(location.href)) {
+  $("#start-geolocation").on("click", function () {
+    $("#message-setup").hide();
+    datasrc = sourceSelect.val();
     // Geolocation feature detection from Modernizr
     if ("geolocation" in navigator) {
       $("#message-waiting").show();
       // Function explained in http://diveintohtml5.info/geolocation.html
       navigator.geolocation.getCurrentPosition(
-        handle_geolocation_ok,
+        function (position) {
+          // Trim to 4 digits, good for ~10m precision.
+          location.hash = `#loc=${Math.max(
+            10,
+            Math.round(position.coords.accuracy),
+          )}/${position.coords.latitude.toFixed(
+            4,
+          )}/${position.coords.longitude.toFixed(4)}&src=${datasrc}`;
+        },
         handle_geolocation_error,
         {
           enableHighAccuracy: false,
@@ -367,5 +317,5 @@ $(function () {
     } else {
       $("#message-nogeo").show();
     }
-  }
+  });
 });
