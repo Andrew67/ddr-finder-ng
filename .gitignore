@@ -1,6 +1,3 @@
-# libraries working to get rid of / API mock
-public/lib
-
 # build output
 dist/
 # generated types

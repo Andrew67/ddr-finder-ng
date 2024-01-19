@@ -39,13 +39,23 @@
       content="https://ddrfinder.andrew67.com/ng/img/arcade-machine.jpg"
     />
     <!-- Onsen UI Core w/ Ionicons -->
-    <link rel="stylesheet" href="/lib/onsen/css/onsenui-core.css" />
+    <link rel="stylesheet" href="/lib/onsen/css/onsenui-core.min.css" />
     <link
       rel="stylesheet"
       href="/lib/onsen/css/onsen-css-components-custom.css"
     />
-    <link rel="stylesheet" href="/lib/onsen/css/ionicons/css/ionicons.css" />
-    <script is:inline src="/lib/onsen/js/onsenui.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.6.3/css/ionicons.min.css"
+      integrity="sha512-mGvZ6LaIZkUhHXDv0H3bqK1Y5bgTIqHP7jr+9HBNAPE8cGUMX0biP122ZfSQryAOUZXeFNg9Xcckz/xi59up7g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/js/onsenui.min.js"
+      integrity="sha512-8LTza/N9yBaiBWwN16SL/2A0ERRXrZkBYEof+g3ui4KaAm9TIg/tDad5aLfI+wiGxrnznX4cV1CRZAgsg5l1+w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
     <!-- Mapbox GL JS -->
     <script
       src="https://api.mapbox.com/mapbox-gl-js/v1.13.2/mapbox-gl.js"
@@ -86,6 +96,12 @@
     <ons-template id="mapview.html">
       <ons-page id="mapview">
         <ons-toolbar>
+          <div class="left" aria-label="Back">
+            <ons-toolbar-button aria-hidden="true" id="mapview-back">
+              <ons-icon icon="ion-ios-arrow-back, material:ion-md-arrow-back"
+              ></ons-icon>
+            </ons-toolbar-button>
+          </div>
           <div class="center">DDR Finder</div>
           <div class="right" id="mapview-toolbar-buttons"></div>
         </ons-toolbar>
@@ -424,7 +440,7 @@
             data-href="https://ionicons.com/"
           >
             <span class="list-item__title">Ionicons</span>
-            <span class="list-item__subtitle">v4.5.5</span>
+            <span class="list-item__subtitle">v4.6.3</span>
           </ons-list-item>
           <ons-list-item
             tappable

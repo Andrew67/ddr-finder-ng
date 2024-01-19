@@ -251,7 +251,9 @@ $(function () {
   // Note: the pattern is set up to accept a loc=latitude/longitude format due to a time period where it was optional.
   var loc_pattern = /[#&?]loc=(.*\/)?(.*)\/([^&]*)/;
   var handle_loc_hash = function () {
+    $("#message-arcade-list").hide();
     if (loc_pattern.test(location.href)) {
+      $("#message-setup").hide();
       var loc_params = loc_pattern.exec(location.href);
       handle_geolocation_ok({
         coords: {
@@ -260,6 +262,8 @@ $(function () {
           longitude: Number(loc_params[3]),
         },
       });
+    } else {
+      $("#message-setup").show();
     }
   };
 
