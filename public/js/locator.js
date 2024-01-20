@@ -211,7 +211,7 @@ $(function () {
     $("#message-waiting").hide();
     $("#message-found-searching").show();
     var coords = `${latitude.toFixed(4)},${longitude.toFixed(4)}`;
-    $("#current-location-link").attr("href", `ng/?ll=${coords}&z=14`);
+    $("#current-location-link").attr("href", `/ng/?ll=${coords}&z=14`);
     locationMap = new MapBuilder();
     locationMap.addMyLocationMarker(latitude, longitude);
 
