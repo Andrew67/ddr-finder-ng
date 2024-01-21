@@ -21,6 +21,7 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "preview-cf": "yarn dlx wrangler pages dev dist --port 4321",
     "astro": "astro"
   },
   "dependencies": {
