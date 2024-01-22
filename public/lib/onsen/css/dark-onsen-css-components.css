@@ -36,6 +36,8 @@
   /* variables for Material Design components */
 
   /* others */
+  --button-color: rgb(147, 197, 253); /* Tailwind Blue 300 */
+  --switch-handle-color: rgba(147, 197, 253, 0.5); /* Tailwind Blue 300 */
 }
 html {
   height: 100%;
@@ -275,7 +277,6 @@ h4, h5, h6 {
 /* switch toggle background */
 .switch__toggle {
   background-color: #0d0d0d;
-  background-color: #0d0d0d;
   position: absolute;
   top: 0;
   left: 0;
@@ -285,7 +286,6 @@ h4, h5, h6 {
   transition-property: all;
   transition-duration: 0.35s;
   transition-timing-function: ease-out;
-  box-shadow: inset 0 0 0 2px #666;
   box-shadow: inset 0 0 0 2px #666;
 }
 /* switch toggle circle */
@@ -298,7 +298,6 @@ h4, h5, h6 {
   height: 28px;
   width: 28px;
   background-color: white;
-  background-color: white;
   left: 1px;
   top: 2px;
   transition-property: all;
@@ -310,10 +309,8 @@ h4, h5, h6 {
   transition: none;
 }
 :checked + .switch__toggle {
-  box-shadow: inset 0 0 0 2px #44db5e;
-  box-shadow: inset 0 0 0 2px #44db5e;
-  background-color: #44db5e;
-  background-color: #44db5e;
+  box-shadow: inset 0 0 0 2px var(--button-color);
+  background-color: var(--button-color);
 }
 :checked + .switch__toggle > .switch__handle {
   left: 21px;
@@ -366,7 +363,6 @@ h4, h5, h6 {
 }
 .switch--material__toggle {
   background-color: rgba(255, 255, 255, 0.3);
-  background-color: rgba(255, 255, 255, 0.3);
   margin-top: 5px;
   height: 14px;
   box-shadow: none;
@@ -393,7 +389,6 @@ h4, h5, h6 {
 }
 .switch--material__handle {
   background-color: #bdbdbd;
-  background-color: #bdbdbd;
   left: 0;
   margin-top: -5px;
   width: 20px;
@@ -404,14 +399,12 @@ h4, h5, h6 {
       0 2px 4px -1px rgba(0, 0, 0, 0.4);
 }
 :checked + .switch--material__toggle {
-  background-color: rgba(255, 193, 7, 0.5);
-  background-color: rgba(255, 193, 7, 0.5);
+  background-color: var(--switch-handle-color);
   box-shadow: none;
 }
 :checked + .switch--material__toggle > .switch--material__handle {
   left: 16px;
-  background-color: #ffc107;
-  background-color: #ffc107;
+  background-color: var(--button-color);
   box-shadow:
       0 2px 2px 0 rgba(0, 0, 0, 0.14),
       0 1px 5px 0 rgba(0, 0, 0, 0.12),
@@ -1329,8 +1322,7 @@ solid
   color: white;
   color: white;
   vertical-align: middle;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
   border: 0 solid currentColor;
   border-radius: 3px;
   border-radius: 3px;
@@ -1343,8 +1335,7 @@ solid
   transition: none;
 }
 .button:active {
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
   transition: none;
   opacity: 0.2;
   opacity: 0.2;
@@ -1367,23 +1358,17 @@ solid
 */
 .button--outline {
   background-color: transparent;
-  border: 1px solid #ffa101;
-  border: 1px solid #ffa101;
-  color: #ffa101;
-  color: #ffa101;
+  border: 1px solid var(--button-color);
+  color: var(--button-color);
 }
 .button--outline:active {
   background-color: rgb(255, 227, 179);
-  background-color: rgb(255, 227, 179);
-  border: 1px solid #ffa101;
-  border: 1px solid #ffa101;
-  color: #ffa101;
-  color: #ffa101;
+  border: 1px solid var(--button-color);
+  color: var(--button-color);
   opacity: 1;
 }
 .button--outline:hover {
-  border: 1px solid #ffa101;
-  border: 1px solid #ffa101;
+  border: 1px solid var(--button-color);
   transition: 0;
 }
 /*~
@@ -1397,16 +1382,11 @@ solid
 .button--light {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.4);
-  color: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .button--light:active {
   background-color: rgba(255, 255, 255, 0.05);
-  background-color: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.4);
-  color: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
   opacity: 1;
 }
@@ -1454,10 +1434,8 @@ solid
   line-height: 32px;
   letter-spacing: 0;
   color: white;
-  color: white;
   vertical-align: middle;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
   border: 0 solid currentColor;
   border-radius: 3px;
   border-radius: 3px;
@@ -1466,8 +1444,7 @@ solid
   border: 1px solid transparent;
   box-shadow: none;
   background: transparent;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
   border: none;
 }
 .button--quiet:disabled,
@@ -1489,8 +1466,7 @@ solid
   transition: none;
   opacity: 0.2;
   opacity: 0.2;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
 }
 /*~
   name: Call To Action Button
@@ -1536,18 +1512,14 @@ solid
   line-height: 32px;
   letter-spacing: 0;
   color: white;
-  color: white;
   vertical-align: middle;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
   border: 0 solid currentColor;
   border-radius: 3px;
   border-radius: 3px;
   transition: none;
   border: none;
   background-color: #da5926;
-  background-color: #da5926;
-  color: white;
   color: white;
 }
 .button--cta:hover {
@@ -1558,8 +1530,6 @@ solid
 }
 .button--cta:active {
   color: white;
-  color: white;
-  background-color: #da5926;
   background-color: #da5926;
   transition: none;
   opacity: 0.2;
@@ -1593,8 +1563,7 @@ solid
   text-align: center;
 }
 .button--large:active {
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
   transition: none;
   opacity: 0.2;
   opacity: 0.2;
@@ -1655,10 +1624,8 @@ solid
   line-height: 32px;
   letter-spacing: 0;
   color: white;
-  color: white;
   vertical-align: middle;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
   border: 0 solid currentColor;
   border-radius: 3px;
   border-radius: 3px;
@@ -1677,16 +1644,14 @@ solid
   background: transparent;
   border: 1px solid transparent;
   box-shadow: none;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
   text-align: center;
 }
 .button--large--quiet:active { /* stylelint-disable-line */
   transition: none;
   opacity: 0.2;
   opacity: 0.2;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
   background: transparent;
   border: 1px solid transparent;
   box-shadow: none;
@@ -1745,28 +1710,19 @@ solid
   line-height: 32px;
   letter-spacing: 0;
   color: white;
-  color: white;
   vertical-align: middle;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
   border: 0 solid currentColor;
   border-radius: 3px;
   border-radius: 3px;
   transition: none;
   border: none;
   background-color: #da5926;
-  background-color: #da5926;
-  color: white;
   color: white;
   font-size: 17px;
-  font-size: 17px;
   font-weight: 500;
-  font-weight: 500;
-  line-height: 36px;
   line-height: 36px;
   padding: 4px 12px;
-  padding: 4px
-12px;
   width: 100%;
   text-align: center;
   display: block;
@@ -1779,8 +1735,6 @@ solid
 }
 .button--large--cta:active { /* stylelint-disable-line */
   color: white;
-  color: white;
-  background-color: #da5926;
   background-color: #da5926;
   transition: none;
   opacity: 0.2;
@@ -1837,8 +1791,7 @@ solid
   color: white;
   color: white;
   vertical-align: middle;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
   border: 0 solid currentColor;
   border-radius: 3px;
   border-radius: 3px;
@@ -1859,9 +1812,6 @@ solid
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   text-transform: uppercase;
-  background-color: #d68600;
-  background-color: #d68600;
-  color: #ffffff;
   color: #ffffff;
   font-weight: 500;
   font-weight: 500;
@@ -1877,8 +1827,7 @@ solid
       0 6px 10px 0 rgba(0, 0, 0, 0.14),
       0 1px 18px 0 rgba(0, 0, 0, 0.12),
       0 3px 5px -1px rgba(0, 0, 0, 0.4);
-  background-color: #d68600;
-  background-color: #d68600;
+  background-color: var(--button-color);
   opacity: 0.9;
   transition: all 0.25s linear;
 }
@@ -1890,8 +1839,6 @@ solid
   transition: none;
   box-shadow: none;
   background-color: rgba(176, 176, 176, 0.74);
-  background-color: rgba(176, 176, 176, 0.74);
-  color: rgba(255, 255, 255, 0.74);
   color: rgba(255, 255, 255, 0.74);
   opacity: 1;
 }
@@ -1939,10 +1886,8 @@ solid
   line-height: 32px;
   letter-spacing: 0;
   color: white;
-  color: white;
   vertical-align: middle;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
   border: 0 solid currentColor;
   border-radius: 3px;
   border-radius: 3px;
@@ -1963,17 +1908,11 @@ solid
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   text-transform: uppercase;
-  background-color: #d68600;
-  background-color: #d68600;
-  color: #ffffff;
-  color: #ffffff;
   font-weight: 500;
   font-weight: 500;
   transition: background-color 0.25s linear;
   box-shadow: none;
   background-color: transparent;
-  color: #d68600;
-  color: #d68600;
   transition: all 0.25s linear;
 }
 .button--material--flat:hover { /* stylelint-disable-line */
@@ -1982,8 +1921,7 @@ solid
 .button--material--flat:focus { /* stylelint-disable-line */
   box-shadow: none;
   background-color: transparent;
-  color: #d68600;
-  color: #d68600;
+  color: var(--button-color);
   outline: 0;
   opacity: 1;
   border: none;
@@ -1994,9 +1932,7 @@ solid
   opacity: 1;
   border: none;
   background-color: rgba(102, 102, 102, 0.2);
-  background-color: rgba(102, 102, 102, 0.2);
-  color: #d68600;
-  color: #d68600;
+  color: var(--button-color);
   transition: all 0.25s linear;
 }
 .button--material--flat:disabled, .button--material--flat[disabled] {/* stylelint-disable-line */
@@ -2004,7 +1940,6 @@ solid
   opacity: 1;
   box-shadow: none;
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.74);
   color: rgba(255, 255, 255, 0.74);
 }
 /*~
@@ -2028,7 +1963,6 @@ solid
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-weight: 400;
   display: -webkit-inline-flex;
   display: inline-flex;
   -webkit-align-items: stretch;
@@ -2046,7 +1980,6 @@ solid
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-weight: 400;
   border-radius: 0;
   width: 100%;
   padding: 0;
@@ -2060,18 +1993,14 @@ solid
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  font-weight: 400;
   border-radius: 0;
   background-color: transparent;
-  color: #ffa101;
-  color: #ffa101;
-  border: 1px solid #ffa101;
-  border: 1px solid #ffa101;
+  color: var(--button-color);
+  border: 1px solid var(--button-color);
   border-top-width: 1px;
   border-bottom-width: 1px;
   border-right-width: 1px;
   border-left-width: 0;
-  font-weight: 400;
   font-weight: 400;
   padding: 0;
   font-size: 13px;
@@ -2093,9 +2022,7 @@ solid
   outline: 0;
 }
 :checked + .button-bar__button {
-  background-color: #ffa101;
-  background-color: #ffa101;
-  color: #fff;
+  background-color: var(--button-color);
   color: #fff;
   transition: none;
 }
@@ -2103,20 +2030,20 @@ solid
 :active + .button-bar__button {
   background-color: rgb(51, 32, 1);
   background-color: rgb(51, 32, 1);
-  border: 0 solid #ffa101;
+  border: 0 solid var(--button-color);
   border: 0
 solid
-#ffa101;
-  border-top: 1px solid #ffa101;
+var(--button-color);
+  border-top: 1px solid var(--button-color);
   border-top: 1px
 solid
-#ffa101;
-  border-bottom: 1px solid #ffa101;
+var(--button-color);
+  border-bottom: 1px solid var(--button-color);
   border-bottom: 1px
 solid
-#ffa101;
-  border-right: 1px solid #ffa101;
-  border-right: 1px solid #ffa101;
+var(--button-color);
+  border-right: 1px solid var(--button-color);
+  border-right: 1px solid var(--button-color);
   font-size: 13px;
   width: 100%;
   transition: none;
@@ -2212,10 +2139,10 @@ solid
   font-weight: 400;
   border-radius: 0;
   background-color: transparent;
-  color: #ffa101;
-  color: #ffa101;
-  border: 1px solid #ffa101;
-  border: 1px solid #ffa101;
+  color: var(--button-color);
+  color: var(--button-color);
+  border: 1px solid var(--button-color);
+  border: 1px solid var(--button-color);
   border-top-width: 1px;
   border-bottom-width: 1px;
   border-right-width: 1px;
@@ -2245,27 +2172,27 @@ solid
 :active + .segment__button {
   background-color: rgb(51, 32, 1);
   background-color: rgb(51, 32, 1);
-  border: 0 solid #ffa101;
+  border: 0 solid var(--button-color);
   border: 0
 solid
-#ffa101;
-  border-top: 1px solid #ffa101;
+var(--button-color);
+  border-top: 1px solid var(--button-color);
   border-top: 1px
 solid
-#ffa101;
-  border-bottom: 1px solid #ffa101;
+var(--button-color);
+  border-bottom: 1px solid var(--button-color);
   border-bottom: 1px
 solid
-#ffa101;
-  border-right: 1px solid #ffa101;
-  border-right: 1px solid #ffa101;
+var(--button-color);
+  border-right: 1px solid var(--button-color);
+  border-right: 1px solid var(--button-color);
   font-size: 13px;
   width: 100%;
   transition: none;
 }
 :checked + .segment__button {
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
+  background-color: var(--button-color);
   color: #fff;
   color: #fff;
   transition: none;
@@ -2567,8 +2494,8 @@ solid
   padding: 0;
 }
 :checked + .tabbar__button {
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
+  color: var(--button-color);
   background-color: transparent;
   box-shadow: none;
   box-shadow: none;
@@ -2759,8 +2686,8 @@ solid
 }
 :checked + .tabbar--top-border__button {
   background-color: transparent;
-  border-bottom: 4px solid #ffa101;
-  border-bottom: 4px solid #ffa101;
+  border-bottom: 4px solid var(--button-color);
+  border-bottom: 4px solid var(--button-color);
 }
 .tabbar__border {
   position: absolute;
@@ -2768,8 +2695,8 @@ solid
   left: 0;
   width: 0;
   height: 4px;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
+  background-color: var(--button-color);
 }
 .tabbar--material {
   background: none;
@@ -2931,8 +2858,8 @@ solid
   padding: 4px
 10px;
   letter-spacing: 0;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
+  color: var(--button-color);
   background-color: rgba(0, 0, 0, 0);
   background-color: rgba(0, 0, 0, 0);
   border-radius: 2px;
@@ -2964,10 +2891,10 @@ solid
   transition: none;
 }
 .toolbar-button--outline {
-  border: 1px solid #ffa101;
+  border: 1px solid var(--button-color);
   border: 1px
 solid
-#ffa101;
+var(--button-color);
   margin: auto 8px;
   padding-left: 6px;
   padding-right: 6px;
@@ -2990,8 +2917,8 @@ solid
 */
 .toolbar-button--material {
   font-size: 22px;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
+  color: var(--button-color);
   display: inline-block;
   padding: 0 12px;
   height: 100%;
@@ -3016,8 +2943,8 @@ solid
   height: 44px;
   line-height: 44px;
   padding-left: 8px;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
+  color: var(--button-color);
   background-color: rgba(0, 0, 0, 0);
   background-color: rgba(0, 0, 0, 0);
   display: inline-block;
@@ -3040,16 +2967,16 @@ solid
   margin-right: 6px;
   display: -webkit-inline-flex;
   display: inline-flex;
-  fill: #ffa101;
-  fill: #ffa101;
+  fill: var(--button-color);
+  fill: var(--button-color);
   -webkit-align-items: center;
           align-items: center;
   height: 100%;
 }
 .back-button--material {
   font-size: 22px;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
+  color: var(--button-color);
   display: inline-block;
   padding: 0 12px;
   height: 100%;
@@ -3067,8 +2994,8 @@ solid
 .back-button--material__icon {
   display: -webkit-inline-flex;
   display: inline-flex;
-  fill: #ffa101;
-  fill: #ffa101;
+  fill: var(--button-color);
+  fill: var(--button-color);
   -webkit-align-items: center;
           align-items: center;
   height: 100%;
@@ -3201,8 +3128,8 @@ solid
   opacity: 0;
 }
 :checked + .checkbox__checkmark:before {
-  background: #ffa101;
-  background: #ffa101;
+  background: var(--button-color);
+  background: var(--button-color);
   border: none;
 }
 :checked + .checkbox__checkmark:after {
@@ -3317,8 +3244,8 @@ solid
   width: 11px;
   height: 4px;
   background: transparent;
-  border: 2px solid #ffa101;
-  border: 2px solid #ffa101;
+  border: 2px solid var(--button-color);
+  border: 2px solid var(--button-color);
   border-top: none;
   border-right: none;
   border-radius: 0;
@@ -3589,8 +3516,8 @@ solid
   width: 11px;
   height: 4px;
   background: transparent;
-  border: 2px solid #ffa101;
-  border: 2px solid #ffa101;
+  border: 2px solid var(--button-color);
+  border: 2px solid var(--button-color);
   border-top: none;
   border-right: none;
   border-radius: 0;
@@ -3673,10 +3600,10 @@ solid
   transition: opacity 0.25s ease-out, transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
 }
 .radio-button--material__input:checked:before {
-  box-shadow: 0 0 0 14px #ffa101;
-  box-shadow: 0 0 0 14px #ffa101;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  box-shadow: 0 0 0 14px var(--button-color);
+  box-shadow: 0 0 0 14px var(--button-color);
+  background-color: var(--button-color);
+  background-color: var(--button-color);
 }
 .radio-button--material__input:active:before {
   opacity: .15;
@@ -3721,8 +3648,8 @@ solid
 }
 :checked + .radio-button--material__checkmark:before {
   background: transparent;
-  border: 2px solid #ffa101;
-  border: 2px solid #ffa101;
+  border: 2px solid var(--button-color);
+  border: 2px solid var(--button-color);
 }
 .radio-button--material__input + .radio-button__checkmark:after {
   background: #8e8e8e;
@@ -3733,8 +3660,8 @@ solid
 }
 :checked + .radio-button--material__checkmark:after {
   opacity: 1;
-  background: #ffa101;
-  background: #ffa101;
+  background: var(--button-color);
+  background: var(--button-color);
   -webkit-transform: scale(1);
           transform: scale(1);
 }
@@ -5576,7 +5503,6 @@ solid
   margin: 0;
   font: inherit;
   color: inherit;
-  background: transparent;
   border: none;
   line-height: normal;
   cursor: default;
@@ -5596,13 +5522,11 @@ solid
           transform: translate(-50%, -50%);
   width: 270px;
   margin: auto;
-  background-color: #f4f4f4;
-  background-color: #f4f4f4;
+  background-color: #121212;
   border-radius: 8px;
   overflow: visible;
   max-width: 95%;
-  color: #1f1f21;
-  color: #1f1f21;
+  color: #f4f4f4;
 }
 .alert-dialog-container {
   height: inherit;
@@ -5613,27 +5537,19 @@ solid
   font-family: -apple-system, 'Helvetica Neue', 'Helvetica', 'Arial', 'Lucida Grande', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
-  font-weight: 400;
   font-size: 17px;
-  font-size: 17px;
-  font-weight: 500;
   font-weight: 500;
   padding: 0 8px;
   text-align: center;
-  color: #1f1f21;
-  color: #1f1f21;
+  color: #f4f4f4;
 }
 .alert-dialog-content {
   box-sizing: border-box;
   background-clip: padding-box;
   padding: 4px 12px 8px;
   font-size: 14px;
-  font-size: 14px;
   min-height: 36px;
   text-align: center;
-  color: #1f1f21;
-  color: #1f1f21;
 }
 .alert-dialog-footer {
   width: 100%;
@@ -5678,8 +5594,8 @@ solid
   height: 44px;
   line-height: 44px;
   outline: none;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
+  color: var(--button-color);
 }
 @media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi),(min-resolution: 2dppx) {
 .alert-dialog-button {
@@ -5909,8 +5825,7 @@ solid
   margin: 8px 8px 8px 0;
   box-sizing: border-box;
   min-width: 50px;
-  color: #d68600;
-  color: #d68600;
+  color: var(--button-color);
 }
 @media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi),(min-resolution: 2dppx) {
 .alert-dialog-button--material {
@@ -6180,8 +6095,8 @@ solid
 .progress-bar__primary,
 .progress-bar__secondary {
   position: absolute;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
+  background-color: var(--button-color);
   top: 0;
   bottom: 0;
   transition: width .3s linear;
@@ -6196,8 +6111,8 @@ solid
 .progress-bar--indeterminate:before {
   content: '';
   position: absolute;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
+  background-color: var(--button-color);
   top: 0;
   left: 0;
   bottom: 0;
@@ -6209,8 +6124,8 @@ solid
 .progress-bar--indeterminate:after {
   content: '';
   position: absolute;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
+  background-color: var(--button-color);
   top: 0;
   left: 0;
   bottom: 0;
@@ -6310,23 +6225,19 @@ solid
 }
 .progress-bar--material__primary,
 .progress-bar--material__secondary {
-  background-color: #d68600;
-  background-color: #d68600;
+  background-color: var(--button-color);
   border-radius: 0;
 }
 .progress-bar--material__secondary {
   background-color: rgb(115, 72, 0);
-  background-color: rgb(115, 72, 0);
   z-index: 0;
 }
 .progress-bar--material.progress-bar--indeterminate:before { /* FIXME */
-  background-color: #d68600;
-  background-color: #d68600;
+  background-color: var(--button-color);
   border-radius: 0;
 }
 .progress-bar--material.progress-bar--indeterminate:after { /* FIXME */
-  background-color: #d68600;
-  background-color: #d68600;
+  background-color: var(--button-color);
   border-radius: 0;
 }
 /*~
@@ -6381,8 +6292,8 @@ solid
 .progress-circular__primary {
   stroke-dasharray: 1, 200;
   stroke-dashoffset: 0;
-  stroke: #ffa101;
-  stroke: #ffa101;
+  stroke: var(--button-color);
+  stroke: var(--button-color);
   transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .progress-circular__secondary {
@@ -6478,11 +6389,9 @@ solid
   stroke: transparent;
 }
 .progress-circular--material__primary {
-  stroke: #d68600;
-  stroke: #d68600;
+  stroke: var(--button-color);
 }
 .progress-circular--material__secondary {
-  stroke: rgb(115, 72, 0);
   stroke: rgb(115, 72, 0);
 }
 /*~
@@ -6529,8 +6438,8 @@ ons-fab.fab, ons-speed-dial-item.fab, button.fab {
   color: #ffffff;
   vertical-align: middle;
   text-align: center;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
+  background-color: var(--button-color);
   border: 0 solid currentColor;
   border-radius: 50%;
   overflow: hidden;
@@ -6616,8 +6525,8 @@ ons-fab.fab--material, ons-speed-dial-item.fab--material, button.fab--material {
   color: #ffffff;
   vertical-align: middle;
   text-align: center;
-  background-color: #ffa101;
-  background-color: #ffa101;
+  background-color: var(--button-color);
+  background-color: var(--button-color);
   border: 0 solid currentColor;
   border-radius: 50%;
   overflow: hidden;
@@ -7153,8 +7062,8 @@ ons-fab.fab--bottom__center, button.fab--bottom__center, .speed-dial.fab--bottom
   height: 56px;
   font-size: 20px;
   text-align: center;
-  color: #ffa101;
-  color: #ffa101;
+  color: var(--button-color);
+  color: var(--button-color);
   background-color: rgba(255, 255, 255, 0.9);
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 0;
