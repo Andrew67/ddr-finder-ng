@@ -578,13 +578,22 @@ ons.ready(function () {
           .appendChild(shareButton);
       }
 
+      // Get the map style (for auto-switching light and dark)
+      const isDarkMode = () =>
+        window.matchMedia("screen and (prefers-color-scheme: dark)").matches;
+      const getMapStyleUri = function () {
+        return isDarkMode()
+          ? "mapbox://styles/andrew67/ck9xjm6sg1hb21ipae71xn4jc"
+          : "mapbox://styles/andrew67/ck9xjbtyl1h7m1ili7y80hwus";
+      };
+
       // Initialize map and set initial view.
       var initialView = getInitialView();
       mapboxgl.accessToken =
         "pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw";
       map = new mapboxgl.Map({
         container: "map",
-        style: "mapbox://styles/andrew67/ck9xjbtyl1h7m1ili7y80hwus",
+        style: getMapStyleUri(),
         center: [initialView.center.lng, initialView.center.lat],
         zoom: initialView.zoom,
         renderWorldCopies: false,
@@ -596,17 +605,28 @@ ons.ready(function () {
       });
       map.addControl(new mapboxgl.AttributionControl({ compact: false }));
 
-      // Load custom location marker images.
-      ["arcade-blue-24", "arrow-blue-24"].forEach(function (imageName) {
-        map.loadImage("/img/" + imageName + ".png", function (error, image) {
-          if (error) throw error;
-          else if (!map.hasImage(imageName)) {
-            map.addImage(imageName, image, {
-              pixelRatio: 2,
-            });
-          }
+      const loadCustomMarkerImages = function () {
+        ["arcade-blue-24", "arrow-blue-24"].forEach(function (imageName) {
+          map.loadImage("/img/" + imageName + ".png", function (error, image) {
+            if (error) throw error;
+            else if (!map.hasImage(imageName)) {
+              map.addImage(imageName, image, {
+                pixelRatio: 2,
+              });
+            }
+          });
         });
-      });
+      };
+      loadCustomMarkerImages();
+
+      // Register listener for light/dark-mode switch
+      // TODO: Currently fails to re-load custom marker images and throws away current locations data
+      // window
+      //   .matchMedia("screen and (prefers-color-scheme: dark)")
+      //   .addEventListener("change", function () {
+      //     map.setStyle(getMapStyleUri());
+      //     loadCustomMarkerImages();
+      //   });
 
       // Skip the geocoder feature on browsers that fail to load the library,
       // but otherwise work with OnsenUI and Mapbox GL JS (such as Chrome 40), due to lack of const support
@@ -954,8 +974,8 @@ ons.ready(function () {
                     "text-optional": true,
                   },
                   paint: {
-                    "text-color": "#1976d2",
-                    "text-halo-color": "white",
+                    "text-color": isDarkMode() ? "#dbeafe" : "#1976d2",
+                    "text-halo-color": isDarkMode() ? "black" : "white",
                     "text-halo-width": 1,
                   },
                 });

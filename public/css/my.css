@@ -214,3 +214,33 @@ body {
   vertical-align: inherit;
   color: #1976d2;
 }
+
+/* Dark mode */
+@media screen and (prefers-color-scheme: dark) {
+  /* Last resort: Invert the stock Mapbox controls and Geocoder as they don't inherit color changes */
+  #ddrfinder .mapboxgl-ctrl-top-right > *:not(:last-child) {
+    filter: invert(1) hue-rotate(180deg);
+  }
+  /* Custom ons-icons are inheriting colors properly so just set the background */
+  #ddrfinder .mapboxgl-ctrl-top-right > *:last-child {
+    background: rgb(24, 24, 24);
+  }
+  /* Info pop-up fixes */
+  #ddrfinder .mapboxgl-popup-content {
+    background: rgb(24, 24, 24);
+  }
+  #ddrfinder .mapboxgl-popup-tip {
+    border-top-color: rgb(24, 24, 24);
+  }
+
+  .hasDDRYes {
+    color: #bbf7d0; /* Tailwind Green 200 */
+  }
+  .hasDDRNo {
+    color: #fecaca; /* Tailwind Red 200 */
+  }
+
+  #settings-ios-install ons-icon {
+    color: rgb(147, 197, 253); /* Tailwind Blue 300 */
+  }
+}
