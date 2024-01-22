@@ -503,13 +503,14 @@ ons.ready(function () {
   // - lastView from LocalStorage
   // - Default (TX, US)
   var getInitialView = function () {
-    if ("URLSearchParams" in window && window.location.search) {
-      var params = new URLSearchParams(window.location.search.substr(1));
+    if (window.location.search) {
+      const params = new URLSearchParams(window.location.search);
       if (params.has("ll") && params.has("z")) {
-        var ll = params.get("ll").split(",");
+        const ll = params.get("ll").split(",");
+        const zoom = params.get("z").replace("z", "");
         return {
           center: { lat: ll[0], lng: ll[1] },
-          zoom: params.get("z"),
+          zoom,
         };
       }
     }

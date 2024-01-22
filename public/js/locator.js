@@ -112,7 +112,7 @@ $(function () {
   };
 
   // Arcade location data handler function
-  var handle_data = function (/*APIData*/ data) {
+  var handle_data = function (/* import("types.d.ts").APIData */ data) {
     var locations = data.locations,
       message_arcade_list = $("#message-arcade-list"),
       arcade_list = $("#arcade-list");

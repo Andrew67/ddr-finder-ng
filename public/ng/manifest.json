@@ -19,8 +19,15 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "/",
-  "display": "browser",
+  "start_url": "/ng/",
+  "display": "standalone",
   "theme_color": "#1976d2",
-  "background_color": "#1976d2"
+  "background_color": "#1976d2",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.andrew67.ddrfinder"
+    }
+  ]
 }
