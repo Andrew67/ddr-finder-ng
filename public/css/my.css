@@ -217,20 +217,33 @@ body {
 
 /* Dark mode */
 @media screen and (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: rgb(24,24,24);
+  }
+
   /* Last resort: Invert the stock Mapbox controls and Geocoder as they don't inherit color changes */
   #ddrfinder .mapboxgl-ctrl-top-right > *:not(:last-child) {
     filter: invert(1) hue-rotate(180deg);
   }
   /* Custom ons-icons are inheriting colors properly so just set the background */
   #ddrfinder .mapboxgl-ctrl-top-right > *:last-child {
-    background: rgb(24, 24, 24);
+    background: var(--bg-color);
   }
   /* Info pop-up fixes */
   #ddrfinder .mapboxgl-popup-content {
-    background: rgb(24, 24, 24);
+    background: var(--bg-color);
   }
-  #ddrfinder .mapboxgl-popup-tip {
-    border-top-color: rgb(24, 24, 24);
+  #ddrfinder .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+    border-top-color: var(--bg-color);
+  }
+  #ddrfinder .mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
+    border-bottom-color: var(--bg-color);
+  }
+  #ddrfinder .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+    border-right-color: var(--bg-color);
+  }
+  #ddrfinder .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+    border-left-color: var(--bg-color);
   }
 
   .hasDDRYes {
