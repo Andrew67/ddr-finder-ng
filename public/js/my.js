@@ -266,31 +266,25 @@ ons.ready(function () {
     // If you want to potentially save a redundant AJAX request, call isLoaded first with these bounds.
     // The success callback receives the GeoJSON structure, and the error callback receives the error structure.
     module.getLocations = function (bounds, successcb, errorcb) {
-      // Preload a slightly larger box area when zoomed in.
-      if (
-        Math.abs(bounds.getNorth() - bounds.getSouth()) < 0.5 &&
-        Math.abs(bounds.getEast() - bounds.getWest()) < 0.5
-      ) {
-        bounds = new mapboxgl.LngLatBounds(
-          [bounds.getWest() - 0.125, bounds.getSouth() - 0.125],
-          [bounds.getEast() + 0.125, bounds.getNorth() + 0.125],
-        );
-      }
+      // Round the bounds to the nearest whole degree, for two purposes:
+      // - when zoomed in, provides a smoother pan/zoom experience with reduced loading time
+      // - sets the precision to a minimum of 43.5km (see: https://en.wikipedia.org/wiki/Decimal_degrees)
+      //   which provides privacy to the user (especially if the bounds include their location)
+      bounds = new mapboxgl.LngLatBounds(
+        [Math.floor(bounds.getWest()), Math.floor(bounds.getSouth())],
+        [Math.ceil(bounds.getEast()), Math.ceil(bounds.getNorth())],
+      );
 
       // Load settings regarding data source and API URL.
       var dataSource = settingsService.getValue("datasource");
-      var url =
-        API_URL +
-        "?version=31&sourceformat=object&locationformat=geojson&canHandleLargeDataset&datasrc=" +
-        encodeURIComponent(dataSource) +
-        "&latlower=" +
-        bounds.getSouth() +
-        "&lnglower=" +
-        bounds.getWest() +
-        "&latupper=" +
-        bounds.getNorth() +
-        "&lngupper=" +
-        bounds.getEast();
+      const url = new URL(
+        `${API_URL}?version=31&sourceformat=object&locationformat=geojson&canHandleLargeDataset`,
+      );
+      url.searchParams.set("datasrc", dataSource);
+      url.searchParams.set("latlower", bounds.getSouth());
+      url.searchParams.set("lnglower", bounds.getWest());
+      url.searchParams.set("latupper", bounds.getNorth());
+      url.searchParams.set("lngupper", bounds.getEast());
 
       // Kick off AJAX request.
       var request = new XMLHttpRequest();
@@ -318,7 +312,7 @@ ons.ready(function () {
           }
         }
       };
-      request.open("GET", url, true);
+      request.open("GET", url.toString(), true);
       request.send(null);
     };
 
@@ -628,8 +622,7 @@ ons.ready(function () {
       //     loadCustomMarkerImages();
       //   });
 
-      // Skip the geocoder feature on browsers that fail to load the library,
-      // but otherwise work with OnsenUI and Mapbox GL JS (such as Chrome 40), due to lack of const support
+      // Skip the geocoder feature on browsers that fail to load the library
       if ("MapboxGeocoder" in window) {
         var geocoder = new MapboxGeocoder({
           accessToken: mapboxgl.accessToken,
@@ -763,8 +756,8 @@ ons.ready(function () {
 
         openExternalLink(
           getNavURL(
-            feature.geometry.coordinates[1].toFixed(5),
-            feature.geometry.coordinates[0].toFixed(5),
+            feature.geometry.coordinates[1].toFixed(6),
+            feature.geometry.coordinates[0].toFixed(6),
             feature.properties.name,
           ),
         );
