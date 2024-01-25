@@ -6,8 +6,6 @@ import {
   IconX,
   IconReload,
   IconCheck,
-  IconPlus,
-  IconMinus,
   IconArrowBackUp,
   IconNavigationFilled,
   IconBrandGoogleMaps,
@@ -45,7 +43,6 @@ import {
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
       defer></script>
-    <script is:inline src="/lib/accordion.js" defer></script>
     <script is:inline src="/js/locator.js" defer></script>
 
     <style>
@@ -65,21 +62,8 @@ import {
         @apply block;
       }
 
-      .arcade-list-item .tabler-icon-plus {
+      .collapse-title::after {
         @apply print:hidden;
-      }
-      .arcade-list-item .tabler-icon-minus {
-        @apply hidden print:hidden;
-      }
-      .arcade-list-item.active .tabler-icon-plus {
-        @apply hidden;
-      }
-      .arcade-list-item.active .tabler-icon-minus {
-        @apply block;
-      }
-
-      .arcade-list-item > div {
-        @apply print:!block;
       }
     </style>
     <style is:global>
@@ -285,19 +269,21 @@ import {
             target="_blank"
             class="link link-info"></a> Contributors
         </p>
-        <ul class="accordion mt-2" data-role="accordion" id="arcade-list">
+        <ul class="mt-2" id="arcade-list">
           <!-- Arcade location template -->
-          <li class="arcade-list-item my-1 print:border print:rounded">
-            <a
-              href="#"
-              class="bg-base-200 text-primary p-2 rounded flex gap-2 items-center"
+          <li
+            class="arcade-list-item collapse collapse-plus bg-base-200 mb-2 print:collapse-open print:border print:rounded"
+          >
+            <input type="radio" name="arcade-accordion" checked="checked" />
+            <div
+              class="arcade-name collapse-title text-lg sm:text-xl font-medium"
             >
-              <IconPlus size="1em" stroke-width="4" aria-hidden="true" />
-              <IconMinus size="1em" stroke-width="4" aria-hidden="true" />
-              <span class="arcade-name">Name</span>
-            </a>
-            <div style="display: none" class="p-2 bg-base-200 rounded">
-              <p class="arcade-city text-xl">City</p>
+              Name
+            </div>
+            <div class="collapse-content">
+              <p class="arcade-city font-medium sm:text-lg sm:font-normal">
+                City
+              </p>
               <p>
                 Approximately <span class="arcade-distance font-semibold"
                   >???</span

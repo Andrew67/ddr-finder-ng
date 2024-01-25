@@ -179,10 +179,6 @@ $(function () {
           locationMap.addMarker(lat, lng);
         }
       });
-
-      // Execute accordion function on list manually after populating it,
-      // since the library attaches click events to the list items themselves (attaching to nothing on page load)
-      arcade_list.Accordion();
     }
   };
 
