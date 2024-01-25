@@ -31,14 +31,11 @@ import {
     />
     <style>
       a[href]:not(.btn) {
-        @apply underline text-blue-700 dark:text-blue-200;
-      }
-      .btn {
-        @apply inline-flex gap-2 py-2 px-3 rounded;
+        @apply link link-info;
       }
     </style>
   </head>
-  <body class="p-4 dark:bg-slate-900">
+  <body class="p-4">
     <h1 class="text-5xl mb-4">DDR Finder</h1>
     <p class="mb-6">
       Tool for finding video game arcades (especially DDR machine locations).
@@ -54,19 +51,19 @@ import {
     <nav class="mb-6">
       <ul class="flex flex-col gap-2">
         <li>
-          <a class="btn bg-orange-700 text-white" href="/locator/">
+          <a class="btn btn-secondary" href="/locator/">
             <IconSearch aria-hidden="true" /> Locate Nearby Arcades
           </a>
         </li>
         <li>
-          <a class="btn bg-green-800 text-white" href="/ng/">
+          <a class="btn btn-accent" href="/ng/">
             <IconMapPinFilled aria-hidden="true" />
             Interactive Map
           </a>
         </li>
         <li>
           <a
-            class="btn bg-blue-800 text-white"
+            class="btn btn-primary"
             href="https://ddrcalc.andrew67.com/"
             target="_blank"
           >
@@ -99,8 +96,9 @@ import {
       <p class="text-sm">
         No warranty is made regarding operation, and no accuracy or freshness of
         results is guaranteed.<br />
-        Using <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a
-        > for page styling.<br />
+        Using <a href="https://daisyui.com/" target="_blank">daisyUI</a> and
+        <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a> for page
+        styling.<br />
         Built with <a href="https://astro.build/">{Astro.generator}</a>.<br />
         Google Play and the Google Play logo are trademarks of Google LLC.<br />
         Arrow icon from the <a
