@@ -1,23 +1,24 @@
 /* Custom Theme for Onsen UI 2.10.10 */
 
-
 :root {
   /* variables for iOS components */
   --background-color: #efeff4;
   --text-color: #1f1f21;
   --sub-text-color: #999;
-  --highlight-color: #9C27B0;
-  --second-highlight-color: #1976D2;
+  --highlight-color: #9c27b0;
+  --second-highlight-color: #1976d2;
   --border-color: #ccc;
   --button-background-color: var(--highlight-color);
   --button-cta-background-color: var(--second-highlight-color);
-  --toolbar-background-color: #1976D2;
-  --toolbar-button-color: #FFFFFF;
-  --toolbar-text-color: #FFFFFF;
+  --toolbar-background-color: #1976d2;
+  --toolbar-button-color: #ffffff;
+  --toolbar-text-color: #ffffff;
   --toolbar-border-color: #b2b2b2;
   --button-bar-color: var(--highlight-color);
   --button-bar-active-text-color: #fff;
-  --button-bar-active-background-color: color(var(--button-bar-color) tint(70%));
+  --button-bar-active-background-color: color(
+    var(--button-bar-color) tint(70%)
+  );
   --button-light-color: black;
   --segment-color: var(--highlight-color);
   --segment-active-text-color: #fff;
@@ -27,16 +28,16 @@
   --list-tap-active-background-color: #d9d9d9;
   --list-item-chevron-color: #c7c7cc;
   --progress-bar-color: var(--highlight-color);
-  --progress-bar-secondary-color: #1976D2;
+  --progress-bar-secondary-color: #1976d2;
   --progress-bar-background-color: transparent;
   --progress-circle-primary-color: var(--highlight-color);
   --progress-circle-secondary-color: #65adff;
   --progress-circle-background-color: transparent;
-  --tabbar-background-color: #1976D2;
-  --tabbar-text-color: rgba(212,212,212,1);
-  --tabbar-highlight-text-color: #FFFFFF;
+  --tabbar-background-color: #1976d2;
+  --tabbar-text-color: rgba(212, 212, 212, 1);
+  --tabbar-highlight-text-color: #ffffff;
   --tabbar-border-color: #ccc;
-  --switch-highlight-color: #9C27B0;
+  --switch-highlight-color: #9c27b0;
   --switch-border-color: #e5e5e5;
   --switch-background-color: white;
   --range-track-background-color: #a4aab3;
@@ -69,7 +70,7 @@
   --card-text-color: #030303;
   --toast-background-color: rgba(0, 0, 0, 0.8);
   --toast-text-color: white;
-  --toast-button-text-color: rgba(232,126,249,1);
+  --toast-button-text-color: rgba(232, 126, 249, 1);
   --select-input-color: var(--text-color);
   --select-input-border-color: var(--border-color);
 
@@ -78,8 +79,8 @@
   --material-text-color: var(--text-color);
   --material-notification-background-color: #e91e63;
   --material-notification-color: white;
-  --material-switch-active-thumb-color: #9C27B0;
-  --material-switch-active-background-color: rgba(208,92,227,0.3);
+  --material-switch-active-thumb-color: #9c27b0;
+  --material-switch-active-background-color: rgba(208, 92, 227, 0.3);
   --material-switch-inactive-thumb-color: #f1f1f1;
   --material-switch-inactive-background-color: #b0afaf;
   --material-range-track-color: #bdbdbd;
@@ -87,14 +88,14 @@
   --material-range-disabled-thumb-color: #b0b0b0;
   --material-range-disabled-thumb-border-color: #eeeeee;
   --material-range-zero-thumb-color: #f2f2f2;
-  --material-toolbar-background-color: #1976D2;
-  --material-toolbar-text-color: #FFFFFF;
-  --material-toolbar-button-color: #FFFFFF;
+  --material-toolbar-background-color: #1976d2;
+  --material-toolbar-text-color: #ffffff;
+  --material-toolbar-button-color: #ffffff;
   --material-segment-background-color: #fafafa;
   --material-segment-active-background-color: #c8c8c8;
   --material-segment-text-color: color(black a(38%));
   --material-segment-active-text-color: #353535;
-  --material-button-background-color: #9C27B0;
+  --material-button-background-color: #9c27b0;
   --material-button-text-color: #ffffff;
   --material-button-disabled-background-color: color(#4f4f4f a(26%));
   --material-button-disabled-color: color(black a(26%));
@@ -102,10 +103,10 @@
   --material-list-background-color: #fff;
   --material-list-item-separator-color: #eee;
   --material-list-header-text-color: #757575;
-  --material-checkbox-active-color: #9C27B0;
+  --material-checkbox-active-color: #9c27b0;
   --material-checkbox-inactive-color: #717171;
   --material-checkbox-checkmark-color: #ffffff;
-  --material-radio-button-active-color: #9C27B0;
+  --material-radio-button-active-color: #9c27b0;
   --material-radio-button-inactive-color: #717171;
   --material-radio-button-disabled-color: #afafaf;
   --material-text-input-text-color: #212121;
@@ -117,16 +118,20 @@
   --material-alert-dialog-background-color: #ffffff;
   --material-alert-dialog-title-color: #31313a;
   --material-alert-dialog-content-color: rgba(49, 49, 58, 0.85);
-  --material-alert-dialog-button-color: #1976D2;
-  --material-progress-bar-primary-color: #9C27B0;
-  --material-progress-bar-secondary-color: #1976D2;
+  --material-alert-dialog-button-color: #1976d2;
+  --material-progress-bar-primary-color: #9c27b0;
+  --material-progress-bar-secondary-color: #1976d2;
   --material-progress-bar-background-color: transparent;
-  --material-progress-circle-primary-color: var(--material-progress-bar-primary-color);
-  --material-progress-circle-secondary-color: var(--material-progress-bar-secondary-color);
+  --material-progress-circle-primary-color: var(
+    --material-progress-bar-primary-color
+  );
+  --material-progress-circle-secondary-color: var(
+    --material-progress-bar-secondary-color
+  );
   --material-progress-circle-background-color: transparent;
-  --material-tabbar-background-color: #1976D2;
-  --material-tabbar-text-color: rgba(255,255,255,1);
-  --material-tabbar-highlight-text-color: #FFFFFF;
+  --material-tabbar-background-color: #1976d2;
+  --material-tabbar-text-color: rgba(255, 255, 255, 1);
+  --material-tabbar-highlight-text-color: #ffffff;
   --material-tabbar-highlight-color: rgba(49, 49, 58, 0.1);
   --material-fab-text-color: #31313a;
   --material-fab-background-color: #ffffff;
@@ -135,7 +140,7 @@
   --material-card-text-color: rgba(0, 0, 0, 0.54);
   --material-toast-background-color: rgba(0, 0, 0, 0.8);
   --material-toast-text-color: white;
-  --material-toast-button-text-color: #E87EF9;
+  --material-toast-button-text-color: #e87ef9;
   --material-select-input-color: var(--material-text-color);
   --material-select-input-active-color: rgba(0, 0, 0, 0.15);
   --material-select-input-inactive-color: rgba(0, 0, 0, 0.81);

@@ -1,0 +1,7 @@
+# Pages used by the Android app
+/android/about.php /android/about/ 301
+/about.php /android/about 301
+/android/privacy-policy.html /android/privacy-policy/ 301
+
+# Links generated when sharing from the Android app
+/app/map/@:lat,:lng,:zoom /ng/?ll=:lat,:lng&z=:zoom 302

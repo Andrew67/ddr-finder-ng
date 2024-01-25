@@ -1,0 +1,130 @@
+---
+import { IconHome, IconLicense, IconBrandGithub } from "@tabler/icons-preact";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>About</title>
+    <!-- ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE -->
+    <!-- Setting the OpenGraph URL ensures shared links point to the main page -->
+    <meta property="og:url" content="https://ddrfinder.andrew67.com/" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <style>
+      a[href]:not(.btn) {
+        @apply underline text-blue-700 dark:text-blue-200;
+      }
+      .btn {
+        @apply inline-flex gap-2 py-2 px-3 rounded;
+      }
+    </style>
+  </head>
+  <body class="p-4 dark:bg-slate-900">
+    <!-- This page is meant to be displayed in the About dialog of the Android app -->
+    <header>
+      <h1 class="text-5xl">DDR Finder</h1>
+      <h2 class="text-3xl mb-4">
+        Version <span id="version-name"></span>
+      </h2>
+      <script is:inline>
+        const versionNameEl = document.querySelector("#version-name");
+        const versionName =
+          new URLSearchParams(window.location.search).get("n") ?? "3.0.25";
+        if (versionName) versionNameEl.textContent = versionName;
+      </script>
+    </header>
+
+    <p class="mb-4">
+      No warranty is made regarding operation, and no accuracy or freshness of
+      results is guaranteed. Machine location data collected from
+      <a href="https://zenius-i-vanisher.com/" target="_blank">
+        Zenius -I- vanisher.com</a
+      >,
+      <a href="https://www.ddr-navi.jp/" target="_blank"> DDR-Navi</a>, and
+      <a href="https://www.openstreetmap.org/" target="_blank">
+        OpenStreetMap</a
+      >
+      (no affiliation).
+    </p>
+    <nav class="mb-6">
+      <ul class="flex flex-col gap-2">
+        <li>
+          <a
+            href="https://ddrfinder.andrew67.com/"
+            class="btn bg-blue-800 text-white"
+          >
+            <IconHome aria-hidden="true" /> Project Home Page
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://raw.github.com/Andrew67/DdrFinder/master/LICENSE"
+            class="btn bg-green-800 text-white"
+          >
+            <IconLicense aria-hidden="true" /> View Application License
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/Andrew67/ddr-finder"
+            class="btn bg-pink-800 text-white"
+          >
+            <IconBrandGithub aria-hidden="true" /> View Source on GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <footer>
+      <p class="mb-2">
+        &copy; 2013&ndash;2024 <a href="https://andrew67.com/">Andrés Cordero</a
+        >
+      </p>
+      <p class="text-sm">
+        Chinese Simplified Translation provided by <a
+          href="https://github.com/AndiZ23">Andi Zhou</a
+        >.<br />
+        Adapted from the <a href="https://github.com/ltorres8890/Clima">Clima</a
+        > project.<br />
+        App arrow icon from the <a href="https://www.stepmania.com/"
+          >StepMania 5</a
+        > lambda noteskin.<br />
+        "<a href="https://thenounproject.com/icon/25579/">Map Marker</a>" icon
+        by meghan hade from
+        <a href="https://thenounproject.com">the Noun Project</a>.<br />
+        "<a href="https://thenounproject.com/icon/237640/">arcade</a>" icon by
+        Icon 54 from
+        <a href="https://thenounproject.com">the Noun Project</a>.<br />
+        "<a href="https://thenounproject.com/icon/3044571/">Arrow</a>" icon by
+        Al Haddad, ID from
+        <a href="https://thenounproject.com">the Noun Project</a>.<br />
+        Calculator icon from <a href="https://icons.getbootstrap.com/"
+          >Bootstrap Icons</a
+        >.<br />
+        Maps provided by the
+        <a href="https://developers.google.com/maps/documentation/android-api/"
+          >Google Maps Android API</a
+        >.<br />
+        Map marker clustering provided by the
+        <a href="https://github.com/googlemaps/android-maps-utils/"
+          >Google Maps Android API utility library</a
+        >.<br />
+        Map style (light mode) based on <a
+          href="https://snazzymaps.com/style/83/muted-blue">Muted Blue</a
+        > on Snazzy Maps.<br />
+        Map style (dark mode) based on <a
+          href="https://mapstyle.withgoogle.com/">Aubergine</a
+        > by Google.<br />
+        HTTP requests handled by Square's <a
+          href="https://github.com/square/okhttp/">OkHttp</a
+        > library.<br />
+        JSON serialization handled by Square's <a
+          href="https://github.com/square/moshi">Moshi</a
+        > library.
+      </p>
+    </footer>
+  </body>
+</html>

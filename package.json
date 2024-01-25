@@ -1,6 +1,7 @@
 {
   "name": "ddr-finder-ng",
-  "version": "0.0.1",
+  "type": "module",
+  "version": "0.1.1",
   "description": "Next-generation Web UI for ddr-finder",
   "homepage": "https://github.com/Andrew67/ddr-finder-ng",
   "license": "MIT",
@@ -15,14 +16,34 @@
     "url": "https://github.com/Andrew67/ddr-finder-ng.git"
   },
   "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "preview-cf": "yarn dlx wrangler pages dev dist --port 4321",
+    "astro": "astro"
+  },
   "dependencies": {
-    "onsenui": "2.11.2"
+    "@astrojs/preact": "3.1.0",
+    "@astrojs/tailwind": "5.1.0",
+    "@tabler/icons-preact": "2.46.0",
+    "astro": "4.1.2",
+    "preact": "10.19.3",
+    "tailwindcss": "3.4.0"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-rename": "^2.0.0",
-    "gulp-uglify": "^3.0.2"
-  }
+    "@astrojs/check": "0.4.1",
+    "@babel/core": "*",
+    "@types/babel__core": "^7",
+    "prettier": "3.1.1",
+    "prettier-plugin-astro": "0.12.3",
+    "typescript": "5.3.3",
+    "vite": "*"
+  },
+  "resolutions": {
+    "@babel/core": "7.23.7",
+    "vite": "5.0.11"
+  },
+  "packageManager": "yarn@4.0.2"
 }

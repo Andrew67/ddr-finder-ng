@@ -1,0 +1,125 @@
+---
+import {
+  IconSearch,
+  IconMapPinFilled,
+  IconCalculatorFilled,
+} from "@tabler/icons-preact";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>DDR Finder</title>
+    <!-- ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE -->
+    <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#1976d2" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta
+      property="og:title"
+      content="DDR Finder - Crowd-sourced Arcade Locations"
+    />
+    <meta
+      property="og:description"
+      content="Find video game arcades near you!"
+    />
+    <meta
+      property="og:image"
+      content="https://ddrfinder.andrew67.com/images/arcade-machine.jpg"
+    />
+    <style>
+      a[href]:not(.btn) {
+        @apply underline text-blue-700 dark:text-blue-200;
+      }
+      .btn {
+        @apply inline-flex gap-2 py-2 px-3 rounded;
+      }
+    </style>
+  </head>
+  <body class="p-4 dark:bg-slate-900">
+    <h1 class="text-5xl mb-4">DDR Finder</h1>
+    <p class="mb-6">
+      Tool for finding video game arcades (especially DDR machine locations).
+      Data collected from
+      <a href="https://zenius-i-vanisher.com/" target="_blank">
+        Zenius -I- vanisher.com
+      </a>,
+      <a href="https://www.ddr-navi.jp/" target="_blank">DDR-Navi</a>, and
+      <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>
+      (no affiliation).
+    </p>
+
+    <nav class="mb-6">
+      <ul class="flex flex-col gap-2">
+        <li>
+          <a class="btn bg-orange-700 text-white" href="/locator/">
+            <IconSearch aria-hidden="true" /> Locate Nearby Arcades
+          </a>
+        </li>
+        <li>
+          <a class="btn bg-green-800 text-white" href="/ng/">
+            <IconMapPinFilled aria-hidden="true" />
+            Interactive Map
+          </a>
+        </li>
+        <li>
+          <a
+            class="btn bg-blue-800 text-white"
+            href="https://ddrcalc.andrew67.com/"
+            target="_blank"
+          >
+            <IconCalculatorFilled aria-hidden="true" /> Speed Calculator
+          </a>
+        </li>
+        <li>
+          <a
+            rel="noopener"
+            href="https://play.google.com/store/apps/details?id=com.andrew67.ddrfinder&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
+          >
+            <img
+              class="inline-block"
+              alt="Get it on Google Play"
+              width="206"
+              height="80"
+              src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+            />
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <footer>
+      <p class="mb-2">
+        &copy; 2012&ndash;2024 <a href="https://andrew67.com/" target="_blank">
+          Andrés Cordero
+        </a>
+      </p>
+      <p class="text-sm">
+        No warranty is made regarding operation, and no accuracy or freshness of
+        results is guaranteed.<br />
+        Using <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a
+        > for page styling.<br />
+        Built with <a href="https://astro.build/">{Astro.generator}</a>.<br />
+        Google Play and the Google Play logo are trademarks of Google LLC.<br />
+        Arrow icon from the <a
+          href="https://www.stepmania.com/"
+          target="_blank"
+        >
+          StepMania 5
+        </a> default noteskin.<br />
+        Button icons (search, map, etc) from <a
+          href="https://tabler.io/icons"
+          target="_blank"
+        >
+          Tabler Icons
+        </a>.<br />
+        Open sourced under the MIT license.
+        <a href="https://github.com/Andrew67/ddr-finder-ng" target="_blank">
+          View Source on GitHub
+        </a>
+      </p>
+    </footer>
+  </body>
+</html>
