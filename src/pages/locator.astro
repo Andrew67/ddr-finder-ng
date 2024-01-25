@@ -66,11 +66,6 @@ import {
         @apply print:hidden;
       }
     </style>
-    <style is:global>
-      #current-location-img {
-        border: 1px solid;
-      }
-    </style>
   </head>
   <body class="p-4">
     <h1 class="text-5xl mb-4">DDR Finder</h1>
@@ -165,7 +160,7 @@ import {
       <h2>Could not locate: Permission Error</h2>
       <p>Reload this page and make sure to allow location detection!</p>
       <p>
-        <button class="bg-green-800 text-white retry-button">
+        <button class="btn btn-success retry-button">
           <IconReload aria-hidden="true" /> Reload
         </button>
       </p>
@@ -175,7 +170,7 @@ import {
       <h2>Could not locate: Position Unavailable</h2>
       <p>Unable to locate your current position</p>
       <p>
-        <button class="bg-green-800 text-white retry-button">
+        <button class="btn btn-success retry-button">
           <IconReload aria-hidden="true" /> Retry
         </button><br />
         <a
@@ -214,7 +209,7 @@ import {
         database
       </p>
       <p>
-        <button class="bg-green-800 text-white retry-button">
+        <button class="btn btn-success retry-button">
           <IconReload aria-hidden="true" /> Retry
         </button><br />
         <a
@@ -237,7 +232,9 @@ import {
     <!-- Final results screen -->
     <div id="message-arcade-list" class="message-hidden">
       <h2>Your Location:</h2>
-      <div class="inline-block" id="current-location-img">Current Location</div>
+      <div class="inline-block border border-primary" id="current-location-img">
+        Current Location
+      </div>
       <nav class="my-1 print:hidden">
         <ul class="flex flex-wrap gap-2">
           <li>
@@ -316,12 +313,11 @@ import {
                   <IconNavigationFilled aria-hidden="true" /> Navigate
                 </a>
                 <a class="arcade-gmaps btn btn-accent" target="_blank">
-                  <IconBrandGoogleMaps aria-hidden="true" /> Show in Google Maps
+                  <IconBrandGoogleMaps aria-hidden="true" /> Google Maps
                 </a>
                 <a class="arcade-info btn btn-primary" target="_blank">
-                  <IconExternalLink aria-hidden="true" /> Info on <span
-                    class="arcade-info-name">???</span
-                  >
+                  <IconExternalLink aria-hidden="true" />
+                  <span>Info on <span class="arcade-info-name">???</span></span>
                 </a>
               </div>
             </div>
@@ -336,7 +332,7 @@ import {
           check out the full websites.
         </p>
         <p>
-          <button class="bg-green-800 text-white retry-button">
+          <button class="btn btn-success retry-button">
             <IconReload aria-hidden="true" /> Retry
           </button><br />
           <a
