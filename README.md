@@ -8,12 +8,13 @@ On iOS devices, it should look and feel like a native iOS app.
 
 ## Live Demo
 
-The official working demo is at https://ddrfinder.andrew67.com/ng/, which connects to the [ddr-finder](https://github.com/Andrew67/ddr-finder) demo API instance.
+The official working demo is at https://ddrfinder.andrew67.com/, which connects to the [ddr-finder](https://github.com/Andrew67/ddr-finder) demo API instance.
 
 ## UI
 
-- Framework: Onsen UI 2; see https://onsen.io/v2/.
-- Map view: Mapbox GL JS; see https://docs.mapbox.com/mapbox-gl-js/.
+- CSS: [Daisy UI](https://daisyui.com/) and [Tailwind CSS](https://tailwindcss.com/).
+- Framework: [Onsen UI 2](https://onsen.io/v2/) and [Astro](https://astro.build/).
+- Map view: [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/).
 
 ## License
 
@@ -28,4 +29,5 @@ and other items that have their own license declarations.
 ## Acknowledgments
 
 - iPhone toting friends who can't use the Android app for inspiring me to make this.
+- PWAs on Android getting better and better.
 - All acknowledgments listed in the [ddr-finder page](https://github.com/Andrew67/ddr-finder#acknowledgments).
