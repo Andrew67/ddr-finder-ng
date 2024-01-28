@@ -7,9 +7,9 @@ $(function () {
     this.width = Math.min(window.innerWidth, 640) - 32 - 2; // manual calculation of body padding and image border
     this.height = 216;
     this.url =
-      "https://api.mapbox.com/styles/v1/andrew67/ck9xjbtyl1h7m1ili7y80hwus/static/";
+      "https://api.mapbox.com/styles/v1/andrew67/clrwbi529011u01qseesn4gj9/static/";
     this.darkUrl =
-      "https://api.mapbox.com/styles/v1/andrew67/ck9xjm6sg1hb21ipae71xn4jc/static/";
+      "https://api.mapbox.com/styles/v1/andrew67/clrwd8c0c014b01nl1nr0hj9k/static/";
     this.urlSuffix = `/auto/${this.width}x${this.height}@2x?access_token=pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw`;
     this.nextMarkerNumber = 0;
   }
@@ -23,18 +23,18 @@ $(function () {
     // Must be called before any addMarker calls
     var latFixed = lat.toFixed(4),
       lngFixed = lng.toFixed(4);
-    // Material Red 700 (Light) / 100 (Dark)
-    this.url += `pin-s+d32f2f(${lngFixed},${latFixed})`;
-    this.darkUrl += `pin-s+ffcdd2(${lngFixed},${latFixed})`;
+    // Tailwind CSS Red 700 (Light) / 200 (Dark)
+    this.url += `pin-s+b91c1c(${lngFixed},${latFixed})`;
+    this.darkUrl += `pin-s+fecaca(${lngFixed},${latFixed})`;
   };
   MapBuilder.prototype.addMarker = function (lat, lng) {
     // Warning: limited to 9 for labels
     var label = ++this.nextMarkerNumber,
       latFixed = lat.toFixed(4),
       lngFixed = lng.toFixed(4);
-    // Material Blue 700 (Light) / 100 (Dark)
-    this.url += `,pin-l-${label}+1976d2(${lngFixed},${latFixed})`;
-    this.darkUrl += `,pin-l-${label}+bbdefb(${lngFixed},${latFixed})`;
+    // Tailwind CSS Fuchsia 700 (Light) / 200 (Dark)
+    this.url += `,pin-l-${label}+a21caf(${lngFixed},${latFixed})`;
+    this.darkUrl += `,pin-l-${label}+f5d0fe(${lngFixed},${latFixed})`;
   };
   var locationMap = new MapBuilder();
 

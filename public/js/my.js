@@ -577,8 +577,8 @@ ons.ready(function () {
         window.matchMedia("screen and (prefers-color-scheme: dark)").matches;
       const getMapStyleUri = function () {
         return isDarkMode()
-          ? "mapbox://styles/andrew67/ck9xjm6sg1hb21ipae71xn4jc"
-          : "mapbox://styles/andrew67/ck9xjbtyl1h7m1ili7y80hwus";
+          ? "mapbox://styles/andrew67/clrwd8c0c014b01nl1nr0hj9k"
+          : "mapbox://styles/andrew67/clrwbi529011u01qseesn4gj9";
       };
 
       // Initialize map and set initial view.
@@ -595,12 +595,15 @@ ons.ready(function () {
           [-180, -85],
           [180, 85],
         ],
+        // Wanted to choose `naturalEarth` but that one breaks the geolocator.
+        // End goal is `globe` but the clusters are broken in it / performance concerns.
+        projection: "mercator",
         attributionControl: false,
       });
       map.addControl(new mapboxgl.AttributionControl({ compact: false }));
 
       const loadCustomMarkerImages = function () {
-        ["arcade-blue-24", "arrow-blue-24"].forEach(function (imageName) {
+        ["pin-empty", "pin-ddr"].forEach(function (imageName) {
           map.loadImage("/img/" + imageName + ".png", function (error, image) {
             if (error) throw error;
             else if (!map.hasImage(imageName)) {
@@ -665,6 +668,10 @@ ons.ready(function () {
             enableHighAccuracy: true,
           },
           trackUserLocation: true,
+          fitBoundsOptions: {
+            animate: false,
+            maxZoom: 15,
+          },
         }),
       );
 
@@ -956,18 +963,19 @@ ons.ready(function () {
                       "match",
                       ["get", "hasDDR"],
                       1,
-                      "arrow-blue-24",
-                      "arcade-blue-24",
+                      "pin-ddr",
+                      "pin-empty",
                     ],
+                    "icon-anchor": "bottom",
                     "icon-allow-overlap": true,
                     "text-field": ["get", "name"],
                     "text-size": 12,
-                    "text-offset": [0, 1],
                     "text-anchor": "top",
                     "text-optional": true,
                   },
                   paint: {
-                    "text-color": isDarkMode() ? "#dbeafe" : "#1976d2",
+                    // Tailwind CSS Fuchsia 200 (Dark) / 700 (Light)
+                    "text-color": isDarkMode() ? "#f5d0fe" : "#a21caf",
                     "text-halo-color": isDarkMode() ? "black" : "white",
                     "text-halo-width": 1,
                   },
@@ -1013,7 +1021,8 @@ ons.ready(function () {
                       e.lngLat.lng > coordinates[0] ? 360 : -360;
                   }
 
-                  new mapboxgl.Popup()
+                  // offset places the pop-up in the middle of the 44px-tall pin
+                  new mapboxgl.Popup({ offset: [0, -22] })
                     .setLngLat(coordinates)
                     .setDOMContent(buildPopupDOM(feature))
                     .addTo(map);

@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="380 16 320 300" width="24" height="24" fill="#1976d2" stroke="white" stroke-width="8">
-    <!-- Correct stroke-width is 16 but Gapplin keeps increasing it when zooming for some reason -->
-    <g transform="rotate(-45 160 150)">
-        <path d="M583 423L445 561c-34 35-86-17-52-51l50-50H300c-49 0-49-73 0-73h143l-50-50c-34-34 18-86 52-52l138 138z"/>
-    </g>
-</svg>
