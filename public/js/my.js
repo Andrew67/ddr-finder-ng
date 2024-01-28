@@ -843,7 +843,7 @@ ons.ready(function () {
       // Takes care of loading and attaching GeoJSON data from API when map dragend/zoomend is fired, etc.
       // Clears and sets errors when necessary as well.
       var progressBar = document.getElementById("progress-bar");
-      dataLoadHandler = function (event, forceLoad) {
+      dataLoadHandler = function (event, forceLoad, replaceAll) {
         if (!apiService.isLoaded(map.getBounds()) || forceLoad) {
           progressBar.hidden = false;
 
@@ -857,17 +857,17 @@ ons.ready(function () {
               commonCleanup();
 
               // Filter already loaded locations from the features list before (re)adding to map.
-              locations.features = locations.features.filter(
-                function (location) {
-                  if (
-                    loadedLocationIds.indexOf(location.properties.id) === -1
-                  ) {
-                    loadedLocationIds.push(location.properties.id);
-                    return true;
-                  }
-                  return false;
-                },
-              );
+              locations.features = replaceAll
+                ? locations.features
+                : locations.features.filter(function (location) {
+                    if (
+                      loadedLocationIds.indexOf(location.properties.id) === -1
+                    ) {
+                      loadedLocationIds.push(location.properties.id);
+                      return true;
+                    }
+                    return false;
+                  });
 
               // Create or update the GeoJSON locations layer with the incoming data.
               var source = map.getSource("locations");
@@ -885,7 +885,9 @@ ons.ready(function () {
               } else {
                 source.setData({
                   type: source._data.type,
-                  features: source._data.features.concat(locations.features),
+                  features: replaceAll
+                    ? locations.features
+                    : source._data.features.concat(locations.features),
                 });
               }
 
@@ -1043,11 +1045,7 @@ ons.ready(function () {
       if (prevDatasrc !== null && prevDatasrc !== currDatasrc) {
         apiService.clear();
         loadedLocationIds = [];
-        map.getSource("locations").setData({
-          type: "geojson",
-          features: [],
-        });
-        dataLoadHandler();
+        dataLoadHandler(null, false, true);
       }
       if (
         prevFilterDDROnly !== null &&
