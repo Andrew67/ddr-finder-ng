@@ -319,6 +319,11 @@ ons.ready(function () {
     return module;
   })();
 
+  /** Returns a filter expression for the "arcade-pin" layer, depending on whether we filter by having DDR or not */
+  const getLayerFilter = (filterDDROnly) => {
+    return filterDDROnly ? ["==", ["get", "hasDDR"], 1] : true;
+  };
+
   // Navigation URL generator functions and platform detection (originally from ddr-finder).
   var getNavURL = (function () {
     var getGoogleMapsURL = function (lat, lng, label) {
@@ -864,15 +869,6 @@ ons.ready(function () {
                 },
               );
 
-              // Filter based on "DDR Only" settings.
-              if (settingsService.getValue("filter-ddr-only")) {
-                locations.features = locations.features.filter(
-                  function (location) {
-                    return location.properties["hasDDR"] === 1;
-                  },
-                );
-              }
-
               // Create or update the GeoJSON locations layer with the incoming data.
               var source = map.getSource("locations");
               if (!source) {
@@ -885,9 +881,6 @@ ons.ready(function () {
                     '<a href="https://ddr-navi.jp/" target="_blank" data-src="navi">DDR-Navi</a>' +
                     '<a href="https://openstreetmap.org/" target="_blank" data-src="osm">OpenStreetMap</a>',
                   data: locations,
-                  cluster: true,
-                  clusterMaxZoom: 14,
-                  clusterMinPoints: 5,
                 });
               } else {
                 source.setData({
@@ -895,68 +888,48 @@ ons.ready(function () {
                   features: source._data.features.concat(locations.features),
                 });
               }
-              // See: https://docs.mapbox.com/mapbox-gl-js/example/cluster/
-              if (!map.getLayer("clusters")) {
-                map.addLayer({
-                  id: "clusters",
-                  type: "circle",
-                  source: "locations",
-                  filter: ["has", "point_count"],
-                  paint: {
-                    // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-                    // modified from the example to match Android Maps Utils
-                    // Step values: https://github.com/googlemaps/android-maps-utils/blob/v1.2.1/library/src/main/java/com/google/maps/android/clustering/view/DefaultClusterRenderer.java#L83
-                    // Color values: https://github.com/googlemaps/android-maps-utils/blob/v1.2.1/library/src/main/java/com/google/maps/android/clustering/view/DefaultClusterRenderer.java#L203
-                    // Original code mathematically computes an HSV value. Clever! We pre-render as RGB here
-                    "circle-color": [
-                      "step",
-                      ["get", "point_count"],
-                      "#005999",
-                      20,
-                      "#007c99",
-                      50,
-                      "#009951",
-                      100,
-                      "#3a9900",
-                      200,
-                      "#993d00",
-                      300,
-                      "#990000",
-                    ],
-                    "circle-radius": [
-                      "step",
-                      ["get", "point_count"],
-                      20,
-                      100,
-                      30,
-                    ],
-                    "circle-stroke-color": "white",
-                    "circle-stroke-opacity": 0.5,
-                    "circle-stroke-width": 3,
+
+              if (!map.getLayer("zoomed-out-circle")) {
+                const filterDDROnly =
+                  settingsService.getValue("filter-ddr-only");
+                map.addLayer(
+                  {
+                    id: "zoomed-out-circle",
+                    type: "circle",
+                    source: "locations",
+                    filter: getLayerFilter(filterDDROnly),
+                    maxzoom: 10,
+                    paint: {
+                      "circle-color": [
+                        "match",
+                        ["get", "hasDDR"],
+                        1,
+                        // Tailwind CSS Fuchsia 200 (Dark) / 700 (Light)
+                        isDarkMode() ? "#f5d0fe" : "#a21caf",
+                        // Keep same color for non-DDR arcades for now
+                        isDarkMode() ? "#f5d0fe" : "#a21caf",
+                      ],
+                      "circle-opacity": [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        1,
+                        0.1,
+                        10,
+                        0.9,
+                      ],
+                    },
                   },
-                });
+                  // Show underneath country/city/neighborhood labels
+                  "settlement-subdivision-label",
+                );
 
                 map.addLayer({
-                  id: "cluster-count",
+                  id: "arcade-pin",
                   type: "symbol",
                   source: "locations",
-                  filter: ["has", "point_count"],
-                  layout: {
-                    "text-field": "{point_count_abbreviated}",
-                    "text-font": ["DIN Pro Medium", "Arial Unicode MS Bold"],
-                    "text-size": 16,
-                    "text-allow-overlap": true,
-                  },
-                  paint: {
-                    "text-color": "white",
-                  },
-                });
-
-                map.addLayer({
-                  id: "unclustered-point",
-                  type: "symbol",
-                  source: "locations",
-                  filter: ["!", ["has", "point_count"]],
+                  filter: getLayerFilter(filterDDROnly),
+                  minzoom: 10,
                   layout: {
                     "icon-image": [
                       "match",
@@ -980,35 +953,7 @@ ons.ready(function () {
                   },
                 });
 
-                // inspect a cluster on click
-                map.on("click", "clusters", function (e) {
-                  var features = map.queryRenderedFeatures(e.point, {
-                    layers: ["clusters"],
-                  });
-                  var clusterId = features[0].properties.cluster_id;
-                  map
-                    .getSource("locations")
-                    .getClusterExpansionZoom(clusterId, function (err, zoom) {
-                      if (err) return;
-
-                      map.easeTo({
-                        center: features[0].geometry.coordinates,
-                        zoom: zoom,
-                      });
-                    });
-                });
-                map.on("mouseenter", "clusters", function () {
-                  map.getCanvas().style.cursor = "pointer";
-                });
-                map.on("mouseleave", "clusters", function () {
-                  map.getCanvas().style.cursor = "";
-                });
-
-                // When a click event occurs on a feature in
-                // the unclustered-point layer, open a popup at
-                // the location of the feature, with
-                // description HTML from its properties.
-                map.on("click", "unclustered-point", function (e) {
+                map.on("click", "arcade-pin", function (e) {
                   var feature = e.features[0];
                   var coordinates = feature.geometry.coordinates.slice();
 
@@ -1026,10 +971,10 @@ ons.ready(function () {
                     .setDOMContent(buildPopupDOM(feature))
                     .addTo(map);
                 });
-                map.on("mouseenter", "unclustered-point", function () {
+                map.on("mouseenter", "arcade-pin", function () {
                   map.getCanvas().style.cursor = "pointer";
                 });
-                map.on("mouseleave", "unclustered-point", function () {
+                map.on("mouseleave", "arcade-pin", function () {
                   map.getCanvas().style.cursor = "";
                 });
               }
@@ -1073,7 +1018,7 @@ ons.ready(function () {
             "," +
             center.lng.toFixed(5) +
             "&z=" +
-            zoom.toFixed(0),
+            zoom.toFixed(1),
         );
       };
       map.on("dragend", lastViewPreserver);
@@ -1095,11 +1040,7 @@ ons.ready(function () {
       var currFilterDDROnly = settingsService.getValue("filter-ddr-only");
       var currDatasrc = settingsService.getValue("datasource");
       document.body.setAttribute("data-src", currDatasrc); // Used with CSS for attributions
-      if (
-        (prevFilterDDROnly !== null &&
-          prevFilterDDROnly !== currFilterDDROnly) ||
-        (prevDatasrc !== null && prevDatasrc !== currDatasrc)
-      ) {
+      if (prevDatasrc !== null && prevDatasrc !== currDatasrc) {
         apiService.clear();
         loadedLocationIds = [];
         map.getSource("locations").setData({
@@ -1107,6 +1048,13 @@ ons.ready(function () {
           features: [],
         });
         dataLoadHandler();
+      }
+      if (
+        prevFilterDDROnly !== null &&
+        prevFilterDDROnly !== currFilterDDROnly
+      ) {
+        map.setFilter("arcade-pin", getLayerFilter(currFilterDDROnly));
+        map.setFilter("zoomed-out-circle", getLayerFilter(currFilterDDROnly));
       }
 
       // Trigger resize on the map when returning to the map page.
