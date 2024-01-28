@@ -1,6 +1,6 @@
 /*! ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng */
 /*
- Copyright (c) 2016-2021 Andrés Cordero
+ Copyright (c) 2016-2024 Andrés Cordero
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -614,15 +614,14 @@ ons.ready(function () {
           });
         });
       };
-      loadCustomMarkerImages();
+      map.on("style.load", () => loadCustomMarkerImages());
 
       // Register listener for light/dark-mode switch
-      // TODO: Currently fails to re-load custom marker images and throws away current locations data
+      // TODO: Currently throws away locations data. See: https://docs.mapbox.com/mapbox-gl-js/example/style-switch/
       // window
       //   .matchMedia("screen and (prefers-color-scheme: dark)")
       //   .addEventListener("change", function () {
       //     map.setStyle(getMapStyleUri());
-      //     loadCustomMarkerImages();
       //   });
 
       // Skip the geocoder feature on browsers that fail to load the library
@@ -1022,7 +1021,7 @@ ons.ready(function () {
                   }
 
                   // offset places the pop-up in the middle of the 44px-tall pin
-                  new mapboxgl.Popup({ offset: [0, -22] })
+                  new mapboxgl.Popup({ offset: [0, -28] })
                     .setLngLat(coordinates)
                     .setDOMContent(buildPopupDOM(feature))
                     .addTo(map);
