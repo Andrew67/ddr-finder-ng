@@ -1,8 +1,8 @@
 ---
 import {
-  IconSearch,
-  IconMapPinFilled,
-  IconCalculatorFilled,
+  IconLocationSearch,
+  IconMap2,
+  IconCalculator,
 } from "@tabler/icons-preact";
 ---
 
@@ -29,22 +29,27 @@ import {
       property="og:image"
       content="https://ddrfinder.andrew67.com/images/arcade-machine.jpg"
     />
-    <style>
-      a[href]:not(.btn) {
-        @apply link link-info;
-      }
-    </style>
   </head>
   <body class="p-4">
     <h1 class="text-5xl mb-4">DDR Finder</h1>
     <p class="mb-6">
       Tool for finding video game arcades (especially DDR machine locations).
       Data collected from
-      <a href="https://zenius-i-vanisher.com/" target="_blank">
-        Zenius -I- vanisher.com
-      </a>,
-      <a href="https://www.ddr-navi.jp/" target="_blank">DDR-Navi</a>, and
-      <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>
+      <a
+        href="https://zenius-i-vanisher.com/"
+        target="_blank"
+        class="link link-info"
+      >
+        Zenius -I- vanisher.com</a
+      >,
+      <a href="https://www.ddr-navi.jp/" target="_blank" class="link link-info"
+        >DDR-Navi</a
+      >, and
+      <a
+        href="https://www.openstreetmap.org/"
+        target="_blank"
+        class="link link-info">OpenStreetMap</a
+      >
       (no affiliation).
     </p>
 
@@ -52,12 +57,12 @@ import {
       <ul class="flex flex-col gap-2">
         <li>
           <a class="btn btn-secondary" href="/locator/">
-            <IconSearch aria-hidden="true" /> Locate Nearby Arcades
+            <IconLocationSearch aria-hidden="true" /> Locate Nearby Arcades
           </a>
         </li>
         <li>
           <a class="btn btn-accent" href="/ng/">
-            <IconMapPinFilled aria-hidden="true" />
+            <IconMap2 aria-hidden="true" />
             Interactive Map
           </a>
         </li>
@@ -67,7 +72,7 @@ import {
             href="https://ddrcalc.andrew67.com/"
             target="_blank"
           >
-            <IconCalculatorFilled aria-hidden="true" /> Speed Calculator
+            <IconCalculator aria-hidden="true" /> Speed Calculator
           </a>
         </li>
         <li>
@@ -89,32 +94,51 @@ import {
 
     <footer>
       <p class="mb-2">
-        &copy; 2012&ndash;2024 <a href="https://andrew67.com/" target="_blank">
+        &copy; 2012&ndash;2024 <a
+          href="https://andrew67.com/"
+          target="_blank"
+          class="link link-info"
+        >
           Andrés Cordero
         </a>
       </p>
       <p class="text-sm">
         No warranty is made regarding operation, and no accuracy or freshness of
         results is guaranteed.<br />
-        Using <a href="https://daisyui.com/" target="_blank">daisyUI</a> and
-        <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a> for page
-        styling.<br />
-        Built with <a href="https://astro.build/">{Astro.generator}</a>.<br />
+        Using <a
+          href="https://daisyui.com/"
+          target="_blank"
+          class="link link-info">daisyUI</a
+        > and
+        <a
+          href="https://tailwindcss.com/"
+          target="_blank"
+          class="link link-info">Tailwind CSS</a
+        > for page styling.<br />
+        Built with <a href="https://astro.build/" class="link link-info"
+          >{Astro.generator}</a
+        >.<br />
         Google Play and the Google Play logo are trademarks of Google LLC.<br />
         Arrow icon from the <a
           href="https://www.stepmania.com/"
           target="_blank"
+          class="link link-info"
         >
-          StepMania 5
-        </a> default noteskin.<br />
+          StepMania 5</a
+        > default noteskin.<br />
         Button icons (search, map, etc) from <a
           href="https://tabler.io/icons"
           target="_blank"
+          class="link link-info"
         >
-          Tabler Icons
-        </a>.<br />
+          Tabler Icons</a
+        >.<br />
         Open sourced under the MIT license.
-        <a href="https://github.com/Andrew67/ddr-finder-ng" target="_blank">
+        <a
+          href="https://github.com/Andrew67/ddr-finder-ng"
+          target="_blank"
+          class="link link-info"
+        >
           View Source on GitHub
         </a>
       </p>

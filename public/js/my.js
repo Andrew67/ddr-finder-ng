@@ -609,14 +609,17 @@ ons.ready(function () {
 
       const loadCustomMarkerImages = function () {
         ["pin-empty", "pin-ddr"].forEach(function (imageName) {
-          map.loadImage("/img/" + imageName + ".png", function (error, image) {
-            if (error) throw error;
-            else if (!map.hasImage(imageName)) {
-              map.addImage(imageName, image, {
-                pixelRatio: 2,
-              });
-            }
-          });
+          map.loadImage(
+            "/img/" + imageName + (isDarkMode() ? "-dark" : "") + ".png",
+            function (error, image) {
+              if (error) throw error;
+              else if (!map.hasImage(imageName)) {
+                map.addImage(imageName, image, {
+                  pixelRatio: 2,
+                });
+              }
+            },
+          );
         });
       };
       map.on("style.load", () => loadCustomMarkerImages());
