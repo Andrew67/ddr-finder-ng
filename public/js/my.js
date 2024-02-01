@@ -100,11 +100,6 @@ ons.ready(function () {
 
   // End page load functions.
 
-  // Track a goal with analytics, if available
-  var trackGoal = function (goalId) {
-    // Stub; awaiting new Analytics provider integration
-  };
-
   // settingsService takes care of saving values in localStorage and retrieving casted/default values
   var settingsService = (function () {
     var module = {};
@@ -634,13 +629,13 @@ ons.ready(function () {
 
       // Skip the geocoder feature on browsers that fail to load the library
       if ("MapboxGeocoder" in window) {
-        var geocoder = new MapboxGeocoder({
+        const geocoder = new MapboxGeocoder({
           accessToken: mapboxgl.accessToken,
           mapboxgl: mapboxgl,
-          marker: false,
           // On iOS standalone, expanding the collapsed search is a bit tricky, so disabling collapse instead
-          collapsed: !(ons.platform.isIOS() && navigator.standalone),
+          collapsed: false,
           clearAndBlurOnEsc: true,
+          trackProximity: false,
           flyTo: {
             animate: false,
           },
@@ -742,7 +737,6 @@ ons.ready(function () {
 
       // More Info / Navigate action handlers for locations.
       var onMoreInfo = function (feature) {
-        trackGoal(5);
         openExternalLink(getInfoURL(feature.properties));
       };
 
@@ -755,8 +749,6 @@ ons.ready(function () {
         navigationAppToast.hide({ animation: "none" });
       });
       var onNavigate = function (feature) {
-        trackGoal(3);
-
         // If iOS and non-default map application, attempt to detect missing app and offer to switch to Apple Maps and retry.
         if (
           ons.platform.isIOS() &&
