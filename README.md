@@ -1,10 +1,6 @@
 # ddr-finder-ng
 
-Next-generation Web UI for ddr-finder, made to look and feel like a native app.
-
-On Android devices, it should look and feel like the native [DdrFinder](https://github.com/Andrew67/DdrFinder) app.
-
-On iOS devices, it should look and feel like a native iOS app.
+Next-generation Web UI for ddr-finder.
 
 ## Live Demo
 
