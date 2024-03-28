@@ -1,6 +1,6 @@
 /*
   ! Access-Control-Allow-Origin
-  Content-Security-Policy: default-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data: https://play.google.com https://api.mapbox.com; manifest-src 'self'; frame-ancestors 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://api.mapbox.com; font-src https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://api.mapbox.com; worker-src blob:; connect-src 'self' https://ddrfinder-api.andrew67.com https://api.mapbox.com https://events.mapbox.com;
+  Content-Security-Policy: default-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data: https://play.google.com https://api.mapbox.com; manifest-src 'self'; frame-src 'self'; frame-ancestors 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://api.mapbox.com; font-src https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://api.mapbox.com; worker-src blob:; connect-src 'self' https://ddrfinder-api.andrew67.com https://api.mapbox.com https://events.mapbox.com;
   Permissions-Policy: camera=(), geolocation=(self), microphone=(), web-share=(self)
   Strict-Transport-Security: max-age=31536000; includeSubDomains
 
