@@ -65,10 +65,14 @@ import {
       .collapse-title::after {
         @apply print:hidden;
       }
+
+      .is-embed .hide-embed {
+        @apply hidden;
+      }
     </style>
   </head>
   <body class="p-4">
-    <h1 class="text-5xl mb-4">DDR Finder</h1>
+    <h1 class="text-5xl mb-4 hide-embed">DDR Finder</h1>
     <!-- Templates for all success/error messages -->
     <!-- ERROR: JavaScript not supported -->
     <noscript>
@@ -114,7 +118,7 @@ import {
               <IconCurrentLocation aria-hidden="true" /> Find My Location
             </button>
           </li>
-          <li>
+          <li class="hide-embed">
             <a href="/" class="btn btn-error">
               <IconX aria-hidden="true" /> Cancel
             </a>
@@ -150,7 +154,7 @@ import {
       <p>
         <IconLoader2 size="64" class="animate-spin" aria-hidden="true" />
         <br />
-        <a href="/" class="btn btn-error">
+        <a href="/" class="btn btn-error hide-embed">
           <IconX aria-hidden="true" /> Cancel
         </a>
       </p>
@@ -196,7 +200,7 @@ import {
       <p>
         <IconLoader2 size="64" class="animate-spin" aria-hidden="true" />
         <br />
-        <a href="/" class="btn btn-error">
+        <a href="/" class="btn btn-error hide-embed">
           <IconX aria-hidden="true" /> Cancel
         </a>
       </p>
@@ -242,7 +246,7 @@ import {
               <IconArrowBackUp aria-hidden="true" /> New Search
             </a>
           </li>
-          <li>
+          <li class="hide-embed">
             <a id="current-location-link" class="btn btn-accent" href="/ng/">
               <IconMap2 aria-hidden="true" /> Interactive Map
             </a>
@@ -373,5 +377,10 @@ import {
         > default noteskin.<br />
       </p>
     </footer>
+    <script is:inline>
+      if (location.search.includes("embed=true")) {
+        document.body.classList.add("is-embed");
+      }
+    </script>
   </body>
 </html>

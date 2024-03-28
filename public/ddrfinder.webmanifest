@@ -1,0 +1,37 @@
+{
+  "lang": "en",
+  "name": "DDR Finder",
+  "short_name": "DDR Finder",
+  "icons": [
+    {
+      "src": "/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/app/",
+  "scope": "/app/",
+  "id": "/ng/",
+  "display": "standalone",
+  "theme_color": "#1976d2",
+  "background_color": "#1976d2",
+  "categories": ["fitness", "games", "navigation", "reference"],
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.andrew67.ddrfinder"
+    }
+  ]
+}

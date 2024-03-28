@@ -1868,15 +1868,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:4.6.0":
-  version: 4.6.0
-  resolution: "daisyui@npm:4.6.0"
+"daisyui@npm:4.9.0":
+  version: 4.9.0
+  resolution: "daisyui@npm:4.9.0"
   dependencies:
     css-selector-tokenizer: "npm:^0.8"
     culori: "npm:^3"
     picocolors: "npm:^1"
     postcss-js: "npm:^4"
-  checksum: 5d4bfb5b88b04dee1cf4d554a0cf3a8da6c0f5a9d416122444c2afd4a12dcf0fe91d38e786644cdfc47d7995b36039aab346e94db6ef174267f3df750b55aea2
+  checksum: 0263fc64a63b38bfa1d9929663cec514010d508ba7709c2ed927e863982afb81bf6970ef54a9b01092d44b2396c3433757c679e92b40f35747a3aeefeb100623
   languageName: node
   linkType: hard
 
@@ -1891,9 +1891,10 @@ __metadata:
     "@tabler/icons-preact": "npm:2.46.0"
     "@types/babel__core": "npm:^7"
     astro: "npm:4.1.2"
-    daisyui: "npm:4.6.0"
+    daisyui: "npm:4.9.0"
     postcss: "npm:*"
     preact: "npm:10.19.3"
+    preact-router: "npm:4.1.2"
     prettier: "npm:3.1.1"
     prettier-plugin-astro: "npm:0.12.3"
     tailwindcss: "npm:3.4.0"
@@ -4422,6 +4423,15 @@ __metadata:
   peerDependencies:
     preact: ">=10"
   checksum: f707297413d8bc823572920c14f717b9664d8d64eb4066754c720e5a6bed025caae12ef55d6958ac65e5204afe70b573796f03a3dc19c3fdfe4eff55bb9f6248
+  languageName: node
+  linkType: hard
+
+"preact-router@npm:4.1.2":
+  version: 4.1.2
+  resolution: "preact-router@npm:4.1.2"
+  peerDependencies:
+    preact: ">=10"
+  checksum: f743a01fc49e3930c74c4328425847c103d93d830779cd5d764ff27878b643c14e1ba150f19334811498c73cd00d8af7adf0a8fbf105d24457fe219605b1cb85
   languageName: node
   linkType: hard
 

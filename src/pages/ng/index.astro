@@ -88,9 +88,15 @@
       referrerpolicy="no-referrer"
     />
     <!-- mine -->
-    <style>
+    <style is:global>
       ons-template {
         display: none;
+      }
+      .is-embed .hide-embed {
+        display: none;
+      }
+      .is-embed .toolbar.hide-embed + .page__background + .page__content {
+        top: 0 !important;
       }
     </style>
     <link rel="stylesheet" href="/css/my.css" />
@@ -104,7 +110,7 @@
     </ons-navigator>
     <ons-template id="mapview.html">
       <ons-page id="mapview">
-        <ons-toolbar>
+        <ons-toolbar class="hide-embed">
           <div class="left" aria-label="Back">
             <ons-toolbar-button aria-hidden="true" id="mapview-back">
               <ons-icon icon="ion-ios-arrow-back, material:ion-md-arrow-back"
@@ -459,5 +465,10 @@
         </ons-list>
       </ons-page>
     </ons-template>
+    <script is:inline>
+      if (location.search.includes("embed=true")) {
+        document.body.classList.add("is-embed");
+      }
+    </script>
   </body>
 </html>
