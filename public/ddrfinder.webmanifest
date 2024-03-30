@@ -24,8 +24,8 @@
   "scope": "/app/",
   "id": "/ng/",
   "display": "standalone",
-  "theme_color": "#1976d2",
-  "background_color": "#1976d2",
+  "theme_color": "#334155",
+  "background_color": "#334155",
   "categories": ["fitness", "games", "navigation", "reference"],
   "prefer_related_applications": false,
   "related_applications": [
