@@ -1,7 +1,7 @@
 ---
 import { App } from "../../components/App";
+import { BottomNav } from "../../components/BottomNav";
 import { pages } from "../../components/pages";
-import { IconLocationSearch, IconMap2, IconMenu2 } from "@tabler/icons-preact";
 
 export function getStaticPaths() {
   return pages.map((p) => {
@@ -13,9 +13,8 @@ export function getStaticPaths() {
   });
 }
 
+const { page } = Astro.params;
 const { title, description } = Astro.props;
-const linkClasses = (page: string) =>
-  page === Astro.params.page ? "active bg-base-200" : "";
 ---
 
 <html lang="en">
@@ -51,19 +50,6 @@ const linkClasses = (page: string) =>
     <div class="my-16">
       <App client:only="preact" />
     </div>
-    <nav class="btm-nav bg-base-300">
-      <a href="/app/nearby/" class={linkClasses("nearby")}>
-        <IconLocationSearch aria-hidden="true" />
-        <span class="btm-nav-label">Nearby</span>
-      </a>
-      <a href="/app/explore/" class={linkClasses("explore")}>
-        <IconMap2 aria-hidden="true" />
-        <span class="btm-nav-label">Explore</span>
-      </a>
-      <a href="/app/menu/" class={linkClasses("menu")}>
-        <IconMenu2 aria-hidden="true" />
-        <span class="btm-nav-label">Menu</span>
-      </a>
-    </nav>
+    <BottomNav client:load initialPage={page} />
   </body>
 </html>

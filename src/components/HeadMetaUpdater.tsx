@@ -1,4 +1,4 @@
-import type { h, FunctionComponent } from "preact";
+import type { FunctionComponent } from "preact";
 import { useRouter } from "preact-router";
 import { useEffect, useMemo } from "preact/hooks";
 import { pages } from "./pages.ts";

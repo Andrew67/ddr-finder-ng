@@ -1,12 +1,10 @@
 import type { h, FunctionComponent } from "preact";
 import Router from "preact-router";
-import { BottomNavUpdater } from "./BottomNavUpdater.tsx";
 import { HeadMetaUpdater } from "./HeadMetaUpdater.tsx";
 
 export const App: FunctionComponent = () => (
   <>
     <HeadMetaUpdater />
-    <BottomNavUpdater />
     <Router>
       <div path="/app/">Make a selection below!</div>
       <div path="/app/nearby/">
