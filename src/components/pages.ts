@@ -18,6 +18,6 @@ export const pages = [
     page: "menu",
     title: "DDR Finder — Menu",
     description:
-      "Adjust options for your crowd-sourced video game arcade search.",
+      "Adjust options for your crowd-sourced video game arcade search",
   },
 ];

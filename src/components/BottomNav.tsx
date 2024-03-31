@@ -24,12 +24,12 @@ export const BottomNav: FunctionComponent<{
   }, []);
 
   return (
-    <nav className="btm-nav bg-base-300">
+    <nav className="btm-nav short:btm-nav-xs bg-base-300">
       <a
         href="/app/nearby/"
         data-native=""
         onClick={routeReplace("nearby")}
-        class={activeLinkClasses("nearby")}
+        class={activeLinkClasses("nearby") + " short:flex-row"}
       >
         <IconLocationSearch aria-hidden="true" />
         <span className="btm-nav-label">Nearby</span>
@@ -38,7 +38,7 @@ export const BottomNav: FunctionComponent<{
         href="/app/explore/"
         data-native=""
         onClick={routeReplace("explore")}
-        class={activeLinkClasses("explore")}
+        class={activeLinkClasses("explore") + " short:flex-row"}
       >
         <IconMap2 aria-hidden="true" />
         <span class="btm-nav-label">Explore</span>
@@ -47,7 +47,7 @@ export const BottomNav: FunctionComponent<{
         href="/app/menu/"
         data-native=""
         onClick={routeReplace("menu")}
-        class={activeLinkClasses("menu")}
+        class={activeLinkClasses("menu") + " short:flex-row"}
       >
         <IconMenu2 aria-hidden="true" />
         <span class="btm-nav-label">Menu</span>

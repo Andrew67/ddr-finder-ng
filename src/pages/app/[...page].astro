@@ -47,8 +47,12 @@ const { title, description } = Astro.props;
     <div class="navbar bg-base-300 fixed top-0">
       <h1 class="btn btn-ghost text-xl">DDR Finder</h1>
     </div>
-    <div class="my-16">
+    <div class="mt-16 mb-16 short:mb-10">
       <App client:only="preact" />
+      <noscript>
+        <p class="text-3xl p-4">{description}</p>
+        <p class="text-3xl p-4">JavaScript is required to use this site</p>
+      </noscript>
     </div>
     <BottomNav client:load initialPage={page} />
   </body>

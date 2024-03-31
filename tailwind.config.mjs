@@ -5,7 +5,14 @@ import daisyui from "daisyui";
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        // Shrink or keep some fixed elements off the screen on shorter devices,
+        // such as iPhone 5 (454px height with Safari), any rotated phone, etc.
+        short: { raw: "(max-height: 499.98px)" },
+        tall: { raw: "(min-height: 500px)" },
+      },
+    },
   },
   daisyui: {
     themes: [
