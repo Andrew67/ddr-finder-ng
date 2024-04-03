@@ -47,7 +47,7 @@
   "resolutions": {
     "@babel/core": "7.23.7",
     "postcss": "8.4.33",
-    "vite": "5.0.12"
+    "vite": "5.0.13"
   },
   "packageManager": "yarn@4.0.2"
 }
