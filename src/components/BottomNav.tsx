@@ -24,7 +24,7 @@ export const BottomNav: FunctionComponent<{
   }, []);
 
   return (
-    <nav className="btm-nav short:btm-nav-xs bg-base-300">
+    <nav class="btm-nav relative short:btm-nav-xs bg-base-300">
       <a
         href="/app/nearby/"
         data-native=""

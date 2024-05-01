@@ -6,6 +6,10 @@ export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
+      gridTemplateRows: {
+        // Header/main/footer configuration
+        stack: "auto 1fr auto",
+      },
       screens: {
         // Shrink or keep some fixed elements off the screen on shorter devices,
         // such as iPhone 5 (454px height with Safari), any rotated phone, etc.
