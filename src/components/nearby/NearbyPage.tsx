@@ -17,7 +17,7 @@ export const NearbyPage: FunctionComponent = () => {
   const mapPlaceholder = useMemo(
     () => (
       <div
-        className={`h-52 bg-base-200 max-w-screen-sm sm:mx-4 sm:rounded-box ${
+        className={`h-52 bg-base-200 max-w-screen-sm sm:mx-4 sm:border sm:border-primary ${
           isLoading ? "skeleton rounded-none" : ""
         }`}
         aria-label="Empty placeholder for map image"
@@ -29,10 +29,10 @@ export const NearbyPage: FunctionComponent = () => {
   const mapImage = useMemo(
     () => (
       <img
-        className={`h-52 bg-base-200 max-w-screen-sm sm:mx-4 sm:rounded-box`}
+        className="w-[320px] h-52 bg-base-200 max-w-screen-sm sm:mx-4 sm:border sm:border-primary"
         src={mapUrl}
         alt="Map of your location and nearby arcade locations"
-      ></img>
+      />
     ),
     [mapUrl],
   );
@@ -93,8 +93,12 @@ export const NearbyPage: FunctionComponent = () => {
     setIsLoading(true);
     fetch(
       // TODO: URL builder (source, lat/lng, game filters)
+      // Tokyo (from Google Chrome)
       // "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=35.6894,139.6917",
-      "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=32.9659,-97.0453",
+      // Dallas, TX
+      // "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=32.9659,-97.0453",
+      // Greensboro, NC
+      "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=36.0696,-79.7895",
     )
       .then((response) => response.json())
       .then((apiResponse) => {
@@ -102,7 +106,7 @@ export const NearbyPage: FunctionComponent = () => {
         setApiResponse(apiResponse);
         setMapUrl(
           // TODO: URL builder (user location, arcade locations)
-          "https://api.mapbox.com/styles/v1/andrew67/clrwbi529011u01qseesn4gj9/static/pin-s+b91c1c(-97.0453,32.9659),pin-l-1+a21caf(-97.0444,32.9638),pin-l-2+a21caf(-97.0599,32.9413),pin-l-3+a21caf(-97.0816,32.9201),pin-l-4+a21caf(-97.1576,32.9417),pin-l-5+a21caf(-97.1032,32.8736)/auto/320x208@2x?access_token=pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw",
+          "https://api.mapbox.com/styles/v1/andrew67/clrwbi529011u01qseesn4gj9/static/pin-s+b91c1c(-79.7895,36.0696),pin-l-1+a21caf(-79.7917,36.0662),pin-l-2+a21caf(-79.8192,36.0635),pin-l-3+a21caf(-79.8381,36.0405),pin-l-4+a21caf(-79.8931,36.0582),pin-l-5+a21caf(-79.9119,36.0607)/auto/320x208@2x?access_token=pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw",
         );
       })
       // TODO: API error state
