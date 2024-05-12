@@ -3,23 +3,31 @@ import type { h, FunctionComponent } from "preact";
 import { useEffect, useMemo, useState } from "preact/hooks";
 
 import type { NearbyApiResponse } from "../../api-types/nearby";
+import { useStaticMap } from "./useStaticMap.ts";
 
 export const NearbyPage: FunctionComponent = () => {
+  // TODO: Default `null`-style value / local storage / use Geolocation API
+  const [userLocation, setUserLocation] = useState<
+    [longitude: number, latitude: number]
+  >(() => [-79.7895, 36.0696]);
+
   const [apiResponse, setApiResponse] = useState<NearbyApiResponse>({
     type: "FeatureCollection",
     bbox: [0, 0, 0, 0],
     features: [],
   });
+  const arcades = apiResponse.features;
 
-  const [mapUrl, setMapUrl] = useState("");
+  const staticMap = useStaticMap(userLocation, arcades);
   const [isLoading, setIsLoading] = useState(false);
 
   const mapPlaceholder = useMemo(
     () => (
       <div
-        className={`h-52 bg-base-200 max-w-screen-sm sm:mx-4 sm:border sm:border-primary ${
+        className={`bg-base-200 sm:mx-4 sm:border sm:border-primary ${
           isLoading ? "skeleton rounded-none" : ""
         }`}
+        style={{ width: staticMap.width, height: staticMap.height }}
         aria-label="Empty placeholder for map image"
       ></div>
     ),
@@ -28,13 +36,21 @@ export const NearbyPage: FunctionComponent = () => {
 
   const mapImage = useMemo(
     () => (
-      <img
-        className="w-[320px] h-52 bg-base-200 max-w-screen-sm sm:mx-4 sm:border sm:border-primary"
-        src={mapUrl}
-        alt="Map of your location and nearby arcade locations"
-      />
+      <picture>
+        <source
+          media="screen and (prefers-color-scheme: dark)"
+          srcSet={staticMap.darkThemeUrl}
+        />
+        <img
+          className="bg-base-200 sm:mx-4 sm:border sm:border-primary"
+          src={staticMap.lightThemeUrl}
+          width={staticMap.width}
+          height={staticMap.height}
+          alt="Map of your location and nearby arcade locations"
+        />
+      </picture>
     ),
-    [mapUrl],
+    [staticMap],
   );
 
   const arcadeListPlaceholder = useMemo(
@@ -51,7 +67,6 @@ export const NearbyPage: FunctionComponent = () => {
     [isLoading],
   );
 
-  const arcades = apiResponse.features;
   const arcadeList = useMemo(
     () =>
       arcades.map((loc) => {
@@ -104,10 +119,6 @@ export const NearbyPage: FunctionComponent = () => {
       .then((apiResponse) => {
         // TODO: API success but no arcades found state
         setApiResponse(apiResponse);
-        setMapUrl(
-          // TODO: URL builder (user location, arcade locations)
-          "https://api.mapbox.com/styles/v1/andrew67/clrwbi529011u01qseesn4gj9/static/pin-s+b91c1c(-79.7895,36.0696),pin-l-1+a21caf(-79.7917,36.0662),pin-l-2+a21caf(-79.8192,36.0635),pin-l-3+a21caf(-79.8381,36.0405),pin-l-4+a21caf(-79.8931,36.0582),pin-l-5+a21caf(-79.9119,36.0607)/auto/320x208@2x?access_token=pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw",
-        );
       })
       // TODO: API error state
       .finally(() => setIsLoading(false));
@@ -116,9 +127,8 @@ export const NearbyPage: FunctionComponent = () => {
   return (
     <>
       <h2 class="text-2xl mt-4 mx-4">Your location:</h2>
-      {/* Add border border-primary when result is in */}
-      {mapUrl.length === 0 && mapPlaceholder}
-      {mapUrl.length > 0 && mapImage}
+      {staticMap.lightThemeUrl.length === 0 && mapPlaceholder}
+      {staticMap.lightThemeUrl.length > 0 && mapImage}
       <div class="mx-4 mb-4">
         <p class="h-6">Accuracy: approximately 80 meters</p>
         <p class="mb-4">
