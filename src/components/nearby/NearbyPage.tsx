@@ -1,6 +1,6 @@
 import { IconCurrentLocation } from "@tabler/icons-preact";
 import type { h, FunctionComponent } from "preact";
-import { useEffect, useMemo, useState } from "preact/hooks";
+import { useCallback, useMemo, useState } from "preact/hooks";
 
 import type { NearbyApiResponse } from "../../api-types/nearby";
 import { useStaticMap } from "./useStaticMap.ts";
@@ -11,46 +11,42 @@ export const NearbyPage: FunctionComponent = () => {
     [longitude: number, latitude: number]
   >(() => [-79.7895, 36.0696]);
 
-  const [apiResponse, setApiResponse] = useState<NearbyApiResponse>({
-    type: "FeatureCollection",
-    bbox: [0, 0, 0, 0],
-    features: [],
-  });
-  const arcades = apiResponse.features;
+  const [apiResponse, setApiResponse] = useState<NearbyApiResponse | null>(
+    null,
+  );
+  const arcades = apiResponse?.features || [];
 
   const staticMap = useStaticMap(userLocation, arcades);
   const [isLoading, setIsLoading] = useState(false);
 
-  const mapPlaceholder = useMemo(
-    () => (
-      <div
-        className={`bg-base-200 sm:mx-4 sm:border sm:border-primary ${
-          isLoading ? "skeleton rounded-none" : ""
-        }`}
-        style={{ width: staticMap.width, height: staticMap.height }}
-        aria-label="Empty placeholder for map image"
-      ></div>
-    ),
-    [isLoading],
-  );
-
   const mapImage = useMemo(
     () => (
-      <picture>
-        <source
-          media="screen and (prefers-color-scheme: dark)"
-          srcSet={staticMap.darkThemeUrl}
-        />
-        <img
-          className="bg-base-200 sm:mx-4 sm:border sm:border-primary"
-          src={staticMap.lightThemeUrl}
-          width={staticMap.width}
-          height={staticMap.height}
-          alt="Map of your location and nearby arcade locations"
-        />
-      </picture>
+      <div
+        className={`box-content max-w-full bg-base-200 sm:mx-4 sm:border sm:border-primary ${
+          isLoading ? "skeleton rounded-none" : ""
+        }`}
+        style={{
+          width: staticMap.width,
+          height: staticMap.lightThemeUrl.length > 0 ? null : staticMap.height,
+        }}
+      >
+        {staticMap.lightThemeUrl.length > 0 && (
+          <picture>
+            <source
+              media="screen and (prefers-color-scheme: dark)"
+              srcSet={staticMap.darkThemeUrl}
+            />
+            <img
+              src={staticMap.lightThemeUrl}
+              width={staticMap.width}
+              height={staticMap.height}
+              alt="Map of your location and nearby arcade locations"
+            />
+          </picture>
+        )}
+      </div>
     ),
-    [staticMap],
+    [staticMap, isLoading],
   );
 
   const arcadeListPlaceholder = useMemo(
@@ -104,35 +100,41 @@ export const NearbyPage: FunctionComponent = () => {
     [arcades],
   );
 
-  useEffect(() => {
+  const simulateLoading = useCallback(() => {
+    setApiResponse(null);
     setIsLoading(true);
-    fetch(
-      // TODO: URL builder (source, lat/lng, game filters)
-      // Tokyo (from Google Chrome)
-      // "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=35.6894,139.6917",
-      // Dallas, TX
-      // "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=32.9659,-97.0453",
-      // Greensboro, NC
-      "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=36.0696,-79.7895",
-    )
-      .then((response) => response.json())
-      .then((apiResponse) => {
-        // TODO: API success but no arcades found state
-        setApiResponse(apiResponse);
-      })
-      // TODO: API error state
-      .finally(() => setIsLoading(false));
+    setTimeout(() => {
+      fetch(
+        // TODO: URL builder (source, lat/lng, game filters)
+        // Tokyo (from Google Chrome)
+        // "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=35.6894,139.6917",
+        // Dallas, TX
+        // "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=32.9659,-97.0453",
+        // Greensboro, NC
+        "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=36.0696,-79.7895",
+      )
+        .then((response) => response.json())
+        .then((apiResponse) => {
+          // TODO: API success but no arcades found state
+          setApiResponse(apiResponse);
+        })
+        // TODO: API error state
+        .finally(() => setIsLoading(false));
+    }, 3000);
   }, []);
 
   return (
     <>
       <h2 class="text-2xl mt-4 mx-4">Your location:</h2>
-      {staticMap.lightThemeUrl.length === 0 && mapPlaceholder}
-      {staticMap.lightThemeUrl.length > 0 && mapImage}
+      {mapImage}
       <div class="mx-4 mb-4">
         <p class="h-6">Accuracy: approximately 80 meters</p>
         <p class="mb-4">
-          <button type="button" class="btn btn-secondary">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onClick={simulateLoading}
+          >
             <IconCurrentLocation aria-hidden="true" /> New Search
           </button>
         </p>
