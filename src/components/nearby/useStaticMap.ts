@@ -25,14 +25,17 @@ const config = {
 
 /** Builds a Mapbox Static Images API object from the given user and arcade locations */
 export function useStaticMap(
-  userLocation: [longitude: number, latitude: number],
+  userLocation: [longitude: number, latitude: number] | null,
   arcadeLocationFeatures: ArcadeLocationWithDistance[],
 ): StaticMap {
   // Screen width is captured only once (maxes out at 640px minus padding and border)
+  // TODO: Fix the weird zone between 606 and 639 width
   const width = useMemo(() => Math.min(window.innerWidth, 640 - 32 - 2), []);
   const height = 208;
 
   const userLocationMarker = useMemo(() => {
+    if (userLocation == null) return { light: "", dark: "" };
+
     const lngFixed = userLocation[0].toFixed(4);
     const latFixed = userLocation[1].toFixed(4);
 
@@ -92,9 +95,11 @@ export function useStaticMap(
   return useMemo(
     () => ({
       lightThemeUrl:
+        userLocationMarker.light &&
         arcadeLocationMarkers.light &&
         `https://api.mapbox.com/styles/v1/${config.lightTheme.style}/static/${userLocationMarker.light}${arcadeLocationMarkers.light}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
       darkThemeUrl:
+        userLocationMarker.dark &&
         arcadeLocationMarkers.dark &&
         `https://api.mapbox.com/styles/v1/${config.darkTheme.style}/static/${userLocationMarker.dark}${arcadeLocationMarkers.dark}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
       width,

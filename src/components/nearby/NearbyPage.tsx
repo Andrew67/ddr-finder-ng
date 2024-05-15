@@ -1,15 +1,15 @@
 import { IconCurrentLocation } from "@tabler/icons-preact";
 import type { h, FunctionComponent } from "preact";
-import { useCallback, useMemo, useState } from "preact/hooks";
+import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 
 import type { NearbyApiResponse } from "../../api-types/nearby";
 import { useStaticMap } from "./useStaticMap.ts";
 
 export const NearbyPage: FunctionComponent = () => {
-  // TODO: Default `null`-style value / local storage / use Geolocation API
+  // TODO: Local storage
   const [userLocation, setUserLocation] = useState<
-    [longitude: number, latitude: number]
-  >(() => [-79.7895, 36.0696]);
+    [longitude: number, latitude: number] | null
+  >(null);
 
   const [apiResponse, setApiResponse] = useState<NearbyApiResponse | null>(
     null,
@@ -100,28 +100,40 @@ export const NearbyPage: FunctionComponent = () => {
     [arcades],
   );
 
-  const simulateLoading = useCallback(() => {
+  const simulateGeolocation = useCallback(() => {
     setApiResponse(null);
     setIsLoading(true);
     setTimeout(() => {
-      fetch(
-        // TODO: URL builder (source, lat/lng, game filters)
-        // Tokyo (from Google Chrome)
-        // "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=35.6894,139.6917",
-        // Dallas, TX
-        // "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=32.9659,-97.0453",
-        // Greensboro, NC
-        "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson?ll=36.0696,-79.7895",
-      )
-        .then((response) => response.json())
-        .then((apiResponse) => {
-          // TODO: API success but no arcades found state
-          setApiResponse(apiResponse);
-        })
-        // TODO: API error state
-        .finally(() => setIsLoading(false));
-    }, 3000);
+      // Tokyo (from Google Chrome)
+      // setUserLocation([139.6917, 35.6894]);
+      // Dallas, TX
+      // setUserLocation([-97.0453, 32.9659]);
+      // Greensboro, NC
+      setUserLocation([-79.7895, 36.0696]);
+    }, 2500);
   }, []);
+
+  useEffect(() => {
+    if (userLocation == null) return;
+
+    const lngFixed = userLocation[0].toFixed(4);
+    const latFixed = userLocation[1].toFixed(4);
+
+    // TODO: URL builder (source, lat/lng trim by accuracy, game filters)
+    const apiUrl = new URL(
+      "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson",
+    );
+    apiUrl.searchParams.set("ll", `${latFixed},${lngFixed}`);
+
+    fetch(apiUrl.toString())
+      .then((response) => response.json())
+      .then((apiResponse) => {
+        // TODO: API success but no arcades found state
+        setApiResponse(apiResponse);
+      })
+      // TODO: API error state
+      .finally(() => setIsLoading(false));
+  }, [userLocation]);
 
   return (
     <>
@@ -133,7 +145,7 @@ export const NearbyPage: FunctionComponent = () => {
           <button
             type="button"
             class="btn btn-secondary"
-            onClick={simulateLoading}
+            onClick={simulateGeolocation}
           >
             <IconCurrentLocation aria-hidden="true" /> New Search
           </button>
