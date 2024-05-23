@@ -4,13 +4,10 @@ import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 
 import type { NearbyApiResponse } from "../../api-types/nearby";
 import { useStaticMap } from "./useStaticMap.ts";
+import { useUserLocation } from "./useUserLocation.ts";
 
 export const NearbyPage: FunctionComponent = () => {
-  // TODO: Local storage
-  const [userLocation, setUserLocation] = useState<
-    [longitude: number, latitude: number] | null
-  >(null);
-
+  const [userLocation, userLocationError, getUserLocation] = useUserLocation();
   const [apiResponse, setApiResponse] = useState<NearbyApiResponse | null>(
     null,
   );
@@ -100,24 +97,19 @@ export const NearbyPage: FunctionComponent = () => {
     [arcades],
   );
 
-  const simulateGeolocation = useCallback(() => {
+  const requestNewUserLocation = useCallback(() => {
     setApiResponse(null);
     setIsLoading(true);
-    setTimeout(() => {
-      // Tokyo (from Google Chrome)
-      // setUserLocation([139.6917, 35.6894]);
-      // Dallas, TX
-      // setUserLocation([-97.0453, 32.9659]);
-      // Greensboro, NC
-      setUserLocation([-79.7895, 36.0696]);
-    }, 2500);
+    getUserLocation();
   }, []);
 
   useEffect(() => {
+    setIsLoading(false);
+    // TODO: Handle error update from geolocation
     if (userLocation == null) return;
 
-    const lngFixed = userLocation[0].toFixed(4);
-    const latFixed = userLocation[1].toFixed(4);
+    const latFixed = userLocation.coords.latitude.toFixed(4);
+    const lngFixed = userLocation.coords.longitude.toFixed(4);
 
     // TODO: URL builder (source, lat/lng trim by accuracy, game filters)
     const apiUrl = new URL(
@@ -140,12 +132,15 @@ export const NearbyPage: FunctionComponent = () => {
       <h2 class="text-2xl mt-4 mx-4">Your location:</h2>
       {mapImage}
       <div class="mx-4 mb-4">
-        <p class="h-6">Accuracy: approximately 80 meters</p>
+        <p class="h-6">
+          {/* TODO: Change unit to km, hide when missing / error */}
+          Accuracy: approximately {userLocation?.coords.accuracy} meters
+        </p>
         <p class="mb-4">
           <button
             type="button"
             class="btn btn-secondary"
-            onClick={simulateGeolocation}
+            onClick={requestNewUserLocation}
           >
             <IconCurrentLocation aria-hidden="true" /> New Search
           </button>

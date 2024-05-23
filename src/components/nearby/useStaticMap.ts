@@ -25,7 +25,7 @@ const config = {
 
 /** Builds a Mapbox Static Images API object from the given user and arcade locations */
 export function useStaticMap(
-  userLocation: [longitude: number, latitude: number] | null,
+  userLocation: Pick<GeolocationPosition, "coords"> | null,
   arcadeLocationFeatures: ArcadeLocationWithDistance[],
 ): StaticMap {
   // Screen width is captured only once (maxes out at 640px minus padding and border)
@@ -36,8 +36,8 @@ export function useStaticMap(
   const userLocationMarker = useMemo(() => {
     if (userLocation == null) return { light: "", dark: "" };
 
-    const lngFixed = userLocation[0].toFixed(4);
-    const latFixed = userLocation[1].toFixed(4);
+    const lngFixed = userLocation.coords.longitude.toFixed(4);
+    const latFixed = userLocation.coords.latitude.toFixed(4);
 
     return {
       light: `pin-s+${config.lightTheme.userLocation}(${lngFixed},${latFixed})`,
