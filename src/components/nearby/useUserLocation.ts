@@ -33,8 +33,9 @@ export const useUserLocation = (): [
         });
       })
       .then(
-        (value: GeolocationPosition) => {
-          setUserLocation(value);
+        ({ coords, timestamp }: GeolocationPosition) => {
+          // Re-casting, otherwise a cached location doesn't trigger downstream effects
+          setUserLocation({ coords, timestamp });
           setUserLocationError(0);
         },
         (error: GeolocationPositionError) => {
