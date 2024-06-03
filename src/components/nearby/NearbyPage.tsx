@@ -8,6 +8,14 @@ import { useUserLocation } from "./useUserLocation.ts";
 
 export const NearbyPage: FunctionComponent = () => {
   const [userLocation, userLocationError, getUserLocation] = useUserLocation();
+  const userLocationAccuracy = useMemo(() => {
+    if (userLocation == null) return "";
+    const { accuracy } = userLocation.coords;
+    return accuracy >= 1000
+      ? `${(accuracy / 1000).toFixed(2)}km`
+      : `${accuracy.toFixed()} meters`;
+  }, [userLocation?.coords.accuracy]);
+
   const [apiResponse, setApiResponse] = useState<NearbyApiResponse | null>(
     null,
   );
@@ -133,8 +141,9 @@ export const NearbyPage: FunctionComponent = () => {
       {mapImage}
       <div class="mx-4 mb-4">
         <p class="h-6">
-          {/* TODO: Change unit to km, hide when missing / error */}
-          Accuracy: approximately {userLocation?.coords.accuracy} meters
+          {userLocationAccuracy && (
+            <>Accurate to approximately {userLocationAccuracy}</>
+          )}
         </p>
         <p class="mb-4">
           <button

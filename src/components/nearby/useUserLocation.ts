@@ -17,7 +17,7 @@ export const useUserLocation = (): [
     getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 3_000,
-      maximumAge: 180_000,
+      maximumAge: 180_000, // 3 minutes
     })
       .catch((error: GeolocationPositionError) => {
         // Don't retry if error is permission denied
@@ -29,7 +29,7 @@ export const useUserLocation = (): [
         return getCurrentPosition({
           enableHighAccuracy: false,
           timeout: 7_000,
-          maximumAge: 3_600_000,
+          maximumAge: 3_600_000, // 1 hour
         });
       })
       .then(
