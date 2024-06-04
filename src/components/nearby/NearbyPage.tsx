@@ -5,17 +5,14 @@ import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import type { NearbyApiResponse } from "../../api-types/nearby";
 import { useStaticMap } from "./useStaticMap.ts";
 import { useUserLocation } from "./useUserLocation.ts";
+import {
+  ArcadeListItem,
+  ArcadeListItemPlaceholder,
+} from "./ArcadeListItem.tsx";
+import { Accuracy } from "./Accuracy.tsx";
 
 export const NearbyPage: FunctionComponent = () => {
   const [userLocation, userLocationError, getUserLocation] = useUserLocation();
-  const userLocationAccuracy = useMemo(() => {
-    if (userLocation == null) return "";
-    const { accuracy } = userLocation.coords;
-    return accuracy >= 1000
-      ? `${(accuracy / 1000).toFixed(2)}km`
-      : `${accuracy.toFixed()} meters`;
-  }, [userLocation?.coords.accuracy]);
-
   const [apiResponse, setApiResponse] = useState<NearbyApiResponse | null>(
     null,
   );
@@ -56,52 +53,15 @@ export const NearbyPage: FunctionComponent = () => {
 
   const arcadeListPlaceholder = useMemo(
     () =>
-      new Array(5).fill(0).map((_, i) => (
-        <li
-          key={`placeholder-${i}`}
-          class={`collapse bg-base-200 ${isLoading ? "skeleton" : ""}`}
-          aria-label="Empty placeholder for arcade location"
-        >
-          <div class="collapse-title"></div>
-        </li>
-      )),
+      new Array(5)
+        .fill(0)
+        .map(() => <ArcadeListItemPlaceholder isLoading={isLoading} />),
     [isLoading],
   );
 
   const arcadeList = useMemo(
     () =>
-      arcades.map((loc) => {
-        const hasDanceGames =
-          loc.properties["has:ddr"] > 0 ||
-          loc.properties["has:piu"] > 0 ||
-          loc.properties["has:smx"] > 0;
-        return (
-          <li key={`location-${loc.id}`}>
-            <article class="collapse collapse-arrow bg-base-200 print:collapse-open print:border print:rounded">
-              <input type="checkbox" name={`arcade-accordion-${loc.id}`} />
-              <div className="collapse-title text-lg font-medium">
-                {loc.properties.name}
-              </div>
-              <ul className="collapse-content">
-                {hasDanceGames && (
-                  <li class="flex gap-1 items-baseline">
-                    Games:
-                    {loc.properties["has:ddr"] > 0 && (
-                      <span class="badge badge-primary">DDR</span>
-                    )}
-                    {loc.properties["has:piu"] > 0 && (
-                      <span class="badge badge-secondary">PIU</span>
-                    )}
-                    {loc.properties["has:smx"] > 0 && (
-                      <span class="badge badge-accent">SMX</span>
-                    )}
-                  </li>
-                )}
-              </ul>
-            </article>
-          </li>
-        );
-      }),
+      arcades.map((loc, idx) => <ArcadeListItem location={loc} index={idx} />),
     [arcades],
   );
 
@@ -141,9 +101,7 @@ export const NearbyPage: FunctionComponent = () => {
       {mapImage}
       <div class="mx-4 mb-4">
         <p class="h-6">
-          {userLocationAccuracy && (
-            <>Accurate to approximately {userLocationAccuracy}</>
-          )}
+          <Accuracy accuracy={userLocation?.coords.accuracy} />
         </p>
         <p class="mb-4">
           <button
@@ -156,7 +114,7 @@ export const NearbyPage: FunctionComponent = () => {
         </p>
 
         <h2 class="text-2xl">Nearby arcades:</h2>
-        <p class="h-6 mb-2">&copy; OpenStreetMap Contributors</p>
+        <p class="h-6 mb-2">&copy; Zenius -I- vanisher.com Contributors</p>
         <ul class="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {arcades.length === 0 && arcadeListPlaceholder}
           {arcades.length > 0 && arcadeList}
