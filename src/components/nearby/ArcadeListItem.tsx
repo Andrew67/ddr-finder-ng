@@ -57,7 +57,9 @@ export const ArcadeListItem: FunctionComponent<ArcadeListItemProps> = (
         <input type="checkbox" name={`arcade-accordion-${id}`} />
         <div className="collapse-title text-lg font-medium">
           {index < 5 && (
-            <span class="badge badge-secondary px-0 w-5 me-1">{index + 1}</span>
+            <span class="badge badge-secondary px-0 w-5 me-1 -translate-y-0.5">
+              {index + 1}
+            </span>
           )}
           {properties.name}
         </div>
