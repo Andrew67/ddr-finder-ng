@@ -24,7 +24,7 @@ export const Accuracy: FunctionComponent<AccuracyProps> = (props) => {
   const formattedAccuracy = useMemo(() => {
     if (accuracy == null) return "";
     return accuracy >= 1000
-      ? kmFormatter.format(accuracy)
+      ? kmFormatter.format(accuracy / 1000)
       : meterFormatter.format(accuracy);
   }, [accuracy]);
 
