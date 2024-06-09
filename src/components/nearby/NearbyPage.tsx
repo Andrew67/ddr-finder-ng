@@ -12,7 +12,32 @@ import {
 import { Accuracy } from "./Accuracy.tsx";
 
 export const NearbyPage: FunctionComponent = () => {
-  const [userLocation, userLocationError, getUserLocation] = useUserLocation();
+  // TODO: useHashParams hook
+  const initialLatLng: GeolocationPosition | null = useMemo(() => {
+    const hashParams = new URLSearchParams(location.hash.substring(1));
+    if (!hashParams.has("ll")) return null;
+
+    // TODO: Malformed lat/lng input handling
+    const [lat, lng] = hashParams.get("ll")!.split(",");
+    return {
+      coords: {
+        latitude: Number(lat),
+        longitude: Number(lng),
+        accuracy:
+          // TODO: Separate "accuracy to/from numberOfDigits" function
+          (111_000 * Math.cos(Number(lat))) /
+          (lng.includes(".") ? Math.pow(10, lng.split(".")[1].length) : 1),
+        altitude: null,
+        altitudeAccuracy: null,
+        heading: null,
+        speed: null,
+      },
+      timestamp: 0,
+    } satisfies GeolocationPosition;
+  }, []);
+
+  const [userLocation, userLocationError, getUserLocation] =
+    useUserLocation(initialLatLng);
   const [apiResponse, setApiResponse] = useState<NearbyApiResponse | null>(
     null,
   );

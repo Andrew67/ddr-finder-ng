@@ -1,16 +1,16 @@
 import { useState } from "preact/hooks";
 import { getCurrentPosition } from "./getCurrentPosition.ts";
 
-export const useUserLocation = (): [
+export const useUserLocation = (
+  initialValue: GeolocationPosition | null,
+): [
   userLocation: GeolocationPosition | null,
   userLocationError: number,
   getUserLocation: () => void,
 ] => {
   // TODO: Local storage
-  const [userLocation, setUserLocation] = useState<GeolocationPosition | null>(
-    null,
-  );
-  const [userLocationError, setUserLocationError] = useState<number>(0);
+  const [userLocation, setUserLocation] = useState(initialValue);
+  const [userLocationError, setUserLocationError] = useState(0);
 
   const getUserLocation = (): void => {
     // Try first for freshest most accurate fast location
