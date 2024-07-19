@@ -36,6 +36,7 @@ export function useStaticMap(
   const userLocationMarker = useMemo(() => {
     if (userLocation == null) return { light: "", dark: "" };
 
+    // TODO: Round based on accuracy
     const lngFixed = userLocation.coords.longitude.toFixed(4);
     const latFixed = userLocation.coords.latitude.toFixed(4);
 
@@ -75,14 +76,15 @@ export function useStaticMap(
           const latFixed = location.coordinates[1].toFixed(4);
 
           return {
-            light: `pin-l-${label}+${config.lightTheme.arcadeLocation}(${lngFixed},${latFixed})`,
-            dark: `pin-l-${label}+${config.darkTheme.arcadeLocation}(${lngFixed},${latFixed})`,
+            light: `pin-l-${label}+${config.lightTheme.arcadeLocation}(${lngFixed},${latFixed}),`,
+            dark: `pin-l-${label}+${config.darkTheme.arcadeLocation}(${lngFixed},${latFixed}),`,
           };
         })
         .reduce(
           (previousValue, currentValue) => ({
-            light: `${previousValue.light},${currentValue.light}`,
-            dark: `${previousValue.dark},${currentValue.dark}`,
+            // Reverse order places closer locations higher in the Z-index by having them occur later
+            light: `${currentValue.light}${previousValue.light}`,
+            dark: `${currentValue.dark}${previousValue.dark}`,
           }),
           {
             light: "",
@@ -97,11 +99,11 @@ export function useStaticMap(
       lightThemeUrl:
         userLocationMarker.light &&
         arcadeLocationMarkers.light &&
-        `https://api.mapbox.com/styles/v1/${config.lightTheme.style}/static/${userLocationMarker.light}${arcadeLocationMarkers.light}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
+        `https://api.mapbox.com/styles/v1/${config.lightTheme.style}/static/${arcadeLocationMarkers.light}${userLocationMarker.light}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
       darkThemeUrl:
         userLocationMarker.dark &&
         arcadeLocationMarkers.dark &&
-        `https://api.mapbox.com/styles/v1/${config.darkTheme.style}/static/${userLocationMarker.dark}${arcadeLocationMarkers.dark}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
+        `https://api.mapbox.com/styles/v1/${config.darkTheme.style}/static/${arcadeLocationMarkers.dark}${userLocationMarker.dark}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
       width,
       height,
     }),
