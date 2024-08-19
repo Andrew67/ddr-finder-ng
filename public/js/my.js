@@ -543,15 +543,15 @@ ons.ready(function () {
 
       // If user navigated to the map from the main page or a nearby search, go back
       // otherwise do an "up" navigation back to main screen
-      document
-        .getElementById("mapview-back")
-        .addEventListener("click", function () {
-          if (document.referrer.includes(window.location.host)) {
-            window.history.back();
-          } else {
-            window.location.href = "/";
-          }
-        });
+      const mapViewBackButton = document.getElementById("mapview-back");
+      mapViewBackButton.addEventListener("click", function () {
+        if (document.referrer.includes(window.location.host)) {
+          window.history.back();
+        } else {
+          window.location.href = "/";
+        }
+      });
+      if (navigator.standalone) mapViewBackButton.hidden = true;
 
       // If Web Share API is supported, insert a share button into the toolbar (shares current URL).
       // See: https://developers.google.com/web/updates/2016/09/navigator-share
