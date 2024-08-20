@@ -46,8 +46,10 @@
   },
   "resolutions": {
     "@babel/core": "7.23.7",
+    "braces": ">=3.0.3",
     "postcss": "8.4.33",
-    "vite": "5.0.12"
+    "tar": ">=6.2.1",
+    "vite": "5.0.13"
   },
   "packageManager": "yarn@4.4.0"
 }
