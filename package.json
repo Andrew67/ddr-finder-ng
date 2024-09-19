@@ -46,7 +46,7 @@
     "vite": "*"
   },
   "resolutions": {
-    "vite": "5.1.6"
+    "vite": "5.2.14"
   },
   "packageManager": "yarn@4.4.0"
 }
