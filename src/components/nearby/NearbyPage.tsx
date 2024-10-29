@@ -10,6 +10,10 @@ import {
   ArcadeListItemPlaceholder,
 } from "./ArcadeListItem.tsx";
 import { Accuracy } from "./Accuracy.tsx";
+import {
+  getCoordinateAccuracy,
+  getNumDecimalDigits,
+} from "./getCoordinateAccuracy.ts";
 
 export const NearbyPage: FunctionComponent = () => {
   // TODO: useHashParams hook
@@ -23,10 +27,7 @@ export const NearbyPage: FunctionComponent = () => {
       coords: {
         latitude: Number(lat),
         longitude: Number(lng),
-        accuracy:
-          // TODO: Separate "accuracy to/from numberOfDigits" function
-          (111_000 * Math.cos(Number(lat))) /
-          (lng.includes(".") ? Math.pow(10, lng.split(".")[1].length) : 1),
+        accuracy: getCoordinateAccuracy(lat, lng),
         altitude: null,
         altitudeAccuracy: null,
         heading: null,
@@ -101,8 +102,13 @@ export const NearbyPage: FunctionComponent = () => {
     // TODO: Handle error update from geolocation
     if (userLocation == null) return;
 
-    const latFixed = userLocation.coords.latitude.toFixed(4);
-    const lngFixed = userLocation.coords.longitude.toFixed(4);
+    const { latitude, longitude, accuracy } = userLocation.coords;
+    const numDecimalDigits = getNumDecimalDigits(latitude, accuracy);
+    const latFixed = latitude.toFixed(numDecimalDigits);
+    const lngFixed = longitude.toFixed(numDecimalDigits);
+
+    // TODO: Will probably move these to URL params, not hash
+    history.replaceState(null, "", `#ll=${latFixed},${lngFixed}`);
 
     // TODO: URL builder (source, lat/lng trim by accuracy, game filters)
     const apiUrl = new URL(
