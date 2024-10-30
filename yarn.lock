@@ -1060,6 +1060,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nanostores/preact@npm:0.5.2":
+  version: 0.5.2
+  resolution: "@nanostores/preact@npm:0.5.2"
+  peerDependencies:
+    nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0
+    preact: ">=10.0.0"
+  checksum: 10/a11854d36ead34862d83e933086e3b5a4eb0614beaec77da5f4e7ad31d403c81e1f71bf6831b3cd194ea6c4b6387b885025954bb5e978969a862f29f7a07a058
+  languageName: node
+  linkType: hard
+
+"@nanostores/router@npm:0.16.1":
+  version: 0.16.1
+  resolution: "@nanostores/router@npm:0.16.1"
+  peerDependencies:
+    nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0
+  checksum: 10/082efcd94595ffca648fd2c04754883dd42d85f9d91b1fcc27157309cf7a5a3fd9c72e4eb0e0f9e156e2f1fd4ec5d9c605098df74dd48fab084f60b424f0924f
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -2304,13 +2323,15 @@ __metadata:
     "@astrojs/tailwind": "npm:5.1.1"
     "@babel/code-frame": "npm:*"
     "@babel/core": "npm:*"
+    "@nanostores/preact": "npm:0.5.2"
+    "@nanostores/router": "npm:0.16.1"
     "@tabler/icons-preact": "npm:2.46.0"
     "@types/babel__core": "npm:^7"
     astro: "npm:4.15.7"
     daisyui: "npm:4.12.10"
+    nanostores: "npm:0.11.3"
     postcss: "npm:*"
     preact: "npm:10.23.2"
-    preact-router: "npm:4.1.2"
     prettier: "npm:3.1.1"
     prettier-plugin-astro: "npm:0.12.3"
     tailwindcss: "npm:3.4.10"
@@ -4302,6 +4323,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanostores@npm:0.11.3":
+  version: 0.11.3
+  resolution: "nanostores@npm:0.11.3"
+  checksum: 10/6559b28823281f16c5f74c81fc8d9f828ad8818a2f033d9c9d311e338efad015731adbd535d1ef46c8330d8a71660524aeba761d8c5d4ed189ef5ada50bfcdd5
+  languageName: node
+  linkType: hard
+
 "negotiator@npm:^0.6.3":
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
@@ -4711,15 +4739,6 @@ __metadata:
   peerDependencies:
     preact: ">=10"
   checksum: 10/a77f7715f3b7e94d6157dab3708e204663a605f86bb20d70a2916c734b873640335dd4180aa79f4eeb4555c07dc4e92b9a4fadc809beeb56b206eaf41e5762dd
-  languageName: node
-  linkType: hard
-
-"preact-router@npm:4.1.2":
-  version: 4.1.2
-  resolution: "preact-router@npm:4.1.2"
-  peerDependencies:
-    preact: ">=10"
-  checksum: 10/f743a01fc49e3930c74c4328425847c103d93d830779cd5d764ff27878b643c14e1ba150f19334811498c73cd00d8af7adf0a8fbf105d24457fe219605b1cb85
   languageName: node
   linkType: hard
 

@@ -27,11 +27,13 @@
   "dependencies": {
     "@astrojs/preact": "3.5.3",
     "@astrojs/tailwind": "5.1.1",
+    "@nanostores/preact": "0.5.2",
+    "@nanostores/router": "0.16.1",
     "@tabler/icons-preact": "2.46.0",
     "astro": "4.15.7",
     "daisyui": "4.12.10",
+    "nanostores": "0.11.3",
     "preact": "10.23.2",
-    "preact-router": "4.1.2",
     "tailwindcss": "3.4.10"
   },
   "devDependencies": {

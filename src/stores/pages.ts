@@ -20,4 +20,4 @@ export const pages = [
     description:
       "Adjust options for your crowd-sourced video game arcade search",
   },
-];
+] as const;

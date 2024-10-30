@@ -1,13 +1,10 @@
 # Pages used by the Android app
-/android/about.php /android/about/ 301
+/android/about.php /android/about 301
 /about.php /android/about 301
-/android/privacy-policy.html /android/privacy-policy/ 301
+/android/privacy-policy.html /android/privacy-policy 301
 
 # Legacy API URL redirect (query string is preserved)
 /locate.php https://ddrfinder-api.andrew67.com/locate.php 301
-
-# Legacy extension usage
-/locator.html /locator/ 301
 
 # Links generated when sharing from the Android app
 /app/map/@:lat,:lng,:zoom /ng/?ll=:lat,:lng&z=:zoom 302
