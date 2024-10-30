@@ -30,7 +30,7 @@
     "@nanostores/preact": "0.5.2",
     "@nanostores/router": "0.16.1",
     "@tabler/icons-preact": "2.46.0",
-    "astro": "4.15.7",
+    "astro": "4.16.1",
     "daisyui": "4.12.10",
     "nanostores": "0.11.3",
     "preact": "10.23.2",
