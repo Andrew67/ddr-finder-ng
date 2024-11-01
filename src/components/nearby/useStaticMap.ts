@@ -1,5 +1,7 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { useMemo } from "preact/hooks";
 import type { ArcadeLocationWithDistance } from "../../api-types/nearby";
+import type { UserLocation } from "../../stores/userLocation.ts";
 
 export type StaticMap = {
   lightThemeUrl: string;
@@ -25,7 +27,7 @@ const config = {
 
 /** Builds a Mapbox Static Images API object from the given user and arcade locations */
 export function useStaticMap(
-  userLocation: Pick<GeolocationPosition, "coords"> | null,
+  userLocation: UserLocation | null,
   arcadeLocationFeatures: ArcadeLocationWithDistance[],
 ): StaticMap {
   // Screen width is captured only once (maxes out at 640px minus padding and border)
@@ -35,14 +37,11 @@ export function useStaticMap(
 
   const userLocationMarker = useMemo(() => {
     if (userLocation == null) return { light: "", dark: "" };
-
-    // TODO: Round based on accuracy
-    const lngFixed = userLocation.coords.longitude.toFixed(4);
-    const latFixed = userLocation.coords.latitude.toFixed(4);
+    const { longitude, latitude } = userLocation;
 
     return {
-      light: `pin-s+${config.lightTheme.userLocation}(${lngFixed},${latFixed})`,
-      dark: `pin-s+${config.darkTheme.userLocation}(${lngFixed},${latFixed})`,
+      light: `pin-s+${config.lightTheme.userLocation}(${longitude},${latitude})`,
+      dark: `pin-s+${config.darkTheme.userLocation}(${longitude},${latitude})`,
     };
   }, [userLocation]);
 

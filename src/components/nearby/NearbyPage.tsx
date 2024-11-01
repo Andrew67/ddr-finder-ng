@@ -1,51 +1,32 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { IconCurrentLocation } from "@tabler/icons-preact";
 import type { h, FunctionComponent } from "preact";
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 
 import type { NearbyApiResponse } from "../../api-types/nearby";
 import { useStaticMap } from "./useStaticMap.ts";
-import { useUserLocation } from "./useUserLocation.ts";
 import {
   ArcadeListItem,
   ArcadeListItemPlaceholder,
 } from "./ArcadeListItem.tsx";
 import { Accuracy } from "./Accuracy.tsx";
+import { useStore } from "@nanostores/preact";
 import {
-  getCoordinateAccuracy,
-  getNumDecimalDigits,
-} from "./getCoordinateAccuracy.ts";
+  $userLocation,
+  $userLocationLoading,
+  getLocationFromGps,
+} from "../../stores/userLocation.ts";
 
 export const NearbyPage: FunctionComponent = () => {
-  // TODO: useHashParams hook
-  const initialLatLng: GeolocationPosition | null = useMemo(() => {
-    const hashParams = new URLSearchParams(location.hash.substring(1));
-    if (!hashParams.has("ll")) return null;
+  const userLocation = useStore($userLocation);
+  const isLoading = useStore($userLocationLoading);
 
-    // TODO: Malformed lat/lng input handling
-    const [lat, lng] = hashParams.get("ll")!.split(",");
-    return {
-      coords: {
-        latitude: Number(lat),
-        longitude: Number(lng),
-        accuracy: getCoordinateAccuracy(lat, lng),
-        altitude: null,
-        altitudeAccuracy: null,
-        heading: null,
-        speed: null,
-      },
-      timestamp: 0,
-    } satisfies GeolocationPosition;
-  }, []);
-
-  const [userLocation, userLocationError, getUserLocation] =
-    useUserLocation(initialLatLng);
   const [apiResponse, setApiResponse] = useState<NearbyApiResponse | null>(
     null,
   );
   const arcades = apiResponse?.features || [];
 
   const staticMap = useStaticMap(userLocation, arcades);
-  const [isLoading, setIsLoading] = useState(false);
 
   const mapImage = useMemo(
     () => (
@@ -93,37 +74,28 @@ export const NearbyPage: FunctionComponent = () => {
 
   const requestNewUserLocation = useCallback(() => {
     setApiResponse(null);
-    setIsLoading(true);
-    getUserLocation();
+    getLocationFromGps();
   }, []);
 
   useEffect(() => {
-    setIsLoading(false);
     // TODO: Handle error update from geolocation
     if (userLocation == null) return;
-
-    const { latitude, longitude, accuracy } = userLocation.coords;
-    const numDecimalDigits = getNumDecimalDigits(latitude, accuracy);
-    const latFixed = latitude.toFixed(numDecimalDigits);
-    const lngFixed = longitude.toFixed(numDecimalDigits);
-
-    // TODO: Will probably move these to URL params, not hash
-    history.replaceState(null, "", `#ll=${latFixed},${lngFixed}`);
+    const { latitude, longitude } = userLocation;
 
     // TODO: URL builder (source, lat/lng trim by accuracy, game filters)
     const apiUrl = new URL(
       "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson",
     );
-    apiUrl.searchParams.set("ll", `${latFixed},${lngFixed}`);
+    apiUrl.searchParams.set("ll", `${latitude},${longitude}`);
 
+    // TODO: API loading state
     fetch(apiUrl.toString())
       .then((response) => response.json())
       .then((apiResponse) => {
         // TODO: API success but no arcades found state
         setApiResponse(apiResponse);
-      })
-      // TODO: API error state
-      .finally(() => setIsLoading(false));
+      });
+    // TODO: API error state
   }, [userLocation]);
 
   return (
@@ -132,7 +104,7 @@ export const NearbyPage: FunctionComponent = () => {
       {mapImage}
       <div class="mx-4 mb-4">
         <p class="h-6">
-          <Accuracy accuracy={userLocation?.coords.accuracy} />
+          <Accuracy accuracy={userLocation?.accuracyMeters} />
         </p>
         <p class="mb-4">
           <button

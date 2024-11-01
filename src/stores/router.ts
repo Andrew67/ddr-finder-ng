@@ -1,3 +1,4 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { createRouter } from "@nanostores/router";
 import { pages } from "./pages.ts";
 import { computed } from "nanostores";

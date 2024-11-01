@@ -1,5 +1,6 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { useState } from "preact/hooks";
-import { getCurrentPosition } from "./getCurrentPosition.ts";
+import { getCurrentPosition } from "../../utils/getCurrentPosition.ts";
 
 export const useUserLocation = (
   initialValue: GeolocationPosition | null,

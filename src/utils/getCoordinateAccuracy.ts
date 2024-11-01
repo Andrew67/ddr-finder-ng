@@ -1,3 +1,5 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
+
 function degToRad(degrees: number) {
   return degrees * (Math.PI / 180);
 }
@@ -16,9 +18,9 @@ export function getCoordinateAccuracy(
     ? longitude.split(".")[1].length
     : 1;
 
-  return (
+  return Math.round(
     (111_000 * Math.cos(latitudeRadians)) /
-    Math.pow(10, longitudeNumDecimalDigits)
+      Math.pow(10, longitudeNumDecimalDigits),
   );
 }
 
