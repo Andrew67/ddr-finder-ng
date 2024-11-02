@@ -1,0 +1,9 @@
+---
+// Page created so that `/app/index.html` is generated instead of `/app.html`, which breaks PWA prefix sandboxing
+import Template from "./_template.astro";
+import { pages } from "../../stores/pages";
+
+const { page, title, description } = pages.find((p) => p.page == undefined)!;
+---
+
+<Template page={page} title={title} description={description} />

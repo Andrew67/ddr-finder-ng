@@ -28,6 +28,8 @@ export function getCoordinateAccuracy(
  * Calculates the number of digits to round coordinates to for a given accuracy (in meters), based on the latitude.
  * The accuracy can then be estimated using {@link getCoordinateAccuracy}.
  * It's also used to format coordinates for API calls, increasing the chances for re-using cached responses.
+ *
+ * Capped at 4 digits as the practical limit the APIs accept (4.35~11.1 meter accuracy).
  * @see https://en.wikipedia.org/wiki/Decimal_degrees
  */
 export function getNumDecimalDigits(
@@ -38,6 +40,9 @@ export function getNumDecimalDigits(
   const numDigits = Math.log10(
     (111_000 * Math.cos(latitudeRadians)) / accuracy,
   );
-  // Floor it to prevent overestimating accuracy later, and max it to prevent negative responses near 90º
-  return Math.max(0, Math.floor(numDigits));
+
+  // Round (originally floor was selected but in some cases it may be worth overestimating accuracy slightly).
+  // Max it to prevent negative responses near 90º.
+  // Min it to cap it at 4 digits per API requirements (practical limits of GPS and our use-case).
+  return Math.min(Math.max(0, Math.round(numDigits)), 4);
 }

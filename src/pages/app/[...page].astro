@@ -1,6 +1,5 @@
 ---
-import { App } from "../../components/App";
-import { BottomNav } from "../../components/BottomNav";
+import Template from "./_template.astro";
 import { pages } from "../../stores/pages";
 
 export function getStaticPaths() {
@@ -17,45 +16,4 @@ const { page } = Astro.params;
 const { title, description } = Astro.props;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <!-- ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE -->
-    <meta name="viewport" content="width=device-width" />
-    <meta name="color-scheme" content="light dark" />
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: light)"
-      content="#bfdbfe"
-    />
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: dark)"
-      content="#334155"
-    />
-    <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/ddrfinder.webmanifest" />
-    <meta
-      property="og:image"
-      content="https://ddrfinder.andrew67.com/img/arcade-machine.jpg"
-    />
-    <link rel="preconnect" href="https://ddrfinder-api.andrew67.com" />
-    <link rel="preconnect" href="https://api.mapbox.com" />
-  </head>
-  <body class="h-svh grid grid-rows-stack">
-    <div class="navbar bg-base-300">
-      <h1 class="btn btn-ghost text-xl">DDR Finder</h1>
-    </div>
-    <div class="overflow-auto">
-      <App client:only="preact" />
-      <noscript>
-        <p class="text-3xl p-4">{description}</p>
-        <p class="text-3xl p-4">JavaScript is required to use this site</p>
-      </noscript>
-    </div>
-    <BottomNav client:load initialPage={page} />
-  </body>
-</html>
+<Template page={page} title={title} description={description} />
