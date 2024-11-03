@@ -41,6 +41,8 @@ $router.subscribe((page) => {
   const [latitude, longitude] = ll.split(",");
   if (!latitude || !longitude) return;
 
+  // TODO: Trim decimal digits if they exceed 4 due to legacy or malformed inputs
+
   const accuracyMeters = getCoordinateAccuracy(latitude, longitude);
   $userLocation.set({ latitude, longitude, accuracyMeters });
 });

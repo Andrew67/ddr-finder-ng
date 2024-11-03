@@ -1280,6 +1280,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nanostores/query@npm:0.3.4":
+  version: 0.3.4
+  resolution: "@nanostores/query@npm:0.3.4"
+  dependencies:
+    nanoevents: "npm:^9.0.0"
+  peerDependencies:
+    nanostores: ">=0.10"
+  checksum: 10/1c63fb7ffe65bd55e004351348ebf3ae9b1dc9b26a12ad7d650ba26e738314ea23d9e2b876e1bb3181244376463b79a52fc9094b72a54f5215b0eafbed725756
+  languageName: node
+  linkType: hard
+
 "@nanostores/router@npm:0.16.1":
   version: 0.16.1
   resolution: "@nanostores/router@npm:0.16.1"
@@ -2549,6 +2560,7 @@ __metadata:
     "@babel/code-frame": "npm:*"
     "@babel/core": "npm:*"
     "@nanostores/preact": "npm:0.5.2"
+    "@nanostores/query": "npm:0.3.4"
     "@nanostores/router": "npm:0.16.1"
     "@tabler/icons-preact": "npm:2.46.0"
     "@types/babel__core": "npm:^7"
@@ -4543,6 +4555,13 @@ __metadata:
     object-assign: "npm:^4.0.1"
     thenify-all: "npm:^1.0.0"
   checksum: 10/8427de0ece99a07e9faed3c0c6778820d7543e3776f9a84d22cf0ec0a8eb65f6e9aee9c9d353ff9a105ff62d33a9463c6ca638974cc652ee8140cd1e35951c87
+  languageName: node
+  linkType: hard
+
+"nanoevents@npm:^9.0.0":
+  version: 9.1.0
+  resolution: "nanoevents@npm:9.1.0"
+  checksum: 10/77abbc15c4efc15518a0075b604e5db045e5d6184f4d08892c771928a84f53b1dd46138902213f66e8a9989e6c930168ca6441b80ff9098aec83c01a782bd42b
   languageName: node
   linkType: hard
 

@@ -1,9 +1,8 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { IconCurrentLocation } from "@tabler/icons-preact";
 import type { h, FunctionComponent } from "preact";
-import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
+import { useMemo } from "preact/hooks";
 
-import type { NearbyApiResponse } from "../../api-types/nearby";
 import { useStaticMap } from "./useStaticMap.ts";
 import {
   ArcadeListItem,
@@ -16,15 +15,17 @@ import {
   $userLocationLoading,
   getLocationFromGps,
 } from "../../stores/userLocation.ts";
+import { $nearbyArcades } from "../../stores/nearby/arcades.ts";
 
 export const NearbyPage: FunctionComponent = () => {
   const userLocation = useStore($userLocation);
-  const isLoading = useStore($userLocationLoading);
+  const userLocationLoading = useStore($userLocationLoading);
 
-  const [apiResponse, setApiResponse] = useState<NearbyApiResponse | null>(
-    null,
-  );
+  const { data: apiResponse, loading: apiLoading } = useStore($nearbyArcades);
   const arcades = apiResponse?.features || [];
+
+  const isLoading = userLocationLoading || apiLoading;
+  const showPlaceholders = apiResponse == undefined || isLoading;
 
   const staticMap = useStaticMap(userLocation, arcades);
 
@@ -60,7 +61,7 @@ export const NearbyPage: FunctionComponent = () => {
 
   const arcadeListPlaceholder = useMemo(
     () =>
-      new Array(5)
+      new Array(6)
         .fill(0)
         .map(() => <ArcadeListItemPlaceholder isLoading={isLoading} />),
     [isLoading],
@@ -72,31 +73,9 @@ export const NearbyPage: FunctionComponent = () => {
     [arcades],
   );
 
-  const requestNewUserLocation = useCallback(() => {
-    setApiResponse(null);
-    getLocationFromGps();
-  }, []);
-
-  useEffect(() => {
-    // TODO: Handle error update from geolocation
-    if (userLocation == null) return;
-    const { latitude, longitude } = userLocation;
-
-    // TODO: URL builder (source, lat/lng trim by accuracy, game filters)
-    const apiUrl = new URL(
-      "https://ddrfinder-api.andrew67.com/v4/nearby/ziv.geojson",
-    );
-    apiUrl.searchParams.set("ll", `${latitude},${longitude}`);
-
-    // TODO: API loading state
-    fetch(apiUrl.toString())
-      .then((response) => response.json())
-      .then((apiResponse) => {
-        // TODO: API success but no arcades found state
-        setApiResponse(apiResponse);
-      });
-    // TODO: API error state
-  }, [userLocation]);
+  // TODO: Handle error update from geolocation
+  // TODO: API success but no arcades found state
+  // TODO: API error state
 
   return (
     <>
@@ -110,7 +89,7 @@ export const NearbyPage: FunctionComponent = () => {
           <button
             type="button"
             class="btn btn-secondary"
-            onClick={requestNewUserLocation}
+            onClick={getLocationFromGps}
           >
             <IconCurrentLocation aria-hidden="true" /> New Search
           </button>
@@ -119,8 +98,8 @@ export const NearbyPage: FunctionComponent = () => {
         <h2 class="text-2xl">Nearby arcades:</h2>
         <p class="h-6 mb-2">&copy; Zenius -I- vanisher.com Contributors</p>
         <ul class="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-          {arcades.length === 0 && arcadeListPlaceholder}
-          {arcades.length > 0 && arcadeList}
+          {showPlaceholders && arcadeListPlaceholder}
+          {!showPlaceholders && arcadeList}
         </ul>
 
         <footer class="mt-6">
