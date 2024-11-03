@@ -1,3 +1,4 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { createFetcherStore } from "../fetcher.ts";
 import type { NearbyApiResponse } from "../../api-types/nearby";
 import { computed } from "nanostores";

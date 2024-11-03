@@ -2,20 +2,24 @@
 import { IconCurrentLocation } from "@tabler/icons-preact";
 import type { h, FunctionComponent } from "preact";
 import { useMemo } from "preact/hooks";
-
-import { useStaticMap } from "./useStaticMap.ts";
-import {
-  ArcadeListItem,
-  ArcadeListItemPlaceholder,
-} from "./ArcadeListItem.tsx";
-import { Accuracy } from "./Accuracy.tsx";
 import { useStore } from "@nanostores/preact";
+
 import {
   $userLocation,
   $userLocationLoading,
   getLocationFromGps,
 } from "../../stores/userLocation.ts";
 import { $nearbyArcades } from "../../stores/nearby/arcades.ts";
+import {
+  $numLocationsToShow,
+  $staticMap,
+} from "../../stores/nearby/staticMap.ts";
+import {
+  ArcadeListItem,
+  ArcadeListItemPlaceholder,
+} from "./ArcadeListItem.tsx";
+import { Accuracy } from "./Accuracy.tsx";
+import { StaticMap } from "./StaticMap.tsx";
 
 export const NearbyPage: FunctionComponent = () => {
   const userLocation = useStore($userLocation);
@@ -27,37 +31,8 @@ export const NearbyPage: FunctionComponent = () => {
   const isLoading = userLocationLoading || apiLoading;
   const showPlaceholders = apiResponse == undefined || isLoading;
 
-  const staticMap = useStaticMap(userLocation, arcades);
-
-  const mapImage = useMemo(
-    () => (
-      <div
-        className={`box-content max-w-full bg-base-200 sm:mx-4 sm:border sm:border-primary ${
-          isLoading ? "skeleton rounded-none" : ""
-        }`}
-        style={{
-          width: staticMap.width,
-          height: staticMap.lightThemeUrl.length > 0 ? null : staticMap.height,
-        }}
-      >
-        {staticMap.lightThemeUrl.length > 0 && (
-          <picture>
-            <source
-              media="screen and (prefers-color-scheme: dark)"
-              srcSet={staticMap.darkThemeUrl}
-            />
-            <img
-              src={staticMap.lightThemeUrl}
-              width={staticMap.width}
-              height={staticMap.height}
-              alt="Map of your location and nearby arcade locations"
-            />
-          </picture>
-        )}
-      </div>
-    ),
-    [staticMap, isLoading],
-  );
+  const staticMapProps = useStore($staticMap);
+  const staticMapNumLocations = useStore($numLocationsToShow);
 
   const arcadeListPlaceholder = useMemo(
     () =>
@@ -69,8 +44,13 @@ export const NearbyPage: FunctionComponent = () => {
 
   const arcadeList = useMemo(
     () =>
-      arcades.map((loc, idx) => <ArcadeListItem location={loc} index={idx} />),
-    [arcades],
+      arcades.map((loc, idx) => (
+        <ArcadeListItem
+          location={loc}
+          index={idx < staticMapNumLocations ? idx : undefined}
+        />
+      )),
+    [arcades, staticMapNumLocations],
   );
 
   // TODO: Handle error update from geolocation
@@ -80,10 +60,12 @@ export const NearbyPage: FunctionComponent = () => {
   return (
     <>
       <h2 class="text-2xl mt-4 mx-4">Your location:</h2>
-      {mapImage}
+      <StaticMap {...staticMapProps} isLoading={isLoading} />
       <div class="mx-4 mb-4">
         <p class="h-6">
-          <Accuracy accuracy={userLocation?.accuracyMeters} />
+          {!isLoading && userLocation?.accuracyMeters != null && (
+            <Accuracy accuracy={userLocation?.accuracyMeters} />
+          )}
         </p>
         <p class="mb-4">
           <button

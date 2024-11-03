@@ -1,3 +1,4 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
 import type { ArcadeLocationWithDistance } from "../../api-types/nearby";
 import {
@@ -31,7 +32,7 @@ const distanceFormatter = new Intl.NumberFormat("en-US", {
 
 type ArcadeListItemProps = {
   location: ArcadeLocationWithDistance;
-  index: number;
+  index?: number;
 };
 
 export const ArcadeListItem: FunctionComponent<ArcadeListItemProps> = (
@@ -56,7 +57,7 @@ export const ArcadeListItem: FunctionComponent<ArcadeListItemProps> = (
       <article class="collapse collapse-arrow bg-base-200 print:collapse-open print:border print:rounded">
         <input type="checkbox" name={`arcade-accordion-${id}`} />
         <div className="collapse-title text-lg font-medium">
-          {index < 5 && (
+          {index != undefined && (
             <span class="badge badge-secondary px-0 w-5 me-1 -translate-y-0.5">
               {index + 1}
             </span>

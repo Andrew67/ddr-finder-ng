@@ -1,8 +1,9 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { FunctionComponent } from "preact";
 import { useMemo } from "preact/hooks";
 
 type AccuracyProps = {
-  accuracy: number | null | undefined;
+  accuracy: number;
 };
 
 const kmFormatter = new Intl.NumberFormat("en-US", {
@@ -22,7 +23,6 @@ export const Accuracy: FunctionComponent<AccuracyProps> = (props) => {
   const { accuracy } = props;
 
   const formattedAccuracy = useMemo(() => {
-    if (accuracy == null) return "";
     return accuracy >= 1000
       ? kmFormatter.format(accuracy / 1000)
       : meterFormatter.format(accuracy);
