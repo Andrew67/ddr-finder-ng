@@ -63,8 +63,8 @@ export const NearbyPage: FunctionComponent = () => {
       <StaticMap {...staticMapProps} isLoading={isLoading} />
       <div class="mx-4 mb-4">
         <p class="h-6">
-          {!isLoading && userLocation?.accuracyMeters != null && (
-            <Accuracy accuracy={userLocation?.accuracyMeters} />
+          {!showPlaceholders && userLocation?.accuracyMeters != null && (
+            <Accuracy accuracy={userLocation.accuracyMeters} />
           )}
         </p>
         <p class="mb-4">

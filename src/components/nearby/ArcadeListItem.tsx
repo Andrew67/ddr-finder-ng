@@ -6,7 +6,7 @@ import {
   IconNavigation,
   IconShare,
 } from "@tabler/icons-preact";
-import { useCallback } from "preact/hooks";
+import { useArcadeListItemLinks } from "./useArcadeListItemLinks.ts";
 
 type ArcadeListItemPlaceholderProps = { isLoading: boolean };
 
@@ -40,17 +40,29 @@ export const ArcadeListItem: FunctionComponent<ArcadeListItemProps> = (
 ) => {
   const { location, index } = props;
   const { id, properties } = location;
-  const [lng, lat] = location.geometry.coordinates;
 
   const hasDDR = properties["has:ddr"] > 0;
   const hasPIU = properties["has:piu"] > 0;
   const hasSMX = properties["has:smx"] > 0;
   const hasDanceGames = hasDDR || hasPIU || hasSMX;
 
-  const onShareClick = useCallback(() => {
-    // TODO: Check for share API compatibility; fall back to clipboard; share more fields
-    navigator.share({ text: properties.name });
-  }, [location]);
+  const { navigateUrl, moreInfoUrl, moreInfoMobileUrl } =
+    useArcadeListItemLinks(location);
+
+  const isShareAvailable = "share" in navigator;
+
+  const onShareClick = () => {
+    const gamesText = hasDanceGames
+      ? `Games: ${hasDDR ? "DDR " : ""}${hasPIU ? "PIU " : ""}${
+          hasSMX ? "SMX " : ""
+        }\n`
+      : "";
+
+    const shareText = `${properties.name}
+${properties.city}
+${gamesText}`;
+    navigator.share({ text: shareText, url: moreInfoMobileUrl });
+  };
 
   return (
     <li>
@@ -83,31 +95,34 @@ export const ArcadeListItem: FunctionComponent<ArcadeListItemProps> = (
             </li>
           )}
           <li className="flex flex-wrap gap-2 mt-4 print:hidden">
-            {/* TODO: Dynamic navigation URL */}
-            <a
-              href={`https://maps.google.com/?q=loc:${lat},${lng}(${encodeURIComponent(
-                properties.name,
-              )})`}
-              className="arcade-nav btn btn-accent"
-            >
+            <a href={navigateUrl} className="arcade-nav btn btn-accent">
               <IconNavigation aria-hidden="true" /> Navigate
             </a>
-            {/* TODO: Read from sources; mobile link */}
             <a
-              href={`https://zenius-i-vanisher.com/v5.2/arcade.php?id=${properties.sid}#summary`}
-              className="arcade-info btn btn-primary"
+              href={moreInfoMobileUrl}
+              className="arcade-info btn btn-primary sm:hidden"
               target="_blank"
             >
               <IconExternalLink aria-hidden="true" />
               <span>More Info</span>
             </a>
-            <button
-              type="button"
-              className="arcade-gmaps btn btn-secondary"
-              onClick={onShareClick}
+            <a
+              href={moreInfoUrl}
+              className="arcade-info btn btn-primary hidden sm:inline-flex"
+              target="_blank"
             >
-              <IconShare aria-hidden="true" /> Share
-            </button>
+              <IconExternalLink aria-hidden="true" />
+              <span>More Info</span>
+            </a>
+            {isShareAvailable && (
+              <button
+                type="button"
+                className="arcade-gmaps btn btn-secondary"
+                onClick={onShareClick}
+              >
+                <IconShare aria-hidden="true" /> Share
+              </button>
+            )}
           </li>
         </ul>
       </article>
