@@ -1,5 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 
+import { numDecimalDigits } from "./number.ts";
+
 function degToRad(degrees: number) {
   return degrees * (Math.PI / 180);
 }
@@ -14,9 +16,7 @@ export function getCoordinateAccuracy(
   longitude: string,
 ): number {
   const latitudeRadians = degToRad(Number(latitude));
-  const longitudeNumDecimalDigits = longitude.includes(".")
-    ? longitude.split(".")[1].length
-    : 1;
+  const longitudeNumDecimalDigits = numDecimalDigits(longitude);
 
   return Math.round(
     (111_000 * Math.cos(latitudeRadians)) /

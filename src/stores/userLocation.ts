@@ -6,6 +6,7 @@ import {
   getNumDecimalDigits,
 } from "../utils/getCoordinateAccuracy.ts";
 import { getCurrentPosition } from "../utils/getCurrentPosition.ts";
+import { numDecimalDigits } from "../utils/number.ts";
 
 export type UserLocation = {
   latitude: string;
@@ -38,10 +39,24 @@ $router.subscribe((page) => {
   const ll = page?.search["ll"];
   if (!ll) return;
 
-  const [latitude, longitude] = ll.split(",");
+  // Input validation: both latitude and longitude provided
+  let [latitude, longitude] = ll.split(",");
   if (!latitude || !longitude) return;
 
-  // TODO: Trim decimal digits if they exceed 4 due to legacy or malformed inputs
+  // Input validation: numeric inputs provided
+  const latitudeNumeric = Number(latitude);
+  const longitudeNumeric = Number(longitude);
+  if (isNaN(latitudeNumeric) || isNaN(longitudeNumeric)) return;
+
+  // Input validation: latitude between +/- 90 and longitude between +/- 180
+  if (latitudeNumeric < -90 || latitudeNumeric > 90) return;
+  if (longitudeNumeric < -180 || longitudeNumeric > 180) return;
+
+  // Compatibility: trim decimal digits if they exceed 4
+  const latitudeNumDigits = numDecimalDigits(latitude);
+  const longitudeNumDigits = numDecimalDigits(longitude);
+  if (latitudeNumDigits > 4) latitude = latitudeNumeric.toFixed(4);
+  if (longitudeNumDigits > 4) longitude = longitudeNumeric.toFixed(4);
 
   const accuracyMeters = getCoordinateAccuracy(latitude, longitude);
   $userLocation.set({ latitude, longitude, accuracyMeters });
