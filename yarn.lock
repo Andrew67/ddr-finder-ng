@@ -2790,7 +2790,7 @@ __metadata:
     daisyui: "npm:4.12.10"
     nanostores: "npm:0.11.3"
     postcss: "npm:*"
-    preact: "npm:10.23.2"
+    preact: "npm:10.25.4"
     prettier: "npm:3.1.1"
     prettier-plugin-astro: "npm:0.12.3"
     tailwindcss: "npm:3.4.10"
@@ -5306,10 +5306,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:10.23.2":
-  version: 10.23.2
-  resolution: "preact@npm:10.23.2"
-  checksum: 10/188e220a90eb5dca757a28d4a88bed0d23b1e80ea6f9e9d2447e109e754b428db62429cc65dc38214037b638323232476c59b6daec9a6eb7b780f933b010808c
+"preact@npm:10.25.4":
+  version: 10.25.4
+  resolution: "preact@npm:10.25.4"
+  checksum: 10/8b377438912965b45786d1dbfdd532157294a79bebc611b242d708317574403554ab37e34c613a3e9e862685c04695343f1426a38e12258e1e9ebafc0d7e4c5d
   languageName: node
   linkType: hard
 
