@@ -1837,21 +1837,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tabler/icons-preact@npm:2.46.0":
-  version: 2.46.0
-  resolution: "@tabler/icons-preact@npm:2.46.0"
+"@tabler/icons-preact@npm:3.28.1":
+  version: 3.28.1
+  resolution: "@tabler/icons-preact@npm:3.28.1"
   dependencies:
-    "@tabler/icons": "npm:2.46.0"
+    "@tabler/icons": "npm:3.28.1"
   peerDependencies:
     preact: ^10.5.13
-  checksum: 10/e7f2342a99c00a6e424b86107247b9c2d7afbaf22a39b16374b1d192423f627e78b701d48caef29cd40c749a9913988e3ca7385d5e19f231449848e88847693c
+  checksum: 10/107d5ab5b559fcdcbacf54d1be5d42460dfa7456641a88a586ac7bad05343d528d532f007dacfac1e2815f653b14f74547c6048986956b237eda3b4d6b333673
   languageName: node
   linkType: hard
 
-"@tabler/icons@npm:2.46.0":
-  version: 2.46.0
-  resolution: "@tabler/icons@npm:2.46.0"
-  checksum: 10/efcc8eb0ea5e7d2c6b024a4aa13971149a1224a01ce8580d270ebf69965e722ebc63597af4798be22b5e1750c468cb542e7ffdf455eca80fb189f6dc8af9cef8
+"@tabler/icons@npm:3.28.1":
+  version: 3.28.1
+  resolution: "@tabler/icons@npm:3.28.1"
+  checksum: 10/0e9f1271f2c6cfbb968dffe61e1dae5b245df90611694f29c221766ab6c6a5d90e854e352d9e8382982fb9107b3248b827dcda3d6c6c5b6bca1ce3c00468b4f1
   languageName: node
   linkType: hard
 
@@ -2784,7 +2784,7 @@ __metadata:
     "@nanostores/preact": "npm:0.5.2"
     "@nanostores/query": "npm:0.3.4"
     "@nanostores/router": "npm:0.16.1"
-    "@tabler/icons-preact": "npm:2.46.0"
+    "@tabler/icons-preact": "npm:3.28.1"
     "@types/babel__core": "npm:^7"
     astro: "npm:5.1.5"
     daisyui: "npm:4.12.10"

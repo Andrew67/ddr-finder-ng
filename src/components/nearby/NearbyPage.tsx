@@ -86,7 +86,7 @@ export const NearbyPage: FunctionComponent = () => {
 
         <footer class="mt-6">
           <p class="mb-2">
-            &copy; 2012&ndash;2024{" "}
+            &copy; 2012&ndash;2025{" "}
             <a
               href="https://andrew67.com/"
               target="_blank"
