@@ -19,7 +19,7 @@ export const ArcadeListItemPlaceholder: FunctionComponent<
       className={`collapse bg-base-200 ${isLoading ? "skeleton" : ""}`}
       aria-label="Empty placeholder for arcade location"
     >
-      <div className="collapse-title"></div>
+      <div className="collapse-title !cursor-auto"></div>
     </li>
   );
 };

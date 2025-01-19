@@ -6,7 +6,9 @@ import { useStore } from "@nanostores/preact";
 
 import {
   $userLocation,
+  $userLocationError,
   $userLocationLoading,
+  clearLocationError,
   getLocationFromGps,
 } from "../../stores/userLocation.ts";
 import { $nearbyArcades } from "../../stores/nearby/arcades.ts";
@@ -20,10 +22,12 @@ import {
 } from "./ArcadeListItem.tsx";
 import { Accuracy } from "./Accuracy.tsx";
 import { StaticMap } from "./StaticMap.tsx";
+import { UserLocationError } from "./UserLocationError.tsx";
 
 export const NearbyPage: FunctionComponent = () => {
   const userLocation = useStore($userLocation);
   const userLocationLoading = useStore($userLocationLoading);
+  const userLocationError = useStore($userLocationError);
 
   const { data: apiResponse, loading: apiLoading } = useStore($nearbyArcades);
   const arcades = apiResponse?.features || [];
@@ -53,7 +57,15 @@ export const NearbyPage: FunctionComponent = () => {
     [arcades, staticMapNumLocations],
   );
 
-  // TODO: Handle error update from geolocation
+  const locationError = useMemo(
+    () => (
+      <UserLocationError
+        error={userLocationError}
+        dismissClick={clearLocationError}
+      />
+    ),
+    [userLocationError],
+  );
   // TODO: API success but no arcades found state
   // TODO: API error state
 
@@ -83,6 +95,7 @@ export const NearbyPage: FunctionComponent = () => {
           {showPlaceholders && arcadeListPlaceholder}
           {!showPlaceholders && arcadeList}
         </ul>
+        {locationError}
 
         <footer class="mt-6">
           <p class="mb-2">

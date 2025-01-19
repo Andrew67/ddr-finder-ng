@@ -119,3 +119,11 @@ export function getLocationFromGps() {
     )
     .finally(() => $userLocationLoading.set(false));
 }
+
+/**
+ * Clears the location error potentially set by {@link getLocationFromGps}.
+ * This is used because certain errors may show modals which require dismissal.
+ */
+export function clearLocationError() {
+  $userLocationError.set(0);
+}
