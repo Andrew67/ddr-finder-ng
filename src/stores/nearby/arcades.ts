@@ -3,6 +3,7 @@ import { createFetcherStore } from "../fetcher.ts";
 import type { NearbyApiResponse } from "../../api-types/nearby";
 import { computed } from "nanostores";
 import { $userLocation } from "../userLocation.ts";
+import { $activeSourceId } from "../sources.ts";
 
 const $ll = computed(
   $userLocation,
@@ -11,10 +12,15 @@ const $ll = computed(
     encodeURIComponent(`${userLocation.latitude},${userLocation.longitude}`),
 );
 
+const $src = computed(
+  $activeSourceId,
+  (activeSourceId) => activeSourceId && encodeURIComponent(activeSourceId),
+);
+
 export const $nearbyArcades = createFetcherStore<NearbyApiResponse>([
   "/nearby/",
-  "ziv", // TODO: Read source from user settings / URL
+  $src,
   ".geojson?ll=",
   $ll,
-  // TODO: URL builder (source, game filters)
+  // TODO: Game filters
 ]);

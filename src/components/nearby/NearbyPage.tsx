@@ -30,7 +30,11 @@ export const NearbyPage: FunctionComponent = () => {
   const userLocationLoading = useStore($userLocationLoading);
   const userLocationError = useStore($userLocationError);
 
-  const { data: apiResponse, loading: apiLoading } = useStore($nearbyArcades);
+  const {
+    data: apiResponse,
+    loading: apiLoading,
+    error: apiError,
+  } = useStore($nearbyArcades);
   const arcades = apiResponse?.features || [];
 
   const isLoading = userLocationLoading || apiLoading;
@@ -67,7 +71,6 @@ export const NearbyPage: FunctionComponent = () => {
     ),
     [userLocationError],
   );
-  // TODO: API error state
 
   return (
     <>
@@ -77,6 +80,11 @@ export const NearbyPage: FunctionComponent = () => {
         <p class="h-6">
           {!showPlaceholders && userLocation?.accuracyMeters != null && (
             <Accuracy accuracy={userLocation.accuracyMeters} />
+          )}
+          {apiError && (
+            <span class="font-bold text-error">
+              Connection error. Please try again
+            </span>
           )}
         </p>
         <p class="mb-4">

@@ -38,7 +38,9 @@ const { page, title, description } = Astro.props;
       <h1 class="btn btn-ghost text-xl">DDR Finder</h1>
     </div>
     <div class="overflow-auto">
-      <App client:only="preact" />
+      <App client:only="preact">
+        <div slot="fallback" class="p-4">Loading...</div>
+      </App>
       <noscript>
         <p class="text-3xl p-4">{description}</p>
         <p class="text-3xl p-4">JavaScript is required to use this site</p>

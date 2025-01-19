@@ -8,9 +8,14 @@ export const $sources = createFetcherStore<SourcesApiResponse>([
   "/sources.json",
 ]);
 
-export const $activeSource = computed($sources, (sources) => {
-  // TODO: Feed source from URL
-  return (
-    sources.data?.sources["ziv"] ?? sources.data?.sources[sources.data.default]
-  );
+export const $activeSourceId = computed($sources, (sources) => {
+  // TODO: Read source from URL
+  return sources.data?.default;
 });
+
+export const $activeSource = computed(
+  [$sources, $activeSourceId],
+  (sources, activeSourceId) => {
+    return sources.data?.sources[activeSourceId ?? sources.data.default];
+  },
+);
