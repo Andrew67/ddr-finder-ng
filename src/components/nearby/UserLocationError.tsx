@@ -1,3 +1,4 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
 import { useRef } from "preact/compat";
 import { useEffect } from "preact/hooks";

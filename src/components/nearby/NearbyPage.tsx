@@ -23,6 +23,7 @@ import {
 import { Accuracy } from "./Accuracy.tsx";
 import { StaticMap } from "./StaticMap.tsx";
 import { UserLocationError } from "./UserLocationError.tsx";
+import { DataSourceAttribution } from "./DataSourceAttribution.tsx";
 
 export const NearbyPage: FunctionComponent = () => {
   const userLocation = useStore($userLocation);
@@ -66,7 +67,6 @@ export const NearbyPage: FunctionComponent = () => {
     ),
     [userLocationError],
   );
-  // TODO: API success but no arcades found state
   // TODO: API error state
 
   return (
@@ -90,11 +90,24 @@ export const NearbyPage: FunctionComponent = () => {
         </p>
 
         <h2 class="text-2xl">Nearby arcades:</h2>
-        <p class="h-6 mb-2">&copy; Zenius -I- vanisher.com Contributors</p>
+        <p class="h-6 mb-2">
+          <DataSourceAttribution />
+        </p>
         <ul class="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {showPlaceholders && arcadeListPlaceholder}
           {!showPlaceholders && arcadeList}
         </ul>
+        {!showPlaceholders && arcades.length === 0 && (
+          <>
+            <p class="font-bold">No arcades found nearby!</p>
+            <ul class="pl-7 list-disc">
+              <li>If you have game filters enabled, try clearing them.</li>
+              <li>Try a different data source setting.</li>
+              <li>Use the Explore page to check out the entire world.</li>
+              <li>Go to the data source website.</li>
+            </ul>
+          </>
+        )}
         {locationError}
 
         <footer class="mt-6">
