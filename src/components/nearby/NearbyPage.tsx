@@ -77,7 +77,7 @@ export const NearbyPage: FunctionComponent = () => {
       <h2 class="text-2xl mt-4 mx-4">Your location:</h2>
       <StaticMap {...staticMapProps} isLoading={isLoading} />
       <div class="mx-4 mb-4">
-        <p class="h-6">
+        <p class="min-h-6">
           {!showPlaceholders && userLocation?.accuracyMeters != null && (
             <Accuracy accuracy={userLocation.accuracyMeters} />
           )}
@@ -98,7 +98,7 @@ export const NearbyPage: FunctionComponent = () => {
         </p>
 
         <h2 class="text-2xl">Nearby arcades:</h2>
-        <p class="h-6 mb-2">
+        <p class="min-h-6 mb-2">
           <DataSourceAttribution />
         </p>
         <ul class="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">

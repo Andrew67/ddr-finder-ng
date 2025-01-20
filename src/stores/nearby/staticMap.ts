@@ -55,9 +55,11 @@ export const $numLocationsToShow = computed($nearbyArcades, (nearbyArcades) => {
 const $arcadeLocationMarkers = computed(
   [$nearbyArcades, $numLocationsToShow],
   (nearbyArcades, numLocationsToShow) => {
-    if (nearbyArcades.data == undefined) return { light: "", dark: "" };
+    if (nearbyArcades.data == undefined)
+      return { light: "", dark: "", loaded: false };
 
-    return nearbyArcades.data.features
+    const markers = { light: "", dark: "", loaded: true };
+    nearbyArcades.data.features
       .slice(0, numLocationsToShow)
       .map((location, index) => {
         const label = index + 1;
@@ -67,19 +69,15 @@ const $arcadeLocationMarkers = computed(
         return {
           light: `pin-l-${label}+${config.lightTheme.arcadeLocation}(${lngFixed},${latFixed}),`,
           dark: `pin-l-${label}+${config.darkTheme.arcadeLocation}(${lngFixed},${latFixed}),`,
+          loaded: true,
         };
       })
-      .reduce(
-        (previousValue, currentValue) => ({
-          // Reverse order places closer locations higher in the Z-index by having them occur later in the URL
-          light: `${currentValue.light}${previousValue.light}`,
-          dark: `${currentValue.dark}${previousValue.dark}`,
-        }),
-        {
-          light: "",
-          dark: "",
-        },
-      );
+      .forEach((locationMarker) => {
+        // Reverse order places closer locations higher in the Z-index by having them occur later in the URL
+        markers.light = `${locationMarker.light}${markers.light}`;
+        markers.dark = `${locationMarker.dark}${markers.dark}`;
+      });
+    return markers;
   },
 );
 
@@ -94,11 +92,12 @@ export const $staticMap = computed(
     return {
       lightThemeUrl:
         userLocationMarker.light &&
-        arcadeLocationMarkers.light &&
+        // Loaded is used so that the user location map can still load when there's no arcades nearby
+        arcadeLocationMarkers.loaded &&
         `https://api.mapbox.com/styles/v1/${config.lightTheme.style}/static/${arcadeLocationMarkers.light}${userLocationMarker.light}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
       darkThemeUrl:
         userLocationMarker.dark &&
-        arcadeLocationMarkers.dark &&
+        arcadeLocationMarkers.loaded &&
         `https://api.mapbox.com/styles/v1/${config.darkTheme.style}/static/${arcadeLocationMarkers.dark}${userLocationMarker.dark}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
       width,
       height,
