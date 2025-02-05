@@ -39,18 +39,20 @@ export const UserLocationError: FunctionComponent<UserLocationErrorProps> = (
               </p>
             </>
           )}
-          {error === GeolocationPositionError.POSITION_UNAVAILABLE ||
-            (error === GeolocationPositionError.TIMEOUT && (
-              <>
-                <h3 className="font-bold text-lg">Position Unavailable</h3>
-                <p className="py-4">
-                  Make sure GPS, Wi-Fi, and Bluetooth are enabled, then try
-                  again.
-                  <br />
-                  You might also need to walk outside.
-                </p>
-              </>
-            ))}
+          {(error === GeolocationPositionError.POSITION_UNAVAILABLE ||
+            error === GeolocationPositionError.TIMEOUT) && (
+            <>
+              <h3 className="font-bold text-lg">Position Unavailable</h3>
+              <p className="py-4">
+                Make sure GPS, Wi-Fi, and Bluetooth are enabled, then try again.
+                <br />
+                If your location permission is set to "approximate", you may
+                need to change it to "precise".
+                <br />
+                You might also need to walk outside.
+              </p>
+            </>
+          )}
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
