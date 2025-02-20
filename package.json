@@ -39,14 +39,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
-    "@babel/code-frame": "*",
     "@babel/core": "*",
-    "@types/babel__core": "^7",
     "postcss": "*",
     "prettier": "3.4.2",
     "prettier-plugin-astro": "0.14.1",
-    "typescript": "5.5.4",
-    "vite": "*"
+    "typescript": "5.5.4"
   },
   "packageManager": "yarn@4.6.0"
 }
