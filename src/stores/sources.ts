@@ -3,6 +3,7 @@ import { createFetcherStore } from "./fetcher.ts";
 import type { SourcesApiResponse } from "../api-types/sources";
 import { computed } from "nanostores";
 import { $router } from "./router.ts";
+import { redirectPage } from "@nanostores/router";
 
 /** Metadata for the various arcade data sources */
 export const $sources = createFetcherStore<SourcesApiResponse>([
@@ -31,3 +32,32 @@ export const $activeSourceId = computed(
   $activeSource,
   (activeSource) => activeSource?.id,
 );
+
+/**
+ * Sets the selected source ID into the URL and into localStorage for later
+ */
+export const setActiveSourceId = (sourceId: string) => {
+  localStorage.setItem("datasrc", sourceId);
+
+  const page = $router.get();
+  const defaultSourceId = $sources.get().data?.default;
+  if (page) {
+    const newSearch = page.search;
+    if (sourceId === defaultSourceId) delete newSearch.src;
+    else newSearch.src = sourceId;
+
+    redirectPage($router, page.route, page.params, newSearch);
+  }
+};
+
+// Auto-sets the active source ID into the URL if no parameters are currently set, such as from a fresh launch.
+// This avoids the edge case where active ID was loaded from localStorage successfully but unset when `ll` is set.
+const $activeSourceRouter = computed(
+  [$activeSource, $router],
+  (activeSource, router) => ({ activeSource, router }),
+);
+$activeSourceRouter.subscribe(({ activeSource, router: page }) => {
+  if (page?.route !== "nearby" && page?.route !== "explore") return;
+  if (page?.search["ll"] || page?.search["src"]) return;
+  if (activeSource) setActiveSourceId(activeSource.id);
+});

@@ -33,6 +33,7 @@ const $userLocationMarker = computed($userLocation, (userLocation) => {
   return {
     light: `pin-s+${config.lightTheme.userLocation}(${longitude},${latitude})`,
     dark: `pin-s+${config.darkTheme.userLocation}(${longitude},${latitude})`,
+    position: `${longitude},${latitude}`,
   };
 });
 
@@ -69,7 +70,6 @@ const $arcadeLocationMarkers = computed(
         return {
           light: `pin-l-${label}+${config.lightTheme.arcadeLocation}(${lngFixed},${latFixed}),`,
           dark: `pin-l-${label}+${config.darkTheme.arcadeLocation}(${lngFixed},${latFixed}),`,
-          loaded: true,
         };
       })
       .forEach((locationMarker) => {
@@ -89,16 +89,23 @@ export const $staticMap = computed(
     const width = Math.min(window.innerWidth, 640 - 32 - 2);
     const height = 208;
 
+    // When no arcades are nearby, the `auto` map position zooms in too much. Let's zoom it out to show the search scope
+    const hasNearbyArcades =
+      arcadeLocationMarkers.loaded && arcadeLocationMarkers.light;
+    const position = hasNearbyArcades
+      ? "auto"
+      : `${userLocationMarker.position},8`;
+
     return {
       lightThemeUrl:
         userLocationMarker.light &&
         // Loaded is used so that the user location map can still load when there's no arcades nearby
         arcadeLocationMarkers.loaded &&
-        `https://api.mapbox.com/styles/v1/${config.lightTheme.style}/static/${arcadeLocationMarkers.light}${userLocationMarker.light}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
+        `https://api.mapbox.com/styles/v1/${config.lightTheme.style}/static/${arcadeLocationMarkers.light}${userLocationMarker.light}/${position}/${width}x${height}@2x?access_token=${config.accessToken}`,
       darkThemeUrl:
         userLocationMarker.dark &&
         arcadeLocationMarkers.loaded &&
-        `https://api.mapbox.com/styles/v1/${config.darkTheme.style}/static/${arcadeLocationMarkers.dark}${userLocationMarker.dark}/auto/${width}x${height}@2x?access_token=${config.accessToken}`,
+        `https://api.mapbox.com/styles/v1/${config.darkTheme.style}/static/${arcadeLocationMarkers.dark}${userLocationMarker.dark}/${position}/${width}x${height}@2x?access_token=${config.accessToken}`,
       width,
       height,
     } as StaticMapProps;

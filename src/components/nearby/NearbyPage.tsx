@@ -92,31 +92,31 @@ export const NearbyPage: FunctionComponent = () => {
     <>
       <h2 class="text-2xl mt-4 mx-4">Your location:</h2>
       <StaticMap {...staticMapProps} isLoading={isLoading} />
+      <p className="mx-4 min-h-6">
+        {!showPlaceholders && userLocation?.accuracyMeters != null && (
+          <Accuracy accuracy={userLocation.accuracyMeters} />
+        )}
+        {apiError && (
+          <span className="font-bold text-error">
+            Connection error. Please try again
+          </span>
+        )}
+      </p>
+      {/* Vertical padding is for the scrollbar / the button focus outlines */}
+      <p className="mb-4 px-4 py-1 flex gap-2 overflow-x-auto">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={getLocationFromGps}
+        >
+          <IconCurrentLocation aria-hidden="true" /> New Search
+        </button>
+        <FilterSourceButtons
+          filterClick={() => setSearchSettingsOpen(true)}
+          sourceClick={() => setSearchSettingsOpen(true)}
+        />
+      </p>
       <div class="mx-4 mb-4">
-        <p class="min-h-6">
-          {!showPlaceholders && userLocation?.accuracyMeters != null && (
-            <Accuracy accuracy={userLocation.accuracyMeters} />
-          )}
-          {apiError && (
-            <span class="font-bold text-error">
-              Connection error. Please try again
-            </span>
-          )}
-        </p>
-        <p class="mb-4 flex gap-2 overflow-x-auto">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            onClick={getLocationFromGps}
-          >
-            <IconCurrentLocation aria-hidden="true" /> New Search
-          </button>
-          <FilterSourceButtons
-            filterClick={() => setSearchSettingsOpen(true)}
-            sourceClick={() => setSearchSettingsOpen(true)}
-          />
-        </p>
-
         <h2 class="text-2xl">Nearby arcades:</h2>
         <ul class="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-2">
           {showPlaceholders && arcadeListPlaceholder}
@@ -124,7 +124,7 @@ export const NearbyPage: FunctionComponent = () => {
         </ul>
         {!showPlaceholders && arcades.length === 0 && (
           <>
-            <p class="font-bold">No arcades found nearby!</p>
+            <p className="font-bold">No arcades found nearby!</p>
             <ul class="pl-7 list-disc">
               <li>If you have game filters enabled, try clearing them.</li>
               <li>Try a different data source setting.</li>
@@ -133,12 +133,12 @@ export const NearbyPage: FunctionComponent = () => {
             </ul>
           </>
         )}
-        <p class="min-h-6 mt-2 mb-6">
+        <p className="min-h-6 mt-2 mb-6">
           <DataSourceAttribution />
         </p>
 
         <footer>
-          <p class="mb-2">
+          <p className="mb-2">
             &copy; 2012&ndash;2025{" "}
             <a
               href="https://andrew67.com/"
@@ -148,7 +148,7 @@ export const NearbyPage: FunctionComponent = () => {
               Andrés Cordero
             </a>
           </p>
-          <p class="text-sm">
+          <p className="text-sm">
             No warranty is made regarding operation, and no accuracy or
             freshness of results is guaranteed.
             <br />

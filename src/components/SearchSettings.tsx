@@ -1,9 +1,13 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent, JSX } from "preact";
 import { useRef } from "preact/compat";
-import { useEffect, useMemo } from "preact/hooks";
+import { useCallback, useEffect, useMemo } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
-import { $activeSourceId, $sources } from "../stores/sources.ts";
+import {
+  $activeSourceId,
+  $sources,
+  setActiveSourceId,
+} from "../stores/sources.ts";
 import type { DataSource } from "../api-types/sources";
 
 /** Per API docs, Scope is either "world" or a 2-letter country code */
@@ -27,6 +31,10 @@ function getSourceOption(
   );
 }
 
+/** `form.elements` TS helper: {@link https://stackoverflow.com/a/70995964} */
+type FormElements<U extends string> = HTMLFormControlsCollection &
+  Record<U, HTMLInputElement>;
+
 type FilterSourceSettingsProps = {
   open: boolean;
   dismissClick: () => void;
@@ -40,10 +48,8 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (open) {
-      modalRef.current?.showModal();
-      formRef.current?.reset();
-    } else modalRef.current?.close();
+    if (open) modalRef.current?.showModal();
+    else modalRef.current?.close();
   }, [open]);
 
   const sources = useStore($sources);
@@ -73,21 +79,27 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
     );
   }, [sources.data, activeSourceId]);
 
+  const onSubmit = useCallback(() => {
+    const formElements = formRef.current!
+      .elements as FormElements<"dataSource">;
+    const newSourceId = formElements.dataSource.value;
+    setActiveSourceId(newSourceId);
+  }, []);
+
   return (
     <dialog
       class="modal modal-bottom sm:modal-middle"
       onClose={props.dismissClick}
       ref={modalRef}
     >
-      {/* TODO: Handle submit / load existing state */}
-      <form method="dialog" class="modal-box" onSubmit={() => {}} ref={formRef}>
+      <form method="dialog" class="modal-box" onSubmit={onSubmit} ref={formRef}>
         <h3 class="font-bold text-lg mb-2">Search Settings</h3>
 
         <label class="form-control max-w-xs mb-2">
           <div class="label">
             <span class="label-text">Data Source</span>
           </div>
-          <select class="select select-accent" id="data-source-select">
+          <select class="select select-accent" name="dataSource">
             {defaultSource}
             {otherSources}
           </select>
@@ -100,10 +112,11 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
           <label class="label cursor-pointer justify-start gap-2">
             <input
               type="radio"
-              name="game-filter"
-              value="none"
+              name="gameFilter"
+              value="off"
               class="radio checked:bg-primary"
               defaultChecked
+              disabled
             />
             <span class="label-text">Any games</span>
           </label>
@@ -112,9 +125,10 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
           <label class="label pb-0 cursor-pointer justify-start gap-2">
             <input
               type="radio"
-              name="game-filter"
-              value="either-of"
+              name="gameFilter"
+              value="on"
               class="radio checked:bg-primary"
+              disabled
             />
             <span class="label-text">Must have either of:</span>
           </label>
@@ -123,26 +137,29 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
           <input
             class="join-item btn"
             type="checkbox"
-            name="game-filter-ddr"
+            name="gameFilterDdr"
             aria-label="DDR"
+            disabled
           />
           <input
             class="join-item btn"
             type="checkbox"
-            name="game-filter-piu"
+            name="gameFilterPiu"
             aria-label="PIU"
+            disabled
           />
           <input
             class="join-item btn"
             type="checkbox"
-            name="game-filter-smx"
+            name="gameFilterSmx"
             aria-label="SMX"
+            disabled
           />
         </div>
 
         <div class="modal-action">
           {/* if there is a button in form, it will close the modal */}
-          <button type="submit" class="btn btn-secondary" disabled>
+          <button type="submit" class="btn btn-secondary">
             Save
           </button>
         </div>
