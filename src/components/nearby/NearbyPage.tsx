@@ -24,6 +24,7 @@ import { Accuracy } from "./Accuracy.tsx";
 import { StaticMap } from "./StaticMap.tsx";
 import { UserLocationError } from "./UserLocationError.tsx";
 import { DataSourceAttribution } from "./DataSourceAttribution.tsx";
+import { FilterSourceButtons } from "./FilterSourceButtons.tsx";
 
 export const NearbyPage: FunctionComponent = () => {
   const userLocation = useStore($userLocation);
@@ -87,7 +88,7 @@ export const NearbyPage: FunctionComponent = () => {
             </span>
           )}
         </p>
-        <p class="mb-4">
+        <p class="mb-4 flex gap-2 overflow-x-auto">
           <button
             type="button"
             class="btn btn-secondary"
@@ -95,13 +96,11 @@ export const NearbyPage: FunctionComponent = () => {
           >
             <IconCurrentLocation aria-hidden="true" /> New Search
           </button>
+          {/*<FilterSourceButtons />*/}
         </p>
 
         <h2 class="text-2xl">Nearby arcades:</h2>
-        <p class="min-h-6 mb-2">
-          <DataSourceAttribution />
-        </p>
-        <ul class="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        <ul class="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-2">
           {showPlaceholders && arcadeListPlaceholder}
           {!showPlaceholders && arcadeList}
         </ul>
@@ -116,9 +115,12 @@ export const NearbyPage: FunctionComponent = () => {
             </ul>
           </>
         )}
+        <p class="min-h-6 mt-2 mb-6">
+          <DataSourceAttribution />
+        </p>
         {locationError}
 
-        <footer class="mt-6">
+        <footer>
           <p class="mb-2">
             &copy; 2012&ndash;2025{" "}
             <a
