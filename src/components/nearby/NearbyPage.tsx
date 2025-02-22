@@ -1,7 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { IconCurrentLocation } from "@tabler/icons-preact";
 import type { h, FunctionComponent } from "preact";
-import { useMemo } from "preact/hooks";
+import { useMemo, useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 
 import {
@@ -25,6 +25,7 @@ import { StaticMap } from "./StaticMap.tsx";
 import { UserLocationError } from "./UserLocationError.tsx";
 import { DataSourceAttribution } from "./DataSourceAttribution.tsx";
 import { FilterSourceButtons } from "./FilterSourceButtons.tsx";
+import { SearchSettings } from "../SearchSettings.tsx";
 
 export const NearbyPage: FunctionComponent = () => {
   const userLocation = useStore($userLocation);
@@ -63,6 +64,7 @@ export const NearbyPage: FunctionComponent = () => {
     [arcades, staticMapNumLocations],
   );
 
+  /* Start Modals */
   const locationError = useMemo(
     () => (
       <UserLocationError
@@ -72,6 +74,19 @@ export const NearbyPage: FunctionComponent = () => {
     ),
     [userLocationError],
   );
+
+  const [searchSettingsOpen, setSearchSettingsOpen] = useState(false);
+
+  const searchSettings = useMemo(
+    () => (
+      <SearchSettings
+        open={searchSettingsOpen}
+        dismissClick={() => setSearchSettingsOpen(false)}
+      />
+    ),
+    [searchSettingsOpen],
+  );
+  /* End Modals */
 
   return (
     <>
@@ -96,7 +111,10 @@ export const NearbyPage: FunctionComponent = () => {
           >
             <IconCurrentLocation aria-hidden="true" /> New Search
           </button>
-          {/*<FilterSourceButtons />*/}
+          <FilterSourceButtons
+            filterClick={() => setSearchSettingsOpen(true)}
+            sourceClick={() => setSearchSettingsOpen(true)}
+          />
         </p>
 
         <h2 class="text-2xl">Nearby arcades:</h2>
@@ -118,7 +136,6 @@ export const NearbyPage: FunctionComponent = () => {
         <p class="min-h-6 mt-2 mb-6">
           <DataSourceAttribution />
         </p>
-        {locationError}
 
         <footer>
           <p class="mb-2">
@@ -148,6 +165,9 @@ export const NearbyPage: FunctionComponent = () => {
           </p>
         </footer>
       </div>
+      {/* Modals */}
+      {locationError}
+      {searchSettings}
     </>
   );
 };

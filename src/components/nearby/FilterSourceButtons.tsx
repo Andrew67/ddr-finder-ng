@@ -4,16 +4,25 @@ import { $activeSource } from "../../stores/sources.ts";
 import { useStore } from "@nanostores/preact";
 import { IconDeviceGamepad, IconListSearch } from "@tabler/icons-preact";
 
-export const FilterSourceButtons: FunctionComponent = () => {
+type FilterSourceButtonsProps = {
+  filterClick: () => void;
+  sourceClick: () => void;
+};
+
+export const FilterSourceButtons: FunctionComponent<
+  FilterSourceButtonsProps
+> = (props: FilterSourceButtonsProps) => {
+  const { filterClick, sourceClick } = props;
+
   const activeSource = useStore($activeSource);
   const sourceName = activeSource ? `: ${activeSource.name}` : "";
 
   return (
     <>
-      <button type="button" className="btn btn-primary">
+      <button type="button" class="btn btn-primary" onClick={filterClick}>
         <IconDeviceGamepad aria-hidden="true" /> Filter: Any Games
       </button>
-      <button type="button" className="btn btn-accent">
+      <button type="button" class="btn btn-accent" onClick={sourceClick}>
         <IconListSearch aria-hidden="true" /> Source{sourceName}
       </button>
     </>
