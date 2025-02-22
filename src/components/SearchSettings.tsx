@@ -88,68 +88,73 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
 
   return (
     <dialog
-      class="modal modal-bottom sm:modal-middle"
+      className="modal modal-bottom sm:modal-middle"
       onClose={props.dismissClick}
       ref={modalRef}
     >
-      <form method="dialog" class="modal-box" onSubmit={onSubmit} ref={formRef}>
-        <h3 class="font-bold text-lg mb-2">Search Settings</h3>
+      <form
+        method="dialog"
+        className="modal-box"
+        onSubmit={onSubmit}
+        ref={formRef}
+      >
+        <h3 className="font-bold text-lg mb-2">Search Settings</h3>
 
-        <label class="form-control max-w-xs mb-2">
-          <div class="label">
-            <span class="label-text">Data Source</span>
+        <label className="form-control max-w-xs mb-2">
+          <div className="label">
+            <span className="label-text">Data Source</span>
           </div>
-          <select class="select select-accent" name="dataSource">
+          <select className="select select-accent" name="dataSource">
             {defaultSource}
             {otherSources}
           </select>
         </label>
 
-        <div class="label pb-0">
-          <span class="label-text">Game Filter</span>
+        <div className="label pb-0">
+          <span className="label-text">Game Filter</span>
         </div>
-        <div class="form-control">
-          <label class="label cursor-pointer justify-start gap-2">
+        <div className="form-control">
+          <label className="label cursor-pointer justify-start gap-2">
             <input
               type="radio"
               name="gameFilter"
               value="off"
-              class="radio checked:bg-primary"
+              className="radio checked:bg-primary"
               defaultChecked
               disabled
             />
-            <span class="label-text">Any games</span>
+            <span className="label-text">Any games</span>
           </label>
         </div>
-        <div class="form-control">
-          <label class="label pb-0 cursor-pointer justify-start gap-2">
+        <div className="form-control">
+          <label className="label pb-0 cursor-pointer justify-start gap-2">
             <input
               type="radio"
               name="gameFilter"
               value="on"
-              class="radio checked:bg-primary"
+              className="radio checked:bg-primary"
               disabled
             />
-            <span class="label-text">Must have either of:</span>
+            <span className="label-text">Must have either of:</span>
           </label>
         </div>
-        <div class="join ms-8">
+        <div className="join ms-8">
           <input
-            class="join-item btn"
+            className="join-item btn"
             type="checkbox"
             name="gameFilterDdr"
             aria-label="DDR"
             disabled
           />
           <input
-            class="join-item btn"
+            className="join-item btn"
             type="checkbox"
             name="gameFilterPiu"
             aria-label="PIU"
             disabled
           />
           <input
-            class="join-item btn"
+            className="join-item btn"
             type="checkbox"
             name="gameFilterSmx"
             aria-label="SMX"
@@ -157,15 +162,15 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
           />
         </div>
 
-        <div class="modal-action">
+        <div className="modal-action">
           {/* if there is a button in form, it will close the modal */}
-          <button type="submit" class="btn btn-secondary">
+          <button type="submit" className="btn btn-secondary">
             Save
           </button>
         </div>
       </form>
 
-      <form method="dialog" class="modal-backdrop">
+      <form method="dialog" className="modal-backdrop">
         <button type="submit">Cancel</button>
       </form>
     </dialog>

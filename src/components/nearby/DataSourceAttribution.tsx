@@ -13,7 +13,7 @@ export const DataSourceAttribution: FunctionComponent = () => {
       <a
         href={activeSource["url:homepage"]}
         target="_blank"
-        class="link link-info"
+        className="link link-info"
       >
         {activeSource.name}
       </a>{" "}

@@ -90,7 +90,7 @@ export const NearbyPage: FunctionComponent = () => {
 
   return (
     <>
-      <h2 class="text-2xl mt-4 mx-4">Your location:</h2>
+      <h2 className="text-2xl mt-4 mx-4">Your location:</h2>
       <StaticMap {...staticMapProps} isLoading={isLoading} />
       <p className="mx-4 min-h-6">
         {!showPlaceholders && userLocation?.accuracyMeters != null && (
@@ -116,16 +116,16 @@ export const NearbyPage: FunctionComponent = () => {
           sourceClick={() => setSearchSettingsOpen(true)}
         />
       </p>
-      <div class="mx-4 mb-4">
-        <h2 class="text-2xl">Nearby arcades:</h2>
-        <ul class="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-2">
+      <div className="mx-4 mb-4">
+        <h2 className="text-2xl">Nearby arcades:</h2>
+        <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-2">
           {showPlaceholders && arcadeListPlaceholder}
           {!showPlaceholders && arcadeList}
         </ul>
         {!showPlaceholders && arcades.length === 0 && (
           <>
             <p className="font-bold">No arcades found nearby!</p>
-            <ul class="pl-7 list-disc">
+            <ul className="pl-7 list-disc">
               <li>If you have game filters enabled, try clearing them.</li>
               <li>Try a different data source setting.</li>
               <li>Use the Explore page to check out the entire world.</li>
@@ -143,7 +143,7 @@ export const NearbyPage: FunctionComponent = () => {
             <a
               href="https://andrew67.com/"
               target="_blank"
-              class="link link-info"
+              className="link link-info"
             >
               Andrés Cordero
             </a>
@@ -156,7 +156,7 @@ export const NearbyPage: FunctionComponent = () => {
             <a
               href="https://www.stepmania.com/"
               target="_blank"
-              class="link link-info"
+              className="link link-info"
             >
               StepMania 5
             </a>{" "}

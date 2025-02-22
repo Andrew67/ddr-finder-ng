@@ -66,11 +66,11 @@ ${gamesText}`;
 
   return (
     <li>
-      <article class="collapse collapse-arrow bg-base-200 print:collapse-open print:border print:rounded">
+      <article className="collapse collapse-arrow bg-base-200 print:collapse-open print:border print:rounded">
         <input type="checkbox" name={`arcade-accordion-${id}`} />
         <div className="collapse-title text-lg font-medium">
           {index != undefined && (
-            <span class="badge badge-secondary px-0 w-5 me-1 -translate-y-0.5">
+            <span className="badge badge-secondary px-0 w-5 me-1 -translate-y-0.5">
               {index + 1}
             </span>
           )}
@@ -87,7 +87,7 @@ ${gamesText}`;
             <b>{distanceFormatter.format(properties.distanceKm)}</b> away
           </li>
           {hasDanceGames && (
-            <li class="flex gap-1 items-baseline">
+            <li className="flex gap-1 items-baseline">
               Games:
               {hasDDR && <span className="badge badge-primary">DDR</span>}
               {hasPIU && <span className="badge badge-secondary">PIU</span>}

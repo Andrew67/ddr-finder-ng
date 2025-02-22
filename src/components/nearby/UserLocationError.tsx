@@ -21,15 +21,15 @@ export const UserLocationError: FunctionComponent<UserLocationErrorProps> = (
 
   return (
     <dialog
-      class="modal modal-bottom sm:modal-middle"
+      className="modal modal-bottom sm:modal-middle"
       onClose={props.dismissClick}
       ref={modalRef}
     >
-      <div class="modal-box">
+      <div className="modal-box">
         {error === GeolocationPositionError.PERMISSION_DENIED && (
           <>
-            <h3 class="font-bold text-lg">Enable Current Location</h3>
-            <p class="py-4">
+            <h3 className="font-bold text-lg">Enable Current Location</h3>
+            <p className="py-4">
               To search near you, make sure you allow the location permission
               for this site, your web browser, and your phone settings.
             </p>
@@ -38,8 +38,8 @@ export const UserLocationError: FunctionComponent<UserLocationErrorProps> = (
         {(error === GeolocationPositionError.POSITION_UNAVAILABLE ||
           error === GeolocationPositionError.TIMEOUT) && (
           <>
-            <h3 class="font-bold text-lg">Position Unavailable</h3>
-            <p class="py-4">
+            <h3 className="font-bold text-lg">Position Unavailable</h3>
+            <p className="py-4">
               Make sure GPS, Wi-Fi, and Bluetooth are enabled, then try again.
               <br />
               If your location permission is set to "approximate", you may need
@@ -49,9 +49,9 @@ export const UserLocationError: FunctionComponent<UserLocationErrorProps> = (
             </p>
           </>
         )}
-        <form method="dialog" class="modal-action">
+        <form method="dialog" className="modal-action">
           {/* if there is a button in form, it will close the modal */}
-          <button type="submit" class="btn">
+          <button type="submit" className="btn">
             I understand
           </button>
         </form>

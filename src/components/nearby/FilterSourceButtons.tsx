@@ -19,10 +19,10 @@ export const FilterSourceButtons: FunctionComponent<
 
   return (
     <>
-      <button type="button" class="btn btn-primary" onClick={filterClick}>
+      <button type="button" className="btn btn-primary" onClick={filterClick}>
         <IconDeviceGamepad aria-hidden="true" /> Filter: Any Games
       </button>
-      <button type="button" class="btn btn-accent" onClick={sourceClick}>
+      <button type="button" className="btn btn-accent" onClick={sourceClick}>
         <IconListSearch aria-hidden="true" /> Source{sourceName}
       </button>
     </>
