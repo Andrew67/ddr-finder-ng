@@ -7,6 +7,7 @@ import {
 } from "../utils/getCoordinateAccuracy.ts";
 import { getCurrentPosition } from "../utils/getCurrentPosition.ts";
 import { numDecimalDigits } from "../utils/number.ts";
+import { redirectPage } from "@nanostores/router";
 
 export type UserLocation = {
   latitude: string;
@@ -58,6 +59,15 @@ $router.subscribe((page) => {
   if (latitudeNumDigits > 4) latitude = latitudeNumeric.toFixed(4);
   if (longitudeNumDigits > 4) longitude = longitudeNumeric.toFixed(4);
 
+  // If this is already our current location, don't reset it, we have better accuracy information already
+  const currentLocation = $userLocation.get();
+  if (
+    currentLocation &&
+    latitude === currentLocation.latitude &&
+    longitude === currentLocation.longitude
+  )
+    return;
+
   const accuracyMeters = getCoordinateAccuracy(latitude, longitude);
   $userLocation.set({ latitude, longitude, accuracyMeters });
 });
@@ -102,15 +112,10 @@ export function getLocationFromGps() {
 
         const page = $router.get();
         if (page?.route === "nearby") {
-          const searchParameters = new URLSearchParams(page.search);
-          searchParameters.set("ll", `${latitudeFixed},${longitudeFixed}`);
-          // Avoid pushing through router to keep original accuracy instead of estimated above
-          // TODO: Helper method for replacing one parameter at a time while un-encoding commas
-          history.replaceState(
-            null,
-            "",
-            "?" + searchParameters.toString().replace("%2C", ","),
-          );
+          redirectPage($router, page.route, page.params, {
+            ...page.search,
+            ll: `${latitudeFixed},${longitudeFixed}`,
+          });
         }
       },
       (error: GeolocationPositionError) => {

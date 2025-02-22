@@ -1,0 +1,13 @@
+diff --git a/index.js b/index.js
+index 22c542e2ea74c45de669acfd7dada1e2b2ad529b..24a57bd20e9cb57dba75fbbaa94095438b799cca 100644
+--- a/index.js
++++ b/index.js
+@@ -144,7 +144,7 @@ export function getPagePath(router, name, params, search) {
+     })
+     .replace(/\/:\w+/g, i => '/' + encodeURIComponent(params[i.slice(2)]))
+   if (search) {
+-    let postfix = '' + new URLSearchParams(search)
++    let postfix = '' + new URLSearchParams(search).toString().replaceAll('%2C', ',')
+     if (postfix) return path + '?' + postfix
+   }
+   return path

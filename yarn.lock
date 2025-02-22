@@ -1321,6 +1321,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nanostores/router@patch:@nanostores/router@npm%3A0.16.1#~/.yarn/patches/@nanostores-router-npm-0.16.1-88c1b03e8e.patch":
+  version: 0.16.1
+  resolution: "@nanostores/router@patch:@nanostores/router@npm%3A0.16.1#~/.yarn/patches/@nanostores-router-npm-0.16.1-88c1b03e8e.patch::version=0.16.1&hash=e82eae"
+  peerDependencies:
+    nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0
+  checksum: 10/41ee396fbf1925b43ecde8df13e288183c82e08955c3fb5402e031f984756400ba3290e6fe5560b1038468934d3c75deeef3e90def5c2f146262b4931c8eb964
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -2595,7 +2604,7 @@ __metadata:
     "@babel/core": "npm:*"
     "@nanostores/preact": "npm:0.5.2"
     "@nanostores/query": "npm:0.3.4"
-    "@nanostores/router": "npm:0.16.1"
+    "@nanostores/router": "patch:@nanostores/router@npm%3A0.16.1#~/.yarn/patches/@nanostores-router-npm-0.16.1-88c1b03e8e.patch"
     "@tabler/icons-preact": "npm:3.30.0"
     astro: "npm:5.3.0"
     daisyui: "npm:4.12.23"
