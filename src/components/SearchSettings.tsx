@@ -9,6 +9,7 @@ import {
   setActiveSourceId,
 } from "../stores/sources.ts";
 import type { DataSource } from "../api-types/sources";
+import { $gameFilter, setGameFilter } from "../stores/gameFilter.ts";
 
 /** Per API docs, Scope is either "world" or a 2-letter country code */
 function getScopeLabel(scope: DataSource["scope"]): string {
@@ -35,12 +36,20 @@ function getSourceOption(
 type FormElements<U extends string> = HTMLFormControlsCollection &
   Record<U, HTMLInputElement>;
 
-type FilterSourceSettingsProps = {
+type SearchSettingsFormElements = FormElements<
+  | "dataSource"
+  | "gameFilter"
+  | "gameFilterDdr"
+  | "gameFilterPiu"
+  | "gameFilterSmx"
+>;
+
+type SearchSettingsProps = {
   open: boolean;
   dismissClick: () => void;
 };
 
-export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
+export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
   props,
 ) => {
   const { open } = props;
@@ -54,6 +63,7 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
 
   const sources = useStore($sources);
   const activeSourceId = useStore($activeSourceId);
+  const gameFilter = useStore($gameFilter);
 
   const defaultSource = useMemo(() => {
     if (!sources.data || !activeSourceId) return <></>;
@@ -79,11 +89,37 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
     );
   }, [sources.data, activeSourceId]);
 
+  // TODO: Disable game filter options when unsupported by data source
+
+  /** When clicking "Any games" / off, disable all game filter checkboxes */
+  const onFilterOffClick = useCallback(() => {
+    const formElements = formRef.current!
+      .elements as SearchSettingsFormElements;
+    formElements.gameFilterDdr.checked = false;
+    formElements.gameFilterPiu.checked = false;
+    formElements.gameFilterSmx.checked = false;
+  }, []);
+
+  /** When clicking on a game filter, change game filter to "Must have" / on */
+  const onGameFilterClick = useCallback(() => {
+    const formElements = formRef.current!
+      .elements as SearchSettingsFormElements;
+    formElements.gameFilter.value = "on";
+  }, []);
+
   const onSubmit = useCallback(() => {
     const formElements = formRef.current!
-      .elements as FormElements<"dataSource">;
+      .elements as SearchSettingsFormElements;
     const newSourceId = formElements.dataSource.value;
     setActiveSourceId(newSourceId);
+
+    const newGameFilter: string[] = [];
+    if (formElements.gameFilter.value === "on") {
+      if (formElements.gameFilterDdr.checked) newGameFilter.push("ddr");
+      if (formElements.gameFilterPiu.checked) newGameFilter.push("piu");
+      if (formElements.gameFilterSmx.checked) newGameFilter.push("smx");
+    }
+    setGameFilter(newGameFilter);
   }, []);
 
   return (
@@ -120,8 +156,8 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
               name="gameFilter"
               value="off"
               className="radio checked:bg-primary"
-              defaultChecked
-              disabled
+              defaultChecked={gameFilter.length === 0}
+              onClick={onFilterOffClick}
             />
             <span className="label-text">Any games</span>
           </label>
@@ -133,7 +169,7 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
               name="gameFilter"
               value="on"
               className="radio checked:bg-primary"
-              disabled
+              defaultChecked={gameFilter.length !== 0}
             />
             <span className="label-text">Must have either of:</span>
           </label>
@@ -144,21 +180,24 @@ export const SearchSettings: FunctionComponent<FilterSourceSettingsProps> = (
             type="checkbox"
             name="gameFilterDdr"
             aria-label="DDR"
-            disabled
+            defaultChecked={gameFilter.includes("ddr")}
+            onClick={onGameFilterClick}
           />
           <input
             className="join-item btn"
             type="checkbox"
             name="gameFilterPiu"
             aria-label="PIU"
-            disabled
+            defaultChecked={gameFilter.includes("piu")}
+            onClick={onGameFilterClick}
           />
           <input
             className="join-item btn"
             type="checkbox"
             name="gameFilterSmx"
             aria-label="SMX"
-            disabled
+            defaultChecked={gameFilter.includes("smx")}
+            onClick={onGameFilterClick}
           />
         </div>
 

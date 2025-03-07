@@ -57,7 +57,8 @@ const $activeSourceRouter = computed(
   (activeSource, router) => ({ activeSource, router }),
 );
 $activeSourceRouter.subscribe(({ activeSource, router: page }) => {
-  if (page?.route !== "nearby" && page?.route !== "explore") return;
-  if (page?.search["ll"] || page?.search["src"]) return;
+  if (!page) return;
+  if (page.route !== "nearby" && page.route !== "explore") return;
+  if (page.search["ll"] || page.search["src"]) return;
   if (activeSource) setActiveSourceId(activeSource.id);
 });

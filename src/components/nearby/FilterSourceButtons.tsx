@@ -3,6 +3,7 @@ import type { h, FunctionComponent } from "preact";
 import { $activeSource } from "../../stores/sources.ts";
 import { useStore } from "@nanostores/preact";
 import { IconDeviceGamepad, IconListSearch } from "@tabler/icons-preact";
+import { $gameFilter } from "../../stores/gameFilter.ts";
 
 type FilterSourceButtonsProps = {
   filterClick: () => void;
@@ -17,10 +18,16 @@ export const FilterSourceButtons: FunctionComponent<
   const activeSource = useStore($activeSource);
   const sourceName = activeSource ? `: ${activeSource.name}` : "";
 
+  const gameFilter = useStore($gameFilter);
+  const gameFilterString =
+    gameFilter.length === 0
+      ? "Any Games"
+      : gameFilter.join(", ").toLocaleUpperCase("en-US");
+
   return (
     <>
       <button type="button" className="btn btn-primary" onClick={filterClick}>
-        <IconDeviceGamepad aria-hidden="true" /> Filter: Any Games
+        <IconDeviceGamepad aria-hidden="true" /> Filter: {gameFilterString}
       </button>
       <button type="button" className="btn btn-accent" onClick={sourceClick}>
         <IconListSearch aria-hidden="true" /> Source{sourceName}
