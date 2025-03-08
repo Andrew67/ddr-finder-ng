@@ -9,4 +9,9 @@ export default defineConfig({
   build: {
     format: "preserve",
   },
+  vite: {
+    server: {
+      allowedHosts: true,
+    },
+  },
 });

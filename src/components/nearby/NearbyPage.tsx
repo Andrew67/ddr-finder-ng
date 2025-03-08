@@ -116,7 +116,7 @@ export const NearbyPage: FunctionComponent = () => {
           sourceClick={() => setSearchSettingsOpen(true)}
         />
       </p>
-      <div className="mx-4 mb-4">
+      <div className="px-4 pb-4">
         <h2 className="text-2xl">Nearby arcades:</h2>
         <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-2">
           {showPlaceholders && arcadeListPlaceholder}

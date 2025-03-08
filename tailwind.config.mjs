@@ -16,6 +16,12 @@ export default {
         short: { raw: "(max-height: 499.98px)" },
         tall: { raw: "(min-height: 500px)" },
       },
+      spacing: {
+        "inset-top": "env(safe-area-inset-top)",
+        "inset-right": "env(safe-area-inset-right)",
+        "inset-bottom": "env(safe-area-inset-bottom)",
+        "inset-left": "env(safe-area-inset-left)",
+      },
     },
   },
   daisyui: {

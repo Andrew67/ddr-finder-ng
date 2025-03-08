@@ -49,7 +49,7 @@ export const UserLocationError: FunctionComponent<UserLocationErrorProps> = (
             </p>
           </>
         )}
-        <form method="dialog" className="modal-action">
+        <form method="dialog" className="modal-action mb-inset-bottom sm:mb-0">
           {/* if there is a button in form, it will close the modal */}
           <button type="submit" className="btn">
             I understand

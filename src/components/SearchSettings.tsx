@@ -201,7 +201,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
           />
         </div>
 
-        <div className="modal-action">
+        <div className="modal-action mb-inset-bottom sm:mb-0">
           {/* if there is a button in form, it will close the modal */}
           <button type="submit" className="btn btn-secondary">
             Save

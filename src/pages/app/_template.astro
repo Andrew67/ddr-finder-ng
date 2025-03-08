@@ -11,7 +11,7 @@ const { page, title, description } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
     <!-- ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE -->
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
     <meta
       name="theme-color"
@@ -33,11 +33,11 @@ const { page, title, description } = Astro.props;
     <link rel="preconnect" href="https://ddrfinder-api.andrew67.com" />
     <link rel="preconnect" href="https://api.mapbox.com" />
   </head>
-  <body class="h-svh grid grid-rows-stack">
-    <div class="navbar bg-base-300">
-      <h1 class="btn btn-ghost text-xl">DDR Finder</h1>
+  <body class="min-h-screen">
+    <div class="navbar sticky z-10 top-0 bg-base-300">
+      <h1 class="btn btn-ghost text-xl ml-inset-left">DDR Finder</h1>
     </div>
-    <div class="overflow-auto">
+    <div class="pl-inset-left pr-inset-right pb-inset-bottom mb-16 short:mb-10">
       <App client:only="preact">
         <div slot="fallback" class="p-4">Loading...</div>
       </App>
