@@ -19,9 +19,9 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "/",
+  "start_url": "/app/nearby",
   "id": "/",
-  "display": "browser",
-  "theme_color": "#1976d2",
-  "background_color": "#1976d2"
+  "display": "standalone",
+  "theme_color": "#334155",
+  "background_color": "#334155"
 }
