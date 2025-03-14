@@ -103,7 +103,7 @@ export const NearbyPage: FunctionComponent = () => {
         )}
       </p>
       {/* Vertical padding is for the scrollbar / the button focus outlines */}
-      <p className="mb-4 px-4 py-1 flex gap-2 overflow-x-auto">
+      <p className="print:hidden mb-4 px-4 py-1 flex gap-2 overflow-x-auto">
         <button
           type="button"
           className="btn btn-secondary"

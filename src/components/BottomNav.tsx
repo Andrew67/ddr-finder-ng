@@ -32,7 +32,7 @@ export const BottomNav: FunctionComponent<{
 
   return (
     <>
-      <nav className="btm-nav z-10 short:btm-nav-xs bg-base-300 pl-inset-left pr-inset-right pb-0 bottom-inset-bottom">
+      <nav className="btm-nav z-10 short:btm-nav-xs print:hidden bg-base-300 pl-inset-left pr-inset-right pb-0 bottom-inset-bottom">
         <a
           href={getPagePath($router, "nearby")}
           className={activeLinkClasses("nearby") + " short:flex-row"}
