@@ -1,13 +1,10 @@
 import type { h, FunctionComponent } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
-import {
-  IconCalculator,
-  IconLocationSearch,
-  IconMap2,
-} from "@tabler/icons-preact";
+import { IconLocationSearch, IconMap2, IconMenu2 } from "@tabler/icons-preact";
 import { $router } from "../stores/router.ts";
 import { useStore } from "@nanostores/preact";
 import { getPagePath } from "@nanostores/router";
+import { $userLocation } from "../stores/userLocation.ts";
 
 export const BottomNav: FunctionComponent<{
   initialPage: string | undefined;
@@ -22,20 +19,22 @@ export const BottomNav: FunctionComponent<{
 
   // Future: getPagePath($router, "explore", {}, page?.search)
   // Today: compatibility open of existing /ng UI
+  const userLocation = useStore($userLocation);
   const [ngLink, setNgLink] = useState("/ng");
   useEffect(() => {
-    if (!page?.search) return setNgLink("/ng");
-    const ngParams = new URLSearchParams(page.search);
+    if (!userLocation) return setNgLink("/ng");
+    const ngParams = new URLSearchParams();
+    ngParams.set("ll", `${userLocation.latitude},${userLocation.longitude}`);
     ngParams.set("z", "14");
     return setNgLink(`/ng?${ngParams}`);
-  }, [page?.search]);
+  }, [userLocation]);
 
   return (
     <>
       <nav className="btm-nav z-10 short:btm-nav-xs print:hidden bg-base-300 pl-inset-left pr-inset-right pb-0 bottom-inset-bottom">
         <a
           href={getPagePath($router, "nearby")}
-          className={activeLinkClasses("nearby") + " short:flex-row"}
+          className={`${activeLinkClasses("nearby")} short:flex-row`}
         >
           <IconLocationSearch aria-hidden="true" />
           <span className="btm-nav-label">Nearby</span>
@@ -44,20 +43,12 @@ export const BottomNav: FunctionComponent<{
           <IconMap2 aria-hidden="true" />
           <span className="btm-nav-label">Explore</span>
         </a>
-        {/*        <a
+        <a
           href={getPagePath($router, "menu")}
-          className={activeLinkClasses("menu") + " short:flex-row"}
+          className={`${activeLinkClasses("menu")} short:flex-row`}
         >
           <IconMenu2 aria-hidden="true" />
           <span className="btm-nav-label">Menu</span>
-        </a>*/}
-        <a
-          href="https://ddrcalc.andrew67.com/"
-          target="_blank"
-          className="short:flex-row"
-        >
-          <IconCalculator aria-hidden="true" />
-          <span className="btm-nav-label">Calculator</span>
         </a>
       </nav>
       {/* This hack won't be needed in DaisyUI 5.x */}

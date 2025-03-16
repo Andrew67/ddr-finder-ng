@@ -1,6 +1,6 @@
 import type { h, FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { IconShare } from "@tabler/icons-preact";
+import { IconCalculator, IconShare } from "@tabler/icons-preact";
 
 const share = () =>
   navigator.share({ title: document.title, url: window.location.href });
@@ -17,14 +17,14 @@ export const TopNav: FunctionComponent = () => {
         <h1 className="btn btn-ghost text-xl">DDR Finder</h1>
       </div>
       <div className="flex-none pr-inset-right pt-inset-top print:hidden">
-        {/*        <a
+        <a
           href="https://ddrcalc.andrew67.com/"
           target="_blank"
           title="Calculator"
           className="btn btn-square btn-ghost"
         >
           <IconCalculator aria-hidden="true" />
-        </a>*/}
+        </a>
         {showShareButton && (
           <button
             type="button"

@@ -4,9 +4,10 @@ import { useStore } from "@nanostores/preact";
 
 import { $router } from "../stores/router.js";
 
+import { HomeRedirect } from "./HomeRedirect.tsx";
 import { HeadMetaUpdater } from "./HeadMetaUpdater.tsx";
 import { NearbyPage } from "./nearby/NearbyPage.tsx";
-import { HomeRedirect } from "./HomeRedirect.tsx";
+import { MenuPage } from "./menu/MenuPage.tsx";
 
 export const App: FunctionComponent = () => {
   const page = useStore($router);
@@ -22,14 +23,7 @@ export const App: FunctionComponent = () => {
         ))}
       </div>
     );
-  else if (page?.route === "menu")
-    childPage = (
-      <div>
-        {new Array(100).fill(0).map((_, i) => (
-          <li>Menu {i + 1}</li>
-        ))}
-      </div>
-    );
+  else if (page?.route === "menu") childPage = <MenuPage />;
 
   return (
     <>
