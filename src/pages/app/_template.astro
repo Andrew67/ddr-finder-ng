@@ -36,7 +36,7 @@ const { page, title, description } = Astro.props;
   </head>
   <body class="min-h-screen">
     <TopNav client:load />
-    <div class="pl-inset-left pr-inset-right pb-inset-bottom mb-16 short:mb-10">
+    <div class="pl-inset-left pr-inset-right pb-inset-bottom">
       <App client:only="preact">
         <div slot="fallback" class="p-4">Loading...</div>
       </App>
@@ -45,6 +45,7 @@ const { page, title, description } = Astro.props;
         <p class="text-3xl p-4">JavaScript is required to use this site</p>
       </noscript>
     </div>
+    <div class="h-16 short:h-10"></div>
     <BottomNav client:load initialPage={page} />
   </body>
 </html>

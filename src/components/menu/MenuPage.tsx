@@ -1,9 +1,10 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
+import { CreditsCard } from "./CreditsCard";
 
 export const MenuPage: FunctionComponent = () => {
   return (
-    <div className="p-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+    <div className="p-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
       <div className="card bg-primary text-primary-content">
         <div className="card-body">
           <h2 className="card-title">About</h2>
@@ -25,6 +26,7 @@ export const MenuPage: FunctionComponent = () => {
           </div>
         </div>
       </div>
+      <CreditsCard />
     </div>
   );
 };

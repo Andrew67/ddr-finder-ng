@@ -145,17 +145,6 @@ export const NearbyPage: FunctionComponent = () => {
           <p className="text-sm">
             No warranty is made regarding operation, and no accuracy or
             freshness of results is guaranteed.
-            <br />
-            Arrow icon from the{" "}
-            <a
-              href="https://www.stepmania.com/"
-              target="_blank"
-              className="link link-info"
-            >
-              StepMania 5
-            </a>{" "}
-            default noteskin.
-            <br />
           </p>
         </footer>
       </div>
