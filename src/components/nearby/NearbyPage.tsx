@@ -10,22 +10,16 @@ import {
   $userLocationLoading,
   clearLocationError,
   getLocationFromGps,
-} from "../../stores/userLocation.ts";
-import { $nearbyArcades } from "../../stores/nearby/arcades.ts";
-import {
-  $numLocationsToShow,
-  $staticMap,
-} from "../../stores/nearby/staticMap.ts";
-import {
-  ArcadeListItem,
-  ArcadeListItemPlaceholder,
-} from "./ArcadeListItem.tsx";
-import { Accuracy } from "./Accuracy.tsx";
-import { StaticMap } from "./StaticMap.tsx";
-import { UserLocationError } from "./UserLocationError.tsx";
-import { DataSourceAttribution } from "./DataSourceAttribution.tsx";
-import { FilterSourceButtons } from "./FilterSourceButtons.tsx";
-import { SearchSettings } from "../SearchSettings.tsx";
+} from "../../stores/userLocation";
+import { $nearbyArcades } from "../../stores/nearby/arcades";
+import { $numLocationsToShow, $staticMap } from "../../stores/nearby/staticMap";
+import { ArcadeListItem, ArcadeListItemPlaceholder } from "./ArcadeListItem";
+import { Accuracy } from "./Accuracy";
+import { StaticMap } from "./StaticMap";
+import { UserLocationError } from "./UserLocationError";
+import { DataSourceAttribution } from "./DataSourceAttribution";
+import { FilterSourceButtons } from "./FilterSourceButtons";
+import { SearchSettings } from "../SearchSettings";
 
 export const NearbyPage: FunctionComponent = () => {
   const userLocation = useStore($userLocation);
@@ -171,3 +165,5 @@ export const NearbyPage: FunctionComponent = () => {
     </>
   );
 };
+
+export default NearbyPage;

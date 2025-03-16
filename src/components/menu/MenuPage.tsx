@@ -28,3 +28,5 @@ export const MenuPage: FunctionComponent = () => {
     </div>
   );
 };
+
+export default MenuPage;
