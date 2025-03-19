@@ -1,12 +1,9 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
 import type { ArcadeLocationWithDistance } from "../../api-types/nearby";
-import {
-  IconExternalLink,
-  IconNavigation,
-  IconShare,
-} from "@tabler/icons-preact";
+import { IconExternalLink, IconNavigation } from "@tabler/icons-preact";
 import { useArcadeListItemLinks } from "./useArcadeListItemLinks.ts";
+import { IconPlatformShare } from "../IconPlatformShare.tsx";
 
 type ArcadeListItemPlaceholderProps = { isLoading: boolean };
 
@@ -104,7 +101,7 @@ ${gamesText}`;
               target="_blank"
             >
               <IconExternalLink aria-hidden="true" />
-              <span>More Info</span>
+              More Info
             </a>
             <a
               href={moreInfoUrl}
@@ -112,7 +109,7 @@ ${gamesText}`;
               target="_blank"
             >
               <IconExternalLink aria-hidden="true" />
-              <span>More Info</span>
+              More Info
             </a>
             {isShareAvailable && (
               <button
@@ -120,7 +117,7 @@ ${gamesText}`;
                 className="arcade-gmaps btn btn-secondary"
                 onClick={onShareClick}
               >
-                <IconShare aria-hidden="true" /> Share
+                <IconPlatformShare aria-hidden="true" /> Share
               </button>
             )}
           </li>

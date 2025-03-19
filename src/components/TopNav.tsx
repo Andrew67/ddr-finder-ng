@@ -1,6 +1,8 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { IconCalculator, IconShare } from "@tabler/icons-preact";
+import { IconCalculator } from "@tabler/icons-preact";
+import { IconPlatformShare } from "./IconPlatformShare.tsx";
 
 const share = () =>
   navigator.share({ title: document.title, url: window.location.href });
@@ -32,8 +34,7 @@ export const TopNav: FunctionComponent = () => {
             className="btn btn-square btn-ghost"
             onClick={share}
           >
-            {/* TODO: Apple OS share icon */}
-            <IconShare aria-hidden="true" />
+            <IconPlatformShare aria-hidden="true" />
           </button>
         )}
       </div>
