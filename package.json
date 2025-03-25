@@ -33,6 +33,7 @@
     "@tabler/icons-preact": "3.30.0",
     "astro": "5.3.0",
     "daisyui": "4.12.23",
+    "mapbox-gl": "3.10.0",
     "nanostores": "0.11.3",
     "preact": "10.26.2",
     "tailwindcss": "3.4.17"
