@@ -2723,7 +2723,7 @@ __metadata:
     "@tabler/icons-preact": "npm:3.30.0"
     astro: "npm:5.3.0"
     daisyui: "npm:4.12.23"
-    mapbox-gl: "npm:^3.10.0"
+    mapbox-gl: "npm:3.10.0"
     nanostores: "npm:0.11.3"
     postcss: "npm:*"
     preact: "npm:10.26.2"
@@ -4091,7 +4091,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mapbox-gl@npm:^3.10.0":
+"mapbox-gl@npm:3.10.0":
   version: 3.10.0
   resolution: "mapbox-gl@npm:3.10.0"
   dependencies:
