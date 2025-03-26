@@ -1,11 +1,15 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
 import { useEffect, useRef } from "preact/hooks";
+import { useStore } from "@nanostores/preact";
 
 import mapboxgl, { type GeoJSONSource } from "mapbox-gl";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+
 import "mapbox-gl/dist/mapbox-gl.css";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./MapView.css";
-import { useStore } from "@nanostores/preact";
+
 import { $router } from "../../stores/router.ts";
 
 const mapStyleLight = "mapbox://styles/andrew67/clrwbi529011u01qseesn4gj9";
@@ -35,7 +39,22 @@ export const MapView: FunctionComponent = () => {
     });
     mapRef.current = map;
 
-    // Add zoom/bearing controls to map.
+    // Add geocoder to map
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      // @ts-expect-error Not sure why types don't match
+      mapboxgl: mapboxgl,
+      collapsed: true,
+    });
+    // Dismiss the soft keyboard on mobile devices upon selecting a result
+    geocoder.on("result", function () {
+      (document.activeElement as HTMLElement)?.blur();
+    });
+    // Wanted it in bottom right, but the mobile experience suffers
+    // due to the keyboard opening and the top result being off-screen
+    map.addControl(geocoder);
+
+    // Add zoom/bearing controls to map
     map.addControl(new mapboxgl.NavigationControl());
 
     // My Location control button
@@ -187,8 +206,8 @@ export const MapView: FunctionComponent = () => {
   return (
     <div
       className={
-        "absolute top-16 pt-inset-top left-0 bottom-16 short:bottom-10 pb-inset-bottom right-0 " +
-        (showMap ? "" : "hidden")
+        "fixed top-16 pt-inset-top left-0 bottom-16 short:bottom-10 pb-inset-bottom right-0 " +
+        (showMap ? "" : "invisible")
       }
     >
       <div className="h-full" ref={mapContainerRef}></div>
