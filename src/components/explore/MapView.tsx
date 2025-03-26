@@ -4,6 +4,9 @@ import { useEffect, useRef } from "preact/hooks";
 
 import mapboxgl, { type GeoJSONSource } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import "./MapView.css";
+import { useStore } from "@nanostores/preact";
+import { $router } from "../../stores/router.ts";
 
 const mapStyleLight = "mapbox://styles/andrew67/clrwbi529011u01qseesn4gj9";
 const mapStyleDark = "mapbox://styles/andrew67/clrwd8c0c014b01nl1nr0hj9k";
@@ -17,6 +20,9 @@ const isDarkMode = () => mediaDark.matches;
  * if user moves between screens (billable event with Mapbox).
  */
 export const MapView: FunctionComponent = () => {
+  const page = useStore($router);
+  const showMap = page?.route === "explore";
+
   const mapRef = useRef<mapboxgl.Map>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
@@ -179,7 +185,12 @@ export const MapView: FunctionComponent = () => {
   }, []);
 
   return (
-    <div className="absolute top-16 pt-inset-top left-0 bottom-16 short:bottom-10 pb-inset-bottom right-0">
+    <div
+      className={
+        "absolute top-16 pt-inset-top left-0 bottom-16 short:bottom-10 pb-inset-bottom right-0 " +
+        (showMap ? "" : "hidden")
+      }
+    >
       <div className="h-full" ref={mapContainerRef}></div>
     </div>
   );
