@@ -39,7 +39,11 @@ export const BottomNav: FunctionComponent<{
           <IconLocationSearch aria-hidden="true" />
           <span className="btm-nav-label">Nearby</span>
         </a>
-        <a href={ngLink} target="_self" className="short:flex-row">
+        <a
+          href={ngLink}
+          target="_self"
+          className={`${activeLinkClasses("explore")} short:flex-row`}
+        >
           <IconMap2 aria-hidden="true" />
           <span className="btm-nav-label">Explore</span>
         </a>
