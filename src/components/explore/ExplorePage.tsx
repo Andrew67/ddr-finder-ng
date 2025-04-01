@@ -1,29 +1,39 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
-import { IconDeviceGamepad, IconListSearch } from "@tabler/icons-preact";
+import { useMemo, useState } from "preact/hooks";
+
+import { FilterSourceButtons } from "./FilterSourceButtons";
+import { SearchSettings } from "../SearchSettings";
 
 export const ExplorePage: FunctionComponent = () => {
+  const [searchSettingsOpen, setSearchSettingsOpen] = useState(false);
+  const searchSettings = useMemo(
+    () => (
+      <SearchSettings
+        open={searchSettingsOpen}
+        dismissClick={() => setSearchSettingsOpen(false)}
+      />
+    ),
+    [searchSettingsOpen],
+  );
+
   return (
-    <div
-      className={
-        "fixed short:top-16 short:pt-inset-top short:left-2 short:pl-inset-left " +
-        "tall:right-2 tall:pr-inset-right tall:bottom-28 tall:sm:bottom-24 tall:pb-inset-bottom " +
-        "flex flex-col gap-2"
-      }
-    >
-      {/* Simulate `btn-square` for small screens but expand at `sm` */}
-      <button
-        type="button"
-        className="mt-2 btn min-w-12 px-0 sm:px-4 btn-primary"
+    <>
+      {/* Bottom right controls */}
+      <div
+        className={
+          "fixed short:top-16 short:pt-inset-top short:left-2 short:pl-inset-left " +
+          "tall:right-2 tall:pr-inset-right tall:bottom-28 tall:sm:bottom-24 tall:pb-inset-bottom " +
+          "flex flex-col gap-2"
+        }
       >
-        <IconDeviceGamepad aria-hidden="true" />
-        <span className="hidden sm:inline">Filter</span>
-      </button>
-      <button type="button" className="btn min-w-12 px-0 sm:px-4 btn-accent">
-        <IconListSearch aria-hidden="true" />
-        <span className="hidden sm:inline">Source</span>
-      </button>
-    </div>
+        <FilterSourceButtons
+          filterClick={() => setSearchSettingsOpen(true)}
+          sourceClick={() => setSearchSettingsOpen(true)}
+        />
+      </div>
+      {searchSettings}
+    </>
   );
 };
 

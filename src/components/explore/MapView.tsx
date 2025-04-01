@@ -11,6 +11,7 @@ import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./MapView.css";
 
 import { $router } from "../../stores/router.ts";
+import { $arcadesFilter, $arcadesUrl } from "../../stores/explore/arcades.ts";
 
 const mapStyleLight = "mapbox://styles/andrew67/clrwbi529011u01qseesn4gj9";
 const mapStyleDark = "mapbox://styles/andrew67/clrwd8c0c014b01nl1nr0hj9k";
@@ -26,6 +27,9 @@ const isDarkMode = () => mediaDark.matches;
 export const MapView: FunctionComponent = () => {
   const page = useStore($router);
   const showMap = page?.route === "explore";
+
+  const arcadesUrl = useStore($arcadesUrl);
+  const arcadesFilter = useStore($arcadesFilter);
 
   const mapRef = useRef<mapboxgl.Map>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -107,18 +111,18 @@ export const MapView: FunctionComponent = () => {
     if (!map) return;
 
     const addSourceAndLayers = () => {
+      if (!arcadesUrl) return;
+
       var source = map.getSource("locations") as GeoJSONSource;
       if (!source) {
         map.addSource("locations", {
           type: "geojson",
           // TODO: Get from store
           attribution: "",
-          // TODO: Set source ID from store
-          data: "https://ddrfinder-api.andrew67.com/v4/all/ziv.geojson",
+          data: arcadesUrl,
         });
       } else {
-        // TODO: Set source ID from store
-        source.setData("https://ddrfinder-api.andrew67.com/v4/all/ziv.geojson");
+        source.setData(arcadesUrl);
       }
 
       if (!map.getLayer("zoomed-out-circle")) {
@@ -127,7 +131,6 @@ export const MapView: FunctionComponent = () => {
             id: "zoomed-out-circle",
             type: "circle",
             source: "locations",
-            // TODO: Filter by game by pulling filters from store
             maxzoom: 9,
             paint: {
               "circle-color":
@@ -188,8 +191,14 @@ export const MapView: FunctionComponent = () => {
           },
         });
       }
+      map.setFilter("arcade-pin", arcadesFilter);
+      map.setFilter("zoomed-out-circle", arcadesFilter);
     };
+    map.on("load", addSourceAndLayers);
+    // Re-applies data source and layers on light/dark mode changes
     map.on("style.load", addSourceAndLayers);
+    // Applies layer filter changes when no other changes occur
+    if (map.isStyleLoaded()) addSourceAndLayers();
 
     const setCursorPointer = () => (map.getCanvas().style.cursor = "pointer");
     const clearCursorStyle = () => (map.getCanvas().style.cursor = "");
@@ -197,11 +206,12 @@ export const MapView: FunctionComponent = () => {
     map.on("mouseleave", "arcade-pin", clearCursorStyle);
 
     return () => {
+      map.off("load", addSourceAndLayers);
       map.off("style.load", addSourceAndLayers);
       map.off("mouseenter", "arcade-pin", setCursorPointer);
       map.off("mouseleave", "arcade-pin", clearCursorStyle);
     };
-  }, []);
+  }, [arcadesUrl, arcadesFilter]);
 
   return (
     <div

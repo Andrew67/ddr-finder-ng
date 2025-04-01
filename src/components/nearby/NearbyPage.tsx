@@ -70,7 +70,6 @@ export const NearbyPage: FunctionComponent = () => {
   );
 
   const [searchSettingsOpen, setSearchSettingsOpen] = useState(false);
-
   const searchSettings = useMemo(
     () => (
       <SearchSettings
