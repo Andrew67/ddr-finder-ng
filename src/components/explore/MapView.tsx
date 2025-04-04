@@ -12,6 +12,7 @@ import "./MapView.css";
 
 import { $router } from "../../stores/router.ts";
 import { $arcadesFilter, $arcadesUrl } from "../../stores/explore/arcades.ts";
+import { $mapLocation } from "../../stores/explore/mapLocation.ts";
 
 const mapStyleLight = "mapbox://styles/andrew67/clrwbi529011u01qseesn4gj9";
 const mapStyleDark = "mapbox://styles/andrew67/clrwd8c0c014b01nl1nr0hj9k";
@@ -35,14 +36,16 @@ export const MapView: FunctionComponent = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Capture stored/default location only on init
+    const { center, zoom } = $mapLocation.get();
+
     mapboxgl.accessToken =
       "pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw";
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
       style: isDarkMode() ? mapStyleDark : mapStyleLight,
-      // Default: zoomed out US/Mexico/Canada view, centered on Dallas, TX, US
-      center: { lat: 32.7157, lng: -96.8088 },
-      zoom: 3,
+      center,
+      zoom,
     });
     mapRef.current = map;
 
@@ -101,9 +104,19 @@ export const MapView: FunctionComponent = () => {
     // See: https://docs.mapbox.com/mapbox-gl-js/example/style-switch/
     map.on("style.load", loadCustomMarkerImages);
 
+    const saveMapLastView = () => {
+      $mapLocation.set({
+        center: map.getCenter(),
+        zoom: map.getZoom(),
+      });
+    };
+    map.on("moveend", saveMapLastView);
+
     return () => {
       mediaDark.removeEventListener("change", styleChanger);
+      map.off("moveend", saveMapLastView);
       map.off("style.load", loadCustomMarkerImages);
+
       map.remove();
       mapRef.current = null;
     };

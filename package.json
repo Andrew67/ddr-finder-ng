@@ -28,6 +28,7 @@
     "@astrojs/preact": "4.0.4",
     "@astrojs/tailwind": "6.0.0",
     "@mapbox/mapbox-gl-geocoder": "5.0.3",
+    "@nanostores/persistent": "0.10.2",
     "@nanostores/preact": "0.5.2",
     "@nanostores/query": "0.3.4",
     "@nanostores/router": "patch:@nanostores/router@npm%3A0.16.1#~/.yarn/patches/@nanostores-router-npm-0.16.1-88c1b03e8e.patch",
