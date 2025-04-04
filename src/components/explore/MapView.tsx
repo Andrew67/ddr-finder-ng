@@ -40,6 +40,9 @@ export const MapView: FunctionComponent = () => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
       style: isDarkMode() ? mapStyleDark : mapStyleLight,
+      // Default: zoomed out US/Mexico/Canada view, centered on Dallas, TX, US
+      center: { lat: 32.7157, lng: -96.8088 },
+      zoom: 3,
     });
     mapRef.current = map;
 
