@@ -12,7 +12,10 @@ import "./MapView.css";
 
 import { $router } from "../../stores/router.ts";
 import { $arcadesFilter, $arcadesUrl } from "../../stores/explore/arcades.ts";
-import { $mapLocation } from "../../stores/explore/mapLocation.ts";
+import {
+  $mapLocation,
+  setLocationFromMap,
+} from "../../stores/explore/mapLocation.ts";
 
 const mapStyleLight = "mapbox://styles/andrew67/clrwbi529011u01qseesn4gj9";
 const mapStyleDark = "mapbox://styles/andrew67/clrwd8c0c014b01nl1nr0hj9k";
@@ -29,6 +32,7 @@ export const MapView: FunctionComponent = () => {
   const page = useStore($router);
   const showMap = page?.route === "explore";
 
+  const mapLocation = useStore($mapLocation);
   const arcadesUrl = useStore($arcadesUrl);
   const arcadesFilter = useStore($arcadesFilter);
 
@@ -36,7 +40,7 @@ export const MapView: FunctionComponent = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Capture stored/default location only on init
+    // Capture stored/default location for init
     const { center, zoom } = $mapLocation.get();
 
     mapboxgl.accessToken =
@@ -46,6 +50,7 @@ export const MapView: FunctionComponent = () => {
       style: isDarkMode() ? mapStyleDark : mapStyleLight,
       center,
       zoom,
+      minZoom: 1,
     });
     mapRef.current = map;
 
@@ -105,7 +110,7 @@ export const MapView: FunctionComponent = () => {
     map.on("style.load", loadCustomMarkerImages);
 
     const saveMapLastView = () => {
-      $mapLocation.set({
+      setLocationFromMap({
         center: map.getCenter(),
         zoom: map.getZoom(),
       });
@@ -121,6 +126,22 @@ export const MapView: FunctionComponent = () => {
       mapRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    // Prevent infinite loop with `moveend` event user interaction setting mapLocation
+    const { lat, lng } = map.getCenter();
+    if (
+      lat === mapLocation.center.lat &&
+      lng === mapLocation.center.lng &&
+      map.getZoom() === mapLocation.zoom
+    )
+      return;
+
+    map.jumpTo(mapLocation);
+  }, [mapLocation]);
 
   useEffect(() => {
     const map = mapRef.current;
