@@ -13,7 +13,6 @@ export const $selectedArcadeWithDistance = computed(
   [$selectedArcade, $userLocation],
   (selectedArcade, userLocation) => {
     if (!selectedArcade) return null;
-    console.log(selectedArcade);
     return {
       ...selectedArcade,
       geometry: { ...selectedArcade.geometry },

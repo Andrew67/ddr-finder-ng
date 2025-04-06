@@ -1,6 +1,6 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
-import { IconExternalLink, IconNavigation } from "@tabler/icons-preact";
+import { IconInfoSquareRounded, IconNavigation } from "@tabler/icons-preact";
 
 import type { ArcadeLocationWithDistance } from "../api-types/nearby";
 
@@ -76,24 +76,27 @@ ${gamesText}`;
           className="arcade-info btn btn-primary sm:hidden"
           target="_blank"
         >
-          <IconExternalLink aria-hidden="true" />
-          More Info
+          <IconInfoSquareRounded aria-hidden="true" />
+          Info
         </a>
         <a
           href={moreInfoUrl}
           className="arcade-info btn btn-primary hidden sm:inline-flex"
           target="_blank"
         >
-          <IconExternalLink aria-hidden="true" />
+          <IconInfoSquareRounded aria-hidden="true" />
           More Info
         </a>
+        {/* Simulate `btn-square` for small screens but expand at `sm` */}
         {isShareAvailable && (
           <button
             type="button"
-            className="arcade-gmaps btn btn-secondary"
+            className="btn min-w-12 px-0 sm:px-4 btn-secondary"
             onClick={onShareClick}
+            title="Share"
           >
-            <IconPlatformShare aria-hidden="true" /> Share
+            <IconPlatformShare aria-hidden="true" />
+            <span className="hidden sm:inline">Share</span>
           </button>
         )}
       </li>

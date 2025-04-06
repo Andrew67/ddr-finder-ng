@@ -43,7 +43,7 @@ export const ExplorePage: FunctionComponent = () => {
       {selectedArcade && (
         <div
           className={
-            "fixed short:bottom-20 tall:bottom-28 left-2 right-2 sm:right-auto " +
+            "fixed short:bottom-12 tall:bottom-20 left-2 right-2 sm:right-auto " +
             "pl-inset-left pr-inset-right pt-inset-top pb-inset-bottom"
           }
         >
