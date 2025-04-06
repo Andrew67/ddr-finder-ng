@@ -3,7 +3,7 @@ import type { h, FunctionComponent } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 
-import mapboxgl, { type GeoJSONSource } from "mapbox-gl";
+import mapboxgl, { type GeoJSONSource, type TargetFeature } from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -16,6 +16,8 @@ import {
   $mapLocation,
   setLocationFromMap,
 } from "../../stores/explore/mapLocation.ts";
+import { $selectedArcade } from "../../stores/explore/selectedArcade.ts";
+import type { ArcadeLocation } from "../../api-types/all";
 
 const mapStyleLight = "mapbox://styles/andrew67/clrwbi529011u01qseesn4gj9";
 const mapStyleDark = "mapbox://styles/andrew67/clrwd8c0c014b01nl1nr0hj9k";
@@ -38,6 +40,7 @@ export const MapView: FunctionComponent = () => {
 
   const mapRef = useRef<mapboxgl.Map>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
+  const selectedFeatureRef = useRef<TargetFeature | undefined>(undefined);
 
   useEffect(() => {
     // Capture stored/default location for init
@@ -249,6 +252,43 @@ export const MapView: FunctionComponent = () => {
       map.off("mouseleave", "arcade-pin", clearCursorStyle);
     };
   }, [arcadesUrl, arcadesFilter]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    // See: https://docs.mapbox.com/mapbox-gl-js/example/simple-interactions/
+    map.addInteraction("click", {
+      type: "click",
+      target: { layerId: "arcade-pin" },
+      handler: ({ feature }) => {
+        if (!feature) return;
+        if (selectedFeatureRef.current) {
+          map.setFeatureState(selectedFeatureRef.current, {
+            selected: false,
+          });
+        }
+        // TODO: Visually highlight selected arcade
+        map.setFeatureState(feature, { selected: true });
+        selectedFeatureRef.current = feature;
+        $selectedArcade.set(feature as unknown as ArcadeLocation);
+      },
+    });
+
+    // Clicking on the map will deselect the selected feature
+    map.addInteraction("map-click", {
+      type: "click",
+      handler: () => {
+        if (selectedFeatureRef.current) {
+          map.setFeatureState(selectedFeatureRef.current, {
+            selected: false,
+          });
+          selectedFeatureRef.current = undefined;
+          $selectedArcade.set(null);
+        }
+      },
+    });
+  }, []);
 
   return (
     <div

@@ -4,6 +4,9 @@ import { useMemo, useState } from "preact/hooks";
 
 import { FilterSourceButtons } from "./FilterSourceButtons";
 import { SearchSettings } from "../SearchSettings";
+import { useStore } from "@nanostores/preact";
+import { $selectedArcadeWithDistance } from "../../stores/explore/selectedArcade.ts";
+import { LocationDetails } from "../LocationDetails.tsx";
 
 export const ExplorePage: FunctionComponent = () => {
   const [searchSettingsOpen, setSearchSettingsOpen] = useState(false);
@@ -16,6 +19,8 @@ export const ExplorePage: FunctionComponent = () => {
     ),
     [searchSettingsOpen],
   );
+
+  const selectedArcade = useStore($selectedArcadeWithDistance);
 
   return (
     <>
@@ -32,6 +37,24 @@ export const ExplorePage: FunctionComponent = () => {
           sourceClick={() => setSearchSettingsOpen(true)}
         />
       </div>
+      {/* Selected location details card */}
+      {/* TODO: Appear/disappear animation */}
+      {/* TODO: Scrollable card innards on very short screens */}
+      {selectedArcade && (
+        <div
+          className={
+            "fixed short:bottom-20 tall:bottom-28 left-2 right-2 sm:right-auto " +
+            "pl-inset-left pr-inset-right pt-inset-top pb-inset-bottom"
+          }
+        >
+          <div className="card bg-base-100 shadow-xl">
+            <div className="card-body p-5">
+              <h2 class="card-title">{selectedArcade.properties.name}</h2>
+              <LocationDetails location={selectedArcade} />
+            </div>
+          </div>
+        </div>
+      )}
       {searchSettings}
     </>
   );

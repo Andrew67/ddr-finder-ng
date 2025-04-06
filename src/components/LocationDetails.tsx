@@ -21,7 +21,7 @@ export const LocationDetails: FunctionComponent<ArcadeListItemProps> = (
   props,
 ) => {
   const { location } = props;
-  const { id, properties } = location;
+  const { properties } = location;
 
   const hasDDR = properties["has:ddr"] > 0;
   const hasPIU = properties["has:piu"] > 0;
@@ -53,10 +53,12 @@ ${gamesText}`;
           <i>{properties.city}</i>
         </li>
       )}
-      <li>
-        Approximately <b>{distanceFormatter.format(properties.distanceKm)}</b>{" "}
-        away
-      </li>
+      {properties.distanceKm >= 0 && (
+        <li>
+          Approximately <b>{distanceFormatter.format(properties.distanceKm)}</b>{" "}
+          away
+        </li>
+      )}
       {hasDanceGames && (
         <li className="flex gap-1 items-baseline">
           Games:
