@@ -30,98 +30,114 @@ import {
       content="https://ddrfinder.andrew67.com/images/arcade-machine.jpg"
     />
   </head>
-  <body class="p-4">
-    <h1 class="text-5xl mb-4">DDR Finder</h1>
-    <p class="mb-6">
-      Tool for finding video game arcades (especially DDR machine locations).
-      Data collected from
-      <a
-        href="https://zenius-i-vanisher.com/"
-        target="_blank"
-        class="link link-info"
-      >
-        Zenius -I- vanisher.com</a
-      >,
-      <a href="https://www.ddr-navi.jp/" target="_blank" class="link link-info"
-        >DDR-Navi</a
-      >, and
-      <a
-        href="https://www.openstreetmap.org/"
-        target="_blank"
-        class="link link-info">OpenStreetMap</a
-      >
-      (no affiliation).
-    </p>
-
-    <nav class="mb-6">
-      <ul class="flex flex-col gap-2">
-        <li>
-          <a class="btn btn-secondary" href="/app/nearby">
-            <IconLocationSearch aria-hidden="true" /> Locate Nearby Arcades
-          </a>
-        </li>
-        <li>
-          <a class="btn btn-accent" href="/ng/">
-            <IconMap2 aria-hidden="true" />
-            Interactive Map
-          </a>
-        </li>
-        <li>
-          <a
-            class="btn btn-primary"
-            href="https://ddrcalc.andrew67.com/"
-            target="_blank"
-          >
-            <IconCalculator aria-hidden="true" /> Speed Calculator
-          </a>
-        </li>
-        <li class="-ms-3">
-          <a
-            href="https://github.com/Andrew67/DdrFinder/releases/latest"
-            target="_blank"
-          >
-            <img
-              class="inline-block"
-              alt="Get it on GitHub"
-              width="194"
-              height="75"
-              src="/img/get-it-on-github.avif"
-            />
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <footer>
-      <p class="mb-2">
-        &copy; 2012&ndash;2025 <a
-          href="https://andrew67.com/"
-          target="_blank"
-          class="link link-info"
-        >
-          Andrés Cordero
-        </a>
-      </p>
-      <p class="text-sm">
-        No warranty is made regarding operation, and no accuracy or freshness of
-        results is guaranteed.<br />
-        GitHub and the GitHub logo are trademarks of GitHub, Inc.<br />
-        Arrow icon from the <a
-          href="https://www.stepmania.com/"
-          target="_blank"
-          class="link link-info"
-        >
-          StepMania 5</a
-        > default noteskin.<br />
-        Open sourced under the MIT license.
+  <body class="p-4 flex gap-4">
+    <main>
+      <h1 class="text-5xl mb-4">DDR Finder</h1>
+      <p class="mb-6">
+        Tool for finding video game arcades (especially DDR, PIU, and SMX
+        machine locations). Data collected from
         <a
-          href="https://github.com/Andrew67/ddr-finder-ng"
+          href="https://zenius-i-vanisher.com/"
           target="_blank"
           class="link link-info"
         >
-          View Source on GitHub
-        </a>
+          Zenius -I- vanisher.com</a
+        >,
+        <a
+          href="https://www.ddr-navi.jp/"
+          target="_blank"
+          class="link link-info">DDR-Navi</a
+        >, and
+        <a
+          href="https://www.openstreetmap.org/"
+          target="_blank"
+          class="link link-info">OpenStreetMap</a
+        >
+        (no affiliation).
       </p>
-    </footer>
+
+      <nav class="mb-6">
+        <ul class="flex flex-col gap-2">
+          <li>
+            <a class="btn btn-secondary" href="/app/nearby">
+              <IconLocationSearch aria-hidden="true" /> Locate Nearby Arcades
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-accent" href="/ng/">
+              <IconMap2 aria-hidden="true" />
+              Interactive Map
+            </a>
+          </li>
+          <li>
+            <a
+              class="btn btn-primary"
+              href="https://ddrcalc.andrew67.com/"
+              target="_blank"
+            >
+              <IconCalculator aria-hidden="true" /> Speed Calculator
+            </a>
+          </li>
+          <li class="-ms-3">
+            <a
+              href="https://github.com/Andrew67/DdrFinder/releases/latest"
+              target="_blank"
+            >
+              <img
+                class="inline-block"
+                alt="Get it on GitHub"
+                width="194"
+                height="75"
+                src="/img/get-it-on-github.avif"
+              />
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <footer>
+        <p class="mb-2">
+          &copy; 2012&ndash;2025 <a
+            href="https://andrew67.com/"
+            target="_blank"
+            class="link link-info"
+          >
+            Andrés Cordero
+          </a>
+        </p>
+        <p class="text-sm">
+          No warranty is made regarding operation, and no accuracy or freshness
+          of results is guaranteed.<br />
+          GitHub and the GitHub logo are trademarks of GitHub, Inc.<br />
+          Arrow icon from the <a
+            href="https://www.stepmania.com/"
+            target="_blank"
+            class="link link-info"
+          >
+            StepMania 5</a
+          > default noteskin.<br />
+          Open sourced under the MIT license.
+          <a
+            href="https://github.com/Andrew67/ddr-finder-ng"
+            target="_blank"
+            class="link link-info"
+          >
+            View Source on GitHub
+          </a>
+        </p>
+      </footer>
+    </main>
+
+    <aside class="hidden md:block">
+      <div class="mockup-phone">
+        <div class="camera"></div>
+        <div class="display">
+          <div
+            class="artboard phone-2 bg-[url(/img/explore-phone.avif)] bg-cover dark:opacity-80"
+          >
+          </div>
+        </div>
+      </div>
+    </aside>
   </body>
 </html>
