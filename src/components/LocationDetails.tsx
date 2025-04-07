@@ -68,7 +68,11 @@ ${gamesText}`;
         </li>
       )}
       <li className="flex flex-wrap gap-2 mt-4 print:hidden">
-        <a href={navigateUrl} className="arcade-nav btn btn-accent">
+        <a
+          href={navigateUrl}
+          className="arcade-nav btn btn-accent"
+          target="_blank"
+        >
           <IconNavigation aria-hidden="true" /> Navigate
         </a>
         <a

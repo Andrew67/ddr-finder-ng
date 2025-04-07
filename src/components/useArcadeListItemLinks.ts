@@ -27,8 +27,8 @@ export const useArcadeListItemLinks = (
 
   return {
     navigateUrl: navigationUrl
-      .replaceAll("${lat}", String(lat))
-      .replaceAll("${lng}", String(lng))
+      .replaceAll("${lat}", lat.toFixed(4))
+      .replaceAll("${lng}", lng.toFixed(4))
       .replaceAll("${name}", encodeURIComponent(name)),
     moreInfoUrl: activeSource["url:info"].replace("${sid}", sid),
     moreInfoMobileUrl: activeSource["url:info:mobile"].replace("${sid}", sid),
