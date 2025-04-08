@@ -1,6 +1,8 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { computed } from "nanostores";
-import { $isAndroid, $isMac } from "./platform.ts";
+import { persistentAtom } from "@nanostores/persistent";
+
+import { $isAndroid, $isMac, $isMobile } from "./platform.ts";
 
 /*
   Documentation of unused URLs/URIs:
@@ -31,34 +33,51 @@ import { $isAndroid, $isMac } from "./platform.ts";
  */
 
 const navigationUrls = {
-  googleMaps: "https://maps.google.com/?q=loc:${lat},${lng}(${name})",
-  appleMaps: "https://maps.apple.com/?q=${name}&ll=${lat},${lng}",
-  androidGeo: "geo:${lat},${lng}?q=${lat},${lng}(${name})",
+  google: "https://maps.google.com/?q=loc:${lat},${lng}(${name})",
+  apple: "https://maps.apple.com/?q=${name}&ll=${lat},${lng}",
+  geo: "geo:${lat},${lng}?q=${lat},${lng}(${name})",
   // iOS-specific since on Android all map apps tend to handle geo URIs
   // TODO: Test on Android/offer for web
   waze: "https://waze.com/ul?ll=${lat}%2C${lng}&navigate=yes",
   here: "https://share.here.com/l/${lat},${lng}",
-  osmAnd: "https://osmand.net/map/?pin=${lat},${lng}#9/${lat}/${lng}",
-  magicEarth: "magicearth://?show_on_map&lat=${lat}&lon=${lng}&name=${name}",
+  osmand: "https://osmand.net/map/?pin=${lat},${lng}#9/${lat}/${lng}",
+  magicearth: "magicearth://?show_on_map&lat=${lat}&lon=${lng}&name=${name}",
   sygic: "com.sygic.aura://coordinate|${lng}|${lat}|drive",
-  // China
-  // 百度地图
-  baiduDitu:
+  baidu:
     "baidumap://map/marker?location=${lat},${lng}&title=${name}&content=GPS:%20${lat}º,%20${lng}º&coord_type=wgs84&src=ios.baidu.openAPIdemo",
-  // gaodeDitu 高德地图
-  amap: "iosamap://viewMap?sourceApplication=applicationName&poiname=${name}&lat=${lat}&lon=${lng}&dev=1",
-  // Korea
-  kakaoMap: "kakaomap://look?p=${lat},${lng}",
-  naverMap:
+  gaode:
+    "iosamap://viewMap?sourceApplication=applicationName&poiname=${name}&lat=${lat}&lon=${lng}&dev=1",
+  kakaomap: "kakaomap://look?p=${lat},${lng}",
+  navermap:
     "nmap://place?lat=${lat}&lng=${lng}&name=${name}&appname=com.example.myapp",
 } as const;
 
-// TODO: Preferred navigation app setting for iOS
+export const iosNavigationApps = {
+  google: "Google Maps",
+  apple: "Apple Maps",
+  waze: "Waze",
+  here: "HERE WeGo",
+  osmand: "OsmAnd Maps",
+  magicearth: "Magic Earth",
+  sygic: "Sygic",
+  baidu: "百度地图",
+  gaode: "高德地图 (Amap)",
+  kakaomap: "KakaoMap",
+  navermap: "NAVER Map",
+} as const;
+
+/** Should belong to above list, but legacy items are possible */
+export const $iosNavigationApp = persistentAtom<string>("ios-navigation", "");
+
 export const $navigationUrl = computed(
-  [$isMac, $isAndroid],
-  (isMac, isAndroid) => {
-    if (isMac) return navigationUrls.appleMaps;
-    if (isAndroid) return navigationUrls.androidGeo;
-    return navigationUrls.googleMaps;
+  [$isMobile, $isAndroid, $isMac, $iosNavigationApp],
+  (isMobile, isAndroid, isMac, iosNavigationApp) => {
+    if (isMac) {
+      if (isMobile && Object.hasOwn(navigationUrls, iosNavigationApp))
+        return navigationUrls[iosNavigationApp as keyof typeof navigationUrls];
+      return navigationUrls.apple;
+    }
+    if (isAndroid) return navigationUrls.geo;
+    return navigationUrls.google;
   },
 );
