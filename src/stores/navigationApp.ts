@@ -61,13 +61,21 @@ export const iosNavigationApps = {
   magicearth: "Magic Earth",
   sygic: "Sygic",
   baidu: "百度地图",
-  gaode: "高德地图 (Amap)",
+  gaode: "高德地图 Amap",
   kakaomap: "KakaoMap",
   navermap: "NAVER Map",
 } as const;
 
 /** Should belong to above list, but legacy items are possible */
 export const $iosNavigationApp = persistentAtom<string>("ios-navigation", "");
+
+export const $iosNavigationAppName = computed(
+  $iosNavigationApp,
+  (iosNavigationApp) =>
+    Object.hasOwn(iosNavigationApps, iosNavigationApp)
+      ? iosNavigationApps[iosNavigationApp as keyof typeof iosNavigationApps]
+      : iosNavigationApps.apple,
+);
 
 export const $navigationUrl = computed(
   [$isMobile, $isAndroid, $isMac, $iosNavigationApp],
