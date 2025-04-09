@@ -7,7 +7,10 @@ import { $lastUsedExperience, $router } from "../stores/router";
 
 export const HomeRedirect: FunctionComponent = () => {
   useEffect(() => {
-    redirectPage($router, $lastUsedExperience.get());
+    let lastUsedExperience = $lastUsedExperience.get();
+    if (lastUsedExperience !== "nearby" && lastUsedExperience !== "explore")
+      lastUsedExperience = "nearby";
+    redirectPage($router, lastUsedExperience);
   }, []);
   // Return at least one element, in order to clear the "Loading..." message
   return <div></div>;
