@@ -1,25 +1,13 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
-import type { h, FunctionComponent, JSX } from "preact";
+import type { h, FunctionComponent } from "preact";
 import { useRef } from "preact/compat";
-import { useEffect, useMemo } from "preact/hooks";
+import { useCallback, useEffect, useMemo } from "preact/hooks";
 
-import { iosNavigationApps } from "../../stores/navigationApp.ts";
-
-function getAppButton(id: string, label: string): JSX.Element {
-  // TODO: Active app highlight
-  return (
-    <button type="submit" className="btn btn-ghost px-0 py-2 flex-col h-auto">
-      <img
-        class="mask mask-squircle"
-        src={`/img/ios-apps/${id}.webp`}
-        alt=""
-        width="60"
-        height="60"
-      />
-      {label}
-    </button>
-  );
-}
+import {
+  $iosNavigationApp,
+  iosNavigationApps,
+} from "../../stores/navigationApp.ts";
+import { useStore } from "@nanostores/preact";
 
 type NavigationAppSelectorProps = {
   open: boolean;
@@ -37,15 +25,36 @@ export const NavigationAppSelector: FunctionComponent<
     else modalRef.current?.close();
   }, [open]);
 
+  const activeId = useStore($iosNavigationApp);
+  const getAppButton = useCallback(
+    (id: string, label: string) => (
+      <button
+        type="submit"
+        className={`btn ${id === activeId ? "btn-success" : "btn-ghost"} px-0 py-2 flex-col h-auto`}
+        autofocus={id === activeId}
+        onClick={() => $iosNavigationApp.set(id)}
+      >
+        <img
+          class="mask mask-squircle"
+          src={`/img/ios-apps/${id}.webp`}
+          alt=""
+          width="60"
+          height="60"
+        />
+        {label}
+      </button>
+    ),
+    [activeId],
+  );
+
   const appButtons = useMemo(
     () =>
       Object.entries(iosNavigationApps).map(([id, label]) =>
         getAppButton(id, label),
       ),
-    [iosNavigationApps],
+    [iosNavigationApps, getAppButton],
   );
 
-  // TODO: Save selected app onSubmit
   return (
     <dialog
       className="modal modal-bottom sm:modal-middle"

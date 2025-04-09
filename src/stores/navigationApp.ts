@@ -53,8 +53,8 @@ const navigationUrls = {
 } as const;
 
 export const iosNavigationApps = {
-  google: "Google Maps",
   apple: "Apple Maps",
+  google: "Google Maps",
   waze: "Waze",
   here: "HERE WeGo",
   osmand: "OsmAnd Maps",
