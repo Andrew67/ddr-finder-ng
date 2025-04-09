@@ -78,6 +78,16 @@ export const CreditsCard: FunctionComponent = () => {
             default noteskin.
           </li>
           <li>
+            <a
+              href="https://thenounproject.com/icon/25579/"
+              target="_blank"
+              className="link link-info"
+            >
+              "Map Marker"
+            </a>{" "}
+            icon by meghan hade from the Noun Project.
+          </li>
+          <li>
             Other icons from{" "}
             <a
               href="https://tabler.io/icons"

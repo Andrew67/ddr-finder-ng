@@ -1,10 +1,11 @@
+/*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
-import { useCallback, useEffect, useState } from "preact/hooks";
-import { IconLocationSearch, IconMap2, IconMenu2 } from "@tabler/icons-preact";
-import { $router } from "../stores/router.ts";
+import { useCallback } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { getPagePath } from "@nanostores/router";
-import { $userLocation } from "../stores/userLocation.ts";
+import { IconLocationSearch, IconMap2, IconMenu2 } from "@tabler/icons-preact";
+
+import { $router } from "../stores/router";
 
 export const BottomNav: FunctionComponent<{
   initialPage: string | undefined;
@@ -17,18 +18,6 @@ export const BottomNav: FunctionComponent<{
     [pageRoute],
   );
 
-  // Future: getPagePath($router, "explore", {}, page?.search)
-  // Today: compatibility open of existing /ng UI
-  const userLocation = useStore($userLocation);
-  const [ngLink, setNgLink] = useState("/ng");
-  useEffect(() => {
-    if (!userLocation) return setNgLink("/ng");
-    const ngParams = new URLSearchParams();
-    ngParams.set("ll", `${userLocation.latitude},${userLocation.longitude}`);
-    ngParams.set("z", "14");
-    return setNgLink(`/ng?${ngParams}`);
-  }, [userLocation]);
-
   return (
     <>
       <nav className="btm-nav z-10 short:btm-nav-xs print:hidden bg-base-300 pl-inset-left pr-inset-right pb-0 bottom-inset-bottom">
@@ -40,8 +29,7 @@ export const BottomNav: FunctionComponent<{
           <span className="btm-nav-label">Nearby</span>
         </a>
         <a
-          href={ngLink}
-          target="_self"
+          href={getPagePath($router, "explore")}
           className={`${activeLinkClasses("explore")} short:flex-row`}
         >
           <IconMap2 aria-hidden="true" />

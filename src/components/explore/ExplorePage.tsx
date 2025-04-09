@@ -47,11 +47,11 @@ export const ExplorePage: FunctionComponent = () => {
             "pl-inset-left pr-inset-right pt-inset-top pb-inset-bottom"
           }
         >
-          <div className="card bg-base-200 shadow-xl">
-            <div className="card-body p-5">
-              <h2 class="card-title">{selectedArcade.properties.name}</h2>
-              <LocationDetails location={selectedArcade} />
-            </div>
+          <div className="bg-base-200 p-4 rounded-2xl shadow-2xl">
+            <h2 class="text-xl font-semibold">
+              {selectedArcade.properties.name}
+            </h2>
+            <LocationDetails location={selectedArcade} />
           </div>
         </div>
       )}
