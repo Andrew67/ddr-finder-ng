@@ -26,22 +26,24 @@ export const FilterSourceButtons: FunctionComponent<
 
   return (
     <>
-      {/* Simulate `btn-square` for small screens but expand at `sm` */}
+      {/* Simulate `btn-square` for small screens but expand at `tall+sm` */}
       <button
         type="button"
-        className="mt-2 btn min-w-12 px-0 sm:px-4 btn-primary"
+        className="mt-2 btn min-w-12 px-0 tall:sm:px-4 btn-primary"
         onClick={filterClick}
       >
         <IconDeviceGamepad aria-hidden="true" />
-        <span className="hidden sm:inline">Filter: {gameFilterString}</span>
+        <span className="hidden tall:sm:inline">
+          Filter: {gameFilterString}
+        </span>
       </button>
       <button
         type="button"
-        className="btn min-w-12 px-0 sm:px-4 btn-accent"
+        className="btn min-w-12 px-0 tall:sm:px-4 btn-accent"
         onClick={sourceClick}
       >
         <IconListSearch aria-hidden="true" />
-        <span className="hidden sm:inline">Source{sourceName}</span>
+        <span className="hidden tall:sm:inline">Source{sourceName}</span>
       </button>
     </>
   );

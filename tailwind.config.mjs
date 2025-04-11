@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       screens: {
-        // Shrink or keep some fixed elements off the screen on shorter devices,
-        // such as iPhone 5 (454px height with Safari), any rotated phone, etc.
-        short: { raw: "(max-height: 499.98px)" },
-        tall: { raw: "(min-height: 500px)" },
+        // Shrink or move some fixed elements on shorter devices,
+        // such as Nexus 5 (500px height with Chrome), any rotated phone, etc.
+        short: { raw: "(max-height: 567.98px)" },
+        tall: { raw: "(min-height: 568px)" },
       },
       spacing: {
         "inset-top": "env(safe-area-inset-top)",

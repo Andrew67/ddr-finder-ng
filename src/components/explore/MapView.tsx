@@ -95,7 +95,7 @@ export const MapView: FunctionComponent = () => {
     mediaDark.addEventListener("change", styleChanger);
 
     const loadCustomMarkerImages = () => {
-      ["pin-empty", "pin-ddr", "pin-smx"].forEach(function (imageName) {
+      ["pin-empty", "pin-ddr", "pin-smx", "pin-piu"].forEach((imageName) => {
         const imageUrl = `/img/${imageName}${isDarkMode() ? "-dark" : ""}.png`;
         map.loadImage(imageUrl, (error, image) => {
           if (error || !image) throw error;
@@ -203,7 +203,8 @@ export const MapView: FunctionComponent = () => {
               "pin-ddr",
               [">=", ["get", "has:smx"], 1],
               "pin-smx",
-              // TODO: PIU pin
+              [">=", ["get", "has:piu"], 1],
+              "pin-piu",
               "pin-empty",
             ],
             "icon-size": ["interpolate", ["linear"], ["zoom"], 9, 0.3, 12, 1],
