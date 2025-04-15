@@ -88,6 +88,16 @@ export const CreditsCard: FunctionComponent = () => {
             icon by meghan hade from the Noun Project.
           </li>
           <li>
+            <a
+              href="https://thenounproject.com/icon/footprints-1013395/"
+              target="_blank"
+              className="link link-info"
+            >
+              "footprints"
+            </a>{" "}
+            icon by Hawraa Alsalman from Noun Project (CC BY 3.0).
+          </li>
+          <li>
             Other icons from{" "}
             <a
               href="https://tabler.io/icons"
