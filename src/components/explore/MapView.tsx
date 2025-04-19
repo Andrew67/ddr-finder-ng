@@ -18,6 +18,7 @@ import {
 } from "../../stores/explore/mapLocation.ts";
 import { $selectedArcade } from "../../stores/explore/selectedArcade.ts";
 import type { ArcadeLocation } from "../../api-types/all";
+import { setLocationManually } from "../../stores/userLocation.ts";
 
 const mapStyleLight = "mapbox://styles/andrew67/clrwbi529011u01qseesn4gj9";
 const mapStyleDark = "mapbox://styles/andrew67/clrwd8c0c014b01nl1nr0hj9k";
@@ -76,18 +77,20 @@ export const MapView: FunctionComponent = () => {
     map.addControl(new mapboxgl.NavigationControl());
 
     // My Location control button
-    map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
-        },
-        trackUserLocation: true,
-        showUserHeading: true,
-        fitBoundsOptions: {
-          maxZoom: 12,
-        },
-      }),
-    );
+    const geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true,
+      },
+      trackUserLocation: true,
+      showUserHeading: true,
+      fitBoundsOptions: {
+        maxZoom: 12,
+      },
+    });
+    map.addControl(geolocate);
+    const syncGeolocationToStore = (data: GeolocationPosition) =>
+      setLocationManually(data.coords);
+    geolocate.on("geolocate", syncGeolocationToStore);
 
     const styleChanger = () => {
       map.setStyle(isDarkMode() ? mapStyleDark : mapStyleLight);
@@ -121,6 +124,8 @@ export const MapView: FunctionComponent = () => {
     map.on("moveend", saveMapLastView);
 
     return () => {
+      geolocate.off("geolocate", syncGeolocationToStore);
+
       mediaDark.removeEventListener("change", styleChanger);
       map.off("moveend", saveMapLastView);
       map.off("style.load", loadCustomMarkerImages);

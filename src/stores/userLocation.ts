@@ -73,8 +73,34 @@ $router.subscribe((page) => {
 });
 
 /**
- * Calls the browser geolocation API to get the user's location, then populates it into the store.
+ * Populates the store with the given location, adjusted for accuracy.
+ * Provided to allow feeding Mapbox Geolocate updates into our state.
+ *
  * If we're on the "nearby" page, also pushes it into the URL in case user performs browser navigations.
+ */
+export function setLocationManually(coords: GeolocationCoordinates) {
+  const { latitude, longitude, accuracy } = coords;
+  const numDecimalDigits = getNumDecimalDigits(latitude, accuracy);
+  const latitudeFixed = latitude.toFixed(numDecimalDigits);
+  const longitudeFixed = longitude.toFixed(numDecimalDigits);
+  $userLocation.set({
+    latitude: latitudeFixed,
+    longitude: longitudeFixed,
+    accuracyMeters: accuracy,
+  });
+  $userLocationError.set(0);
+
+  const page = $router.get();
+  if (page?.route === "nearby") {
+    redirectPage($router, page.route, page.params, {
+      ...page.search,
+      ll: `${latitudeFixed},${longitudeFixed}`,
+    });
+  }
+}
+
+/**
+ * Calls the browser geolocation API to get the user's location, then populates it into the store.
  */
 export function getLocationFromGps() {
   $userLocationLoading.set(true);
@@ -99,24 +125,7 @@ export function getLocationFromGps() {
     })
     .then(
       ({ coords }: GeolocationPosition) => {
-        const { latitude, longitude, accuracy } = coords;
-        const numDecimalDigits = getNumDecimalDigits(latitude, accuracy);
-        const latitudeFixed = latitude.toFixed(numDecimalDigits);
-        const longitudeFixed = longitude.toFixed(numDecimalDigits);
-        $userLocation.set({
-          latitude: latitudeFixed,
-          longitude: longitudeFixed,
-          accuracyMeters: accuracy,
-        });
-        $userLocationError.set(0);
-
-        const page = $router.get();
-        if (page?.route === "nearby") {
-          redirectPage($router, page.route, page.params, {
-            ...page.search,
-            ll: `${latitudeFixed},${longitudeFixed}`,
-          });
-        }
+        setLocationManually(coords);
       },
       (error: GeolocationPositionError) => {
         $userLocationError.set(error.code);
