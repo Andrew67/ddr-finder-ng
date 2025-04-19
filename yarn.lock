@@ -1859,6 +1859,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@turf/distance@npm:7.2.0":
+  version: 7.2.0
+  resolution: "@turf/distance@npm:7.2.0"
+  dependencies:
+    "@turf/helpers": "npm:^7.2.0"
+    "@turf/invariant": "npm:^7.2.0"
+    "@types/geojson": "npm:^7946.0.10"
+    tslib: "npm:^2.8.1"
+  checksum: 10/0cd48d1fa6552396a635fbaac0c8221de773870ed69dc27982835d8cb4568ea524416138b728ebb2376cdf6e204c32b981d4818fa069f11a506aa8da8de9f54a
+  languageName: node
+  linkType: hard
+
+"@turf/helpers@npm:7.2.0, @turf/helpers@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@turf/helpers@npm:7.2.0"
+  dependencies:
+    "@types/geojson": "npm:^7946.0.10"
+    tslib: "npm:^2.8.1"
+  checksum: 10/d40bfcb795bc23962765459670b7a201d1228ffbcb2af7667435529857dd58678d3f956a8dd7c8764d0204fe16ed47a5f398b9d31a8529c2ef148f9daa36171b
+  languageName: node
+  linkType: hard
+
+"@turf/invariant@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@turf/invariant@npm:7.2.0"
+  dependencies:
+    "@turf/helpers": "npm:^7.2.0"
+    "@types/geojson": "npm:^7946.0.10"
+    tslib: "npm:^2.8.1"
+  checksum: 10/f35ba9d18b6759f7f93833bcaf28869694c3a179fe8a669a3f7397adb88ee30301db9280ad3540531a981458d481112c6190b282445d1d9d11778ba7cd0077c3
+  languageName: node
+  linkType: hard
+
 "@types/cacheable-request@npm:^6.0.1":
   version: 6.0.3
   resolution: "@types/cacheable-request@npm:6.0.3"
@@ -1903,7 +1936,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/geojson@npm:*, @types/geojson@npm:^7946.0.16":
+"@types/geojson@npm:*, @types/geojson@npm:^7946.0.10, @types/geojson@npm:^7946.0.16":
   version: 7946.0.16
   resolution: "@types/geojson@npm:7946.0.16"
   checksum: 10/34d07421bdd60e7b99fa265441d17ac6e9aef48e3ce22d04324127d0de1daf7fbaa0bd3be1cece2092eb6995f21da84afa5231e24621a2910ff7340bc98f496f
@@ -2958,6 +2991,8 @@ __metadata:
     "@nanostores/query": "npm:0.3.4"
     "@nanostores/router": "patch:@nanostores/router@npm%3A0.16.1#~/.yarn/patches/@nanostores-router-npm-0.16.1-88c1b03e8e.patch"
     "@tabler/icons-preact": "npm:3.30.0"
+    "@turf/distance": "npm:7.2.0"
+    "@turf/helpers": "npm:7.2.0"
     "@types/mapbox__mapbox-gl-geocoder": "npm:^5"
     astro: "npm:5.6.1"
     daisyui: "npm:4.12.24"
@@ -7149,6 +7184,13 @@ __metadata:
   version: 2.7.0
   resolution: "tslib@npm:2.7.0"
   checksum: 10/9a5b47ddac65874fa011c20ff76db69f97cf90c78cff5934799ab8894a5342db2d17b4e7613a087046bc1d133d21547ddff87ac558abeec31ffa929c88b7fce6
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.8.1":
+  version: 2.8.1
+  resolution: "tslib@npm:2.8.1"
+  checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7
   languageName: node
   linkType: hard
 

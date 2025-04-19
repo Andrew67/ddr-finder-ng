@@ -1,10 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
+import { degreesToRadians } from "@turf/helpers";
 
 import { numDecimalDigits } from "./number.ts";
-
-function degToRad(degrees: number) {
-  return degrees * (Math.PI / 180);
-}
 
 /**
  * Estimates the accuracy (in meters) for a set of latitude and longitude passed in as strings,
@@ -15,7 +12,7 @@ export function getCoordinateAccuracy(
   latitude: string,
   longitude: string,
 ): number {
-  const latitudeRadians = degToRad(Number(latitude));
+  const latitudeRadians = degreesToRadians(Number(latitude));
   const longitudeNumDecimalDigits = numDecimalDigits(longitude);
 
   return Math.round(
@@ -36,7 +33,7 @@ export function getNumDecimalDigits(
   latitude: number,
   accuracy: number,
 ): number {
-  const latitudeRadians = degToRad(latitude);
+  const latitudeRadians = degreesToRadians(latitude);
   const numDigits = Math.log10(
     (111_000 * Math.cos(latitudeRadians)) / accuracy,
   );

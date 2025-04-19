@@ -33,6 +33,8 @@
     "@nanostores/query": "0.3.4",
     "@nanostores/router": "patch:@nanostores/router@npm%3A0.16.1#~/.yarn/patches/@nanostores-router-npm-0.16.1-88c1b03e8e.patch",
     "@tabler/icons-preact": "3.30.0",
+    "@turf/distance": "7.2.0",
+    "@turf/helpers": "7.2.0",
     "astro": "5.6.1",
     "daisyui": "4.12.24",
     "mapbox-gl": "3.10.0",
