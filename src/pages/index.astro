@@ -13,7 +13,16 @@ import {
     <!-- ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE -->
     <meta name="viewport" content="width=device-width" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#1976d2" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#bfdbfe"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#334155"
+    />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/ddrfinder.webmanifest" />
@@ -133,7 +142,7 @@ import {
         <div class="camera"></div>
         <div class="display">
           <div
-            class="artboard phone-2 bg-[url(/img/explore-phone.avif)] bg-cover dark:opacity-80"
+            class="w-[360px] h-[720px] bg-[url(/img/screenshots/explore-narrow.avif)] bg-cover dark:opacity-80"
           >
           </div>
         </div>

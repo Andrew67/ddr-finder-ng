@@ -2,24 +2,7 @@
   "lang": "en",
   "name": "DDR Finder",
   "short_name": "DDR Finder",
-  "icons": [
-    {
-      "src": "/img/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/img/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/img/icon-512-maskable.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
+  "description": "Tool for finding video game arcades (especially DDR, PIU, and SMX machine locations).",
   "start_url": "/app/",
   "scope": "/app/",
   "id": "/ng/",
@@ -32,6 +15,41 @@
     {
       "platform": "play",
       "id": "com.andrew67.ddrfinder"
+    }
+  ],
+  "icons": [
+    { "src": "/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/img/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    {
+      "src": "/img/screenshots/nearby-narrow.png",
+      "sizes": "720x1440",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Locate nearby arcades"
+    },
+    {
+      "src": "/img/screenshots/explore-narrow.png",
+      "sizes": "720x1440",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Interactive map"
+    },
+    {
+      "src": "/img/screenshots/info-narrow.png",
+      "sizes": "720x1440",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Detailed arcade game lists"
+    },
+    {
+      "src": "/img/screenshots/calculator-narrow.png",
+      "sizes": "720x1440",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Built-in speed modifier calculator"
     }
   ]
 }
