@@ -7,4 +7,4 @@
 /locate.php https://ddrfinder-api.andrew67.com/locate.php 301
 
 # Links generated when sharing from the Android app
-/app/map/@:lat,:lng,:zoom /ng/?ll=:lat,:lng&z=:zoom 302
+/app/map/* /app/map 200

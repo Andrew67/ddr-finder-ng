@@ -5,10 +5,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>DDR Finder — Nearby Arcades</title>
+    <title>DDR Finder — Interactive Map</title>
     <meta
       name="description"
-      content="Locate crowd-sourced video game arcades near you"
+      content="Explore crowd-sourced video game arcades worldwide"
     />
     <!-- ddr-finder-ng | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE -->
     <meta name="viewport" content="width=device-width" />
@@ -31,38 +31,30 @@
     />
     <!-- Backup redirect if JS doesn't run -->
     <!-- See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Redirections#order_of_precedence -->
-    <meta http-equiv="refresh" content="0; url=/app/nearby" />
+    <meta http-equiv="refresh" content="0; url=/app/explore" />
   </head>
   <body>
     <script is:inline>
-      let latitude, longitude, dataSrc;
+      let latitude, longitude, zoom;
 
-      // Passing in loc=accuracy/latitude/longitude in hash/search bypasses original behavior of geolocation on page load.
-      // Note: the pattern is set up to accept a loc=latitude/longitude format due to a time period where it was optional.
-      const locPattern = /[#&?]loc=(.*\/)?(.*)\/([^&]*)/;
+      const locPattern = /@(.*),(.*),(.*)z/;
       if (locPattern.test(location.href)) {
         const locParams = locPattern.exec(location.href);
-        latitude = locParams[2];
-        longitude = locParams[3];
+        latitude = locParams[1];
+        longitude = locParams[2];
+        zoom = locParams[3];
       }
 
-      // Passing in src=datasrc in hash/search bypasses original behavior of picking data source from localStorage on page load.
-      const srcPattern = /[#&?]src=([^&]*)/;
-      if (srcPattern.test(location.href)) {
-        const srcParam = srcPattern.exec(location.href);
-        dataSrc = srcParam[1];
-      }
-
-      const newParams = new URLSearchParams();
+      const newParams = new URLSearchParams(location.search);
       if (latitude && longitude)
         newParams.set("ll", `${latitude},${longitude}`);
-      if (dataSrc) newParams.set("src", dataSrc);
+      if (zoom) newParams.set("z", zoom);
       const newParamString = newParams.toString().replace("%2C", ",");
 
       window.location.replace(
-        `/app/nearby${newParamString ? `?${newParamString}` : ""}`,
+        `/app/explore${newParamString ? `?${newParamString}` : ""}`,
       );
     </script>
-    <a href="/app/nearby">Click here for the new app experience</a>
+    <a href="/app/explore">Click here for the new app experience</a>
   </body>
 </html>
