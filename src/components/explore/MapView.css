@@ -1,7 +1,7 @@
 .mapboxgl-ctrl-group button {
   /* Shrinks to accommodate shrinking Geocoder on `sm` */
   /* TODO: Re-increase Geocoder size on `sm` */
-  @apply h-12 w-12 sm:h-9 sm:w-9;
+  @apply h-12 w-12 sm:h-9 sm:w-9 touch-none;
 }
 
 .mapboxgl-ctrl-top-right {

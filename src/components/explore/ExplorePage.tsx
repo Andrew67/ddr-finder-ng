@@ -47,7 +47,8 @@ export const ExplorePage: FunctionComponent = () => {
             "pl-inset-left pr-inset-right pt-inset-top pb-inset-bottom"
           }
         >
-          <div className="bg-base-200 p-4 rounded-2xl shadow-2xl">
+          {/* Prevent pinch-zoom in the pop-up, since if dismissed, there's no way to zoom back out */}
+          <div className="bg-base-200 p-4 rounded-2xl shadow-2xl touch-pan-x touch-pan-y">
             <h2 class="text-xl font-semibold">
               {selectedArcade.properties.name}
             </h2>
