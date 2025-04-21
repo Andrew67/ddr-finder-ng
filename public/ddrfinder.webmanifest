@@ -47,12 +47,12 @@
       "url": "/app/nearby",
       "icons": [
         {
-          "src": "/img/shortcuts/nearby-192.png",
+          "src": "/img/shortcuts/explore-192.png",
           "sizes": "192x192",
           "type": "image/png"
         },
         {
-          "src": "/img/shortcuts/nearby-512-maskable.png",
+          "src": "/img/shortcuts/explore-512-maskable.png",
           "sizes": "512x512",
           "type": "image/png",
           "purpose": "maskable"

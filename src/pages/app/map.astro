@@ -37,7 +37,7 @@
     <script is:inline>
       let latitude, longitude, zoom;
 
-      const locPattern = /@(.*),(.*),(.*)z/;
+      const locPattern = /@(.*),(.*),([\d.]*)z/;
       if (locPattern.test(location.href)) {
         const locParams = locPattern.exec(location.href);
         latitude = locParams[1];

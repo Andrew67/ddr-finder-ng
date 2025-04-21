@@ -6,5 +6,12 @@
 # Legacy API URL redirect (query string is preserved)
 /locate.php https://ddrfinder-api.andrew67.com/locate.php 301
 
+# Legacy map UI (uses the same query parameters as the new one)
+/ng/ /app/explore 301
+
+# Legacy PWA manifests
+/manifest.json /ddrfinder.webmanifest 200
+/ng/manifest.json /ddrfinder.webmanifest 200
+
 # Links generated when sharing from the Android app
 /app/map/* /app/map 200
