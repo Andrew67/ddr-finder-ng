@@ -44,7 +44,7 @@
       "name": "Interactive Map",
       "short_name": "Explore",
       "description": "Explore crowd-sourced video game arcades worldwide",
-      "url": "/app/nearby",
+      "url": "/app/explore",
       "icons": [
         {
           "src": "/img/shortcuts/explore-192.png",

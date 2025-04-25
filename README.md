@@ -9,7 +9,7 @@ The official working demo is at https://ddrfinder.andrew67.com/, which connects 
 ## UI
 
 - CSS: [Daisy UI](https://daisyui.com/) and [Tailwind CSS](https://tailwindcss.com/).
-- Framework: [Onsen UI 2](https://onsen.io/v2/) and [Astro](https://astro.build/).
+- Framework: [Astro](https://astro.build/) with [Preact](https://preactjs.com/).
 - Map view: [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/).
 
 ## License
