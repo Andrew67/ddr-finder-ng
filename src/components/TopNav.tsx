@@ -20,7 +20,7 @@ export const TopNav: FunctionComponent = () => {
       </div>
       <div className="flex-none pr-inset-right pt-inset-top print:hidden">
         <a
-          href="https://ddrcalc.andrew67.com/"
+          href="https://ddrcalc.andrew67.com/?df=1"
           target="_blank"
           title="Calculator"
           className="btn btn-square btn-ghost"
