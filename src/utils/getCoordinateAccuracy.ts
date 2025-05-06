@@ -1,7 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { degreesToRadians } from "@turf/helpers";
 
-import { numDecimalDigits } from "./number.ts";
+import { numDecimalDigits } from "./number";
 
 /**
  * Estimates the accuracy (in meters) for a set of latitude and longitude passed in as strings,

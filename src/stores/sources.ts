@@ -1,8 +1,8 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
-import { createFetcherStore } from "./fetcher.ts";
-import type { SourcesApiResponse } from "../api-types/sources";
+import { createFetcherStore } from "./fetcher";
+import type { SourcesApiResponse } from "@/api-types/sources";
 import { computed } from "nanostores";
-import { $router } from "./router.ts";
+import { $router } from "./router";
 import { redirectPage } from "@nanostores/router";
 
 /** Metadata for the various arcade data sources */

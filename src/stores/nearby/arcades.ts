@@ -1,10 +1,10 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
-import { createFetcherStore } from "../fetcher.ts";
-import type { NearbyApiResponse } from "../../api-types/nearby";
+import { createFetcherStore } from "../fetcher";
+import type { NearbyApiResponse } from "@/api-types/nearby";
 import { computed } from "nanostores";
-import { $userLocation } from "../userLocation.ts";
-import { $activeSourceId } from "../sources.ts";
-import { $gameFilter } from "../gameFilter.ts";
+import { $userLocation } from "../userLocation";
+import { $activeSourceId } from "../sources";
+import { $gameFilter } from "../gameFilter";
 
 const $ll = computed(
   $userLocation,

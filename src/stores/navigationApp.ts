@@ -2,7 +2,7 @@
 import { computed } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
 
-import { $isAndroid, $isMac, $isMobile } from "./platform.ts";
+import { $isAndroid, $isMac, $isMobile } from "./platform";
 
 /*
   Documentation of unused URLs/URIs:

@@ -2,7 +2,7 @@
 import type { h, FunctionComponent } from "preact";
 import { IconInfoSquareRounded, IconNavigation } from "@tabler/icons-preact";
 
-import type { ArcadeLocationWithDistance } from "../api-types/nearby";
+import type { ArcadeLocationWithDistance } from "@/api-types/nearby";
 
 import { useArcadeListItemLinks } from "./useArcadeListItemLinks";
 import { IconPlatformShare } from "./IconPlatformShare";

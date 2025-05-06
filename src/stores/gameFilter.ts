@@ -1,6 +1,6 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { computed } from "nanostores";
-import { $router } from "./router.ts";
+import { $router } from "./router";
 import { redirectPage } from "@nanostores/router";
 
 // TODO: Consider supported filters for current data source and ignore them

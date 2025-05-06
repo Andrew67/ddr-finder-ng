@@ -1,9 +1,10 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
-import { $activeSource } from "../../stores/sources.ts";
 import { useStore } from "@nanostores/preact";
 import { IconDeviceGamepad, IconListSearch } from "@tabler/icons-preact";
-import { $gameFilter } from "../../stores/gameFilter.ts";
+
+import { $activeSource } from "@/stores/sources";
+import { $gameFilter } from "@/stores/gameFilter";
 
 type FilterSourceButtonsProps = {
   filterClick: () => void;

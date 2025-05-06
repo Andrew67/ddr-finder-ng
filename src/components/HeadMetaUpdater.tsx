@@ -1,7 +1,7 @@
 import type { FunctionComponent } from "preact";
 import { useEffect } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
-import { $metadata } from "../stores/router.ts";
+import { $metadata } from "@/stores/router";
 
 /**
  * Updates the document title, meta description etc. to the active route dynamically.

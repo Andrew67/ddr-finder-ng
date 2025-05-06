@@ -4,7 +4,7 @@ import { useState } from "preact/hooks";
 import { lazy, Suspense } from "preact/compat";
 import { useStore } from "@nanostores/preact";
 
-import { $router } from "../stores/router";
+import { $router } from "@/stores/router";
 
 import { HeadMetaUpdater } from "./HeadMetaUpdater";
 

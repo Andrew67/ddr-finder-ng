@@ -10,9 +10,10 @@ import {
   $userLocationLoading,
   clearLocationError,
   getLocationFromGps,
-} from "../../stores/userLocation";
-import { $nearbyArcades } from "../../stores/nearby/arcades";
-import { $numLocationsToShow, $staticMap } from "../../stores/nearby/staticMap";
+} from "@/stores/userLocation";
+import { $nearbyArcades } from "@/stores/nearby/arcades";
+import { $numLocationsToShow, $staticMap } from "@/stores/nearby/staticMap";
+
 import { ArcadeListItem, ArcadeListItemPlaceholder } from "./ArcadeListItem";
 import { Accuracy } from "./Accuracy";
 import { StaticMap } from "./StaticMap";

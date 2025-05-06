@@ -1,7 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { computed } from "nanostores";
-import { $userLocation } from "../userLocation.ts";
-import { $nearbyArcades } from "./arcades.ts";
+import { $userLocation } from "../userLocation";
+import { $nearbyArcades } from "./arcades";
 
 export type StaticMapProps = {
   lightThemeUrl: string;

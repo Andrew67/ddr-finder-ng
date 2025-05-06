@@ -3,13 +3,9 @@ import type { h, FunctionComponent, JSX } from "preact";
 import { useRef } from "preact/compat";
 import { useCallback, useEffect, useMemo } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
-import {
-  $activeSourceId,
-  $sources,
-  setActiveSourceId,
-} from "../stores/sources.ts";
-import type { DataSource } from "../api-types/sources";
-import { $gameFilter, setGameFilter } from "../stores/gameFilter.ts";
+import { $activeSourceId, $sources, setActiveSourceId } from "@/stores/sources";
+import type { DataSource } from "@/api-types/sources";
+import { $gameFilter, setGameFilter } from "@/stores/gameFilter";
 
 /** Per API docs, Scope is either "world" or a 2-letter country code */
 function getScopeLabel(scope: DataSource["scope"]): string {

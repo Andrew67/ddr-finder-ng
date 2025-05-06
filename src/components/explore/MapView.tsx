@@ -10,15 +10,12 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./MapView.css";
 
-import { $router } from "../../stores/router.ts";
-import { $arcadesFilter, $arcadesUrl } from "../../stores/explore/arcades.ts";
-import {
-  $mapLocation,
-  setLocationFromMap,
-} from "../../stores/explore/mapLocation.ts";
-import { $selectedArcade } from "../../stores/explore/selectedArcade.ts";
-import type { ArcadeLocation } from "../../api-types/all";
-import { setLocationManually } from "../../stores/userLocation.ts";
+import { $router } from "@/stores/router";
+import { $arcadesFilter, $arcadesUrl } from "@/stores/explore/arcades";
+import { $mapLocation, setLocationFromMap } from "@/stores/explore/mapLocation";
+import { $selectedArcade } from "@/stores/explore/selectedArcade";
+import type { ArcadeLocation } from "@/api-types/all";
+import { setLocationManually } from "@/stores/userLocation";
 
 const mapStyleLight = "mapbox://styles/andrew67/clrwbi529011u01qseesn4gj9";
 const mapStyleDark = "mapbox://styles/andrew67/clrwd8c0c014b01nl1nr0hj9k";

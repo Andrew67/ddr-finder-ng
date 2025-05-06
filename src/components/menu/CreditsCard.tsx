@@ -3,7 +3,7 @@ import type { h, FunctionComponent } from "preact";
 import { useMemo } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 
-import { $sources } from "../../stores/sources";
+import { $sources } from "@/stores/sources";
 
 export const CreditsCard: FunctionComponent = () => {
   const sources = useStore($sources);

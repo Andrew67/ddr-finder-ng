@@ -3,7 +3,7 @@ import type { h, FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 
-import { $iosNavigationAppName } from "../../stores/navigationApp";
+import { $iosNavigationAppName } from "@/stores/navigationApp";
 import { NavigationAppSelector } from "./NavigationAppSelector";
 
 export const NavigationAppCard: FunctionComponent = () => {

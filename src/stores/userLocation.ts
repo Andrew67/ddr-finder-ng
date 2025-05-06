@@ -1,12 +1,12 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { atom } from "nanostores";
-import { $router } from "./router.ts";
+import { $router } from "./router";
 import {
   getCoordinateAccuracy,
   getNumDecimalDigits,
-} from "../utils/getCoordinateAccuracy.ts";
-import { getCurrentPosition } from "../utils/getCurrentPosition.ts";
-import { numDecimalDigits } from "../utils/number.ts";
+} from "../utils/getCoordinateAccuracy";
+import { getCurrentPosition } from "@/utils/getCurrentPosition";
+import { numDecimalDigits } from "@/utils/number";
 import { redirectPage } from "@nanostores/router";
 
 export type UserLocation = {

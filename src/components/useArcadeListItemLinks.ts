@@ -1,10 +1,10 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import { useStore } from "@nanostores/preact";
 
-import type { ArcadeLocation } from "../api-types/all";
+import type { ArcadeLocation } from "@/api-types/all";
 
-import { $activeSource } from "../stores/sources.ts";
-import { $navigationUrl } from "../stores/navigationApp.ts";
+import { $activeSource } from "@/stores/sources";
+import { $navigationUrl } from "@/stores/navigationApp";
 
 type ArcadeListItemLinks = {
   navigateUrl: string;

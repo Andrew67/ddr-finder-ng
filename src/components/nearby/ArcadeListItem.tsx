@@ -1,6 +1,6 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
-import type { ArcadeLocationWithDistance } from "../../api-types/nearby";
+import type { ArcadeLocationWithDistance } from "@/api-types/nearby";
 import { LocationDetails } from "../LocationDetails";
 
 type ArcadeListItemPlaceholderProps = { isLoading: boolean };

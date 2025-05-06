@@ -5,7 +5,7 @@ import { useStore } from "@nanostores/preact";
 import { getPagePath } from "@nanostores/router";
 import { IconLocationSearch, IconMap2, IconMenu2 } from "@tabler/icons-preact";
 
-import { $router } from "../stores/router";
+import { $router } from "@/stores/router";
 
 export const BottomNav: FunctionComponent<{
   initialPage: string | undefined;

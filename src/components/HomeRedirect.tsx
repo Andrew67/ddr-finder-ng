@@ -3,7 +3,7 @@ import type { h, FunctionComponent } from "preact";
 import { useEffect } from "preact/hooks";
 import { redirectPage } from "@nanostores/router";
 
-import { $lastUsedExperience, $router } from "../stores/router";
+import { $lastUsedExperience, $router } from "@/stores/router";
 
 export const HomeRedirect: FunctionComponent = () => {
   useEffect(() => {

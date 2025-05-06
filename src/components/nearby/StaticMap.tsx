@@ -1,6 +1,6 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
-import type { StaticMapProps } from "../../stores/nearby/staticMap.ts";
+import type { StaticMapProps } from "@/stores/nearby/staticMap";
 
 export const StaticMap: FunctionComponent<
   StaticMapProps & { isLoading: boolean }

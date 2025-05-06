@@ -5,7 +5,7 @@ import { useMemo, useState } from "preact/hooks";
 import { FilterSourceButtons } from "./FilterSourceButtons";
 import { SearchSettings } from "../SearchSettings";
 import { useStore } from "@nanostores/preact";
-import { $selectedArcadeWithDistance } from "../../stores/explore/selectedArcade.ts";
+import { $selectedArcadeWithDistance } from "@/stores/explore/selectedArcade";
 import { LocationDetails } from "../LocationDetails.tsx";
 
 export const ExplorePage: FunctionComponent = () => {
