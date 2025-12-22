@@ -14,33 +14,33 @@ export const BottomNav: FunctionComponent<{
   const pageRoute = page?.route ?? initialPage;
 
   const activeLinkClasses = useCallback(
-    (page: string) => (page === pageRoute ? "active bg-base-200" : ""),
+    (page: string) => (page === pageRoute ? "dock-active bg-base-200" : ""),
     [pageRoute],
   );
 
   return (
     <>
-      <nav className="btm-nav z-10 short:btm-nav-xs print:hidden bg-base-300 pl-inset-left pr-inset-right pb-0 bottom-inset-bottom">
+      <nav className="dock z-10 short:dock-xs print:hidden bg-base-300 pl-inset-left pr-inset-right pb-0 bottom-inset-bottom">
         <a
           href={getPagePath($router, "nearby")}
-          className={`${activeLinkClasses("nearby")} short:flex-row`}
+          className={`${activeLinkClasses("nearby")} tall:max-w-24 short:flex-row short:gap-2`}
         >
-          <IconLocationSearch aria-hidden="true" />
-          <span className="btm-nav-label">Nearby</span>
+          <IconLocationSearch aria-hidden="true" class="size-[1.2em]" />
+          <span className="dock-label">Nearby</span>
         </a>
         <a
           href={getPagePath($router, "explore")}
-          className={`${activeLinkClasses("explore")} short:flex-row`}
+          className={`${activeLinkClasses("explore")} tall:max-w-24 short:flex-row short:gap-2`}
         >
-          <IconMap2 aria-hidden="true" />
-          <span className="btm-nav-label">Explore</span>
+          <IconMap2 aria-hidden="true" class="size-[1.2em]" />
+          <span className="dock-label">Explore</span>
         </a>
         <a
           href={getPagePath($router, "menu")}
-          className={`${activeLinkClasses("menu")} short:flex-row`}
+          className={`${activeLinkClasses("menu")} tall:max-w-24 short:flex-row short:gap-2`}
         >
-          <IconMenu2 aria-hidden="true" />
-          <span className="btm-nav-label">Menu</span>
+          <IconMenu2 aria-hidden="true" class="size-[1.2em]" />
+          <span className="dock-label">Menu</span>
         </a>
       </nav>
       {/* This hack won't be needed in DaisyUI 5.x */}

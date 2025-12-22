@@ -296,7 +296,7 @@ export const MapView: FunctionComponent = () => {
   return (
     <div
       className={
-        "fixed top-16 pt-inset-top left-0 bottom-16 short:bottom-10 pb-inset-bottom right-0 " +
+        "fixed top-16 pt-inset-top left-0 bottom-16 short:bottom-12 pb-inset-bottom right-0 " +
         (showMap ? "" : "invisible")
       }
     >

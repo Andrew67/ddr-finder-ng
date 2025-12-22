@@ -130,72 +130,73 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
         onSubmit={onSubmit}
         ref={formRef}
       >
-        <h3 className="font-bold text-lg mb-2">Search Settings</h3>
+        <fieldset class="fieldset">
+          <legend class="font-bold text-lg mb-2">Search Settings</legend>
 
-        <label className="form-control max-w-xs mb-2">
-          <div className="label">
-            <span className="label-text">Data Source</span>
-          </div>
-          <select className="select select-accent" name="dataSource">
+          <label
+            class="label text-sm text-base-content"
+            for="search-settings-data-source"
+          >
+            Data Source
+          </label>
+          <select
+            id="search-settings-data-source"
+            className="select select-accent mb-2"
+            name="dataSource"
+          >
             {defaultSource}
             {otherSources}
           </select>
-        </label>
 
-        <div className="label pb-0">
-          <span className="label-text">Game Filter</span>
-        </div>
-        <div className="form-control">
-          <label className="label cursor-pointer justify-start gap-2">
+          <div className="label text-sm text-base-content">Game Filter</div>
+          <label className="label text-base-content cursor-pointer gap-2">
             <input
               type="radio"
               name="gameFilter"
               value="off"
-              className="radio checked:bg-primary"
+              className="radio radio-primary"
               defaultChecked={gameFilter.length === 0}
               onClick={onFilterOffClick}
             />
-            <span className="label-text">Any games</span>
+            Any games
           </label>
-        </div>
-        <div className="form-control">
-          <label className="label pb-0 cursor-pointer justify-start gap-2">
+          <label className="label text-base-content cursor-pointer gap-2">
             <input
               type="radio"
               name="gameFilter"
               value="on"
-              className="radio checked:bg-primary"
+              className="radio radio-primary"
               defaultChecked={gameFilter.length !== 0}
             />
-            <span className="label-text">Must have either of:</span>
+            Must have either of:
           </label>
-        </div>
-        <div className="join ms-8">
-          <input
-            className="join-item btn"
-            type="checkbox"
-            name="gameFilterDdr"
-            aria-label="DDR"
-            defaultChecked={gameFilter.includes("ddr")}
-            onClick={onGameFilterClick}
-          />
-          <input
-            className="join-item btn"
-            type="checkbox"
-            name="gameFilterPiu"
-            aria-label="PIU"
-            defaultChecked={gameFilter.includes("piu")}
-            onClick={onGameFilterClick}
-          />
-          <input
-            className="join-item btn"
-            type="checkbox"
-            name="gameFilterSmx"
-            aria-label="SMX"
-            defaultChecked={gameFilter.includes("smx")}
-            onClick={onGameFilterClick}
-          />
-        </div>
+          <div className="join ms-8">
+            <input
+              className="join-item btn"
+              type="checkbox"
+              name="gameFilterDdr"
+              aria-label="DDR"
+              defaultChecked={gameFilter.includes("ddr")}
+              onClick={onGameFilterClick}
+            />
+            <input
+              className="join-item btn"
+              type="checkbox"
+              name="gameFilterPiu"
+              aria-label="PIU"
+              defaultChecked={gameFilter.includes("piu")}
+              onClick={onGameFilterClick}
+            />
+            <input
+              className="join-item btn"
+              type="checkbox"
+              name="gameFilterSmx"
+              aria-label="SMX"
+              defaultChecked={gameFilter.includes("smx")}
+              onClick={onGameFilterClick}
+            />
+          </div>
+        </fieldset>
 
         <div className="modal-action mb-inset-bottom sm:mb-0">
           {/* if there is a button in form, it will close the modal */}

@@ -27,7 +27,7 @@ export const ExplorePage: FunctionComponent = () => {
       {/* Bottom right controls, which become bottom left on short screens */}
       <div
         className={
-          "fixed short:bottom-20 short:pt-inset-top short:left-2 short:pl-inset-left " +
+          "fixed short:bottom-22 short:pt-inset-top short:left-2 short:pl-inset-left " +
           "tall:right-2 tall:pr-inset-right tall:bottom-28 tall:sm:bottom-24 tall:pb-inset-bottom " +
           "flex flex-col gap-2"
         }

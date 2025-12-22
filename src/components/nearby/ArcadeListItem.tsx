@@ -11,11 +11,9 @@ export const ArcadeListItemPlaceholder: FunctionComponent<
   const { isLoading } = props;
   return (
     <li
-      className={`collapse bg-base-200 ${isLoading ? "skeleton" : ""}`}
+      className={`collapse min-h-15 bg-base-200 ${isLoading ? "skeleton" : ""}`}
       aria-label="Empty placeholder for arcade location"
-    >
-      <div className="collapse-title !cursor-auto"></div>
-    </li>
+    ></li>
   );
 };
 
@@ -36,7 +34,7 @@ export const ArcadeListItem: FunctionComponent<ArcadeListItemProps> = (
         <input type="checkbox" name={`arcade-accordion-${id}`} />
         <div className="collapse-title text-lg font-medium">
           {index != undefined && (
-            <span className="badge badge-secondary px-0 w-5 me-1 -translate-y-0.5">
+            <span className="badge badge-secondary rounded-4xl w-5 me-1 -translate-y-0.5">
               {index + 1}
             </span>
           )}

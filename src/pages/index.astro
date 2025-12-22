@@ -136,13 +136,15 @@ import "../styles/global.css";
       </footer>
     </main>
 
-    <aside class="hidden md:block">
-      <div class="mockup-phone">
-        <div class="display !mt-0">
-          <div
-            class="w-[360px] h-[720px] bg-[url(/img/screenshots/explore-narrow.avif)] bg-cover dark:opacity-80"
-          >
-          </div>
+    <aside class="hidden md:block" aria-hidden="true">
+      <!-- TODO: Dark mode, camera cut-out, no aspect ratio override -->
+      <div class="mockup-phone aspect-auto">
+        <div class="mockup-phone-display w-[360px] h-[720px]">
+          <img
+            alt=""
+            src="/img/screenshots/explore-narrow.avif"
+            class="dark:opacity-80"
+          />
         </div>
       </div>
     </aside>
