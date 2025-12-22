@@ -1,3 +1,5 @@
+@reference "../../styles/global.css";
+
 .mapboxgl-ctrl-group button {
   /* Shrinks to accommodate shrinking Geocoder on `sm` */
   /* TODO: Re-increase Geocoder size on `sm` */

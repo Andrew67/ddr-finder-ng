@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@astrojs/preact": "4.0.8",
-    "@astrojs/tailwind": "6.0.2",
     "@mapbox/mapbox-gl-geocoder": "5.0.3",
     "@nanostores/persistent": "0.10.2",
     "@nanostores/preact": "0.5.2",
@@ -36,20 +35,22 @@
     "@turf/distance": "7.2.0",
     "@turf/helpers": "7.2.0",
     "astro": "5.13.1",
-    "daisyui": "4.12.24",
+    "daisyui": "5.5.14",
     "mapbox-gl": "3.10.0",
     "nanostores": "0.11.3",
     "preact": "10.26.2",
-    "tailwindcss": "3.4.17"
+    "tailwindcss": "4.1.18"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
     "@babel/core": "*",
+    "@tailwindcss/vite": "4.1.18",
     "@types/mapbox__mapbox-gl-geocoder": "^5",
     "postcss": "*",
     "prettier": "3.4.2",
     "prettier-plugin-astro": "0.14.1",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "vite": "*"
   },
   "packageManager": "yarn@4.8.1"
 }

@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@theme {
+  --spacing-inset-top: env(safe-area-inset-top);
+  --spacing-inset-bottom: env(safe-area-inset-bottom);
+  --spacing-inset-left: env(safe-area-inset-left);
+  --spacing-inset-right: env(safe-area-inset-right);
+}
+@custom-variant short (@media(max-height: 35.499rem)); /* 567.98px */
+@custom-variant tall (@media(min-height: 35.5rem)); /* 568px */
+
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "ddrfinder-light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-primary: var(--color-blue-900);
+  --color-primary-content: var(--color-blue-50);
+  --color-secondary: var(--color-fuchsia-700);
+  --color-secondary-content: var(--color-fuchsia-50);
+  --color-accent: var(--color-lime-700);
+  --color-accent-content: var(--color-lime-50);
+  --color-neutral: var(--color-slate-900);
+  --color-base-100: var(--color-blue-50);
+  --color-base-200: var(--color-blue-100);
+  --color-base-300: var(--color-blue-200);
+  --color-info: var(--color-cyan-700);
+  --color-success: var(--color-green-700);
+  --color-warning: var(--color-orange-700);
+  --color-error: var(--color-red-700);
+}
+
+@plugin "daisyui/theme" {
+  name: "ddrfinder-dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-primary: var(--color-blue-200);
+  --color-primary-content: var(--color-blue-900);
+  --color-secondary: var(--color-fuchsia-200);
+  --color-secondary-content: var(--color-fuchsia-900);
+  --color-accent: var(--color-lime-200);
+  --color-accent-content: var(--color-lime-900);
+  --color-neutral: var(--color-slate-100);
+  --color-base-100: var(--color-slate-900);
+  --color-base-200: var(--color-slate-800);
+  --color-base-300: var(--color-slate-700);
+  --color-info: var(--color-cyan-200);
+  --color-success: var(--color-green-200);
+  --color-warning: var(--color-orange-200);
+  --color-error: var(--color-red-300);
+}

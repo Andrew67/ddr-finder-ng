@@ -1,5 +1,6 @@
 ---
 import { IconHome, IconLicense, IconBrandGithub } from "@tabler/icons-preact";
+import "../../styles/global.css";
 ---
 
 <html lang="en">
@@ -14,6 +15,7 @@ import { IconHome, IconLicense, IconBrandGithub } from "@tabler/icons-preact";
     <link rel="shortcut icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <style>
+      @reference "../../styles/global.css";
       a[href]:not(.btn) {
         @apply underline text-blue-700 dark:text-blue-200;
       }
