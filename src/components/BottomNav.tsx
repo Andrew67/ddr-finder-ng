@@ -19,32 +19,28 @@ export const BottomNav: FunctionComponent<{
   );
 
   return (
-    <>
-      <nav className="dock z-10 short:dock-xs print:hidden bg-base-300 pl-inset-left pr-inset-right pb-0 bottom-inset-bottom">
-        <a
-          href={getPagePath($router, "nearby")}
-          className={`${activeLinkClasses("nearby")} tall:max-w-24 short:flex-row short:gap-2`}
-        >
-          <IconLocationSearch aria-hidden="true" class="size-[1.2em]" />
-          <span className="dock-label">Nearby</span>
-        </a>
-        <a
-          href={getPagePath($router, "explore")}
-          className={`${activeLinkClasses("explore")} tall:max-w-24 short:flex-row short:gap-2`}
-        >
-          <IconMap2 aria-hidden="true" class="size-[1.2em]" />
-          <span className="dock-label">Explore</span>
-        </a>
-        <a
-          href={getPagePath($router, "menu")}
-          className={`${activeLinkClasses("menu")} tall:max-w-24 short:flex-row short:gap-2`}
-        >
-          <IconMenu2 aria-hidden="true" class="size-[1.2em]" />
-          <span className="dock-label">Menu</span>
-        </a>
-      </nav>
-      {/* This hack won't be needed in DaisyUI 5.x */}
-      <div className="fixed bottom-0 w-full h-inset-bottom z-10 bg-base-300"></div>
-    </>
+    <nav className="dock z-10 short:dock-xs print:hidden bg-base-300 pl-inset-left pr-inset-right">
+      <a
+        href={getPagePath($router, "nearby")}
+        className={`${activeLinkClasses("nearby")} tall:max-w-24 short:flex-row short:gap-2`}
+      >
+        <IconLocationSearch aria-hidden="true" class="size-[1.2em]" />
+        <span className="dock-label">Nearby</span>
+      </a>
+      <a
+        href={getPagePath($router, "explore")}
+        className={`${activeLinkClasses("explore")} tall:max-w-24 short:flex-row short:gap-2`}
+      >
+        <IconMap2 aria-hidden="true" class="size-[1.2em]" />
+        <span className="dock-label">Explore</span>
+      </a>
+      <a
+        href={getPagePath($router, "menu")}
+        className={`${activeLinkClasses("menu")} tall:max-w-24 short:flex-row short:gap-2`}
+      >
+        <IconMenu2 aria-hidden="true" class="size-[1.2em]" />
+        <span className="dock-label">Menu</span>
+      </a>
+    </nav>
   );
 };
