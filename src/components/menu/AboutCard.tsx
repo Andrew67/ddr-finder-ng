@@ -8,7 +8,7 @@ export const AboutCard: FunctionComponent = () => (
       <p className="-mt-2 flex flex-col items-center">
         <img src="/img/icon-192.png" width="96" height="96" alt="" />
         <span className="text-lg">DDR Finder</span>
-        <span className="text-sm">&copy;2012&ndash;2025 Andrés Cordero</span>
+        <span className="text-sm">&copy;2012&ndash;2026 Andrés Cordero</span>
       </p>
       <div className="card-actions justify-end">
         <a

@@ -133,7 +133,7 @@ export const NearbyPage: FunctionComponent = () => {
 
         <footer>
           <p className="mb-2">
-            &copy; 2012&ndash;2025{" "}
+            &copy; 2012&ndash;2026{" "}
             <a
               href="https://andrew67.com/"
               target="_blank"

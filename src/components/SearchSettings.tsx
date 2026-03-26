@@ -134,7 +134,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
           <legend class="font-bold text-lg mb-2">Search Settings</legend>
 
           <label
-            class="label text-sm text-base-content"
+            class="label text-base-content"
             for="search-settings-data-source"
           >
             Data Source
@@ -148,7 +148,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
             {otherSources}
           </select>
 
-          <div className="label text-sm text-base-content">Game Filter</div>
+          <div className="label text-base-content">Game Filter</div>
           <label className="label text-base-content cursor-pointer gap-2">
             <input
               type="radio"

@@ -27,7 +27,7 @@ export const NavigationAppSelector: FunctionComponent<
     (id: string, label: string) => (
       <button
         type="submit"
-        className={`btn ${id === activeId ? "btn-success" : "btn-ghost"} px-0 py-2 flex-col h-auto`}
+        className={`btn ${id === activeId ? "btn-accent" : "btn-ghost"} rounded-2xl px-0 py-2 flex-col h-auto`}
         autofocus={id === activeId}
         onClick={() => $iosNavigationApp.set(id)}
       >

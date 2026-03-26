@@ -5,8 +5,10 @@
   --spacing-inset-left: env(safe-area-inset-left);
   --spacing-inset-right: env(safe-area-inset-right);
 }
-@custom-variant short (@media(max-height: 35.499rem)); /* 567.98px */
+@custom-variant short (@media(max-height: 35.498rem)); /* 567.98px */
 @custom-variant tall (@media(min-height: 35.5rem)); /* 568px */
+/** Used to drive `dock-xs` logic on either short-height (< 568px) or medium-width (> 768px) screens */
+@custom-variant short-or-md (@media(max-height: 35.498rem) or (min-width: 48rem));
 
 @plugin "daisyui";
 

@@ -14,7 +14,7 @@ export const TopNav: FunctionComponent = () => {
   }, []);
 
   return (
-    <div className="navbar sticky z-10 top-0 bg-base-300">
+    <div className="navbar fixed z-10 top-0 bg-base-300">
       <div className="flex-1 pl-inset-left pt-inset-top">
         <h1 className="btn btn-ghost text-xl">DDR Finder</h1>
       </div>

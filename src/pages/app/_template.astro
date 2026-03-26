@@ -37,7 +37,8 @@ import "../../styles/global.css";
   </head>
   <body class="min-h-screen">
     <TopNav client:load />
-    <div class="pl-inset-left pr-inset-right pb-inset-bottom">
+    <div class="h-16"></div>
+    <div class="pl-inset-left pt-inset-top pr-inset-right pb-inset-bottom">
       <App client:only="preact">
         <div slot="fallback" class="p-4">Loading...</div>
       </App>

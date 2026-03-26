@@ -19,7 +19,7 @@ export const NavigationAppCard: FunctionComponent = () => {
           <div className="stat-value">{appName}</div>
           <div className="stat-actions">
             <button
-              className="btn btn-sm btn-success"
+              className="btn btn-sm btn-accent"
               onClick={() => setModalOpen(true)}
             >
               Change
