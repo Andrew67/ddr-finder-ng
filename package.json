@@ -1,7 +1,7 @@
 {
   "name": "ddr-finder-ng",
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Next-generation Web UI for ddr-finder",
   "homepage": "https://github.com/Andrew67/ddr-finder-ng",
   "license": "MIT",
@@ -21,20 +21,20 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "preview-cf": "yarn dlx wrangler pages dev dist --port 4321",
+    "preview-cf": "pnpm dlx wrangler pages dev dist --port 4321",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/preact": "4.1.3",
+    "@astrojs/preact": "5.1.0",
     "@mapbox/mapbox-gl-geocoder": "5.1.2",
     "@nanostores/persistent": "1.2.0",
     "@nanostores/preact": "1.0.0",
     "@nanostores/query": "0.3.4",
-    "@nanostores/router": "patch:@nanostores/router@npm%3A1.0.0#~/.yarn/patches/@nanostores-router-npm-1.0.0-689373849e.patch",
+    "@nanostores/router": "1.0.0",
     "@tabler/icons-preact": "3.36.0",
     "@turf/distance": "7.2.0",
     "@turf/helpers": "7.2.0",
-    "astro": "5.16.6",
+    "astro": "6.1.1",
     "daisyui": "5.5.14",
     "mapbox-gl": "3.17.0",
     "nanostores": "1.1.0",
@@ -42,7 +42,7 @@
     "tailwindcss": "4.1.18"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.6",
+    "@astrojs/check": "0.9.8",
     "@babel/core": "*",
     "@tailwindcss/vite": "4.1.18",
     "@types/mapbox__mapbox-gl-geocoder": "^5",
@@ -51,5 +51,5 @@
     "typescript": "5.5.4",
     "vite": "^6.4.1"
   },
-  "packageManager": "yarn@4.8.1"
+  "packageManager": "pnpm@10.33.0"
 }
