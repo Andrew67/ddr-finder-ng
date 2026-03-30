@@ -9,6 +9,7 @@ export default defineConfig({
   build: {
     format: "preserve",
   },
+  prerenderConflictBehavior: "ignore",
   vite: {
     plugins: [tailwindcss()],
     server: {

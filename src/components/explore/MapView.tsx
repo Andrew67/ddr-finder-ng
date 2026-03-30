@@ -68,7 +68,6 @@ export const MapView: FunctionComponent = () => {
     });
     // Wanted it in bottom right, but the mobile experience suffers
     // due to the keyboard opening and the top result being off-screen
-    // @ts-expect-error TODO: Issue with potential @types/mapbox-gl conflict
     map.addControl(geocoder);
 
     // Add zoom/bearing controls to map
