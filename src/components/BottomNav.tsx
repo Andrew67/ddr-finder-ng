@@ -24,17 +24,24 @@ export const BottomNav: FunctionComponent<{
   );
   const linkClasses = useCallback(
     (page: string) =>
-      `${isActiveLink(page) ? "short-or-md:bg-base-200" : ""} short-or-md:flex-row short-or-md:h-10 short-or-md:gap-2 rounded-2xl`,
+      `${isActiveLink(page) ? "short-or-md:bg-primary" : ""} mb-0 gap-1` +
+      ` short-or-md:flex-row short-or-md:h-10 short-or-md:gap-2 rounded-2xl`,
     [isActiveLink],
   );
   const iconClasses = useCallback(
     (page: string) =>
-      `${isActiveLink(page) ? "bg-base-200" : ""} tall:w-14 short-or-md:w-auto h-8 grid place-items-center rounded-2xl`,
+      `${isActiveLink(page) ? "bg-primary text-primary-content" : ""} tall:w-14 short-or-md:w-auto` +
+      ` h-8 grid place-items-center rounded-2xl`,
+    [isActiveLink],
+  );
+  const labelClasses = useCallback(
+    (page: string) =>
+      `dock-label ${isActiveLink(page) ? "text-primary short-or-md:text-primary-content font-bold" : ""}`,
     [isActiveLink],
   );
 
   return (
-    <nav className="dock z-10 short:dock-xs print:hidden bg-base-300 pl-inset-left pr-inset-right">
+    <nav className="dock z-10 short:dock-xs print:hidden bg-base-300 pt-0 pl-inset-left pr-inset-right">
       <div className="hidden sm:block" />
       <a
         href={getPagePath($router, "nearby")}
@@ -43,7 +50,7 @@ export const BottomNav: FunctionComponent<{
         <div className={iconClasses("nearby")}>
           <IconLocationSearch aria-hidden="true" class="size-5" />
         </div>
-        <span className="dock-label">Nearby</span>
+        <span className={labelClasses("nearby")}>Nearby</span>
       </a>
       <a
         href={getPagePath($router, "explore")}
@@ -52,13 +59,13 @@ export const BottomNav: FunctionComponent<{
         <div className={iconClasses("explore")}>
           <IconMap2 aria-hidden="true" class="size-5" />
         </div>
-        <span className="dock-label">Explore</span>
+        <span className={labelClasses("explore")}>Explore</span>
       </a>
       <a href={getPagePath($router, "menu")} className={linkClasses("menu")}>
         <div className={iconClasses("menu")}>
           <IconMenu2 aria-hidden="true" class="size-5" />
         </div>
-        <span className="dock-label">Menu</span>
+        <span className={labelClasses("menu")}>Menu</span>
       </a>
       <div className="hidden sm:block" />
     </nav>
