@@ -32,6 +32,9 @@
   --color-success: var(--color-green-700);
   --color-warning: var(--color-orange-700);
   --color-error: var(--color-red-700);
+
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
 }
 
 @plugin "daisyui/theme" {
@@ -54,4 +57,7 @@
   --color-success: var(--color-green-200);
   --color-warning: var(--color-orange-200);
   --color-error: var(--color-red-300);
+
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
 }

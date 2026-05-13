@@ -7,11 +7,6 @@ import { IconLocationSearch, IconMap2, IconMenu2 } from "@tabler/icons-preact";
 
 import { $router } from "@/stores/router";
 
-/**
- * Bottom navigation which implements M3 Expressive,
- * including horizontal labels on short-height screens and medium-width screens.
- * @see https://m3.material.io/components/navigation-bar/specs
- */
 export const BottomNav: FunctionComponent<{
   initialPage: string | undefined;
 }> = ({ initialPage = "" }) => {
@@ -23,49 +18,39 @@ export const BottomNav: FunctionComponent<{
     [pageRoute],
   );
   const linkClasses = useCallback(
-    (page: string) =>
-      `${isActiveLink(page) ? "short-or-md:bg-primary" : ""} mb-0 gap-1` +
-      ` short-or-md:flex-row short-or-md:h-10 short-or-md:gap-2 rounded-2xl`,
-    [isActiveLink],
-  );
-  const iconClasses = useCallback(
-    (page: string) =>
-      `${isActiveLink(page) ? "bg-primary text-primary-content" : ""} tall:w-14 short-or-md:w-auto` +
-      ` h-8 grid place-items-center rounded-2xl`,
-    [isActiveLink],
-  );
-  const labelClasses = useCallback(
-    (page: string) =>
-      `dock-label ${isActiveLink(page) ? "text-primary short-or-md:text-primary-content font-bold" : ""}`,
+    (page: string) => (isActiveLink(page) ? "dock-active" : ""),
     [isActiveLink],
   );
 
   return (
-    <nav className="dock z-10 short:dock-xs print:hidden bg-base-300 pt-0 pl-inset-left pr-inset-right">
+    <nav
+      className="dock dock-m3 z-10 short:dock-xs print:hidden bg-base-300 pl-inset-left pr-inset-right"
+      style="--radius-icon: 1rem; --radius-item: 1.25rem;"
+    >
       <div className="hidden sm:block" />
       <a
         href={getPagePath($router, "nearby")}
         className={linkClasses("nearby")}
       >
-        <div className={iconClasses("nearby")}>
-          <IconLocationSearch aria-hidden="true" class="size-5" />
-        </div>
-        <span className={labelClasses("nearby")}>Nearby</span>
+        <span className="dock-icon">
+          <IconLocationSearch aria-hidden="true" />
+        </span>
+        <span className="dock-label">Nearby</span>
       </a>
       <a
         href={getPagePath($router, "explore")}
         className={linkClasses("explore")}
       >
-        <div className={iconClasses("explore")}>
-          <IconMap2 aria-hidden="true" class="size-5" />
-        </div>
-        <span className={labelClasses("explore")}>Explore</span>
+        <span className="dock-icon">
+          <IconMap2 aria-hidden="true" />
+        </span>
+        <span className="dock-label">Explore</span>
       </a>
       <a href={getPagePath($router, "menu")} className={linkClasses("menu")}>
-        <div className={iconClasses("menu")}>
-          <IconMenu2 aria-hidden="true" class="size-5" />
-        </div>
-        <span className={labelClasses("menu")}>Menu</span>
+        <span className="dock-icon">
+          <IconMenu2 aria-hidden="true" />
+        </span>
+        <span className="dock-label">Menu</span>
       </a>
       <div className="hidden sm:block" />
     </nav>

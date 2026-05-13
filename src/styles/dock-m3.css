@@ -1,0 +1,47 @@
+@reference "./global.css";
+
+/**
+ * Bottom navigation for DaisyUI which implements M3 Expressive,
+ * including horizontal labels on short-height screens and medium-width screens.
+ * @see https://m3.material.io/components/navigation-bar/specs
+ * Note 1: compared to the stock implementation, icons must be wrapped in a `<span class="dock-icon">`.
+ * Note 2: relies on custom `short-or-md` breakpoint (see `global.css`).
+ */
+.dock.dock-m3 {
+  @apply pt-0;
+  --color-active: var(--color-primary);
+  --color-active-content: var(--color-primary-content);
+  --radius-item: var(--radius-field);
+  --radius-icon: var(--radius-field);
+
+  & > * {
+    @apply mb-0 gap-1 short-or-md:flex-row short-or-md:h-10 short-or-md:gap-2 rounded-(--radius-item);
+
+    .dock-icon {
+      /* Transparent border is for forced colors mode */
+      @apply tall:w-14 short-or-md:w-auto h-8 grid place-items-center rounded-(--radius-icon);
+
+      svg {
+        @apply size-5;
+      }
+    }
+
+    &.dock-active {
+      @apply short-or-md:bg-(--color-active) border border-transparent;
+
+      .dock-icon {
+        /* Transparent border is for forced colors mode */
+        @apply bg-(--color-active) text-(--color-active-content) border border-transparent short-or-md:border-none;
+      }
+
+      .dock-label {
+        @apply text-(--color-active) short-or-md:text-(--color-active-content) font-bold;
+      }
+    }
+
+    &::after {
+      /* Undo the DaisyUI-provided active indicator */
+      content: unset;
+    }
+  }
+}
