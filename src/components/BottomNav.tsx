@@ -28,6 +28,7 @@ export const BottomNav: FunctionComponent<{
       style="--radius-icon: 1rem; --radius-item: 1.25rem;"
     >
       <div className="hidden sm:block" />
+      <div className="hidden lg:block" />
       <a
         href={getPagePath($router, "nearby")}
         className={linkClasses("nearby")}
@@ -53,6 +54,7 @@ export const BottomNav: FunctionComponent<{
         <span className="dock-label">Menu</span>
       </a>
       <div className="hidden sm:block" />
+      <div className="hidden lg:block" />
     </nav>
   );
 };
