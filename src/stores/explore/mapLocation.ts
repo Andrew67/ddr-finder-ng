@@ -1,5 +1,5 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
-import { persistentAtom } from "@nanostores/persistent";
+import { persistentJSON } from "@nanostores/persistent";
 import { $router } from "../router.ts";
 import { redirectPage } from "@nanostores/router";
 
@@ -18,7 +18,7 @@ const LAT_LNG_DIGITS = 5;
  * On the "explore" page, this feeds into the URL and gets used for moving the map.
  * Saves the last location to local storage to be used on next app open.
  */
-export const $mapLocation = persistentAtom<MapLocation>(
+export const $mapLocation = persistentJSON<MapLocation>(
   "ng-map-last-view",
   {
     // Default: zoomed out US/Mexico/Canada view, centered on Dallas, TX, US
@@ -26,8 +26,6 @@ export const $mapLocation = persistentAtom<MapLocation>(
     zoom: 3,
   },
   {
-    encode: JSON.stringify,
-    decode: JSON.parse,
     listen: false,
   },
 );

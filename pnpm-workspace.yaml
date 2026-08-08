@@ -2,8 +2,6 @@ allowBuilds:
   esbuild: false
   sharp: false
 minimumReleaseAge: 1440
-minimumReleaseAgeExclude:
-  - astro@7.2.0
 patchedDependencies:
   '@nanostores/router@1.0.0': patches/@nanostores__router@1.0.0.patch
 useNodeVersion: 24.19.0

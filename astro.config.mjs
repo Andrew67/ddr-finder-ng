@@ -9,6 +9,7 @@ export default defineConfig({
   build: {
     format: "preserve",
   },
+  compressHTML: true,
   prerenderConflictBehavior: "ignore",
   vite: {
     plugins: [tailwindcss()],

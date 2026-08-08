@@ -1,7 +1,6 @@
 # Pages used by the Android app
 /android/about.php /android/about 301
 /about.php /android/about 301
-/android/privacy-policy.html /android/privacy-policy 301
 
 # Legacy API URL redirect (query string is preserved)
 /locate.php https://ddrfinder-api.andrew67.com/locate.php 301
