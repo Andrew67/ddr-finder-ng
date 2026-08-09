@@ -1,16 +1,23 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
+import { useMemo } from "preact/hooks";
+import { useStore } from "@nanostores/preact";
+import { params } from "@nanostores/i18n";
 import { IconInfoSquareRounded, IconNavigation } from "@tabler/icons-preact";
 
 import type { ArcadeLocationWithDistance } from "@/api-types/nearby";
+import { $locale, i18n } from "@/stores/i18n.ts";
 
 import { useArcadeListItemLinks } from "./useArcadeListItemLinks";
 import { IconPlatformShare } from "./IconPlatformShare";
 
-const distanceFormatter = new Intl.NumberFormat("en-US", {
-  style: "unit",
-  unit: "kilometer",
-  maximumFractionDigits: 2,
+export const messages = i18n("locationDetails", {
+  distance: params("Approximately {distanceKm} away"),
+  games: "Games:",
+  navigate: "Navigate",
+  info: "Info",
+  moreInfo: "More Info",
+  share: "Share",
 });
 
 type ArcadeListItemProps = {
@@ -20,8 +27,28 @@ type ArcadeListItemProps = {
 export const LocationDetails: FunctionComponent<ArcadeListItemProps> = (
   props,
 ) => {
+  const locale = useStore($locale);
+  const t = useStore(messages);
+
   const { location } = props;
   const { properties } = location;
+
+  const distanceFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat(locale, {
+        style: "unit",
+        unit: "kilometer",
+        maximumFractionDigits: 2,
+      }),
+    [locale],
+  );
+  const distanceKm = useMemo(
+    () =>
+      properties.distanceKm >= 0
+        ? distanceFormatter.format(properties.distanceKm)
+        : "",
+    [properties.distanceKm, distanceFormatter],
+  );
 
   const hasDDR = properties["has:ddr"] > 0;
   const hasPIU = properties["has:piu"] > 0;
@@ -35,7 +62,7 @@ export const LocationDetails: FunctionComponent<ArcadeListItemProps> = (
 
   const onShareClick = () => {
     const gamesText = hasDanceGames
-      ? `Games: ${hasDDR ? "DDR " : ""}${hasPIU ? "PIU " : ""}${
+      ? `${t.games} ${hasDDR ? "DDR " : ""}${hasPIU ? "PIU " : ""}${
           hasSMX ? "SMX " : ""
         }\n`
       : "";
@@ -53,12 +80,7 @@ ${gamesText}`;
           <i>{properties.city}</i>
         </li>
       )}
-      {properties.distanceKm >= 0 && (
-        <li>
-          Approximately <b>{distanceFormatter.format(properties.distanceKm)}</b>{" "}
-          away
-        </li>
-      )}
+      {distanceKm && <li>{t.distance({ distanceKm })}</li>}
       {hasDanceGames && (
         <li className="flex gap-1 items-baseline">
           Games:
@@ -73,7 +95,7 @@ ${gamesText}`;
           className="arcade-nav btn btn-accent"
           target="_blank"
         >
-          <IconNavigation aria-hidden="true" /> Navigate
+          <IconNavigation aria-hidden="true" /> {t.navigate}
         </a>
         <a
           href={moreInfoMobileUrl}
@@ -81,7 +103,7 @@ ${gamesText}`;
           target="_blank"
         >
           <IconInfoSquareRounded aria-hidden="true" />
-          Info
+          {t.info}
         </a>
         <a
           href={moreInfoUrl}
@@ -89,7 +111,7 @@ ${gamesText}`;
           target="_blank"
         >
           <IconInfoSquareRounded aria-hidden="true" />
-          More Info
+          {t.moreInfo}
         </a>
         {/* Simulate `btn-square` for small screens but expand at `sm` */}
         {isShareAvailable && (
@@ -100,7 +122,7 @@ ${gamesText}`;
             title="Share"
           >
             <IconPlatformShare aria-hidden="true" />
-            <span className="hidden sm:inline">Share</span>
+            <span className="hidden sm:inline">{t.share}</span>
           </button>
         )}
       </li>

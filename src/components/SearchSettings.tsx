@@ -1,32 +1,26 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
-import type { h, FunctionComponent, JSX } from "preact";
+import type { h, Fragment, FunctionComponent } from "preact";
 import { useRef } from "preact/compat";
 import { useCallback, useEffect, useMemo } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
+
+import { $locale, i18n } from "@/stores/i18n.ts";
 import { $activeSourceId, $sources, setActiveSourceId } from "@/stores/sources";
-import type { DataSource } from "@/api-types/sources";
 import { $gameFilter, setGameFilter } from "@/stores/gameFilter";
+import type { DataSource } from "@/api-types/sources";
 
-/** Per API docs, Scope is either "world" or a 2-letter country code */
-function getScopeLabel(scope: DataSource["scope"]): string {
-  if (scope === "world") return " (Worldwide)";
-  const countryName = new Intl.DisplayNames(["en"], { type: "region" }).of(
-    scope,
-  );
-  return countryName ? ` (${countryName})` : "";
-}
-
-function getSourceOption(
-  source: DataSource,
-  activeSourceId: DataSource["id"],
-): JSX.Element {
-  return (
-    <option value={source.id} selected={activeSourceId === source.id}>
-      {source.name}
-      {getScopeLabel(source.scope)}
-    </option>
-  );
-}
+export const messages = i18n("searchSettings", {
+  title: "Search Settings",
+  dataSource: "Data Source",
+  gameFilter: "Game Filter",
+  anyGames: "Any games",
+  mustHave: "Must have either of:",
+  worldScope: "(Worldwide)",
+  recommendedSource: "Recommended",
+  otherSource: "Other",
+  save: "Save",
+  cancel: "Cancel",
+});
 
 /** `form.elements` TS helper: {@link https://stackoverflow.com/a/70995964} */
 type FormElements<U extends string> = HTMLFormControlsCollection &
@@ -48,6 +42,33 @@ type SearchSettingsProps = {
 export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
   props,
 ) => {
+  const locale = useStore($locale);
+  const t = useStore(messages);
+
+  /** Per API docs, Scope is either "world" or a 2-letter country code */
+  const getScopeLabel = useCallback(
+    (scope: DataSource["scope"]): string => {
+      if (scope === "world") return ` ${t.worldScope}`;
+      const countryName = new Intl.DisplayNames([locale], {
+        type: "region",
+      }).of(scope);
+      return countryName ? ` (${countryName})` : "";
+    },
+    [locale, t.worldScope],
+  );
+
+  const getSourceOption = useCallback(
+    (source: DataSource, activeSourceId: DataSource["id"]) => {
+      return (
+        <option value={source.id} selected={activeSourceId === source.id}>
+          {source.name}
+          {getScopeLabel(source.scope)}
+        </option>
+      );
+    },
+    [getScopeLabel],
+  );
+
   const { open } = props;
   const modalRef = useRef<HTMLDialogElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -66,7 +87,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
     const defaultSource = sources.data.sources[sources.data.default];
 
     return (
-      <optgroup label="Recommended">
+      <optgroup label={t.recommendedSource}>
         {getSourceOption(defaultSource, activeSourceId)}
       </optgroup>
     );
@@ -79,7 +100,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
     );
 
     return (
-      <optgroup label="Other">
+      <optgroup label={t.otherSource}>
         {otherSources.map((source) => getSourceOption(source, activeSourceId))}
       </optgroup>
     );
@@ -131,13 +152,13 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
         ref={formRef}
       >
         <fieldset class="fieldset">
-          <legend class="font-bold text-lg mb-2">Search Settings</legend>
+          <legend class="font-bold text-lg mb-2">{t.title}</legend>
 
           <label
             class="label text-base-content"
             for="search-settings-data-source"
           >
-            Data Source
+            {t.dataSource}
           </label>
           <select
             id="search-settings-data-source"
@@ -148,7 +169,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
             {otherSources}
           </select>
 
-          <div className="label text-base-content">Game Filter</div>
+          <div className="label text-base-content">{t.gameFilter}</div>
           <label className="label text-base-content cursor-pointer gap-2">
             <input
               type="radio"
@@ -158,7 +179,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
               defaultChecked={gameFilter.length === 0}
               onClick={onFilterOffClick}
             />
-            Any games
+            {t.anyGames}
           </label>
           <label className="label text-base-content cursor-pointer gap-2">
             <input
@@ -168,7 +189,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
               className="radio radio-primary"
               defaultChecked={gameFilter.length !== 0}
             />
-            Must have either of:
+            {t.mustHave}
           </label>
           <div className="join ms-8">
             <input
@@ -201,13 +222,13 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
         <div className="modal-action mb-inset-bottom sm:mb-0">
           {/* if there is a button in form, it will close the modal */}
           <button type="submit" className="btn btn-secondary">
-            Save
+            {t.save}
           </button>
         </div>
       </form>
 
       <form method="dialog" className="modal-backdrop">
-        <button type="submit">Cancel</button>
+        <button type="submit">{t.cancel}</button>
       </form>
     </dialog>
   );

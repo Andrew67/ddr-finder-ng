@@ -1,8 +1,8 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
-import type { h, FunctionComponent } from "preact";
+import type { h, Fragment, FunctionComponent } from "preact";
 import { useMemo, useState } from "preact/hooks";
 
-import { FilterSourceButtons } from "./FilterSourceButtons";
+import { FilterSourceButtons } from "../FilterSourceButtons";
 import { SearchSettings } from "../SearchSettings";
 import { useStore } from "@nanostores/preact";
 import { $selectedArcadeWithDistance } from "@/stores/explore/selectedArcade";
@@ -33,6 +33,7 @@ export const ExplorePage: FunctionComponent = () => {
         }
       >
         <FilterSourceButtons
+          collapseOnSmallScreens={true}
           filterClick={() => setSearchSettingsOpen(true)}
           sourceClick={() => setSearchSettingsOpen(true)}
         />

@@ -1,0 +1,57 @@
+{
+  "topNav": {
+    "appName": "DDR Finder",
+    "calculator": "Calculadora",
+    "share": "Compartir"
+  },
+  "bottomNav": {
+    "nearby": "Alrededor",
+    "explore": "Explorar",
+    "menu": "Menú"
+  },
+  "nearbyPage": {
+    "useLocation": "Usar ubicación",
+    "yourLocation": "Tu ubicación:",
+    "connectionError": "Error de conexión. Favor intentar de nuevo",
+    "nearbyArcades": "Salas de videojuegos cercanas:",
+    "noNearbyArcadesFound": "No arcades found nearby!",
+    "noNearbyArcadesAdvice1": "If you have game filters enabled, try clearing them.",
+    "noNearbyArcadesAdvice2": "Try a different data source setting.",
+    "noNearbyArcadesAdvice3": "Use the Explore page to check out the entire world.",
+    "noNearbyArcadesAdvice4": "Go to the data source website.",
+    "noWarranty": "No existe garantía con respecto a la información presentada en esta página."
+  },
+  "accuracy": {
+    "message": "Precisión aproximada de {meters}"
+  },
+  "filterSourceButtons": {
+    "filter": "Filtro",
+    "source": "Fuente",
+    "anyGames": "Cualquier juego"
+  },
+  "searchSettings": {
+    "title": "Configuración de búsqueda",
+    "dataSource": "Fuente de datos",
+    "gameFilter": "Filtrar por juego",
+    "anyGames": "Cualquier juego",
+    "mustHave": "Debe contar con al menos:",
+    "worldScope": "(Mundial)",
+    "recommendedSource": "Recomendada",
+    "otherSource": "Otra",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+  "locationDetails": {
+    "distance": "Aproximadamente a {distanceKm}",
+    "games": "Juegos:",
+    "navigate": "Navegar",
+    "info": "Info",
+    "moreInfo": "Más info",
+    "share": "Compartir"
+  },
+  "userLocationError": {
+    "positionUnavailable": "Ubicación no disponible",
+    "positionAdvice": "Asegure que GPS, Wi-Fi, y Bluetooth estén habilitados, entonces intente de nuevo.\nSi su permiso de ubicación está configurado como \"aproximado\", es posible que tenga que cambiarlo a \"preciso\".\nTambién puede ser necesario que se ubique al aire libre.",
+    "confirm": "Entiendo"
+  }
+}

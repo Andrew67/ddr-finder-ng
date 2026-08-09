@@ -17,6 +17,9 @@ importers:
       '@mapbox/mapbox-gl-geocoder':
         specifier: 5.1.2
         version: 5.1.2
+      '@nanostores/i18n':
+        specifier: ^1.3.3
+        version: 1.3.3(nanostores@1.4.2)
       '@nanostores/persistent':
         specifier: 1.3.5
         version: 1.3.5(nanostores@1.4.2)
@@ -740,6 +743,12 @@ packages:
   '@mapbox/whoots-js@3.1.0':
     resolution: {integrity: sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==}
     engines: {node: '>=6.0.0'}
+
+  '@nanostores/i18n@1.3.3':
+    resolution: {integrity: sha512-hwuTKJ+DKCOuszmmOuNfDeA8j86WJWLLzjzE1BYm+mabMcD5JYDnTd0wPMwgGJ+U//ApRaxviRvOtvk50F+RCg==}
+    engines: {node: ^20.0.0 || >=22.0.0}
+    peerDependencies:
+      nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
 
   '@nanostores/persistent@1.3.5':
     resolution: {integrity: sha512-CNdhro3jEzNdPpPImIltnPpDKp5vxYmomHlZI7EMNoAxddImx97djxXDdPd2HIC4UczzUUMk7AMWCfMpFJHUsw==}
@@ -3566,6 +3575,10 @@ snapshots:
       pbf: 4.0.1
 
   '@mapbox/whoots-js@3.1.0': {}
+
+  '@nanostores/i18n@1.3.3(nanostores@1.4.2)':
+    dependencies:
+      nanostores: 1.4.2
 
   '@nanostores/persistent@1.3.5(nanostores@1.4.2)':
     dependencies:
