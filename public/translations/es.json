@@ -1,7 +1,8 @@
 {
   "topNav": {
     "appName": "DDR Finder",
-    "calculator": "Calculadora",
+    "changeLanguage": "Cambiar idioma",
+    "calculator": "Calculadora de velocidad",
     "share": "Compartir"
   },
   "bottomNav": {

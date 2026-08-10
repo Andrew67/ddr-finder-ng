@@ -1,0 +1,58 @@
+{
+  "topNav": {
+    "appName": "跳舞机地图",
+    "changeLanguage": "更改语言",
+    "calculator": "速度计算器",
+    "share": "分享"
+  },
+  "bottomNav": {
+    "nearby": "附近",
+    "explore": "探索",
+    "menu": "更多"
+  },
+  "nearbyPage": {
+    "useLocation": "使用位置信息",
+    "yourLocation": "当前位置：",
+    "connectionError": "连接错误，请重试。",
+    "nearbyArcades": "附近机厅：",
+    "noNearbyArcadesFound": "未找到附近的机厅！",
+    "noNearbyArcadesAdvice1": "如果你使用了游戏筛选，请尝试选择“全部游戏”选项来清除筛选条件。",
+    "noNearbyArcadesAdvice2": "尝试更换数据源设置。",
+    "noNearbyArcadesAdvice3": "前往探索页面查看全球范围。",
+    "noNearbyArcadesAdvice4": "访问数据源网站。",
+    "noWarranty": "本页面展示的信息不提供任何保证。"
+  },
+  "accuracy": {
+    "message": "精度约{meters}"
+  },
+  "filterSourceButtons": {
+    "filter": "筛选",
+    "source": "数据源",
+    "anyGames": "全部游戏"
+  },
+  "searchSettings": {
+    "title": "搜索设置",
+    "dataSource": "数据源",
+    "gameFilter": "按游戏筛选",
+    "anyGames": "全部游戏",
+    "mustHave": "必须具备：",
+    "worldScope": "（全球）",
+    "recommendedSource": "推荐",
+    "otherSource": "其他",
+    "save": "保存",
+    "cancel": "取消"
+  },
+  "locationDetails": {
+    "distance": "据您约{distanceKm}",
+    "games": "游戏：",
+    "navigate": "导航",
+    "info": "信息",
+    "moreInfo": "更多信息",
+    "share": "分享"
+  },
+  "userLocationError": {
+    "positionUnavailable": "无法获取位置",
+    "positionAdvice": "请确保开启 GPS、Wi‑Fi 和蓝牙，然后重试。\n 如果你的位置权限设置为 “大致位置”，你可能需要将其改为 “精确位置”。\n 你也可以到室外尝试。",
+    "confirm": "我知道了"
+  }
+}

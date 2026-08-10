@@ -83,7 +83,7 @@ ${gamesText}`;
       {distanceKm && <li>{t.distance({ distanceKm })}</li>}
       {hasDanceGames && (
         <li className="flex gap-1 items-baseline">
-          Games:
+          {t.games}
           {hasDDR && <span className="badge badge-primary">DDR</span>}
           {hasPIU && <span className="badge badge-secondary">PIU</span>}
           {hasSMX && <span className="badge badge-accent">SMX</span>}

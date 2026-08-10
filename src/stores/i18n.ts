@@ -2,12 +2,11 @@
 import { createI18n, localeFrom, browser, formatter } from "@nanostores/i18n";
 import { persistentAtom } from "@nanostores/persistent";
 
-export const setting = persistentAtom<string | undefined>("locale", undefined);
+const LOCALES = ["en", "es", "ja", "zh"] as const;
+export type Locale = (typeof LOCALES)[number];
 
-const LOCALES = ["en", "es"] as const;
-// type Locale = (typeof LOCALES)[number];
+export const setting = persistentAtom<Locale>("locale", LOCALES[0]);
 
-// TODO: Use Locale strict type
 // TODO: Custom browser detector that matches language stems so locales can be en-US, es-419, and zh-Hans-CN
 export const $locale = localeFrom(
   setting, // User’s locale from localStorage

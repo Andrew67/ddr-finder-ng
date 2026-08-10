@@ -1,0 +1,58 @@
+{
+  "topNav": {
+    "appName": "DDR 検索",
+    "changeLanguage": "言語変更",
+    "calculator": "BPM電卓",
+    "share": "シェア"
+  },
+  "bottomNav": {
+    "nearby": "近い",
+    "explore": "世界中",
+    "menu": "メニュー"
+  },
+  "nearbyPage": {
+    "useLocation": "位置情報の使用",
+    "yourLocation": "位置：",
+    "connectionError": "予想外の通信エラーが起こりました。また試してください。",
+    "nearbyArcades": "近くのゲームセンター：",
+    "noNearbyArcadesFound": "近くにゲームセンター見つかりませんでした",
+    "noNearbyArcadesAdvice1": "フィルターを使う場合、「どのゲームでも」設定を試してください。",
+    "noNearbyArcadesAdvice2": "別のデータベース設定を試してください。",
+    "noNearbyArcadesAdvice3": "世界中ページで全世界を見えることが出来ます。",
+    "noNearbyArcadesAdvice4": "元のウェブサイトにアクセスしてください。",
+    "noWarranty": "結果の正確性については一切保証いたしません。"
+  },
+  "accuracy": {
+    "message": "約{meters}までの精度"
+  },
+  "filterSourceButtons": {
+    "filter": "フィルター",
+    "source": "データベース",
+    "anyGames": "どのゲームでも"
+  },
+  "searchSettings": {
+    "title": "検索設定",
+    "dataSource": "データベース",
+    "gameFilter": "ゲームフィルター",
+    "anyGames": "どのゲームでも",
+    "mustHave": "以下のゲーム",
+    "worldScope": "（全世界）",
+    "recommendedSource": "おすすめ",
+    "otherSource": "他の",
+    "save": "保存",
+    "cancel": "キャンセル"
+  },
+  "locationDetails": {
+    "distance": "約{distanceKm}",
+    "games": "ゲーム：",
+    "navigate": "ナビ",
+    "info": "詳しく",
+    "moreInfo": "もっと詳しく",
+    "share": "シェア"
+  },
+  "userLocationError": {
+    "positionUnavailable": "位置情報が有りません",
+    "positionAdvice": "GPS、Wi-Fi、Bluetoothの設定を確認してまた試してください。\n位置情報の許可設定が「およその位置」になっている場合は、「正確な位置」に変更する必要がある場合もあります。\n外に出るの必要恐れがあります。",
+    "confirm": "了解"
+  }
+}

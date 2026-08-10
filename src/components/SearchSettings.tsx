@@ -91,7 +91,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
         {getSourceOption(defaultSource, activeSourceId)}
       </optgroup>
     );
-  }, [sources.data, activeSourceId]);
+  }, [sources.data, activeSourceId, t.recommendedSource, getSourceOption]);
 
   const otherSources = useMemo(() => {
     if (!sources.data || !activeSourceId) return <></>;
@@ -104,7 +104,7 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
         {otherSources.map((source) => getSourceOption(source, activeSourceId))}
       </optgroup>
     );
-  }, [sources.data, activeSourceId]);
+  }, [sources.data, activeSourceId, t.otherSource, getSourceOption]);
 
   // TODO: Disable game filter options when unsupported by data source
 
