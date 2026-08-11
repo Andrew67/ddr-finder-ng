@@ -3,6 +3,7 @@ import type { h, Fragment, FunctionComponent } from "preact";
 import { useRef } from "preact/compat";
 import { useCallback, useEffect, useMemo } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
+import { params } from "@nanostores/i18n";
 
 import { $locale, i18n } from "@/stores/i18n.ts";
 import { $activeSourceId, $sources, setActiveSourceId } from "@/stores/sources";
@@ -15,7 +16,8 @@ export const messages = i18n("searchSettings", {
   gameFilter: "Game Filter",
   anyGames: "Any games",
   mustHave: "Must have either of:",
-  worldScope: "(Worldwide)",
+  worldScope: " (Worldwide)",
+  countryScope: params(" ({countryName})"),
   recommendedSource: "Recommended",
   otherSource: "Other",
   save: "Save",
@@ -48,11 +50,11 @@ export const SearchSettings: FunctionComponent<SearchSettingsProps> = (
   /** Per API docs, Scope is either "world" or a 2-letter country code */
   const getScopeLabel = useCallback(
     (scope: DataSource["scope"]): string => {
-      if (scope === "world") return ` ${t.worldScope}`;
+      if (scope === "world") return t.worldScope;
       const countryName = new Intl.DisplayNames([locale], {
         type: "region",
       }).of(scope);
-      return countryName ? ` (${countryName})` : "";
+      return countryName ? t.countryScope({ countryName }) : "";
     },
     [locale, t.worldScope],
   );

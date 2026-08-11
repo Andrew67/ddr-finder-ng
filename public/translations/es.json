@@ -26,8 +26,10 @@
     "message": "Precisión aproximada de {meters}"
   },
   "filterSourceButtons": {
-    "filter": "Filtro",
+    "filter": "Filtro: ",
+    "filterJoiner": ", ",
     "source": "Fuente",
+    "sourceJoiner": ": ",
     "anyGames": "Cualquier juego"
   },
   "searchSettings": {
@@ -36,7 +38,8 @@
     "gameFilter": "Filtrar por juego",
     "anyGames": "Cualquier juego",
     "mustHave": "Debe contar con al menos:",
-    "worldScope": "(Mundial)",
+    "worldScope": " (Mundial)",
+    "countryScope": " ({countryName})",
     "recommendedSource": "Recomendada",
     "otherSource": "Otra",
     "save": "Guardar",

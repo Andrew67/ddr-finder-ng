@@ -26,8 +26,10 @@
     "message": "精度约{meters}"
   },
   "filterSourceButtons": {
-    "filter": "筛选",
+    "filter": "筛选：",
+    "filterJoiner": "，",
     "source": "数据源",
+    "sourceJoiner": "：",
     "anyGames": "全部游戏"
   },
   "searchSettings": {
@@ -37,6 +39,7 @@
     "anyGames": "全部游戏",
     "mustHave": "必须具备：",
     "worldScope": "（全球）",
+    "countryScope": "（{countryName}）",
     "recommendedSource": "推荐",
     "otherSource": "其他",
     "save": "保存",

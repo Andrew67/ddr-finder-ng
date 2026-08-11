@@ -26,8 +26,10 @@
     "message": "約{meters}までの精度"
   },
   "filterSourceButtons": {
-    "filter": "フィルター",
+    "filter": "フィルター：",
+    "filterJoiner": "、",
     "source": "データベース",
+    "sourceJoiner": "：",
     "anyGames": "どのゲームでも"
   },
   "searchSettings": {
@@ -37,6 +39,7 @@
     "anyGames": "どのゲームでも",
     "mustHave": "以下のゲーム",
     "worldScope": "（全世界）",
+    "countryScope": "（{countryName}）",
     "recommendedSource": "おすすめ",
     "otherSource": "他の",
     "save": "保存",

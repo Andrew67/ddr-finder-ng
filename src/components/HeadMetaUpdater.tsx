@@ -20,10 +20,13 @@ export const HeadMetaUpdater: FunctionComponent = () => {
       );
       if (metaDescription) metaDescription.content = metadata.description;
     }
+  }, [metadata]);
+
+  useEffect(() => {
     if (locale) {
       document.documentElement.lang = locale;
     }
-  }, [metadata]);
+  }, [locale]);
 
   return <></>;
 };

@@ -8,8 +8,10 @@ import { $activeSource } from "@/stores/sources.ts";
 import { $gameFilter } from "@/stores/gameFilter.ts";
 
 export const messages = i18n("filterSourceButtons", {
-  filter: "Filter",
+  filter: "Filter: ",
+  filterJoiner: ", ",
   source: "Source",
+  sourceJoiner: ": ",
   anyGames: "Any Games",
 });
 
@@ -35,13 +37,17 @@ export const FilterSourceButtons: FunctionComponent<
     : "";
 
   const activeSource = useStore($activeSource);
-  const sourceName = activeSource ? `: ${activeSource.name}` : "";
+  const sourceName = activeSource
+    ? `${t.sourceJoiner}${activeSource.name}`
+    : "";
 
   const gameFilter = useStore($gameFilter);
   const gameFilterString =
     gameFilter.length === 0
       ? t.anyGames
-      : gameFilter.join(", ").toLocaleUpperCase("en-US");
+      : gameFilter
+          .map((v) => v.toLocaleUpperCase("en-US"))
+          .join(t.filterJoiner);
 
   return (
     <>
@@ -49,11 +55,12 @@ export const FilterSourceButtons: FunctionComponent<
         type="button"
         className={`${btnCollapseClasses} btn btn-primary`}
         onClick={filterClick}
-        aria-label={`${t.filter}: ${gameFilterString}`}
+        aria-label={`${t.filter}${gameFilterString}`}
       >
         <IconDeviceGamepad aria-hidden="true" />
         <span className={textCollapseClasses} aria-hidden="true">
-          {t.filter}: {gameFilterString}
+          {t.filter}
+          {gameFilterString}
         </span>
       </button>
       <button
