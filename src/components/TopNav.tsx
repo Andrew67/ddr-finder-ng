@@ -39,13 +39,13 @@ export const TopNav: FunctionComponent = () => {
       </div>
       <div className="flex-none pr-inset-right pt-inset-top print:hidden">
         <ul class="menu menu-horizontal py-0 px-1">
-          <li>
+          <li className="mt-0.5">
             <details ref={languageMenuRef}>
-              <summary className="translate-y-0.5">
+              <summary>
                 <IconLanguage aria-hidden="true" />
                 <span className="sr-only">{t.changeLanguage}</span>
               </summary>
-              <ul class="bg-base-100 rounded-t-none p-2">
+              <ul class="bg-base-100 rounded-t-none p-2 mt-3.5">
                 <li>
                   <button lang="en" onClick={() => setLanguage("en")}>
                     English
