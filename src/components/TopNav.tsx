@@ -45,7 +45,7 @@ export const TopNav: FunctionComponent = () => {
                 <IconLanguage aria-hidden="true" />
                 <span className="sr-only">{t.changeLanguage}</span>
               </summary>
-              <ul class="bg-base-100 rounded-t-none p-2 mt-3.5">
+              <ul class="bg-base-300 rounded-t-none p-2 mt-3.5">
                 <li>
                   <button lang="en" onClick={() => setLanguage("en")}>
                     English
