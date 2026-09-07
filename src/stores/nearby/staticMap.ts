@@ -12,8 +12,7 @@ export type StaticMapProps = {
 
 /** Mapbox config parameters */
 const config = {
-  accessToken:
-    "pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw",
+  accessToken: import.meta.env.PUBLIC_MAPBOX_API_KEY,
   lightTheme: {
     style: "andrew67/clrwbi529011u01qseesn4gj9",
     userLocation: "b91c1c", // Tailwind CSS Red 700

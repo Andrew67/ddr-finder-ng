@@ -45,8 +45,7 @@ export const MapView: FunctionComponent = () => {
     // Capture stored/default location for init
     const { center, zoom } = $mapLocation.get();
 
-    mapboxgl.accessToken =
-      "pk.eyJ1IjoiYW5kcmV3NjciLCJhIjoiY2lxMDlvOHZoMDAxOWZxbm9tdnR1NjVubSJ9.35GV_5ZM6zS2R5KQCwBWqw";
+    mapboxgl.accessToken = import.meta.env.PUBLIC_MAPBOX_API_KEY;
     const map = new mapboxgl.Map({
       // TODO: Language from active locale
       container: mapContainerRef.current!,

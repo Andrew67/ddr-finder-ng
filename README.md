@@ -20,7 +20,7 @@ and other items that have their own license declarations.
 ## Developing your own version
 
 - You will need your own Mapbox API key and style URI.
-- Modify the default API endpoint value to point to your API deployment.
+- Modify the default API endpoint value in `.env` to point to your API deployment.
 
 ## Acknowledgments
 
