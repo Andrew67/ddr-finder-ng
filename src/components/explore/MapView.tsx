@@ -1,6 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
 import { useEffect, useRef } from "preact/hooks";
+import { clsx } from "clsx/lite";
 import { useStore } from "@nanostores/preact";
 
 import mapboxgl, { type GeoJSONSource, type TargetFeature } from "mapbox-gl";
@@ -296,10 +297,10 @@ export const MapView: FunctionComponent = () => {
 
   return (
     <div
-      className={
-        "fixed top-16 pt-inset-top left-0 bottom-16 short:bottom-12 pb-inset-bottom right-0 " +
-        (showMap ? "" : "invisible")
-      }
+      className={clsx(
+        "fixed top-16 pt-inset-top left-0 bottom-16 short:bottom-12 pb-inset-bottom right-0",
+        showMap || "invisible",
+      )}
     >
       <div className="h-full" ref={mapContainerRef}></div>
     </div>

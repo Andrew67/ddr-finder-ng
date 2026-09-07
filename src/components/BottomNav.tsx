@@ -1,6 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
 import { useCallback } from "preact/hooks";
+import { clsx } from "clsx/lite";
 import { useStore } from "@nanostores/preact";
 import { getPagePath } from "@nanostores/router";
 import { IconLocationSearch, IconMap2, IconMenu2 } from "@tabler/icons-preact";
@@ -21,13 +22,9 @@ export const BottomNav: FunctionComponent<{
   const page = useStore($router);
   const pageRoute = page?.route ?? initialPage;
 
-  const isActiveLink = useCallback(
-    (page: string) => page === pageRoute,
-    [pageRoute],
-  );
   const linkClasses = useCallback(
-    (page: string) => (isActiveLink(page) ? "dock-active" : ""),
-    [isActiveLink],
+    (page: string) => clsx(page === pageRoute && "dock-active"),
+    [pageRoute],
   );
 
   return (

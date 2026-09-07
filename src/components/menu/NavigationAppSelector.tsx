@@ -2,6 +2,7 @@
 import type { h, FunctionComponent } from "preact";
 import { useCallback, useEffect, useMemo } from "preact/hooks";
 import { useRef } from "preact/compat";
+import { clsx } from "clsx/lite";
 import { useStore } from "@nanostores/preact";
 
 import { $iosNavigationApp, iosNavigationApps } from "@/stores/navigationApp";
@@ -27,7 +28,10 @@ export const NavigationAppSelector: FunctionComponent<
     (id: string, label: string) => (
       <button
         type="submit"
-        className={`btn ${id === activeId ? "btn-accent" : "btn-ghost"} rounded-field px-0 py-2 flex-col h-auto`}
+        className={clsx(
+          "btn rounded-field px-0 py-2 flex-col h-auto",
+          id === activeId ? "btn-accent" : "btn-ghost",
+        )}
         autofocus={id === activeId}
         onClick={() => $iosNavigationApp.set(id)}
       >

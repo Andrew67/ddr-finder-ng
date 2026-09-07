@@ -1,5 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
+import { clsx } from "clsx/lite";
+
 import type { ArcadeLocationWithDistance } from "@/api-types/nearby";
 import { LocationDetails } from "../LocationDetails";
 
@@ -11,7 +13,10 @@ export const ArcadeListItemPlaceholder: FunctionComponent<
   const { isLoading } = props;
   return (
     <li
-      className={`collapse min-h-15 bg-base-200 border border-transparent ${isLoading ? "skeleton" : ""}`}
+      className={clsx(
+        "collapse min-h-15 bg-base-200 border border-transparent",
+        isLoading && "skeleton",
+      )}
       aria-label="Empty placeholder for arcade location"
     ></li>
   );

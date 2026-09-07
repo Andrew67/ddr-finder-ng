@@ -1,5 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
+import { clsx } from "clsx/lite";
+
 import type { StaticMapProps } from "@/stores/nearby/staticMap";
 
 export const StaticMap: FunctionComponent<
@@ -8,9 +10,10 @@ export const StaticMap: FunctionComponent<
   const { lightThemeUrl, darkThemeUrl, width, height, isLoading } = props;
   return (
     <div
-      className={`box-content max-w-full bg-base-200 sm:mx-4 sm:border sm:border-primary ${
-        isLoading ? "skeleton rounded-none" : ""
-      }`}
+      className={clsx(
+        "box-content max-w-full bg-base-200 sm:mx-4 sm:border sm:border-primary",
+        isLoading && "skeleton rounded-none",
+      )}
       style={{
         width: width,
         // Uses height value for placeholder, otherwise preserves aspect ratio
