@@ -1,6 +1,7 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, Fragment, FunctionComponent } from "preact";
 import { useMemo, useState } from "preact/hooks";
+import clsx from "clsx";
 
 import { FilterSourceButtons } from "../FilterSourceButtons";
 import { SearchSettings } from "../SearchSettings";
@@ -26,11 +27,11 @@ export const ExplorePage: FunctionComponent = () => {
     <>
       {/* Bottom right controls, which become bottom left on short screens */}
       <div
-        className={
-          "fixed short:bottom-22 pt-inset-top short:left-2 pl-inset-left " +
-          "tall:right-2 pr-inset-right tall:bottom-28 pb-inset-bottom " +
-          "flex flex-col gap-2"
-        }
+        className={clsx(
+          "fixed short:bottom-22 pt-inset-top short:left-2 pl-inset-left",
+          "tall:right-2 pr-inset-right tall:bottom-28 pb-inset-bottom ",
+          "flex flex-col gap-2",
+        )}
       >
         <FilterSourceButtons
           collapseOnSmallScreens={true}
@@ -43,13 +44,13 @@ export const ExplorePage: FunctionComponent = () => {
       {/* TODO: Scrollable card innards on very short screens */}
       {selectedArcade && (
         <div
-          className={
-            "fixed bottom-16 tall:bottom-20 left-2 right-2 sm:right-auto " +
-            "pl-inset-left pr-inset-right pt-inset-top pb-inset-bottom"
-          }
+          className={clsx(
+            "fixed bottom-16 tall:bottom-20 left-2 right-2 sm:right-1/2",
+            "pl-inset-left pr-inset-right pt-inset-top pb-inset-bottom",
+          )}
         >
           {/* Prevent pinch-zoom in the pop-up, since if dismissed, there's no way to zoom back out */}
-          <div className="bg-base-200 p-4 rounded-box shadow-2xl touch-pan-x touch-pan-y">
+          <div className="bg-base-200 p-4 rounded-box shadow-2xl touch-pan-x touch-pan-y @container">
             <h2 class="text-xl font-semibold">
               {selectedArcade.properties.name}
             </h2>

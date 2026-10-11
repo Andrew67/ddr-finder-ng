@@ -111,18 +111,19 @@ ${gamesText}`;
           target="_blank"
         >
           <IconInfoSquareRounded aria-hidden="true" />
-          {t.moreInfo}
+          <span class="@md:hidden">{t.info}</span>
+          <span class="hidden @md:inline">{t.moreInfo}</span>
         </a>
         {/* Simulate `btn-square` for small screens but expand at `sm` */}
         {isShareAvailable && (
           <button
             type="button"
-            className="btn min-w-12 px-0 sm:px-4 btn-secondary"
+            className="btn min-w-12 px-0 @sm:px-4 btn-secondary"
             onClick={onShareClick}
             title="Share"
           >
             <IconPlatformShare aria-hidden="true" />
-            <span className="hidden sm:inline">{t.share}</span>
+            <span className="hidden @sm:inline">{t.share}</span>
           </button>
         )}
       </li>

@@ -130,7 +130,7 @@ export const NearbyPage: FunctionComponent = () => {
       </p>
       <div className="px-4 pb-4">
         <h2 className="text-2xl">{t.nearbyArcades}</h2>
-        <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-2">
+        <ul className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(min(20rem,100%),1fr))] mt-2">
           {showPlaceholders && arcadeListPlaceholder}
           {!showPlaceholders && arcadeList}
         </ul>

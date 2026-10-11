@@ -35,7 +35,7 @@ export const ArcadeListItem: FunctionComponent<ArcadeListItemProps> = (
 
   return (
     <li>
-      <article className="collapse collapse-arrow bg-base-200 border border-transparent print:collapse-open print:border-primary">
+      <article className="collapse collapse-arrow bg-base-200 border border-transparent print:collapse-open print:border-primary @container">
         <input type="checkbox" name={`arcade-accordion-${id}`} />
         <div className="collapse-title text-lg font-medium">
           {index != undefined && (
