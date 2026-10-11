@@ -2491,8 +2491,8 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  smol-toml@1.6.1:
-    resolution: {integrity: sha512-dWUG8F5sIIARXih1DTaQAX4SsiTXhInKf1buxdY9DIg4ZYPZK5nGM1VRIYmEbDbsHt7USo99xSLFu5Q1IqTmsg==}
+  smol-toml@1.9.1:
+    resolution: {integrity: sha512-j7WyPdf0CJoutMzMoPLF/bVXHtKZIT9Rb4eGeEbWw8X2t5oirjPgpL+OpaENZrILYaXqYwnVH+qgUwVbl+pUJQ==}
     engines: {node: '>= 18'}
 
   source-map-js@1.2.1:
@@ -3037,7 +3037,7 @@ snapshots:
       picomatch: 4.0.5
       retext-smartypants: 6.2.0
       shiki: 4.0.2
-      smol-toml: 1.6.1
+      smol-toml: 1.9.1
       unified: 11.0.5
 
   '@astrojs/language-server@2.16.13(prettier-plugin-astro@0.14.1)(prettier@3.9.6)(typescript@6.0.3)':
@@ -4151,7 +4151,7 @@ snapshots:
       picomatch: 4.0.5
       semver: 7.7.4
       shiki: 4.0.2
-      smol-toml: 1.6.1
+      smol-toml: 1.9.1
       svgo: 4.0.1
       tinyclip: 0.1.12
       tinyexec: 1.0.4
@@ -5294,7 +5294,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  smol-toml@1.6.1: {}
+  smol-toml@1.9.1: {}
 
   source-map-js@1.2.1: {}
 
