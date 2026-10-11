@@ -1,7 +1,6 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, FunctionComponent } from "preact";
 import { useCallback } from "preact/hooks";
-import { clsx } from "clsx/lite";
 import { useStore } from "@nanostores/preact";
 import { getPagePath } from "@nanostores/router";
 import { IconLocationSearch, IconMap2, IconMenu2 } from "@tabler/icons-preact";
@@ -22,21 +21,21 @@ export const BottomNav: FunctionComponent<{
   const page = useStore($router);
   const pageRoute = page?.route ?? initialPage;
 
-  const linkClasses = useCallback(
-    (page: string) => clsx(page === pageRoute && "dock-active"),
+  const ariaCurrent = useCallback(
+    (page: string) => page === pageRoute && "page",
     [pageRoute],
   );
 
   return (
     <nav
-      className="dock dock-m3 z-10 short:dock-xs print:hidden bg-base-300 pl-inset-left pr-inset-right"
+      className="dock dock-m3 z-10 print:hidden bg-base-300 pl-inset-left pr-inset-right"
       style="--radius-icon: 1rem; --radius-item: 1.25rem;"
     >
       <div className="hidden sm:block" />
       <div className="hidden lg:block" />
       <a
         href={getPagePath($router, "nearby")}
-        className={linkClasses("nearby")}
+        aria-current={ariaCurrent("nearby")}
       >
         <span className="dock-icon">
           <IconLocationSearch aria-hidden="true" />
@@ -45,14 +44,14 @@ export const BottomNav: FunctionComponent<{
       </a>
       <a
         href={getPagePath($router, "explore")}
-        className={linkClasses("explore")}
+        aria-current={ariaCurrent("explore")}
       >
         <span className="dock-icon">
           <IconMap2 aria-hidden="true" />
         </span>
         <span className="dock-label">{t.explore}</span>
       </a>
-      <a href={getPagePath($router, "menu")} className={linkClasses("menu")}>
+      <a href={getPagePath($router, "menu")} aria-current={ariaCurrent("menu")}>
         <span className="dock-icon">
           <IconMenu2 aria-hidden="true" />
         </span>

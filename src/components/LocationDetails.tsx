@@ -99,15 +99,16 @@ ${gamesText}`;
         </a>
         <a
           href={moreInfoMobileUrl}
-          className="arcade-info btn btn-primary sm:hidden"
+          className="arcade-info btn btn-primary tall:sm:hidden"
           target="_blank"
         >
           <IconInfoSquareRounded aria-hidden="true" />
-          {t.info}
+          <span class="@md:hidden">{t.info}</span>
+          <span class="hidden @md:inline">{t.moreInfo}</span>
         </a>
         <a
           href={moreInfoUrl}
-          className="arcade-info btn btn-primary hidden sm:inline-flex"
+          className="arcade-info btn btn-primary hidden tall:sm:inline-flex"
           target="_blank"
         >
           <IconInfoSquareRounded aria-hidden="true" />
