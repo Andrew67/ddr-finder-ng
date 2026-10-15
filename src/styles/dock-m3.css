@@ -2,7 +2,7 @@
 
 /**
  * Bottom navigation for DaisyUI which implements M3 Expressive,
- * including horizontal labels on short-height screens and medium-width screens.
+ * including horizontal labels on medium-width screens.
  * @see https://m3.material.io/components/navigation-bar/specs
  * Note: compared to the stock implementation, icons must be wrapped in a `<span class="dock-icon">`.
  */
@@ -17,7 +17,6 @@
     @apply mb-0 gap-1 md:flex-row md:h-10 md:gap-2 rounded-(--radius-item);
 
     .dock-icon {
-      /* Transparent border is for forced colors mode */
       @apply w-14 md:w-auto h-8 grid place-items-center rounded-(--radius-icon);
 
       svg {
@@ -29,6 +28,7 @@
       .dock-active,
       [aria-current]:not([aria-current="false"], [aria-current=""])
     ) {
+      /* Transparent border is for forced colors mode */
       @apply md:bg-(--color-active) border border-transparent;
 
       .dock-icon {
