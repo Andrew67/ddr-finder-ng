@@ -2,6 +2,5 @@ allowBuilds:
   esbuild: false
   sharp: false
 minimumReleaseAge: 1440
-nodeVersion: 24.19.0
 patchedDependencies:
   '@nanostores/router@1.0.0': patches/@nanostores__router@1.0.0.patch
