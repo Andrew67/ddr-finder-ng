@@ -1,7 +1,6 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
 import type { h, Fragment, FunctionComponent } from "preact";
-import { useRef } from "preact/compat";
-import { useCallback, useEffect, useMemo } from "preact/hooks";
+import { useCallback, useEffect, useMemo, useRef } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { params } from "@nanostores/i18n";
 

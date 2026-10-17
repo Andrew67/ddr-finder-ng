@@ -1,5 +1,5 @@
 /*! ddr-finder | https://github.com/Andrew67/ddr-finder-ng/blob/master/LICENSE */
-import type { h, FunctionComponent } from "preact";
+import type { h, Fragment, FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 
