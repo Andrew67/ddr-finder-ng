@@ -35,7 +35,7 @@
     "@tabler/icons-preact": "3.49.0",
     "@turf/distance": "7.4.0",
     "@turf/helpers": "7.4.0",
-    "astro": "7.4.0",
+    "astro": "7.4.7",
     "clsx": "2.1.1",
     "daisyui": "5.7.47",
     "mapbox-gl": "3.33.0",
